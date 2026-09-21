@@ -236,8 +236,12 @@ try {
     // The empty template has no prohibition and no cells: the request the reader sends becomes the law.
     const emptyCreation = creationFromTemplate(await readTemplate('empty'), { language: 'ro', prompt: empty.request });
     const indexed = index.templates.every((entry) => entry.slug && entry.title && entry.summary);
+    // The request positions the world (sector, authors kept after) rather than announcing a course:
+    // these are worlds a reader continues, not lessons.
     const nightOk = night.cells.length === 2 && night.cells.every((cell) => /^[A-Z]{2}$/.test(cell.symbol))
-      && night.sector === 'FORWARD-CHEELA' && night.story.length > 40 && night.request.includes(night.title)
+      && night.sector === 'FORWARD-CHEELA' && night.story.length > 40
+      && night.request.startsWith(`A world in the ${night.sector} sector, kept after`)
+      && !/night \d|of the course|Open the story of/.test(night.request)
       && !/Keep the world readable/.test(night.request)
       && Array.isArray(night.indications) && night.indications.length >= 6
       && night.indications.every((entry) => entry.label && entry.text)

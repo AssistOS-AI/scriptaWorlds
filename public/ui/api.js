@@ -101,7 +101,7 @@ export async function loadLibraryEntry(slug) {
   return payload?.template ?? null;
 }
 
-// One cell of the table, with the distilled page behind it: the idea, what a change of that family does to a world, the work it appears in and the nights that use it.
+// One cell of the table, with the distilled page behind it: the idea, what a change of that family does to a world, the work it appears in and the worlds that use it.
 export async function loadTableCell(symbol) {
   const payload = await api(`/api/table/cells/${encodeURIComponent(symbol)}`);
   return payload?.cell ?? null;

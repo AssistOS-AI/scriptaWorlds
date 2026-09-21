@@ -199,6 +199,31 @@
   width: 7ch; margin: 1.7em auto; border: 0; border-top: 2px solid var(--line-strong);
 }
 
+.inputwrap { position: relative; flex: 1 1 auto; min-width: 0; display: flex; }
+
+/* The handle sits in the top right corner: the composer is at the bottom, so dragging up grows it. */
+.input__handle {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  width: 24px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--line-strong);
+  font-size: 15px;
+  line-height: 1;
+  cursor: ns-resize;
+  user-select: none;
+}
+
+.input__handle::before { content: '\22f0'; }
+.input__handle:hover { color: var(--accent-strong); }
+
+@media (max-width: 640px) {
+  .input__handle { display: none; }
+}
+
 #input {
   flex: 1 1 auto;
   min-height: var(--tap);
@@ -209,7 +234,7 @@
   background: var(--surface);
   font-size: 16px;
   line-height: 1.5;
-  resize: vertical;
+  resize: none;
   overflow-y: auto;
 }
 

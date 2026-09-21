@@ -41,8 +41,7 @@ export function renderLibraryList() {
     },
     elem('span', { className: 'librow__head' },
       elem('span', { className: 'librow__title', text: template.title ?? template.slug }),
-      template.sector ? elem('span', { className: 'librow__sector', text: template.sector }) : null,
-      template.number ? elem('span', { className: 'librow__number', text: String(template.number) }) : null
+      template.sector ? elem('span', { className: 'librow__sector', text: template.sector }) : null
     ),
     template.genealogy?.length
       ? elem('span', { className: 'librow__genealogy', text: template.genealogy.join(' · ') })

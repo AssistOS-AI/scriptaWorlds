@@ -83,7 +83,7 @@ export function renderTableDialog() {
   }
 
   // a single cell: the idea, what this kind of change does to a world, where it is seen, and
-  // the nights of the course that already use it.
+  // the worlds of the library that already use it.
   el('tabledialog-title').textContent = info.name;
   const cell = info.cell;
   if (!cell) {
@@ -108,7 +108,7 @@ export function renderTableDialog() {
     ) : null,
     cell.seenIn ? elem('p', { className: 'td__landmark', text: `Seen in: ${cell.seenIn}` }) : null,
     scenes.length ? elem('section', { className: 'td__section' },
-      elem('h3', { className: 'td__label', text: scenes.length === 1 ? 'A night of the course uses it' : `${scenes.length} nights of the course use it` }),
+      elem('h3', { className: 'td__label', text: scenes.length === 1 ? 'Used in 1 world' : `Used in ${scenes.length} worlds` }),
       ...scenes.map((scene) => elem('article', { className: 'td__scene' },
         elem('h4', { className: 'td__scene-title', text: scene.title ?? scene.slug }),
         scene.sector ? elem('p', { className: 'td__scene-sector', text: scene.sector }) : null,
@@ -126,7 +126,7 @@ export function renderTableDialog() {
   );
 }
 
-// The small button under a scene: it opens that night in the Library tab.
+// The small button under a scene: it opens that world in the Library tab.
 async function openSceneTemplate(slug) {
   closePopup();
   state.newTab = 'library';

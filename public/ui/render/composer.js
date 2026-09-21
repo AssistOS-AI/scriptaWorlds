@@ -128,6 +128,36 @@ export function teaserToggle(expanded) {
 
 /* -------------------------------------------------------- SSE / live */
 
+// The handle in the top right corner: dragging up makes the field taller (the composer is at
+// the bottom, so this is the only direction with room).
+export function bindInputResize() {
+  const handle = document.getElementById('input-handle');
+  const input = dom.input;
+  if (!handle || !input) return;
+  const stop = () => {
+    window.removeEventListener('mousemove', onMove);
+    window.removeEventListener('mouseup', stop);
+  };
+  const onMove = (event) => {
+    const next = Math.max(startHeight - (event.clientY - startY), MIN_HEIGHT);
+    input.style.height = `${next}px`;
+    input.style.overflowY = input.scrollHeight > input.clientHeight + 1 ? 'auto' : 'hidden';
+  };
+  let startY = 0;
+  let startHeight = 0;
+  handle.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+    dragged = true;
+    startY = event.clientY;
+    startHeight = input.getBoundingClientRect().height;
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', stop);
+  });
+}
+
+const MIN_HEIGHT = 44;
+let dragged = false; // true once the reader pulled the handle: that height is theirs to keep
+
 export function autosize() {
   const input = dom.input;
   const style = getComputedStyle(input);
@@ -138,7 +168,8 @@ export function autosize() {
   input.style.height = '0px';
   const wanted = input.scrollHeight;
   const auto = Math.min(wanted, max);
-  // A height the reader dragged is never shrunk; the automatic growth is only the lower bound.
-  input.style.height = `${Math.max(auto, Math.round(height))}px`;
+  // A height the reader dragged is theirs: automatic growth only ever adds, never shrinks it.
+  const next = dragged ? Math.max(auto, Math.round(height)) : auto;
+  input.style.height = `${next}px`;
   input.style.overflowY = input.scrollHeight > input.clientHeight + 1 ? 'auto' : 'hidden';
 }

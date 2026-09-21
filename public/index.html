@@ -113,7 +113,10 @@
       <p class="composer__error" id="composer-error" hidden></p>
       <div class="ala__offer" id="ala-offer"></div>
       <div class="ala__write">
-        <textarea id="input" rows="1" placeholder="Write what should happen next…" aria-label="Your request for ALA"></textarea>
+        <div class="inputwrap">
+          <span class="input__handle" id="input-handle" title="Drag up to make the field taller" aria-hidden="true"></span>
+          <textarea id="input" rows="1" placeholder="Write what should happen next…" aria-label="Your request for ALA"></textarea>
+        </div>
         <button type="submit" class="btn btn--accent" id="send">Send</button>
       </div>
     </form>

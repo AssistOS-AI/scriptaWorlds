@@ -5,7 +5,7 @@ import { sendFromInput } from './ui/actions.js';
 import { loadConfig, loadUniverses } from './ui/api.js';
 import { showError } from './ui/errors.js';
 import { PANELS, POPUPS, closeOverlays, closePanel, closePopup, openPopup, rewriteTarget, sendRewrite } from './ui/overlays.js';
-import { autosize } from './ui/render/composer.js';
+import { autosize, bindInputResize } from './ui/render/composer.js';
 import { renderUniverseList } from './ui/render/explore.js';
 import { bindLanguage, renderHeader, renderLanguageSelect } from './ui/render/header.js';
 import { bindTableInfo } from './ui/render/tableinfo.js';
@@ -17,6 +17,7 @@ import { selectUniverse } from './ui/universe.js';
 
 export function bindEvents() {
   bindLanguage();
+  bindInputResize();
   bindTableInfo();
   dom['btn-universes'].addEventListener('click', () => openPopup('universes'));
   dom['btn-more'].addEventListener('click', () => openPopup('more'));
