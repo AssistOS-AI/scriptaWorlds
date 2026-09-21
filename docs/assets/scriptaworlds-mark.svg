@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="scriptaWorlds documentation mark">
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#17242d"/>
+  <circle cx="32" cy="28" r="16" fill="none" stroke="#7fc7d9" stroke-width="3"/>
+  <circle cx="32" cy="28" r="6" fill="#e7f0f5"/>
+  <path d="M18 50 H46" stroke="#e7f0f5" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 45 H40" stroke="#7fc7d9" stroke-width="2" stroke-linecap="round"/>
+</svg>

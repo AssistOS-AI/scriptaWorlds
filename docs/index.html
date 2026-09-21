@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb">Overview</p>
+      <p class="kicker">scriptaWorlds</p>
+      <h1>scriptaWorlds Documentation</h1>
+
+      <p class="lead">scriptaWorlds is a place to explore possible universes and to read the story each one produces. A universe is a persistent science-fiction book defined by one <a href="wiki.html#definition-fundamental-law">fundamental law</a>, and the chapters are written by a coding agent named <a href="wiki.html#definition-ala">ALA</a> that runs inside the folder of that universe. A reader starts from a <a href="wiki.html#definition-start-template">start template</a> of the <a href="wiki.html#definition-library">library</a> or composes a world from the operations of the <a href="wiki.html#definition-periodic-table">table of ideas</a>, asks for what should happen next, and reads the result as a book.</p>
+
+      <section>
+        <h2>What the product does</h2>
+        <p>One Node.js process serves a JSON API and a static reader interface. When a client asks for a chapter, the server records a durable <a href="wiki.html#definition-turn">turn</a>, queues it behind the other work of the same <a href="wiki.html#definition-universe">universe</a>, and starts one headless <a href="wiki.html#definition-omp">omp</a> process in the universe folder. The agent writes the chapter, updates the canon, the thread list and the atlas, and leaves an <a href="wiki.html#definition-offer">offer</a> of two or three concrete decisions for the next episode. The reader presses one of those decisions to put its prompt in the request field, can ask for a chapter to be rewritten, or generate a printed <a href="wiki.html#definition-edition">edition</a> as DOCX and PDF.</p>
+        <p>Nothing that matters lives only in memory. A universe is a folder: its law and metadata, its canon, its chapters, its version archive, its turn records and its editions are files, and the queue survives a restart because every turn is written to disk before it runs. An operator can stop the server, copy a folder, restart, and continue reading.</p>
+      </section>
+
+      <section>
+        <h2>Documentation Map</h2>
+        <div class="table-wrap"><table class="docmap">
+          <thead>
+            <tr>
+              <th scope="col">Overview</th>
+              <th scope="col">System</th>
+              <th scope="col">Skills</th>
+              <th scope="col">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="docmap__entry">
+                  <a href="index.html">Overview</a>
+                  <span class="docmap__note">This page: what the product is, how the parts fit together, and where every other document starts.</span>
+                </div>
+              </td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="architecture.html">Architecture</a>
+                  <span class="docmap__note">The server, the store, the turn queue, the agent process, the data steps and the reader, with the lifecycle of one chapter request.</span>
+                </div>
+              </td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="scripta-ala-skill.html">scripta-ala</a>
+                  <span class="docmap__note">The narrative skill the agent reads before writing an episode, plus the validator that checks the result.</span>
+                </div>
+              </td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="specsLoader.html?spec=matrix.md">Specifications</a>
+                  <span class="docmap__note">The numbered design specifications, opened through the specification matrix.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="operations.html">Operations</a>
+                  <span class="docmap__note">Prerequisites, starting the server, environment variables, the environment check and failure remedies.</span>
+                </div>
+              </td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="scripta-book-export-skill.html">scripta-book-export</a>
+                  <span class="docmap__note">The print skill: one command that turns the chapters of a universe into a DOCX and a PDF edition.</span>
+                </div>
+              </td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="wiki.html">Wiki</a>
+                  <span class="docmap__note">The canonical terminology of the project, one explained entry per concept.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="api.html">HTTP API</a>
+                  <span class="docmap__note">Every route, request body and response shape, the error envelope and the live event stream.</span>
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div class="docmap__entry">
+                  <a href="reader-interface.html">Reader interface</a>
+                  <span class="docmap__note">The browser reader: the start screen with its Library and Ingredients tabs, the reading flow, the composer, the dialogs, live activity, rewrite and edition actions.</span>
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <p>A new reader starts with <strong>Overview</strong> and then opens <strong>System</strong>: <em>Architecture</em> explains how a request becomes a chapter, and <em>Operations</em> explains how to run the server that does it. <strong>Skills</strong> documents what the agent is told to do, first the narrative skill <em>scripta-ala</em> and then the print skill <em>scripta-book-export</em>. <strong>Reference</strong> holds the specification matrix and the wiki; the wiki is the place to look up any term used on the other pages, and the specifications are the source of truth for behavior and structure.</p>
+      </section>
+
+      <section>
+        <h2>Getting started</h2>
+        <p>The server needs Node.js 20 or later and a working <code>omp</code> command. Both are checked before the listener is created, so a machine that cannot run the agent refuses to start instead of failing later inside a turn. A third tool, <code>pdftotext</code>, is needed only to rebuild the library from the printed book; the generated library is committed.</p>
+        <pre><code>npm run check     # verify Node.js, the agent binary, the store, the queue, the validator and the renderer
+npm run server    # start the API and the reader on http://127.0.0.1:8787</code></pre>
+        <p>Open the printed address in a browser and the start screen offers two ways in. <em>Library</em> lists the prepared worlds read from the book; choosing one puts its request text into the field at the bottom, where it can be rewritten. <em>Ingredients</em> shows the table of ideas, twelve families by fifteen operators, where up to six operations compose a world and the request text builds itself. Pressing <em>Send</em> creates the <a href="wiki.html#definition-universe">universe</a> and its first chapter in one request, and that chapter names the book. The <em>Universes</em> button in the header loads a book that already exists, and the language selector next to it chooses the language of the next book. <a href="operations.html">Operations</a> documents the environment variables, the store lock, the library rebuild, the reload banner, the event stream behaviour behind a proxy, and what to do when the agent, the fonts or the queue need attention.</p>
+      </section>
+
+      <section>
+        <h2>Repository structure</h2>
+        <p>The repository separates the runtime, the interface, the product skills, the data and the documentation.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Path</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/</code></td>
+              <td>The Node.js server and store, in modules grouped by responsibility: routing and lifecycle, HTTP helpers, configuration and errors, paths and file helpers, the <a href="wiki.html#definition-store-lock">store lock</a>, the <a href="wiki.html#definition-periodic-table">table of ideas</a>, the <a href="wiki.html#definition-library">library</a>, the older proposed-universe catalog, the universe store with its chapters and snapshots, the prompt families and the turn queue with the agent process.</td>
+            </tr>
+            <tr>
+              <td><code>public/</code></td>
+              <td>The static reader, served without a build step: one HTML document with the dialogs, a bootstrap module, the modules of <code>public/ui/</code> with one per surface under <code>public/ui/render/</code>, the Markdown renderer and one stylesheet per surface.</td>
+            </tr>
+            <tr>
+              <td><code>library/</code></td>
+              <td>The <a href="wiki.html#definition-start-template">start templates</a> read from the printed book: <code>index.json</code> with one line per template and one folder per template with its <code>template.json</code>. Generated by <code>npm run library</code> and committed.</td>
+            </tr>
+            <tr>
+              <td><code>data/</code></td>
+              <td><code>periodic-table.json</code>, the twelve families, fifteen operators and one hundred and eighty <a href="wiki.html#definition-cell">cells</a> a new universe is composed from.</td>
+            </tr>
+            <tr>
+              <td><code>templates/</code></td>
+              <td>The <a href="wiki.html#definition-template-catalog">catalog</a> of proposed universes: a main file and optional part files, localized in Romanian and English, each entry with a descriptive title, a law and several openings. It is served by its own route to API clients; the reader interface starts from <code>library/</code> instead.</td>
+            </tr>
+            <tr>
+              <td><code>skills/</code></td>
+              <td>The canonical source of the two <a href="wiki.html#definition-project-skill">product skills</a>, linked into every universe folder.</td>
+            </tr>
+            <tr>
+              <td><code>universes/</code></td>
+              <td>One folder per book, with its metadata, canon, chapters, turn records, archives and editions, plus the <code>.server.lock</code> that keeps a single server on the store.</td>
+            </tr>
+            <tr>
+              <td><code>scripts/check.mjs</code></td>
+              <td>The <a href="wiki.html#definition-check-script">environment and technology-chain check</a> run by <code>npm run check</code>. <code>npm run library</code> rebuilds <code>library/</code> from the printed book and <code>npm run table</code> rebuilds <code>data/<wbr>periodic-table.json</code>; both accept <code>-- --check</code> to verify without writing.</td>
+            </tr>
+            <tr>
+              <td><code>docs/</code></td>
+              <td>This documentation, the design specifications under <code>docs/specs/</code>, and the internal contract reference <code>docs/contracts.md</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Conventions and verification</h2>
+        <p>Coding style, module rules, dependency policy, file-size limits and the way verification is organized are defined in <a href="specsLoader.html?spec=DS001-coding-style.md">DS001-coding-style</a>. The short version is that everything is a Node.js ECMAScript module using built-in modules only, the browser interface is served as plain ES modules, every path to a bundled resource is resolved from the module itself, and a new dependency needs a recorded justification in <code>dependencies.md</code> before it is used.</p>
+        <p>Behavior is verified with <code>npm run check</code>, which runs <a href="wiki.html#definition-check-script"><code>scripts/check.mjs</code></a> against temporary universes: it probes the agent binary, creates and validates universes, reads a chapter back through the store, installs the skill links, runs the narrative validator and the print renderer, and reproduces a restart in which a queued turn is resumed and a running turn is rolled back. The script needs no model budget and always removes the universes it created.</p>
+        <p>The specifications under <code>docs/specs/</code> are the source of truth for the product contract. When code changes behavior, interfaces, architecture, workflows or constraints, the documentation and the affected specification are updated together, and <a href="wiki.html">wiki.html</a> is the single canonical page for project terminology, including every term linked from these pages.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

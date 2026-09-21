@@ -1,0 +1,29 @@
+{
+  "title": "Scripta Book Export",
+  "family": "scriptaworlds",
+  "summary": "Renders a scriptaWorlds universe into a real DOCX and/or PDF book with a dependency-free layout engine, subsetted TrueType fonts, a generated table of contents, and a cached TOC field.",
+  "aliases": [
+    "scripta-book-export"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "<universe>/exports/<slug>-<YYYYMMDD>.pdf",
+    "<universe>/exports/<slug>-<YYYYMMDD>.docx",
+    "One-line JSON result on stdout with absolute output paths, sizes, and page count"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "DS.md",
+    "dependencies.md",
+    "scripts/build-book.mjs",
+    "scripts/lib/errors.mjs",
+    "scripts/lib/truetype.mjs",
+    "scripts/lib/fonts.mjs",
+    "scripts/lib/markdown.mjs",
+    "scripts/lib/book.mjs",
+    "scripts/lib/layout.mjs",
+    "scripts/lib/pdf.mjs",
+    "scripts/lib/docx.mjs"
+  ],
+  "selfContained": true
+}

@@ -1,0 +1,8 @@
+{
+  "teaser": "The officer put an adult's wording back into the green journal for one morning, and the plant never read a word of it: what it wanted was the crown lamps lit, and a seven-year-old found that out by holding a hand lamp against the wall. The farm gave the light, the flower opened wide — and then the count ran out on the man who wrote the line, so the new rule now has a tooth behind it. Hesper has a flower that will ask for a name and no dead child to give it, and only one name on the farm that nobody is allowed to say again.",
+  "options": [
+    { "label": "Give it the old name", "prompt": "Continue the story: have the crew decide whether to say the forbidden name at the root wall again, and show what the flower does when it finally hears it." },
+    { "label": "Look for another child", "prompt": "Continue the story: send Meren into the low ring's records to look for a dead child of Hesper the farm could name the flower after, and show what she finds and who tries to stop her." },
+    { "label": "Weigh the officer's tooth", "prompt": "Continue the story: follow Officer Rusk through the days after his tooth, as the crew argues over what the new rule cost him, and show what he writes in the green journal next." }
+  ]
+}

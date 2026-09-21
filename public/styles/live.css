@@ -1,0 +1,83 @@
+/*
+ * scriptaWorlds — turns in progress and the errors they leave behind.
+ */
+
+/* ---------------- live activity ---------------- */
+.live {
+  display: grid; gap: 10px;
+}
+
+.live__state {
+  margin: 0; font-size: 15px; color: var(--ink-soft); font-weight: 600;
+}
+
+.live__phase {
+  display: flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; color: var(--accent-strong);
+}
+
+.live__dot {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--accent); animation: pulse 1.4s ease-in-out infinite;
+}
+
+.live__text {
+  margin: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-soft);
+  font-family: var(--mono-font);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.turnfail {
+  display: grid; gap: 10px; justify-items: start;
+}
+
+.turnfail__message {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-tint);
+  color: var(--danger);
+  font-size: 14px;
+}
+
+.errorrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #e8c9c1;
+  border-radius: var(--radius-sm);
+  background: var(--danger-tint);
+  color: var(--danger);
+  font-size: 14px;
+}
+
+.errorrow__text {
+  flex: 1 1 auto;
+}
+
+.errorrow__close {
+  flex: 0 0 auto;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live__dot {
+    animation: none;
+  }
+}

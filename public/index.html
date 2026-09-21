@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>scriptaWorlds</title>
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/reader.css">
+<link rel="stylesheet" href="styles/live.css">
+<link rel="stylesheet" href="styles/explore.css">
+<link rel="stylesheet" href="styles/composer.css">
+<link rel="stylesheet" href="styles/overlays.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar" id="topbar">
+    <div class="topbar__row">
+      <div class="brandcol">
+        <p class="brand">
+          <span class="brand__title" id="uni-title">scriptaWorlds</span>
+        </p>
+        <p class="brand__summary" id="uni-summary" hidden></p>
+      </div>
+      <div class="topbar__actions">
+        <select class="lang" id="lang" aria-label="Language of a new universe"></select>
+        <button type="button" class="btn" id="btn-universes" aria-haspopup="dialog" aria-expanded="false" aria-controls="universes">Universes</button>
+        <button type="button" class="btn btn--icon" id="btn-more" aria-label="More actions" aria-haspopup="dialog" aria-expanded="false" aria-controls="more">&#8943;</button>
+      </div>
+    </div>
+
+    <div class="topbar__row topbar__row--nav">
+      <button type="button" class="navbtn" id="nav-prev" aria-label="Previous chapter" title="Previous chapter">&#8249;</button>
+      <nav class="chapnav" id="chapnav" aria-label="Chapters"></nav>
+      <button type="button" class="navbtn" id="nav-next" aria-label="Next chapter" title="Next chapter">&#8250;</button>
+      <p class="navlabel">
+        <span class="navlabel__title" id="nav-title">New story</span>
+        <span class="navlabel__count" id="nav-count">0/0</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="popup" id="universes" role="dialog" aria-modal="true" aria-label="Universes" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title">Universes</h2>
+        <button type="button" class="popup__close" id="universes-close" aria-label="Close">&#215;</button>
+      </div>
+      <ul class="unilist" id="universe-list"></ul>
+    </div>
+  </div>
+
+  <div class="popup" id="requests" role="dialog" aria-modal="true" aria-label="What you asked for" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title" id="request-title">What you asked for</h2>
+        <button type="button" class="popup__close" id="requests-hide" aria-label="Close">&#215;</button>
+      </div>
+      <ul class="reqlist" id="request-list"></ul>
+    </div>
+  </div>
+
+  <div class="popup" id="tabledialog" role="dialog" aria-modal="true" aria-label="Details" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title" id="tabledialog-title">Details</h2>
+        <button type="button" class="popup__close" id="tabledialog-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="td__body" id="tabledialog-body"></div>
+      <div class="popup__actions">
+        <button type="button" class="btn btn--accent" id="tabledialog-add">Add to my world</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="rewrite" role="dialog" aria-modal="true" aria-label="Rewrite chapter" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title" id="rewrite-title">Rewrite chapter</h2>
+        <button type="button" class="popup__close" id="rewrite-hide" aria-label="Close">&#215;</button>
+      </div>
+      <label class="field" for="rewrite-instructions">
+        <span class="field__label">What is wrong and what should change?</span>
+        <textarea id="rewrite-instructions" rows="3" placeholder="Be concrete: what to keep, what to change, how it should end."></textarea>
+      </label>
+      <p class="rewrite__error" id="rewrite-error" hidden></p>
+      <div class="popup__actions">
+        <button type="button" class="btn btn--accent" id="rewrite-submit">Rewrite chapter</button>
+        <button type="button" class="btn btn--quiet" id="rewrite-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="more" role="dialog" aria-modal="true" aria-label="Edition and actions" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title">Edition</h2>
+        <button type="button" class="popup__close" id="menu-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="menu__items" id="menu-items"></div>
+    </div>
+  </div>
+
+  <main class="thread" id="thread">
+    <div class="track" id="track"></div>
+  </main>
+
+  <footer class="footer" id="footer">
+    <button type="button" class="notice" id="notice" hidden>New chapter ready — read it</button>
+    <form class="ala" id="ala">
+      <p class="ala__voice" id="ala-voice" hidden></p>
+      <p class="composer__error" id="composer-error" hidden></p>
+      <div class="ala__offer" id="ala-offer"></div>
+      <div class="ala__write">
+        <textarea id="input" rows="1" placeholder="Write what should happen next…" aria-label="Your request for ALA"></textarea>
+        <button type="submit" class="btn btn--accent" id="send">Send</button>
+      </div>
+    </form>
+  </footer>
+
+</div>
+
+<noscript class="noscript">This reader needs JavaScript to show the story.</noscript>
+<script>
+  // A module can fail to load when the interface is replaced while a tab stays open (the reader
+  // then sits in front of a dead page). Say what happened and offer the reload.
+  (function () {
+    function banner(message) {
+      if (document.getElementById('stale-banner')) return;
+      var box = document.createElement('div');
+      box.id = 'stale-banner';
+      box.className = 'stale';
+      box.innerHTML = '<span></span><button type="button" id="stale-reload">Reload</button>';
+      box.firstChild.textContent = message;
+      document.body.appendChild(box);
+      box.querySelector('#stale-reload').addEventListener('click', function () { window.location.reload(); });
+    }
+    window.addEventListener('error', function (event) {
+      if (event.target && event.target.tagName === 'SCRIPT') banner('The interface was updated while this page was open.');
+      else if (event.message) banner('The interface could not start.');
+    }, true);
+    window.addEventListener('unhandledrejection', function (event) {
+      var text = String((event.reason && event.reason.message) || '');
+      if (/dynamically imported module|module script failed/i.test(text)) banner('The interface was updated while this page was open.');
+    });
+  })();
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

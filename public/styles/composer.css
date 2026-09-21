@@ -1,0 +1,123 @@
+/*
+ * scriptaWorlds — the bottom card: ALA voice, teaser, options, input.
+ */
+
+/* ---------------- footer: ALA voice + composer ---------------- */
+.footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  flex: 0 0 auto;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding: 8px var(--col-pad) max(8px, env(safe-area-inset-bottom));
+}
+
+.notice {
+  display: block;
+  width: 100%;
+  min-height: var(--tap);
+  margin-bottom: 6px;
+  padding: 0 12px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-sm);
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ala {
+  max-width: none;
+  margin: 0 auto;
+  display: grid;
+  gap: 8px;
+}
+
+.ala__voice {
+  margin: 0;
+  font-family: var(--book-font);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: none;
+}
+
+.ala__offer {
+  display: grid; gap: 8px;
+}
+
+.offer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.offer__link {
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-strong);
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
+.offer__link:hover {
+  text-decoration: underline solid;
+}
+
+.offer__send {
+  flex: 1 1 auto;
+  min-height: var(--tap);
+  padding: 8px 14px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-sm);
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+  font-size: 14.5px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+
+.offer__send:hover {
+  background: #d7ebe8;
+}
+
+.ala__more {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85em;
+  text-decoration: underline dotted;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+.ala__more:hover {
+  color: var(--accent-strong);
+}
+
+.ala__hint {
+  margin: 0; font-size: 13px; color: var(--muted);
+}
+
+.composer__error {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--danger);
+}
+
+.ala__write {
+  display: flex; flex-wrap: nowrap; align-items: center; gap: 8px;
+}

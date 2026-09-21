@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+    "name": "DocumentationSkills",
+    "branch": null,
+    "skills": [
+      "achilles-specs",
+      "article-build",
+      "detect-main-behaviors",
+      "gamp-specs",
+      "node-coding-style",
+      "review-specs",
+      "unslop"
+    ]
+  }
+]

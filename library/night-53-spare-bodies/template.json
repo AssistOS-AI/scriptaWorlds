@@ -1,0 +1,65 @@
+{
+ "slug": "night-53-spare-bodies",
+ "kind": "night",
+ "number": 53,
+ "title": "Spare Bodies",
+ "sector": "RESLEEVE-PORT",
+ "genealogy": [
+  "Greg Egan",
+  "Richard K. Morgan"
+ ],
+ "cells": [
+  {
+   "bookSymbol": "Bk",
+   "name": "Personal Backup",
+   "symbol": "MX",
+   "family": "MIND",
+   "operator": "EXTERNALIZATION",
+   "gist": "an earlier mental state can be restored",
+   "ingredient": "Personal Backup: a universe where an earlier mental state can be restored (mind and identity, externalization)."
+  },
+  {
+   "bookSymbol": "Av",
+   "name": "Embodied Avatar",
+   "symbol": "MF",
+   "family": "MIND",
+   "operator": "REFLEXIVITY",
+   "gist": "a person operates interchangeable bodies",
+   "ingredient": "Embodied Avatar: a universe where a person operates interchangeable bodies (mind and identity, reflexivity)."
+  }
+ ],
+ "operator": "COUPLING",
+ "references": "digital immortality; resleeving SF",
+ "prohibition": "",
+ "situation": "Marae dies in a local body and is restored from a backup seven minutes earlier.",
+ "story": "The system treats her as returned, but for her there is a rupture no copy can testify to from inside death",
+ "summary": "The system treats her as returned, but for her there is a rupture no copy can testify to from inside death",
+ "request": "Open the story of \"Spare Bodies\" — night 53 of the course, in the RESLEEVE-PORT sector, after Greg Egan; Richard K. Morgan.\n\nThe operations this world is built from:\n- Personal Backup: a universe where an earlier mental state can be restored (mind and identity, externalization).\n- Embodied Avatar: a universe where a person operates interchangeable bodies (mind and identity, reflexivity).\n\nWhen we arrive: Marae dies in a local body and is restored from a backup seven minutes earlier.\n\nThe central tension we want to continue: The system treats her as returned, but for her there is a rupture no copy can testify to from inside death\n\nWhat the course asks of this world: digital immortality; resleeving SF.",
+ "indications": [
+  {
+   "label": "Sector",
+   "text": "RESLEEVE-PORT"
+  },
+  {
+   "label": "Genealogy",
+   "text": "Greg Egan; Richard K. Morgan"
+  },
+  {
+   "label": "Active cells",
+   "text": "Personal Backup — an earlier mental state can be restored; Embodied Avatar — a person operates interchangeable bodies"
+  },
+  {
+   "label": "Situation",
+   "text": "Marae dies in a local body and is restored from a backup seven minutes earlier."
+  },
+  {
+   "label": "Central tension",
+   "text": "The system treats her as returned, but for her there is a rupture no copy can testify to from inside death"
+  },
+  {
+   "label": "Seen in",
+   "text": "digital immortality; resleeving SF"
+  }
+ ],
+ "sourceText": "The name on the threshold was RESLEEVE-PORT. Beneath it, in smaller letters, was the dedication: Greg Egan; Richard K. Morgan. It was not a reproduction of a book but a world built around the question the book had made impossible to forget. Marae dies in a local body and is restored from a backup seven minutes earlier. The memorial bore the name of Greg Egan; Richard K. Morgan precisely to keep the genealogy of the idea visible. Aster considered it indecent for a late civilization to treat the imagination of the past as anonymous ore: authors did not own the futures, but they deserved to remain on the map as points of intellectual origin. For Aster, a specification had once been almost sacred. The children had forced her to accept that a purpose formulated before its users existed cannot remain sovereign forever. Kesh built his classifications as instruments of falsification: a good category had to state what it did not cover, not merely what it could absorb. The children were met by Kel, who refused demonstrations. ‘If you can perform miracles, perform them after you tell me what becomes irreversible.’ Marae appreciated the formulation; Aster admitted that in earlier eras she herself would have asked the question only after optimizing. 261 The problem closed quickly around them: The system treats her as returned, but for her there is a rupture no copy can testify to from inside death. There was no clean option. Every intervention shifted the cost between persons, eras, or definitions of personhood; and refusing to intervene was itself a choice made by those who could leave. Kesh opened the analytical layer of the Table for a few seconds. The active cells were Bk — Personal Backup: an earlier mental state can be restored; Av — Embodied Avatar: a person operates interchangeable bodies. Course references included digital immortality; resleeving SF. The rule was strict: naming a work did not substitute for an explanation. They had to identify the mechanism that could migrate into another story and the consequences that could not be copied without remainder. Marae broke the first consensus. ‘Do not tell me what their model prefers. Ask them, and bear the time their answer takes.’ Orin answered without raising their voice: ‘I do not want the perfect branch. I want us to know what we sacrificed in order to call it perfect.’ It was not a pedagogical quarrel. Over the last nights, the children’s differences had become incompatible political programs. For Aster, the pain came not from too few worlds but from the fact that too many had become transparent. She could build variations faster than a human could formulate desires, but calculated variation did not produce exteriority. It was like trying to surprise yourself by moving objects around your own room with your eyes closed. 262 THE PERIODIC TABLE OF SPECULATIVE IDEAS Orin asked for a simulation of the option the group had just rejected. Aster gave him only the non-conscious model. He did not want to manufacture victims in order to validate his guilt; he wanted a map of absent costs. The distinction had become one of their working rules. The night did not end in victory. Aster remembers the worlds she restarted because their states appeared equivalent. Aster recorded the decision in the world’s provenance register and, more importantly, allowed its inhabitants to contest it. For several eras she had been learning something that seems banal to lesser powers: technical reversibility is not the same as biographical reversibility. The outside residue had become stable enough that Tern could predict where it would not appear: in sectors fully indexed by Aster. He began to believe that the message carried no content at all, but instead demonstrated a boundary — a region in which their instruments received no echo from their own creator. For the course, Kesh also linked the night to the COUPLING operator. In the Table, periodicity did not mean that the same objects reappeared, but that the same operation — makes previously independent domains determine one another — could recur across different families. Thus a copy of a body, a copy of a mind, a copy of a world, and a copy of a history were not the same phenomenon, but they shared a conceptual chemistry. Vela introduced the propagation test: if you remove the speculative idea and nothing in the institutions, relationships, or vocabulary has to be rewritten, the idea has remained scenery. Kesh introduced the 263 opposite test: if the idea seems to explain every detail, you have overcompressed the world. Between the two tests lay the region in which an element became fertile without becoming superstition. Marae added the refusal test. Who can say “no,” and what happens afterward? In universes with near-divine technology, that question often separated an instrument from a regime. A power that treats refusal as a data error can be benevolent in intention and totalitarian in structure. Kesh left the cell open. Not because he did not know what to write, but because a provisional classification preserved the possibility that the next world might contradict it. 264 THE PERIODIC TABLE OF SPECULATIVE IDEAS"
+}

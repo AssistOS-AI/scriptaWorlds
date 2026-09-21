@@ -1,0 +1,17 @@
+{
+  "name": "scriptaworlds",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "scriptaWorlds \u2014 explore possible universes; ALA (an omp coding agent) writes the chapters",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "server": "node src/server.mjs",
+    "check": "node scripts/check.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
+    "library": "node scripts/build-library.mjs",
+    "table": "node scripts/build-table.mjs"
+  }
+}

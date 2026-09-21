@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "entries": {
+    "achilles-specs": {
+      "owner": "manifest",
+      "digest": "cc336306cd79538c07859f446c902ab6339bc1effd74d97f213525ffa5934273",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "article-build": {
+      "owner": "manifest",
+      "digest": "79a1e0e785c12c5853b1c523dfcd51cbbdff2ef053aa824547f8892ade2226d9",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "detect-main-behaviors": {
+      "owner": "manifest",
+      "digest": "ac61cbcb8384590d5bdf1c9f3a75e38ebce7c18e00206594b861f963acbcd63c",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "gamp-specs": {
+      "owner": "manifest",
+      "digest": "0829a0e3f4cd17026cde7923668a2cd60e8ce6e6d192b156b3292417056f14a8",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "node-coding-style": {
+      "owner": "manifest",
+      "digest": "a82c12551fe83e207096b5b7e2fc15a37fd17d8c6b74f05cc5596bb03d39c3b7",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "review-specs": {
+      "owner": "manifest",
+      "digest": "a74d5beea2f85c243e8f5f9dc1b4421128863a3b48a6c7b607fa607ab146f7b0",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    },
+    "unslop": {
+      "owner": "manifest",
+      "digest": "4606c1593cd8b0b2a601c3e811c396527129dbb985b39d05aadbcac5fe560a6f",
+      "kind": "symlink",
+      "source": {
+        "url": "https://github.com/AssistOS-AI/DocumentationSkills.git",
+        "name": "DocumentationSkills",
+        "branch": null
+      }
+    }
+  }
+}

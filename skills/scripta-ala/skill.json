@@ -1,0 +1,22 @@
+{
+  "title": "Scripta ALA — episoade",
+  "family": "anthropic",
+  "summary": "Scrie un episod SF al unui univers scriptaWorlds: reguli narative ALA, plan verificabil, contract de fișiere (capitol, canon, fire, atlas) și validator dependency-free pentru rezultat.",
+  "aliases": [
+    "scripta-ala"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "chapters/NNNN-slug.md scris după regulile ALA",
+    "drafts/NNNN-plan.md cu cheile de plan obligatorii",
+    "canon.md, threads.json, atlas.json actualizate",
+    "raport de validare JSON (validate-chapter.mjs)"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "references/universe-files.md",
+    "references/atlas.md",
+    "scripts/validate-chapter.mjs"
+  ],
+  "selfContained": true
+}

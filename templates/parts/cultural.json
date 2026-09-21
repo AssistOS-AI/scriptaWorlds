@@ -1,0 +1,1025 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "cult-song-law",
+      "tags": [
+        "lege",
+        "cântec",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care legile există doar cât timp sunt cântate",
+        "en": "A universe where a law exists only while it is still being sung"
+      },
+      "law": {
+        "ro": "O lege are putere numai cât timp este cântată: ce nu s-a cântat o generație întreagă se șterge din lume și nu mai poate fi nici invocată, nici încălcată. Judecătorii nu citesc, ci cântă, iar hotărârea lor se leagă abia după ce adunarea repetă refrenul până îl știe pe de rost. Fiecare sat își ține pravila într-un cor de bătrâni, iar cine moare fără să lase versul cuiva ia legea cu el în mormânt. Cine voiește o lege nouă o cântă singur trei zile și trei nopți, iar dacă glasul i se rupe înainte de al treilea răsărit, cererea cade și nu mai este pomenită. Chipul în care se cântă o lege hotărăște cum se aplică ea pentru toți cei care o aud, așa că două sate care cântă altfel ajung să trăiască sub legi care nu se mai recunosc între ele.",
+        "en": "A law holds only as long as it is sung: what has gone a whole generation unsung falls out of the world, and from then on it can neither be invoked nor broken. Judges do not read, they sing, and a verdict binds only after the assembly has repeated the refrain until it knows it by heart. Every village keeps its rules in a choir of elders, and whoever dies without passing his verse to someone carries that law into the grave. Anyone who wants a new law must sing it alone for three days and three nights, and if his voice fails before the third sunrise the request drops and is never mentioned again. The way a law is sung decides how it applies to everyone who hears it, so two villages singing differently end up living under laws that no longer recognise each other."
+      },
+      "openings": {
+        "ro": [
+          "Ilinca este ultima care mai știe versul legii apelor, iar dacă nu găsește pe cineva care să îl cânte cu ea până la sfârșitul iernii, hotarul râului se șterge și pescarii rămân fără apă.",
+          "În plină judecată pentru furtul boilor, bătrânul Stan a uitat strofa a doua la mijloc, iar acum adunarea așteaptă să vadă dacă vinovatul iese slobod din pricina unui cântec rupt.",
+          "Trei sate au venit să asculte legea nouă pe care o cântă Maria, o femeie fără cor, iar la al doilea răsărit glasul i-a slăbit; ea trebuie să hotărască dacă își riscă viața continuând.",
+          "Când morarul a fost găsit mort în iaz, fiul lui a descoperit că tatăl îi lăsase versul legii morilor unui străin plătit, iar străinul o cântă acum altfel, în folosul lui."
+        ],
+        "en": [
+          "Ilinca is the last person who still knows the verse of the water law, and if she cannot find anyone to sing it with her before winter ends, the river boundary will vanish and the fishermen will be left with dry stones.",
+          "Halfway through a trial over stolen oxen, old Stan lost the second stanza, and the assembly now waits to learn whether a broken song will let the thief walk free.",
+          "Three villages have come to hear the new law Maria is singing all by herself, and at the second sunrise her voice gave out; she must now decide whether to risk her life to finish it.",
+          "When the miller was found dead in the pond, his son discovered that the old man had sold the verse of the mill law to a paid stranger, and the stranger now sings it differently, for his own benefit."
+        ]
+      }
+    },
+    {
+      "id": "cult-legal-chorus",
+      "tags": [
+        "lege",
+        "cor",
+        "greșeală"
+      ],
+      "title": {
+        "ro": "Universul în care o lege cântată greșit se preface în opusul ei",
+        "en": "A universe where a law sung off key turns into its opposite"
+      },
+      "law": {
+        "ro": "O lege se rostește numai în cor, iar corul trebuie să sune curat: orice notă greșită preface legea în contrariul ei, cu putere deplină și fără ca nimeni să mai poată face ceva. De aceea copiii învață cântecele legilor înainte de a învăța să scrie, iar cine nu poate ține un ton este numit mut în fața legii și nu poate fi martor la nimic. Fiecare hotărâre se cântă de două ori, o dată ca cerere și o dată ca răspuns, iar între cele două cântări nu se vorbește, fiindcă vorba strică tonul. Când corul rupe o singură silabă, cei care au cântat greșit răspund cu trupul: un an de slujbă pentru fiecare sunet scăpat. Astfel lumea s-a umplut de legi întoarse pe dos, pe care nimeni nu le-a voit, ci doar le-a cântat strâmb la un ceas nepotrivit.",
+        "en": "A law is spoken only in chorus, and the chorus must be clean: a single wrong note turns the law into its opposite, in full force, with nothing anyone can do about it. So children learn the songs of the law before they learn to write, and anyone who cannot hold a pitch is judged mute before the law and may never serve as a witness. Every ruling is sung twice, once as a request and once as an answer, and between the two singings no one speaks, because speech spoils the pitch. When the chorus breaks a single syllable, those who sang wrong pay with their bodies: a year of service for every note let slip. In this way the world has filled up with laws turned inside out which nobody ever wanted, only sang crooked at the wrong hour."
+      },
+      "openings": {
+        "ro": [
+          "Corul din Piatra a cântat ieri legea hotarelor, iar un copil a intrat cu un ton prea sus; azi vecinii au drept de lemn în pădurea noastră și nimeni nu poate dovedi că a fost o greșeală.",
+          "Dascălul Ilarie trebuie să aleagă patru glasuri pentru judecata de mâine a unui ucigaș, știind că un singur copil nesigur îl poate scoate pe vinovat slobod, cu binecuvântarea legii.",
+          "Sora ei a fost declarată mută fiindcă nu poate ține tonul, iar familia trebuie să hotărască dacă o ascunde de lege ori o lasă să fie dată afară din sat, fără martori și fără pâine.",
+          "La ceasul dintre cele două cântări, primarul a șoptit ceva unui cântăreț, iar a doua cântare a ieșit strâmbă; azi nimeni nu mai știe ce lege se aplică, iar satul cere o pedeapsă."
+        ],
+        "en": [
+          "The choir of Piatra sang the boundary law yesterday and a boy came in a tone too high; today the neighbours hold timber rights in our forest and no one can prove it was a mistake.",
+          "Teacher Ilarie must pick four voices for tomorrow's trial of a murderer, knowing that one uncertain child can set the guilty man free, with the full blessing of the law.",
+          "Her sister has been declared mute because she cannot hold a pitch, and the family must now decide whether to hide her from the law or let her be driven out of the village, unwitnessed and unfed.",
+          "In the pause between the two singings the mayor whispered something to a singer, and the second singing came out crooked; today no one knows which law applies, and the village is howling for a punishment."
+        ]
+      }
+    },
+    {
+      "id": "cult-song-material",
+      "tags": [
+        "muzică",
+        "meșteșug",
+        "materie"
+      ],
+      "title": {
+        "ro": "Universul în care o bucată cântată până la capăt se întrupează în lucruri",
+        "en": "A universe where a piece of music sung to its end solidifies into objects"
+      },
+      "law": {
+        "ro": "O bucată cântată până la capăt se strânge în mâini ca un lucru: plug, pâine, zid, cuțit, tot ce poate ține un cântec încheiat. Lucrul ține cât timp cineva își mai amintește melodia din care s-a născut, iar când cântecul se uită, obiectul se fărămițează în praf în aceeași zi. De aceea nu se păstrează lucruri, ci cântece: uneltele unui sat sunt scrise pe pereții bisericii în note, nu ținute în hambar. Un cântec întrerupt de râs, de plâns ori de frică dă naștere la ceva schimonosit, care trăiește puțin și rănește pe cine apucă. Cine fură melodia altuia poate face același lucru, dar numai până când autorul o cântă altfel, iar atunci copia se preface în țărână la picioarele hoțului.",
+        "en": "A piece sung all the way through gathers in the hands as a thing: a plough, a loaf, a wall, a knife, whatever a finished song can hold. The object lasts as long as someone still remembers the melody it was born from, and the day the song is forgotten the thing crumbles to dust before nightfall. So people do not keep objects, they keep songs: a village's tools are written on the church walls in notes instead of being stored in a barn. A song broken by laughter, weeping or fear gives birth to something misshapen that lives briefly and injures whoever it can reach. Anyone who steals another's melody can make the same thing, but only until the author sings it differently, and then the copy turns to ash at the thief's feet."
+      },
+      "openings": {
+        "ro": [
+          "Bunicul a cântat dimineața plugul de care are nevoie ogorul, dar la ultima strofă l-a apucat tusea, iar acum fiul lui cântă în genunchi, încercând să dreagă lucrul schimonosit care s-a ridicat din pământ.",
+          "Satul își ține cântecele de unelte pe pereții bisericii, iar zugravul a fost găsit mort lângă un perete spălat de ploaie; trei familii nu mai au cu ce ara și se ceartă cine știe notele pierdute.",
+          "Vera a furat melodia cuțitelor de la un meșter bătrân și vinde lame în târg, până când bătrânul apare pe uliță și începe să cânte altfel, în fața mulțimii.",
+          "Copilul ei cântă mereu aceeași melodie, iar din mâinile lui ies mereu aceleași linguri strâmbe; preotul spune că melodia e ruptă și că în curând va scoate altceva."
+        ],
+        "en": [
+          "Grandfather sang the plough the field needed this morning, but a cough took him at the last verse, and now his son kneels singing, trying to mend the misshapen thing that has risen out of the ground.",
+          "The village keeps its tool songs on the church walls, and the painter was found dead beside a wall washed clean by rain; three families have nothing to plough with and are quarrelling over who knows the lost notes.",
+          "Vera stole the knife song from an old craftsman and sells blades at the market, until the old man walks into the lane and begins to sing it differently, in front of the crowd.",
+          "Her child keeps singing the same melody, and the same crooked spoons come out of his hands; the priest says the song is broken and will soon bring up something else."
+        ]
+      }
+    },
+    {
+      "id": "cult-orchestral-forge",
+      "tags": [
+        "meșteșug",
+        "orchestră",
+        "cooperare"
+      ],
+      "title": {
+        "ro": "Universul în care niciun lucru nu poate fi făcut decât de o orchestră întreagă",
+        "en": "A universe where nothing can be made except by a full orchestra"
+      },
+      "law": {
+        "ro": "Nimic nu se poate zidi, țese sau turna decât cu toate glasurile unei orchestre de sat, fiecare instrument la locul lui, fiindcă lucrul se naște din acord și se rupe când rămâne fără un sunet dintre cele care l-au făcut. Un om singur nu poate produce nimic, nici măcar o lingură, iar cine încearcă se alege cu un ciob care se sparge când îl ridică. Instrumentele sunt mai scumpe decât casele și se moștenesc cu rândul: flautul, cobza și toba au fiecare o familie a lui și nu pot fi cântate de altcineva fără învoiala tuturor. Când moare un instrumentist, lucrurile pe care le-a făcut corul acela se subțiază un an, până când cineva învață partea lui, iar satele care pierd prea mulți oameni ajung să locuiască în case care se topesc. Un instrument spart oprește toată lucrarea la mijloc, iar datoria pentru ce s-a pierdut rămâne asupra celui care l-a atins.",
+        "en": "Nothing can be built, woven or cast except by all the voices of a village orchestra, each instrument in its place, because a thing is born of accord and breaks when one of the sounds that made it goes missing. A single person can produce nothing, not even a spoon, and anyone who tries gets a shard that splits the moment he lifts it. Instruments cost more than houses and are inherited in turn: the flute, the lute and the drum each belong to a family and may not be played by anyone else without everyone's consent. When a player dies, the things that chorus made grow thin for a year, until someone learns his part, and villages that lose too many people end up living in houses that melt. A cracked instrument halts the whole work halfway, and the debt for what is lost falls on whoever touched it."
+      },
+      "openings": {
+        "ro": [
+          "Duminică se zidește o casă nouă și toată orchestra satului e chemată, dar toboșarul zace cu piciorul rupt, iar fără tobă pereții se ridică pe jumătate și se lasă.",
+          "Familia lui Petru a păstrat flautul trei generații, iar acum vecinii cer ca instrumentul să treacă la băiatul lor, care cântă mai bine; Petru trebuie să aleagă între rușine și foame.",
+          "După ce un cutremur a luat doisprezece cântăreți, casele din sat au început să se subțieze la colțuri, iar bătrânii socotesc câte ierni mai pot ține zidurile până învață copiii părțile pierdute.",
+          "Cineva a atins în ascuns cobza unei femei moarte, iar la lucrarea de mâine sunetul a ieșit străin; adunarea vrea să afle cine a călcat legea înainte ca tot ce s-a făcut anul acesta să se strice."
+        ],
+        "en": [
+          "On Sunday a new house is to be built and the whole village orchestra is called, but the drummer lies with a broken leg, and without the drum the walls rise halfway and sag.",
+          "Petru's family has kept the flute for three generations, and now the neighbours demand it pass to their son, who plays better; Petru must choose between shame and hunger.",
+          "After a quake took twelve singers the village houses began to thin at the corners, and the elders are counting how many winters the walls can last until the children learn the lost parts.",
+          "Someone has secretly touched the lute of a dead woman, and at tomorrow's work the sound came out alien; the assembly wants to know who broke the law before everything made this year falls apart."
+        ]
+      }
+    },
+    {
+      "id": "cult-forbidden-word",
+      "tags": [
+        "cuvânt",
+        "secret",
+        "identitate"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare om are un cuvânt pe care nu are voie să îl rostească",
+        "en": "A universe where every person has one word they must never speak"
+      },
+      "law": {
+        "ro": "Fiecărui om i se sorocește la botez un cuvânt al lui, ales de altcineva, pe care nimeni nu are voie să îl rostească, iar cel care îl spune își pierde numaidecât locul în lume: nu mai este recunoscut de ai lui, nu i se mai spune numele și casa i se închide. De aceea oamenii vorbesc ocolit, cu perifraze lungi și cu semne, iar dicționarele satelor sunt pline de găuri acolo unde ar fi trebuit să stea cuvintele rele. Cine află cuvântul altuia îl stăpânește ca pe un câine: îi poate cere orice fără să plătească, fiindcă o singură șoaptă îl poate șterge. Preoții țin lista cuvintelor și o citesc numai la înmormântări, ca să dezlege pe morți, iar înainte de a muri fiecare om are dreptul să își spună cuvântul cu voce tare, o dată, ca să nu rămână niciodată la mila altcuiva. Copiii învață mai întâi să tacă, apoi să vorbească, iar cei care învață greșit ajung singuri pe drumuri, fără nume și fără casă.",
+        "en": "At naming each person is assigned a word of their own, chosen by someone else, which no one is ever allowed to speak, and whoever says it loses his place in the world at once: his own no longer know him, his name is not used, and doors close to him. So people talk in circles, with long periphrases and signs, and village dictionaries are full of holes where the dangerous words should have been. Whoever learns another's word owns him like a dog: he can demand anything and pay nothing, because a single whisper can erase the man. Priests keep the list of words and read from it only at funerals, to release the dead, and before dying everyone has the right to say his own word aloud, once, so as never to be left at a stranger's mercy. Children learn silence before speech, and those who learn it badly end up alone on the roads, nameless and without a house."
+      },
+      "openings": {
+        "ro": [
+          "La botezul fetiței, preotul i-a ales cuvântul din lista închisă, iar tatăl, care l-a auzit din greșeală, trebuie să jure două săptămâni de tăcere că nu îl va rosti niciodată.",
+          "Un negustor străin a rostit în piață un cuvânt care a făcut un om să dispară din rândul lui; acum satul cere să afle dacă a fost întâmplare ori cineva i-a vândut lista.",
+          "Bătrâna își simte sfârșitul și vrea să își spună cuvântul în fața obștii, dar fiul ei se teme că, odată rostit, averea și pământul lor se vor alege cu alt stăpân.",
+          "Mihai a aflat cuvântul surorii lui de la o slujnică și îl ține ca pe un cuțit; ea trebuie să hotărască dacă fuge din sat ori îi dă lui tot ce are ca să tacă."
+        ],
+        "en": [
+          "At the baby's naming the priest drew her word from the sealed list, and her father, who heard it by accident, must swear to two weeks of silence that he will never say it.",
+          "A foreign trader spoke a word in the marketplace and a man vanished from among his kin; the village now wants to know whether it was chance or whether someone sold the list.",
+          "The old woman feels her end coming and wants to say her word before the assembly, but her son fears that once spoken, their land and goods will pass to another master.",
+          "Mihai learned his sister's word from a servant girl and keeps it like a knife; she must decide whether to flee the village or give him everything she has to keep him quiet."
+        ]
+      }
+    },
+    {
+      "id": "cult-single-word",
+      "tags": [
+        "limbă",
+        "proprietate",
+        "comunicare"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare cuvânt poate fi rostit de o singură gură",
+        "en": "A universe where each word can be spoken by only one mouth"
+      },
+      "law": {
+        "ro": "Limba nu este a tuturor: fiecare cuvânt al lumii aparține unei singure guri, iar din alte guri sunetul iese stins, ca un fum fără foc. Copilul primește la naștere un cuvânt al lui, iar acela crește cu el și se schimbă cu viața lui, așa că nimeni nu poate spune ce simte altul și nimeni nu poate repeta ce a auzit. Vorbirea se învață prin împrumut: cine vrea să spună ceva ce nu e al lui trebuie să ceară cuvântul gazdei și să îl dea înapoi la sfârșitul zilei, iar cine uită să îl dea rămâne cu el și celălalt amuțește. Când moare un om, cuvintele lui se rup în bucăți mici și se împart între cei care l-au iubit, de aceea limbile bătrânilor sună tot mai cioplit, iar cele ale copiilor tot mai limpede. Un hoț de cuvinte poate lua o limbă întreagă, dar nu poate spune nimic din ea mai departe, așa că agoniseala lui rămâne mută în gura lui până moare.",
+        "en": "Language does not belong to everyone: every word in the world belongs to a single mouth, and out of other mouths the sound comes dead, like smoke without fire. A child is given a word at birth, and that word grows with him and changes with his life, so no one can say what another feels and no one can repeat what he has heard. Speech is learned by borrowing: whoever wants to say something that is not his must ask the host for the word and give it back by nightfall, and whoever forgets keeps it and the other falls silent. When a person dies his words break into small pieces and are divided among those who loved him, which is why the speech of the old sounds ever more chipped and that of children ever more clear. A word thief can take a whole language, but he can carry nothing of it onward, so his hoard stays mute in his mouth until he dies."
+      },
+      "openings": {
+        "ro": [
+          "Fetița a împrumutat cuvântul ploii de la vecină și a uitat să îl dea înapoi, iar dimineața femeia s-a trezit fără glas, în mijlocul târgului, cerând ajutor prin semne.",
+          "La moartea morarului, cuvintele lui s-au împărțit între cinci moștenitori, iar acum niciunul nu poate vorbi despre moară fără să ceară bucata celuilalt.",
+          "Un străin bogat cumpără cuvinte de la copiii săraci și le ține într-o ladă; satul se strânge să hotărască dacă îl lasă să plece cu limba lor ori îl oprește cu forța.",
+          "Ioana vrea să îi spună iubitului că îl iubește, dar cuvântul acela este al mamei ei, iar mama refuză să îl dea, fiindcă știe ce se pierde când cineva îl rostește greșit."
+        ],
+        "en": [
+          "The little girl borrowed the rain word from a neighbour and forgot to give it back, and in the morning the woman woke up voiceless in the middle of the market, begging for help in signs.",
+          "When the miller died his words were divided among five heirs, and now none of them can speak of the mill without asking the others for their piece.",
+          "A rich stranger buys words from poor children and keeps them in a chest; the village gathers to decide whether to let him leave with their language or stop him by force.",
+          "Ioana wants to tell her beloved that she loves him, but that word belongs to her mother, and her mother refuses to give it, knowing what is lost when it is spoken wrong."
+        ]
+      }
+    },
+    {
+      "id": "cult-one-performance",
+      "tags": [
+        "artă",
+        "distrugere",
+        "repetiție"
+      ],
+      "title": {
+        "ro": "Universul în care orice operă se distruge după prima reprezentație",
+        "en": "A universe where every work of art is destroyed after its first performance"
+      },
+      "law": {
+        "ro": "Orice lucrare se arată o singură dată, iar la căderea serii trebuie arsă, spartă ori spălată de pe perete, până nu rămâne din ea nicio urmă. Un cântec repetat a doua oară cheamă în sală umbra primei seri, care ia din trupul ascultătorilor câte un an pentru fiecare strofă recunoscută. Copiile sunt cu neputință: cine desenează din amintire chipul unui tablou se trezește cu mâna strâmbă, iar cine cântă din auz o melodie oprită nu mai poate auzi nimic o lună. Meșterii trăiesc din slujbe unice și din ospățul de după, nu din faimă, fiindcă nimeni nu are voie să pomenească o lucrare mai mult decât o singură dată, ca la o înmormântare. Bogăția satului stă în numărul de seri pe care și le-a îngăduit, iar cei care păstrează ascunse lucrări vechi sunt socotiți vrăjitori și arși împreună cu ele.",
+        "en": "Every work is shown once, and at nightfall it must be burned, smashed or washed off the wall until no trace of it is left. A song repeated a second time calls into the hall the shadow of the first evening, which takes a year from each listener's body for every stanza they recognise. Copies are impossible: whoever draws a painting from memory wakes with a crooked hand, and whoever sings a stopped melody from hearing goes deaf for a month. Artists live on single engagements and the feast that follows, not on fame, since no one may mention a work more than once, as at a funeral. A village's wealth is counted in the number of evenings it has allowed itself, and those who keep old works hidden are judged sorcerers and burned together with them."
+      },
+      "openings": {
+        "ro": [
+          "Pictorul a isprăvit în zori o icoană pentru biserică, iar preotul îi cere s-o dea cu var până la apus; meșterul are o singură zi ca să hotărască dacă o salvează ori își pierde mâna.",
+          "Doi copii au învățat pe ascuns cântecul nunții de anul trecut și îl cântă în uliță; oamenii din sat ies din case și numără strofele, știind ce preț plătește fiecare.",
+          "La serbarea de seară, femeia care joacă nu mai vrea să ardă costumul pe care l-a țesut un an, iar obștea așteaptă cu torțe în mână.",
+          "Un boier străin a cumpărat o lucrare și refuză să o nimicească, spunând că o păstrează pentru urmași; satul se adună să hotărască dacă îl alungă ori îi ia casa."
+        ],
+        "en": [
+          "The painter finished an icon for the church at dawn, and the priest wants it whitewashed by sunset; the craftsman has one day to decide whether to save it or lose his hand.",
+          "Two children secretly learned last year's wedding song and are singing it in the lane; people come out of their houses and count the stanzas, knowing what each one costs.",
+          "At the evening show the dancer no longer wants to burn the costume she spent a year weaving, and the village waits with torches in hand.",
+          "A foreign nobleman has bought a work and refuses to destroy it, saying he keeps it for his heirs; the village gathers to decide whether to drive him out or take his house."
+        ]
+      }
+    },
+    {
+      "id": "cult-ash-canon",
+      "tags": [
+        "artă",
+        "mărturie",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care o lucrare devine trainică doar după ce este arsă",
+        "en": "A universe where a work becomes lasting only after it has been burned"
+      },
+      "law": {
+        "ro": "Nimic nu intră în rândul lucrurilor trainice decât trecând prin foc: pictura, cartea și cântecul se ard într-o singură seară, iar din ele rămâne doar ce povestesc martorii, cu cuvintele lor. Ce se păstrează nears nu este socotit artă, ci boală: umblă prin case, se strică, se umflă și molipsește pereții, iar cei care o țin ajung să vorbească singuri. Martorii sunt plătiți să spună ce au văzut, dar niciodată în același chip, iar dacă două mărturii se potrivesc prea bine, amândouă se leapădă și opera se pierde pentru totdeauna. De aceea copiii învață să asculte și să repovestească, iar cei mai căutați meșteri ai lumii nu sunt cei care fac lucruri, ci cei care le pot povesti după ce au ars. Un oraș care a ars o capodoperă se laudă cu ea o sută de ani, iar unul care a păstrat-o nu se mai laudă cu nimic, fiindcă nimeni nu mai trece pe la porțile lui.",
+        "en": "Nothing joins the ranks of lasting things except through fire: painting, book and song are all burned in a single evening, and what survives of them is only what the witnesses tell, in their own words. What is kept unburned is counted not as art but as sickness: it walks through houses, spoils, swells and infects the walls, and those who keep it end up talking to themselves. Witnesses are paid to say what they saw, but never in the same way, and if two accounts match too closely both are thrown out and the work is lost forever. So children learn to listen and retell, and the most sought-after craftsmen in the world are not those who make things but those who can tell them after they burn. A city that burned a masterpiece boasts of it for a hundred years, while one that kept it has nothing left to boast about, because no one passes through its gates any more."
+      },
+      "openings": {
+        "ro": [
+          "Trei martori au fost plătiți pentru seara de mâine, dar doi dintre ei își spun deja povestea la fel, iar dacă se potrivesc și în fața obștii, capodopera se pierde și meșterul rămâne fără plată.",
+          "Un negustor a cumpărat un tablou nears și îl ține în pod; vecinii au început să tușească noaptea, iar preotul cere să vadă ce se ascunde în casa aceea.",
+          "Fata meșterului a învățat tot ce a văzut în atelier și vrea să ardă singură lucrarea tatălui, ca să aibă ce povesti; tatăl o prinde cu torța în mână.",
+          "Orașul vecin și-a lăudat capodopera o sută de ani, iar acum trimite soli să afle dacă mai trăiește cineva care să fi văzut-o, înainte ca lauda să se stingă de tot."
+        ],
+        "en": [
+          "Three witnesses have been hired for tomorrow's evening, but two already tell the story the same way, and if they match before the assembly too, the masterpiece is lost and the craftsman goes unpaid.",
+          "A merchant has bought an unburned painting and keeps it in his loft; the neighbours have begun coughing at night, and the priest demands to see what is hidden in that house.",
+          "The craftsman's daughter has learned everything she saw in the workshop and wants to burn her father's work herself, so that she will have something to tell; her father catches her with the torch in her hand.",
+          "The neighbouring city has praised its masterpiece for a hundred years, and now sends envoys to find out whether anyone is still alive who saw it, before the praise dies out altogether."
+        ]
+      }
+    },
+    {
+      "id": "cult-exact-ritual",
+      "tags": [
+        "ritual",
+        "repetiție",
+        "timp"
+      ],
+      "title": {
+        "ro": "Universul în care un ritual greșit întoarce lumea la începutul zilei",
+        "en": "A universe where one mistaken ritual rolls the world back to the start of the day"
+      },
+      "law": {
+        "ro": "Fiecare zi se ține pe un lanț de gesturi care trebuie făcute la fel ca în ajunul lumii: aceeași ordine, aceleași cuvinte, aceleași mâini. Când cineva greșește un gest, ziua se rupe și se ia de la capăt, iar toți cei din sat o trăiesc din nou, fără să știe că au mai trăit-o. Numai slujitorii ritualului țin minte, fiindcă ei sunt cei care au desfăcut firul, așa că ajung bătrâni în trupuri tinere și obosesc fără să îmbătrânească. Greșeala cea mai scumpă este și cea mai greu de văzut: un cuvânt spus în locul altuia, o lingură pusă cu cotul greșit, un drum făcut pe partea cealaltă a uliței. Cu cât o zi se repetă mai des, cu atât mai mulți oameni se nasc din ea, iar satele care se încurcă ajung pline de frați care nu au loc unul lângă altul.",
+        "en": "Each day is held by a chain of gestures that must be made as they were on the first morning: the same order, the same words, the same hands. When someone makes a wrong gesture the day tears and starts over, and everyone in the village lives it again without knowing they have lived it before. Only the ritual servants remember, since they are the ones who undid the thread, so they grow old in young bodies and tire without ever ageing. The costliest mistake is also the hardest to see: a word said in place of another, a spoon set down with the wrong elbow, a path taken on the other side of the lane. The more often a day repeats, the more people are born from it, and villages that fumble end up crowded with brothers who have no room beside each other."
+      },
+      "openings": {
+        "ro": [
+          "Astăzi e a patra oară când Ilie pune lingura cu cotul greșit, iar slujitorul ritualului îi privește mâna întinsă, știind că un singur gest va lua ziua de la capăt.",
+          "Femeia care ține minte toate repetările are douăzeci de ani și oase obosite; dimineața a găsit în sat un copil care seamănă cu ea și care nu ar trebui să existe.",
+          "Un cioban a urcat pe deal pe partea cealaltă a potecii, iar acum seara nu mai vine; oamenii se adună la marginea satului și așteaptă să vadă dacă mai apucă răsăritul.",
+          "Bătrânul vrea să moară și știe cum: trebuie să strice un singur gest, însă slujitorii îl păzesc zi și noapte, fiindcă moartea lui ar aduce o zi nouă peste toți."
+        ],
+        "en": [
+          "This is the fourth time today that Ilie sets the spoon down with the wrong elbow, and the ritual servant watches his reaching hand, knowing one gesture will start the day over.",
+          "The woman who remembers all the repetitions is twenty years old with tired bones; this morning she found in the village a child who looks like her and who should not exist.",
+          "A shepherd walked up the hill on the other side of the path, and now evening will not come; people gather at the edge of the village and wait to see whether they will see sunrise again.",
+          "The old man wants to die and knows how: he must spoil one gesture, but the servants guard him day and night, because his death would bring a new day down on everyone."
+        ]
+      }
+    },
+    {
+      "id": "cult-reset-rite",
+      "tags": [
+        "timp",
+        "sacrificiu",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care un singur om repetă anul, cu amintirea fiecărei încercări",
+        "en": "A universe where one person repeats the year, remembering every attempt"
+      },
+      "law": {
+        "ro": "O dată pe an, în noaptea cea mai lungă, un singur om ales rostește rugăciunea care ține anul încheiat; dacă îi scapă o silabă, anul întreg se desface și începe iarăși de la aceeași noapte. Numai el ține minte toți anii încercați, iar amintirile se strâng în el ca pietrele într-un sac, până când nu mai poate ridica nici o zi. Ceilalți oameni nu bănuiesc nimic: pentru ei anul e nou, iar doliul, nunta, copilul născut și mort se petrec din nou, la fel, fără să lase urmă. Rugăciunea se învață în copilărie de la cel dinainte, iar cel care o rostește are voie să ceară orice de la obște, fiindcă toți știu ce poartă. Când alesul moare înainte să predea rugăciunea, anul se oprește acolo pentru totdeauna, iar lumea rămâne în aceeași iarnă, fără primăvară, până când cineva o ia de la capăt.",
+        "en": "Once a year, on the longest night, a single chosen person speaks the prayer that closes the year; if a syllable escapes him, the whole year unravels and begins again from that same night. Only he remembers all the years attempted, and the memories pile up in him like stones in a sack, until he can no longer lift a single day. Everyone else suspects nothing: to them the year is new, and the funeral, the wedding, the child born and dead happen again, identically, leaving no trace. The prayer is learned in childhood from the one before, and the speaker may ask anything of the community, because they all know what he carries. When the chosen one dies before passing on the prayer the year stops there forever, and the world stays in the same winter, springless, until somebody begins it again."
+      },
+      "openings": {
+        "ro": [
+          "Sora lui a murit în prima iarnă și s-a întors în cea de-a treia; acum fratele, care ține rugăciunea, se gândește dacă are dreptul să schimbe o silabă ca să nu mai moară nimeni.",
+          "Alesul are șaptezeci de ani de amintiri și un ucenic de nouă ani; băiatul trebuie să învețe rugăciunea înainte ca bătrânul să se prăbușească sub greutatea anilor trăiți.",
+          "În sat a apărut o femeie care spune că își amintește și ea anul trecut, iar bătrânii obștii se strâng să hotărască dacă o cred ori o alungă.",
+          "Anul acesta cineva a furat recolta din hambar înainte de noaptea cea lungă, iar alesul știe că, dacă lucrurile nu se întorc la locul lor, anul nu se va putea închide."
+        ],
+        "en": [
+          "His sister died in the first winter and came back in the third; now her brother, who holds the prayer, wonders whether he has the right to change a syllable so that no one dies again.",
+          "The chosen one carries seventy years of memories and has a nine-year-old apprentice; the boy must learn the prayer before the old man collapses under the weight of the years lived.",
+          "A woman has appeared in the village claiming that she too remembers last year, and the elders gather to decide whether to believe her or drive her out.",
+          "This year someone stole the harvest from the barn before the long night, and the chosen one knows that unless things are put back, the year cannot be closed."
+        ]
+      }
+    },
+    {
+      "id": "cult-witness-names",
+      "tags": [
+        "nume",
+        "martor",
+        "faptă"
+      ],
+      "title": {
+        "ro": "Universul în care numele se câștigă prin fapte văzute de martori",
+        "en": "A universe where names are earned through deeds seen by witnesses"
+      },
+      "law": {
+        "ro": "Un om nu are nume de la naștere, ci strânge nume: fiecare faptă săvârșită în fața martorilor i se adaugă la nume, iar numele crește cu el ca un copac. Cine nu a făcut nimic văzut de alții rămâne fără nume, iar cel fără nume nu poate fi strigat, nu poate cere nimic și nu poate lua nimic din mâna nimănui, fiindcă nu există pentru ceilalți. Faptele rele se lipesc la fel de bine ca cele bune, iar un om poate purta ani întregi o proastă faimă pe care nu o poate tăia decât cu o faptă mai mare. Martorii sunt plătiți, dar nu cu bani, ci cu nume: cine povestește ce a văzut primește un cuvânt nou la numele lui, așa că orașele sunt pline de oameni care umblă după întâmplări. Copiii se numesc după felul în care au fost găsiți, iar schimbarea numelui se face numai în piață, cu strigare, ca toți să audă.",
+        "en": "A person has no name at birth but collects names: every deed done before witnesses is added to the name, and the name grows with him like a tree. Whoever has done nothing seen by others stays nameless, and the nameless cannot be called, cannot ask for anything and cannot take anything from anyone's hand, because for the others he does not exist. Bad deeds stick as well as good ones, and a person may carry a foul reputation for years that only a greater deed can cut away. Witnesses are paid not in coin but in names: whoever tells what he saw receives a new word for his own name, so the cities are full of people chasing events. Children are named after the way they were found, and a name is changed only in the market square, shouted aloud, so that everyone hears."
+      },
+      "openings": {
+        "ro": [
+          "Copilul găsit la poarta mănăstirii are un nume din cele trei cuvinte pe care i le-au dat trecătorii; astăzi vrea să sară în râu după un om ca să își câștige al patrulea cuvânt.",
+          "Marta a purtat zece ani numele Cea care a dormit în paza oilor și acum trebuie să facă o faptă mare ori să rămână pentru totdeauna cu rușinea aceea.",
+          "Un martor mincinos a jurat în piață că a văzut un om aruncând focul, iar numele celui pârât a crescut cu un cuvânt pe care nu îl poate scoate decât cu sânge.",
+          "La schimbarea numelui, femeia refuză să primească cuvintele pe care i le-a adus fiul ei din război, fiindcă prețul lor este viața altcuiva."
+        ],
+        "en": [
+          "The child found at the monastery gate has a name of only the three words passers-by gave him; today he wants to jump into the river after a man to earn a fourth.",
+          "Marta has carried the name She Who Slept While the Sheep Were Guarded for ten years, and must now do something great or keep that shame forever.",
+          "A lying witness swore in the marketplace that he saw a man throw the fire, and the accused's name grew by a word he can remove only with blood.",
+          "At the name changing the woman refuses the words her son brought home from the war, because their price was someone else's life."
+        ]
+      }
+    },
+    {
+      "id": "cult-earned-name",
+      "tags": [
+        "nume",
+        "străini",
+        "drept"
+      ],
+      "title": {
+        "ro": "Universul în care numele deplin se câștigă prin trei martori care nu te iubesc",
+        "en": "A universe where a full name is earned before three witnesses who do not love you"
+      },
+      "law": {
+        "ro": "Un nume deplin se dă numai de trei străini care nu te iubesc, nu îți datorează nimic și nu au auzit de tine; rudeniile, prietenii și vecinii nu se socotesc martori, fiindcă dragostea minte. Până când nu are numele deplin, omul este socotit copil: nu poate lua pământ, nu se poate însura și nu poate sta în fața obștii. Fapta pentru care primești numele trebuie spusă de tine înainte, iar apoi făptuită întocmai, fără ajutor, fiindcă martorii străini nu pot fi convinși cu vorbe. Cine primește numele de la cineva care îl iubea rămâne cu un semn pe chip, iar toată viața ceilalți îi văd semnul și îi coboară prețul la târg. Un nume se poate pierde la fel: trei străini care văd o ticăloșie se adună și îl rup în piață, iar omul rămâne cu vorbele de dinainte.",
+        "en": "A full name is granted only by three strangers who do not love you, owe you nothing and have never heard of you; kin, friends and neighbours do not count as witnesses, because love lies. Until he holds the full name a person is counted a child: he cannot take land, cannot marry and cannot stand before the assembly. The deed that earns the name must be spoken by him beforehand and then performed exactly, unaided, because foreign witnesses cannot be persuaded with words. Whoever takes a name from someone who loved him keeps a mark on his face, and for the rest of his life others see the mark and lower his price at the market. A name can be lost the same way: three strangers who see a villainy gather and tear it apart in the square, leaving the man with the words he had before."
+      },
+      "openings": {
+        "ro": [
+          "Trei negustori străini au stat o zi în hanul satului, iar Dinu trebuie să hotărască ce faptă le arată, știind că niciunul nu îl va ierta dacă minte.",
+          "Femeia are douăzeci de ani și tot numele copilăriei; astăzi pornește pe drum cu o poveste scrisă pe o bucată de piele, hotărâtă să o înfăptuiască înainte de iarnă.",
+          "Fratele ei a fost numit în grabă de rude, iar semnul de pe obrazul lui îl gonește din târg în târg; acum ea caută trei străini care să repare ce s-a făcut.",
+          "În piață s-au adunat trei oameni necunoscuți și jură că au văzut cum starostele a luat banii văduvei; satul așteaptă să vadă dacă numele starostelui se rupe astăzi."
+        ],
+        "en": [
+          "Three foreign traders spent a day at the village inn, and Dinu must decide which deed to show them, knowing that none of them will forgive him if he lies.",
+          "The woman is twenty and still carries her childhood name; today she sets out with a story written on a strip of hide, determined to accomplish it before winter.",
+          "Her brother was named in haste by his kin, and the mark on his cheek drives him from market to market; now she is looking for three strangers to repair what was done.",
+          "Three unknown men have gathered in the square and swear they saw the headman take the widow's money; the village waits to see whether the headman's name is torn apart today."
+        ]
+      }
+    },
+    {
+      "id": "cult-memory-price",
+      "tags": [
+        "memorie",
+        "durere",
+        "uitare"
+      ],
+      "title": {
+        "ro": "Universul în care amintirea se plătește cu durere trupească",
+        "en": "A universe where remembering is paid for with physical pain"
+      },
+      "law": {
+        "ro": "Ca un eveniment să rămână în lume, cineva trebuie să îl simtă din nou: memoria nu se ține în vorbe, ci în nervi, și se plătește cu durere trupească. De aceea există oameni plătiți să sufere pentru anumite zile, care stau în locurile lor și își amintesc până le iese sânge din nas. Dacă nimeni nu plătește pentru un eveniment, acesta se șterge și, cu el, se schimbă urmările: morții se întorc nevătămați în case, iar hotarele se trag iarăși pe harta de dinainte. Cei care plătesc nu pot povesti ce simt, fiindcă vorbele nu duc durerea mai departe, așa că orașele țin registre cu nume și cu zile, nu cu întâmplări. Un om care a plătit prea mult pentru alții rămâne gol pe dinăuntru, zâmbește la orice și nu mai poate plânge, iar astfel de oameni sunt cinstiți și feriți ca niște morți vii.",
+        "en": "For an event to stay in the world, someone must feel it again: memory is not kept in words but in nerves, and it is paid for with bodily pain. So there are people paid to suffer for certain days, who sit in their places and remember until blood comes from their noses. If no one pays for an event it is erased, and with it the consequences shift: the dead come home unharmed and boundaries are drawn again on the earlier map. Those who pay cannot tell what they feel, because words do not carry pain onward, so cities keep registers of names and days rather than of stories. A person who has paid too much for others stays hollow inside, smiles at everything and can no longer weep, and such people are honoured and avoided like the living dead."
+      },
+      "openings": {
+        "ro": [
+          "Bătrâna care plătește pentru ziua incendiului a căzut la pământ, iar satul trebuie să găsească repede pe cineva care să țină minte seara aceea, altfel casele arse se vor ridica la loc.",
+          "Fiul ei a semnat pentru trei războaie în același an și umblă acum prin târg zâmbind la toți; maică-sa vrea să știe ce i-a luat durerea de la el.",
+          "În piață s-a strâns comitetul zilelor și cere bani pentru o bătălie pe care nimeni nu și-o mai amintește; un tânăr se oferă să plătească, dar pentru altă zi decât cea hotărâtă.",
+          "Un străin bogat cumpără durere de la săraci ca să țină în viață o zi a lui, iar preotul atrage atenția că orașul se va umple de morți care nu au murit."
+        ],
+        "en": [
+          "The old woman who pays for the day of the fire has collapsed, and the village must quickly find someone to hold that evening in mind, or the burned houses will rise again.",
+          "Her son signed up for three wars in the same year and now walks smiling through the market; his mother wants to know what the pain has taken from him.",
+          "The committee of days has gathered in the square demanding money for a battle no one remembers any more; a young man offers to pay, but for a different day than the one decreed.",
+          "A rich stranger buys pain from the poor to keep one of his own days alive, and the priest warns that the city will fill with dead who have not died."
+        ]
+      }
+    },
+    {
+      "id": "cult-shared-pain",
+      "tags": [
+        "adevăr",
+        "memorie",
+        "dovadă"
+      ],
+      "title": {
+        "ro": "Universul în care adevărul unei amintiri este cât durerea plătită pentru ea",
+        "en": "A universe where the truth of a memory equals the pain paid for it"
+      },
+      "law": {
+        "ro": "Nu există dovezi, ci plăți: o întâmplare este adevărată întocmai în măsura durerii pe care cineva a plătit-o pentru ea. Un hoț dovedit cu preț mic rămâne cu o pedeapsă mică, iar un sfânt plătit scump poate fi făcut vinovat de tot ce s-a întâmplat într-un sat. Plata se face în fața obștii, în durere arătată, iar obștea ține socoteala ca la o cântărire. Fiecare om are dreptul la un singur adevăr al lui, pe care îl poate plăti oricât de scump, iar acesta se așază în registrul public și nu mai poate fi schimbat decât de o plată mai mare. De aceea săracii nu pot dovedi nimic, iar bogații își cumpără trecutul zi de zi, până când satul își amintește exact ce s-a plătit să își amintească.",
+        "en": "There are no proofs, only payments: an event is true exactly to the degree of pain someone has paid for it. A thief proven at a low price keeps a low sentence, while a saint paid for dearly can be made guilty of everything that ever happened in a village. Payment is made before the assembly, in displayed pain, and the assembly keeps the account as if at a weighing. Every person is entitled to one truth of his own, which he may pay for as dearly as he likes, and it is entered in the public register and can be changed only by a greater payment. So the poor can prove nothing, and the rich buy back their past day by day, until the village remembers exactly what it was paid to remember."
+      },
+      "openings": {
+        "ro": [
+          "Tatăl fetei moarte a plătit trei nopți de durere ca să dovedească otrava, iar bogații satului au strâns bani să plătească mai mult pentru alt adevăr.",
+          "Judecătorul citește socotelile și vede că acuzatul sărac are dreptate, dar că cel bogat a plătit mai scump; se ridică și cere obștii să hotărască ce fac cu cumpăna.",
+          "Femeia își ține singurul adevăr pentru ziua când va fi nevoită să se apere; între timp toți o cred vinovată, fiindcă nimeni nu a plătit pentru ea.",
+          "Un copil vrea să plătească pentru moartea câinelui său, iar obștea râde; preotul se întreabă ce se întâmplă când și cei mici încep să cumpere adevăruri."
+        ],
+        "en": [
+          "The dead girl's father paid three nights of pain to prove the poison, and the village rich have collected money to pay more for a different truth.",
+          "The judge reads the accounts and sees that the poor defendant is right but that the rich man paid more; he stands and demands the assembly decide what to do with the scales.",
+          "The woman keeps her single truth for the day she will have to defend herself; meanwhile everyone believes her guilty, because no one has paid for her.",
+          "A child wants to pay for the death of his dog, and the assembly laughs; the priest wonders what happens when the small begin buying truths too."
+        ]
+      }
+    },
+    {
+      "id": "cult-translation-shift",
+      "tags": [
+        "traducere",
+        "text",
+        "primejdie"
+      ],
+      "title": {
+        "ro": "Universul în care traducerea schimbă lucrul descris",
+        "en": "A universe where translation changes the thing described"
+      },
+      "law": {
+        "ro": "Un text nu povestește lumea, ci o ține: ceea ce este scris într-o limbă se petrece întocmai în lucrurile pe care le numește. Când un text trece în altă limbă, lumea se mută după traducere: sabia descrisă se tocește, râul se mută, regele scris în alt chip moare altfel. De aceea tratatele se țin netraduse, iar cine vrea să înțeleagă un text străin trebuie să învețe limba și să îl citească în ea, cu riscul de a se schimba pe sine. Tălmăcitorii sunt ținuți în lanțuri de aur și hrăniți bine, fiindcă o virgulă pusă greșit poate lua o provincie, iar un cuvânt ales cu meșteșug poate ridica un oraș. Traducerile făcute de mână obosită se cunosc în lume ca niște răni: acolo apar sate cu nume de nimic, pomi care rod pietre și oameni care se trezesc vorbind altă limbă.",
+        "en": "A text does not describe the world, it holds it: whatever is written in a language happens exactly as it names it in the things it names. When a text passes into another language the world shifts to follow the translation: the described sword goes blunt, the river moves, a king written differently dies differently. So treaties are kept untranslated, and anyone who wants to understand a foreign text must learn the language and read it there, at the risk of changing himself. Translators are kept in golden chains and fed well, because a misplaced comma can cost a province and a skilfully chosen word can raise a city. Translations made by a tired hand show in the world as wounds: villages appear there with names of nothing, trees that bear stones, and people who wake up speaking another tongue."
+      },
+      "openings": {
+        "ro": [
+          "Tălmăcitorul regal are de transpus mâine un tratat de hotare, iar degetele îi tremură; o virgulă pusă greșit poate muta râul la trei sate depărtare.",
+          "Femeia citește o carte străină în limba ei și simte cum i se schimbă chipul; trebuie să hotărască dacă termină capitolul ori lasă cartea închisă.",
+          "În piață a apărut un sat nou, cu oameni care vorbesc o limbă necunoscută; bătrânii spun că e semnul unei traduceri făcute de un ucenic obosit.",
+          "Craiul vrea să afle ce scrie în cronica inamică, însă singurul care știe limba refuză să citească, fiindcă orice cuvânt rostit cu voce tare se împlinește."
+        ],
+        "en": [
+          "The royal translator must render a boundary treaty tomorrow, and his fingers are trembling; a misplaced comma could move the river three villages away.",
+          "The woman reads a foreign book in its own language and feels her face changing; she must decide whether to finish the chapter or leave the book shut.",
+          "A new village has appeared on the plain, its people speaking an unknown language; the elders say it is the sign of a translation made by a tired apprentice.",
+          "The king wants to know what the enemy chronicle says, but the only one who knows the language refuses to read it, because any word spoken aloud comes true."
+        ]
+      }
+    },
+    {
+      "id": "cult-renamed-object",
+      "tags": [
+        "nume",
+        "lucruri",
+        "stat"
+      ],
+      "title": {
+        "ro": "Universul în care un lucru își schimbă firea când i se schimbă numele",
+        "en": "A universe where a thing changes its nature when its name is changed"
+      },
+      "law": {
+        "ro": "Fiecare lucru are un nume dat la începutul lumii, iar numele acela este și firea lui: fierul se numește fier și taie, piatra se numește piatră și ține. Cine rostește un nume nou asupra unui lucru îl preface: un plug numit sabie începe să taie oameni, o casă numită templu nu mai poate fi locuită. De aceea numele lucrurilor sunt păzite de stat ca hotarele, iar cine schimbă un nume în ascuns se alege cu mâinile pline de lucruri nerecunoscute. Meșterii lucrează numai cu lucruri numite de ei în față, la lumina zilei, iar alchimia este socotită o crimă, fiindcă amestecă nume pe care nu le înțelege. În târguri, vânzătorii de nume stau la un loc, cu tăblițe, și schimbă numele unui cuțit pentru prețul unui cal, fiindcă un nume schimbat la timp este mai scump decât orice unealtă.",
+        "en": "Every thing has the name given to it at the beginning of the world, and that name is also its nature: iron is called iron and cuts, stone is called stone and holds. Whoever speaks a new name over a thing transforms it: a plough named sword begins to cut people, a house named temple can no longer be lived in. So the names of things are guarded by the state like borders, and anyone who changes a name in secret ends up with hands full of unrecognisable objects. Craftsmen work only with things named by them openly, in daylight, and alchemy is counted a crime because it mixes names it does not understand. In marketplaces name sellers sit together with their tablets and trade the name of a knife for the price of a horse, because a name changed in time is worth more than any tool."
+      },
+      "openings": {
+        "ro": [
+          "Bunicul a numit de glumă toporul moale, iar acum nu mai poate tăia lemnele de iarnă; nepotul lui pleacă la târg să cumpere un nume nou, cu banii de mâncare.",
+          "Un funcționar a schimbat în documente numele morii în cazarmă, iar morarul s-a trezit cu soldați dormind în făină și cu piatra de moară prefăcută în ghiulea.",
+          "Femeia are o tăbliță cu numele adevărat al copilului ei și se teme că, dacă îl rostește, băiatul se va preface în altceva; preotul o sfătuiește să îl dea statului.",
+          "Mireasa a fost numită altfel la nuntă, iar în zori mirele a găsit în pat o femeie pe care nu o cunoștea, cu același chip și cu alt nume."
+        ],
+        "en": [
+          "Grandfather jokingly named the axe soft, and now he can no longer split the winter wood; his grandson sets off to market to buy a new name with the food money.",
+          "A clerk changed the mill's name to barracks in the records, and the miller woke to soldiers sleeping in the flour and the millstone turned into a cannonball.",
+          "The woman holds a tablet with her child's true name and fears that if she speaks it the boy will turn into something else; the priest advises her to give it to the state.",
+          "The bride was named differently at the wedding, and at dawn the groom found in his bed a woman he did not know, with the same face and another name."
+        ]
+      }
+    },
+    {
+      "id": "cult-one-museum",
+      "tags": [
+        "muzeu",
+        "existență",
+        "catalog"
+      ],
+      "title": {
+        "ro": "Universul în care toate lucrurile există doar înăuntrul unui singur muzeu",
+        "en": "A universe where all things exist only inside one single museum"
+      },
+      "law": {
+        "ro": "Lucrurile există numai înăuntrul zidurilor unui muzeu care acoperă un continent; scos afară, orice obiect se tocește în câteva zile și rămâne o umbră de formă, bună de arătat, rea de folosit. De aceea nimeni nu are unelte ale lui: fiecare sapă, fiecare cuțit, fiecare pâine se ia cu împrumut din muzeu, cu număr și cu semnătură, iar cine întârzie să le aducă plătește cu ani din viață. Sălile sunt așezate după vechime și după folos, iar drumul până la unelte durează zile; oamenii își petrec viața umblând pe coridoare lungi, cu tăblițe în mâini. Catalogul este singura autoritate: ce nu este scris în catalog nu există, chiar dacă stă pe raft, iar funcționarii care scriu greșit pot face un plug să se topească ori o corabie să se ridice din apă. Paznicii muzeului sunt o armată, iar războaiele se duc pentru dreptul de a adăuga un raft într-o sală mai bună.",
+        "en": "Things exist only inside the walls of a museum that covers a continent; taken outside, any object goes blunt within days and remains a shape of a shadow, good to look at, bad to use. So no one owns tools: every spade, every knife, every loaf is borrowed from the museum, with a number and a signature, and whoever returns them late pays with years of his life. The halls are ordered by age and by use, and the walk to the tools takes days; people spend their lives crossing long corridors with tablets in their hands. The catalogue is the only authority: what is not written in the catalogue does not exist, even if it stands on a shelf, and clerks who write wrongly can make a plough melt or a ship rise out of the water. The museum guards are an army, and wars are fought for the right to add a shelf in a better hall."
+      },
+      "openings": {
+        "ro": [
+          "Familia lui Toader a împrumutat o sapă pe trei zile și a pierdut-o pe drum; funcționarul socotește câți ani din viața copilului se scad pentru fierul lipsă.",
+          "O tăbliță din raionul uneltelor a fost scrisă cu o cifră greșită, iar de dimineață pâinea din sală s-a prefăcut în piatră; paznicii caută vinovatul printre mii de oameni.",
+          "Fata a găsit un obiect care nu este în catalog și îl ține ascuns în traistă; dacă îl preda, poate primi o sală a ei; dacă îl păstrează, obiectul se tocește.",
+          "Între două raioane vecine a izbucnit un război pentru un raft nou, iar satul lor trebuie să aleagă pe cine trimite pe coridoarele lungi, la o lună de mers."
+        ],
+        "en": [
+          "Toader's family borrowed a spade for three days and lost it on the road; the clerk is calculating how many years of the child's life are deducted for the missing iron.",
+          "A tablet in the tools section was written with a wrong digit, and since morning the bread in the hall has turned to stone; the guards hunt for the culprit among thousands.",
+          "The girl has found an object that is not in the catalogue and keeps it hidden in her bag; if she hands it in, she may be given a hall of her own; if she keeps it, the object will go blunt.",
+          "A war has broken out between two neighbouring sections over a new shelf, and their village must choose whom to send down the long corridors, a month's walk away."
+        ]
+      }
+    },
+    {
+      "id": "cult-exhibit-labels",
+      "tags": [
+        "etichetă",
+        "exponat",
+        "putere"
+      ],
+      "title": {
+        "ro": "Universul în care eticheta unui exponat îi hotărăște firea",
+        "en": "A universe where an exhibit's label decides its nature"
+      },
+      "law": {
+        "ro": "Fiecare ființă și fiecare lucru din muzeul lumii stau sub o etichetă scrisă de mână curată, iar ce scrie pe etichetă se împlinește: un om etichetat drept sfânt nu se poate îmbolnăvi, unul etichetat drept unealtă nu se poate odihni. Etichetele se schimbă rar și numai de curator, în fața martorilor, iar fiecare schimbare se simte în trup în aceeași zi. Cine își scrie singur o etichetă moare la apus, fiindcă mâna care se scrie pe sine nu are martor. De aceea oamenii se roagă pentru etichete bune și se tem de cuvântul divers, care nu însemna nimic bun în niciun catalog. Copiii se nasc fără etichetă și trăiesc liberi până la șapte ani, apoi curatori cu pălării negre vin și le hotărăsc firea pentru totdeauna, iar părinții nu au dreptul să spună nimic.",
+        "en": "Every being and every thing in the museum of the world stands under a label written in a clean hand, and what the label says comes true: a man labelled saint cannot fall ill, one labelled tool cannot rest. Labels are changed rarely and only by the curator, before witnesses, and each change is felt in the body the same day. Whoever writes himself a label dies at sunset, because the hand that writes itself has no witness. So people pray for good labels and fear the word miscellaneous, which never meant anything good in any catalogue. Children are born unlabelled and live free until they are seven, then curators in black hats come and decide their nature for ever, and the parents have no right to say a word."
+      },
+      "openings": {
+        "ro": [
+          "Copilul împlinește mâine șapte ani, iar părinții au aflat că eticheta pregătită pentru el este cea de paznic de noapte; mama vrea să fugă cu el din oraș.",
+          "Un om etichetat drept unealtă a fost dat la arat, iar fiul lui cere curatorului să îi schimbe eticheta înainte ca tatăl să se prăbușească de oboseală.",
+          "În catalog a apărut un cuvânt nou, pe care nimeni nu știe să îl citească, iar cei care îl poartă pe umăr se trezesc dimineața cu altă fire.",
+          "Femeia vrea să își scrie singură eticheta ca să scape de una rușinoasă, iar fiica ei o păzește toată noaptea, știind ce se întâmplă la apus."
+        ],
+        "en": [
+          "The child turns seven tomorrow, and the parents have learned that the label prepared for him is night watchman; his mother wants to flee the city with him.",
+          "A man labelled as a tool has been sent to the plough, and his son begs the curator to change the label before his father collapses from exhaustion.",
+          "A new word has appeared in the catalogue that no one knows how to read, and those who carry it on their shoulder wake up in the morning with another nature.",
+          "The woman wants to write her own label to escape a shameful one, and her daughter guards her all night, knowing what happens at sunset."
+        ]
+      }
+    },
+    {
+      "id": "cult-dance-coin",
+      "tags": [
+        "dans",
+        "monedă",
+        "muncă"
+      ],
+      "title": {
+        "ro": "Universul în care plata se face prin dans, iar banii nu se pot păstra",
+        "en": "A universe where payment is made by dancing, and money cannot be stored"
+      },
+      "law": {
+        "ro": "Bogăția unui om este numărul de pași pe care i-a dansat în fața martorilor: nu se poate moșteni, nu se poate îngropa și nu se poate păstra peste noapte. Cine vrea să cumpere ceva dansează până când vânzătorul socotește că pașii sunt de ajuns, iar oboseala ține loc de plată. Bătrânii și bolnavii ajung săraci, oricât ar fi strâns în tinerețe, fiindcă averea lor se risipește în ziua când nu se mai pot ridica în picioare. Hoții fură dansând pe numele altuia, iar furtul se cunoaște numai din oboseala celui păgubit: cine se trezește dimineața cu picioarele grele a fost jefuit. De aceea învățarea dansului este cea mai scumpă școală, iar meșterii de dansuri se plimbă prin târguri și vând pași ca pe niște unelte.",
+        "en": "A person's wealth is the number of steps he has danced before witnesses: it cannot be inherited, buried or kept overnight. Anyone who wants to buy something dances until the seller judges the steps to be enough, and tiredness takes the place of payment. The old and the sick end up poor, however much they hoarded when young, because their fortune scatters on the day they can no longer rise to their feet. Thieves steal by dancing in another's name, and the theft is known only from the victim's exhaustion: whoever wakes with heavy legs has been robbed. So learning to dance is the most expensive school, and dance masters travel the markets selling steps like tools."
+      },
+      "openings": {
+        "ro": [
+          "Bunicul are de plătit doctorul pentru nepoată, iar dimineața nu s-a mai putut ridica; vecinii îl întreabă cine îi va plăti dansul, fiindcă averea lui s-a risipit în noaptea asta.",
+          "Un hoț a dansat pe numele ei în piață și i-a luat toată averea; femeia se trezește cu picioarele grele și cu o singură zi ca să dovedească obștii cine a furat.",
+          "Ca să cumpere grâul de iarnă, fiul trebuie să danseze trei ceasuri în fața morarului, iar genunchiul i se desface după al doilea.",
+          "Meșterul de dansuri cere un preț uriaș pentru un pas nou, iar satul se adună să hotărască dacă îl plătește dansând ori îl lasă să treacă mai departe."
+        ],
+        "en": [
+          "Grandfather owes the doctor for his granddaughter and could not rise this morning; the neighbours ask who will dance his payment, since his fortune was scattered in the night.",
+          "A thief danced in her name in the market and took all her wealth; the woman wakes with heavy legs and a single day to prove to the assembly who stole it.",
+          "To buy winter grain the son must dance three hours before the miller, and his knee gives way after the second.",
+          "The dance master asks a huge price for a new step, and the village gathers to decide whether to pay it by dancing or let him move on."
+        ]
+      }
+    },
+    {
+      "id": "cult-step-debt",
+      "tags": [
+        "dans",
+        "datorie",
+        "robie"
+      ],
+      "title": {
+        "ro": "Universul în care datoria se plătește cu pași de dans, iar cine nu poate dansa devine rob",
+        "en": "A universe where debt is paid in dance steps and whoever cannot dance becomes a slave"
+      },
+      "law": {
+        "ro": "Orice datorie se plătește în pași de dans, iar valoarea unui pas crește cu numărul de martori care îl privesc: în piață un pas face cât zece pași făcuți în curte. Cine nu poate dansa din boală, bătrânețe ori rușine nu scapă de datorie, ci intră în slujba celui căruia îi datorează, până când altcineva dansează pentru el. Casa de dans a orașului ține socotelile, iar meșterii care învață copiii să danseze sunt plătiți în pași, așa că ajung cei mai bogați oameni și cei mai puternici. Un pas greșit la plata datoriei nu se șterge, ci se socotește dublu, iar cine a greșit de trei ori rămâne vândut pe viață. Femeile dansează altfel decât bărbații, iar socotelile nu se pot amesteca, de aceea o datorie a unei femei nu poate fi plătită de un bărbat decât dacă se însoară cu ea și îi ia pașii.",
+        "en": "Every debt is paid in dance steps, and the value of one step rises with the number of witnesses watching it: in the market a single step is worth ten made in a yard. Whoever cannot dance through illness, age or shame does not escape the debt but enters the service of the one he owes, until someone else dances for him. The city's dance house keeps the accounts, and the masters who teach children to dance are paid in steps, so they become the richest and most powerful people. A wrong step at the payment of a debt is not forgiven but counted double, and whoever errs three times is sold for life. Women dance differently from men and the accounts cannot be mixed, so a woman's debt can be paid by a man only if he marries her and takes her steps."
+      },
+      "openings": {
+        "ro": [
+          "Bătrânul a fost dus la casa de dans fiindcă nu mai poate plăti, iar fiul lui are o lună să învețe pașii, altfel tatăl rămâne vândut pe viață.",
+          "Femeia are o datorie de treizeci de pași în piață și o febră care o ține în pat; singurul care se oferă să danseze pentru ea cere să se însoare cu ea.",
+          "Un meșter de dans a greșit un pas la plata unei datorii mari și acum e vândut, cu toți ucenicii lui, unei familii de negustori.",
+          "Copiii satului învață să danseze de la un meșter plătit în pași, iar părinții socotesc dacă își vând pământul pentru lecții ori își lasă copiii datori pe viață."
+        ],
+        "en": [
+          "The old man has been taken to the dance house because he can no longer pay, and his son has a month to learn the steps, or his father stays sold for life.",
+          "The woman owes thirty steps in the market and has a fever that keeps her in bed; the only man offering to dance for her asks to marry her.",
+          "A dance master missed a step while paying a great debt and is now sold, with all his apprentices, to a merchant family.",
+          "The village children learn to dance from a master paid in steps, and the parents weigh whether to sell their land for lessons or leave their children in debt for life."
+        ]
+      }
+    },
+    {
+      "id": "cult-night-tongue",
+      "tags": [
+        "limbă",
+        "noapte",
+        "lege"
+      ],
+      "title": {
+        "ro": "Universul în care limba adevărată se poate vorbi doar după apus",
+        "en": "A universe where the true language can be spoken only after sunset"
+      },
+      "law": {
+        "ro": "Limba adevărată se rostește numai în întuneric: la lumina zilei cuvintele se sfărâmă în gură și ies ca niște gâze ori ca funingine. De aceea toate legile, învoielile, jurămintele și spovedaniile se fac noaptea, la lumina lunii ori a candelelor, iar ziua este hărăzită muncii mute. Cei care au lucrat toată noaptea dorm până la amiază și umblă ziua cu gura încleștată, arătând prin semne ce vor; copiii învață limba dormind în brațele celor mari, fiindcă ea nu se poate preda la soare. Un om care vorbește ziua limba adevărată își pierde glasul pentru o lună, iar cine o scrie pe piatră ori pe hârtie se alege cu o limbă de piatră, bună de atins, rea de folosit. De aceea orașele au ziduri înalte, ca noaptea să vină mai repede, iar negustorii care vor să încheie un târg așteaptă apusul și plătesc scump o candelă.",
+        "en": "The true language is spoken only in darkness: in daylight the words shatter in the mouth and come out as insects or soot. So all laws, bargains, oaths and confessions are made at night, by moonlight or lamplight, while the day is given to silent labour. Those who worked all night sleep until noon and walk through the day with clamped mouths, showing by signs what they want; children learn the language asleep in the arms of the grown, because it cannot be passed on in the sun. A person who speaks the true language in daytime loses his voice for a month, and whoever writes it on stone or paper is left with a tongue of stone, good to touch, bad to use. So cities have high walls, that night may come sooner, and traders wishing to close a bargain wait for sunset and pay dearly for a lamp."
+      },
+      "openings": {
+        "ro": [
+          "Târgul de vite trebuie încheiat până la răsărit, iar negustorul străin nu știe limba; femeia care îi tălmăcește simte cum îi arde gura la fiecare cuvânt rostit în soarele dimineții.",
+          "Copilul s-a născut surd la cuvintele de zi și nu reușește să învețe limba nopții; mama lui stă trează cu el, încercând să îi șoptească până la ivirea zorilor.",
+          "Preotul a scris o rugăciune pe peretele bisericii și acum nu mai poate vorbi; obștea se adună să hotărască ce fac cu limba de piatră din gura lui.",
+          "Un om a rostit ziua, în piață, o vorbă din limba adevărată, iar paznicii vor să afle de unde a învățat-o, fiindcă numai trădătorii o învață la lumina zilei."
+        ],
+        "en": [
+          "The cattle fair must close before sunrise and the foreign trader does not know the language; the woman interpreting for him feels her mouth burn with every word spoken in the morning sun.",
+          "The child was born deaf to daytime words and cannot learn the language of the night; his mother stays awake with him, trying to whisper to him until dawn.",
+          "The priest wrote a prayer on the church wall and can no longer speak; the assembly gathers to decide what to do with the tongue of stone in his mouth.",
+          "A man spoke a word of the true language in the market during the day, and the guards want to know where he learned it, because only traitors learn it in daylight."
+        ]
+      }
+    },
+    {
+      "id": "cult-day-silence",
+      "tags": [
+        "cuvinte",
+        "ceață",
+        "auz"
+      ],
+      "title": {
+        "ro": "Universul în care cuvintele se risipesc la soare și se adună noaptea în văi",
+        "en": "A universe where words scatter in the sun and gather at night in the valleys"
+      },
+      "law": {
+        "ro": "Cuvintele sunt o ceață subțire care iese din gură și se ridică; la soare se risipește în câteva clipe, iar noaptea se lasă în văi și rămâne atârnată printre copaci. De aceea ce se spune ziua nu ajunge niciodată la celălalt, iar oamenii învață să vorbească seara, cu obrajii lipiți de obraji, în ceața care se strânge. Cine vrea să trimită o veste departe o strigă noaptea de pe un deal, iar vestea călătorește cu ceața până dimineața; dacă o strigă la amiază nu rămâne nimic, nici măcar ecou. Văile adânci sunt pline de vorbe vechi nerostite de nimeni, care se aud noaptea ca un murmur; cine coboară acolo fără dopuri de urechi înnebunește în trei nopți. Copiii mici se nasc vorbind ceața, iar cei care cresc la soare, pe câmp, rămân muți toată viața, ceea ce oamenii socotesc liniște, nu boală.",
+        "en": "Words are a thin mist that leaves the mouth and rises; in the sun it scatters in moments, while at night it settles in the valleys and hangs among the trees. So what is said in the day never reaches the other, and people learn to talk in the evening, cheek against cheek, in the mist that gathers. Anyone who wants to send news far shouts it at night from a hill, and the news travels with the mist until morning; shouted at noon it leaves nothing, not even an echo. The deep valleys are full of old words spoken by no one, heard at night as a murmur; whoever goes down there without ear stops goes mad in three nights. Small children are born speaking the mist, and those raised in the sun, in the fields, stay mute for life, which people count as quietness, not as illness."
+      },
+      "openings": {
+        "ro": [
+          "Vestea despre boala copilului trebuie dusă în satul de peste deal, iar tatăl are o singură noapte ca să o strige; la răsărit ceața se ridică și vorbele se pierd.",
+          "Femeia a vorbit prea mult la amiază și acum nu mai are ce spune seara, când trebuie să îi răspundă logodnicului.",
+          "În vale s-a auzit un murmur nou, cu vorbe care nu sunt ale nimănui, iar bătrânii spun că vine de la un om căzut acolo fără dopuri de urechi.",
+          "Copilul crescut pe câmp nu poate vorbi deloc, iar părinții se ceartă dacă îl duc la umbră să învețe ceața ori îl lasă așa, cum îl crede lumea."
+        ],
+        "en": [
+          "News of the child's illness must reach the village beyond the hill, and the father has one night to shout it; at sunrise the mist lifts and the words are lost.",
+          "The woman talked too much at noon and now has nothing left to say in the evening, when she must answer her betrothed.",
+          "A new murmur has been heard in the valley, in words that belong to no one, and the elders say it comes from a man who fell there without ear stops.",
+          "The child raised in the fields cannot speak at all, and the parents quarrel over whether to take him into the shade to learn the mist or leave him as the world believes him."
+        ]
+      }
+    },
+    {
+      "id": "cult-lived-books",
+      "tags": [
+        "cărți",
+        "bibliotecă",
+        "întrupare"
+      ],
+      "title": {
+        "ro": "Universul în care cine termină o carte se preface în eroul ei",
+        "en": "A universe where whoever finishes a book turns into its hero"
+      },
+      "law": {
+        "ro": "Cine citește o carte până la capăt, cu glas tare și fără să sară vreun rând, se mută înăuntru: trupul lui doarme în bibliotecă, iar el trăiește ce scrie în poveste până când povestea se isprăvește. Bibliotecarii citesc în schimburi și nu termină niciodată o carte singuri, fiindcă nimeni nu vrea să rămână pe vecie prins într-un roman prost. Ca să scoată pe cineva din carte, o rudă apropiată trebuie să citească povestea înapoi, cu voce tare, până la capăt, iar cel scos iese schimbat de anii de acolo și nu mai știe să vorbească despre casa lui. Cărțile primejdioase sunt ținute legate cu lanțuri, iar cele despre războaie sunt citite numai de oameni plătiți, care intră de bunăvoie și nu ies niciodată la fel. Pe rafturi există un loc pentru fiecare om care a citit prea mult: acolo stau trupurile lor, cu ochii deschiși, iar vizitatorii le șterg praful o dată pe an.",
+        "en": "Whoever reads a book to the end, aloud and without skipping a line, moves inside: his body sleeps in the library while he lives what the story says until the story is finished. Librarians read in shifts and never finish a book alone, because no one wants to be trapped for ever in a bad novel. To pull someone out of a book, a close relative must read the story back, aloud, to the end, and the one drawn out comes back changed by the years spent there and can no longer speak about his own home. Dangerous books are kept chained, and books about wars are read only by paid men, who go in willingly and never come out the same. On the shelves there is a place for every person who read too much: their bodies lie there with open eyes, and visitors dust them once a year."
+      },
+      "openings": {
+        "ro": [
+          "Un copil a citit până la capăt un roman de război și acum doarme pe o laviță în bibliotecă; sora lui vrea să îl scoată citind înapoi, dar nu are glasul destul de tare.",
+          "Bibliotecara a rămas singură în schimbul de noapte, cu treizeci de pagini până la capătul unei povești despre o naufragiere; trebuie să hotărască dacă sună clopoțelul ori citește mai departe.",
+          "Pe un raft nou au apărut trupurile a cinci cititori, iar paznicul recunoaște în unul dintre ele chipul fratelui său, pe care îl credea plecat în lume.",
+          "Femeia vrea să îl scoată pe soțul ei din cartea greșită, iar prețul cerut de cititorul plătit este ca ea să intre în locul lui."
+        ],
+        "en": [
+          "A boy read a war novel to the end and now sleeps on a bench in the library; his sister wants to draw him out by reading backwards, but her voice is not loud enough.",
+          "The librarian is alone on the night shift, thirty pages from the end of a tale about a shipwreck; she must decide whether to ring the bell or read on.",
+          "The bodies of five readers have appeared on a new shelf, and the guard recognises in one of them his brother's face, whom he believed gone into the world.",
+          "The woman wants to pull her husband out of the wrong book, and the price asked by the paid reader is that she take his place."
+        ]
+      }
+    },
+    {
+      "id": "cult-silent-reader",
+      "tags": [
+        "carte",
+        "lectură",
+        "primejdie"
+      ],
+      "title": {
+        "ro": "Universul în care oricine e în odaie când se deschide o carte devine personaj",
+        "en": "A universe where anyone in the room when a book opens becomes a character"
+      },
+      "law": {
+        "ro": "Cărțile nu se citesc singure: când un volum se deschide, toți cei aflați în odaie intră în poveste și le iau locurile personajelor, fără să aleagă ce rol primesc. De aceea lecturile se fac în odăi goale, cu ușa zăvorâtă și cu oglinda întoarsă spre perete, iar cine citește se așază singur, cu spatele la tot. Dacă doi oameni deschid aceeași carte în două case, povestea se rupe în două și oamenii se ceartă ani întregi pe același rol, fără să se întâlnească vreodată. Copiii învață alfabetul în clase fără coperte și fără foi, fiindcă o singură carte uitată pe bancă poate lua toată clasa în povestea unei nopți lungi. Cei scăpați din întâmplări povestesc ce au trăit, iar bibliotecarii notează pe coperți cine a intrat și cine a ieșit, ca să știe cine mai lipsește.",
+        "en": "Books are not read alone: when a volume is opened, everyone in the room enters the story and takes the places of its characters, without choosing their role. So readings are held in empty rooms, with the door bolted and the mirror turned to the wall, and the reader sits alone, his back to everything. If two people open the same book in two houses, the story breaks in two and the people quarrel for years over the same role without ever meeting. Children learn the alphabet in classrooms without covers and without pages, because a single book left on a desk can take a whole class into the story of a long night. Those who escape the events tell what they lived, and librarians note on the covers who went in and who came out, so as to know who is still missing."
+      },
+      "openings": {
+        "ro": [
+          "Ucenicul a uitat o carte deschisă pe masa atelierului, iar meșterul și cei trei copii ai lui au intrat în poveste; soția trebuie să îi scoată citind singură, într-o odaie goală.",
+          "Doi frați au deschis același volum în două case, iar acum se ceartă de ani pe rolul tatălui; niciunul nu știe că celălalt trăiește aceeași noapte.",
+          "Bibliotecara găsește o carte cu ușa zăvorâtă și aude înăuntru glasul unei femei care cere să nu fie întreruptă; ea trebuie să hotărască dacă descuie ori așteaptă până dimineață.",
+          "La școală un copil a adus o carte ascunsă în haină, iar învățătorul socotește câte secunde are până când toată clasa intră în poveste."
+        ],
+        "en": [
+          "The apprentice left a book open on the workshop table, and the master and his three children went in; his wife must draw them out by reading alone in an empty room.",
+          "Two brothers opened the same volume in two houses, and now they have quarrelled for years over the father's role; neither knows the other lives the same night.",
+          "The librarian finds a book with the door bolted and hears inside the voice of a woman asking not to be disturbed; she must decide whether to unlock it or wait until morning.",
+          "At school a child has brought a book hidden in his coat, and the teacher counts the seconds until the whole class enters the story."
+        ]
+      }
+    },
+    {
+      "id": "cult-stage-court",
+      "tags": [
+        "teatru",
+        "judecată",
+        "convingere"
+      ],
+      "title": {
+        "ro": "Universul în care procesele se țin ca piese de teatru, iar verdictul este ce crede sala",
+        "en": "A universe where trials are staged as plays and the verdict is what the hall believes"
+      },
+      "law": {
+        "ro": "Judecata nu se face cu dovezi, ci cu joc: acuzatul, pârâtul și martorii urcă pe scenă și joacă seara întâmplării, iar hotărârea este ceea ce crede sala la căderea cortinei. Nu există probe mai presus de joc, fiindcă numai ce se vede pe scenă se socotește întâmplat, iar un om care joacă rău se alege vinovat chiar dacă nu a făcut nimic. Actorii sunt plătiți cu părți din pedeapsă, de aceea cei mai buni dintre ei ajung bogați și temuți, iar un actor slab este mai rău decât un hoț. Acuzatul nu are voie să își joace singur rolul dacă sala nu îl cere, ci primește un actor care îi ia chipul; de aici se nasc sute de oameni care trăiesc sub numele altora. Piesele se țin în fiecare seară, iar orașul care nu are teatru nu are legi, ci doar obiceiuri pe care nimeni nu le poate dovedi.",
+        "en": "Judgement is made not with evidence but with acting: the accused, the plaintiff and the witnesses go on stage and play the evening of the event, and the ruling is what the hall believes when the curtain falls. No proof outranks the play, because only what is seen on stage counts as having happened, and a man who acts badly is found guilty even if he did nothing. Actors are paid with shares of the sentence, so the best of them grow rich and feared, and a poor actor is worse than a thief. The accused may not play his own part unless the hall demands it, but is given an actor who takes his face; from this are born hundreds of people living under other names. Plays are held every evening, and a city without a theatre has no laws, only customs no one can prove."
+      },
+      "openings": {
+        "ro": [
+          "Femeia trebuie să joace în seara aceasta rolul hoaței de cai, iar actorul plătit de vecini are un glas care face sala să plângă; ea are o singură replică bună și o singură șansă.",
+          "Un actor i-a luat chipul de tată în piesa de ieri, iar acum copilul lui îl strigă pe stradă; omul adună obștea să ceară o piesă nouă.",
+          "Sala a crezut pe nedrept că bătrânul a dat foc hambarului, iar fiul lui caută un actor destul de bun ca să joace adevărul în seara următoare.",
+          "În orașul vecin nu s-a jucat nimic de trei luni, iar hoții umblă slobozi; solii vin să ceară trupă de teatru, iar primarul socotește cât costă o seară de dreptate."
+        ],
+        "en": [
+          "The woman must play the part of the horse thief tonight, and the actor hired by her neighbours has a voice that makes the hall weep; she has one good line and one chance.",
+          "An actor took his father's face in yesterday's play, and now his child calls to him in the street; the man gathers the assembly to demand a new play.",
+          "The hall wrongly believed the old man set the barn on fire, and his son is looking for an actor good enough to play the truth the following evening.",
+          "Nothing has been performed in the neighbouring city for three months and thieves walk free; envoys come asking for a theatre company, and the mayor counts what an evening of justice costs."
+        ]
+      }
+    },
+    {
+      "id": "cult-cast-guilt",
+      "tags": [
+        "teatru",
+        "rol",
+        "pedeapsă"
+      ],
+      "title": {
+        "ro": "Universul în care rolul primit la judecată se întrupează în om",
+        "en": "A universe where the role given at trial becomes real in the person"
+      },
+      "law": {
+        "ro": "Rolul primit la judecată se întrupează: cine este jucat ucigaș primește pe piele semnele ucigașului, cine este jucat hoț pierde ce a luat, chiar dacă nu a făcut nimic. De aceea împărțirea rolurilor este cea mai grea hotărâre a orașului și se face cu tragere la sorți, în fața tuturor, ca nimeni să nu poată vinde roluri. Semnele rămân până când cineva joacă din nou, într-o piesă nouă, fapta întoarsă: un om cu semne poate scăpa numai dacă altcineva primește rolul lui, cu pielea și cu pedeapsa cu tot. Astfel orașele își împart vina între oameni ca pe o boală, iar cei mai tineri sunt feriți de rolurile grele până la vârsta la care pot fugi. Un om fără niciun rol, care nu a fost niciodată jucat, rămâne fără chip în ochii lumii și nu poate fi găsit nici de ai lui, nici de paznici.",
+        "en": "The role given at trial becomes flesh: whoever is played a murderer receives the marks of a murderer on his skin, whoever is played a thief loses what was taken, even if he did nothing. So casting is the city's heaviest decision and is made by drawing lots, before everyone, so that no one can sell roles. The marks stay until someone plays, in a new play, the deed reversed: a marked man can escape only if another takes his role, with the skin and the punishment. In this way cities share out guilt among people like a disease, and the youngest are spared heavy roles until the age at which they can run. A person with no role at all, who has never been played, remains faceless in the eyes of the world and can be found neither by his own nor by the guards."
+      },
+      "openings": {
+        "ro": [
+          "Sorții au scos pentru copilul de doisprezece ani rolul de incendiator, iar mama lui are o noapte să găsească pe cineva care să ia rolul înainte ca semnele să apară pe piele.",
+          "Un negustor bogat plătește actori să joace fapta unui vecin, iar vecinul se trezește dimineața cu mâinile pătate și fără vite.",
+          "Femeia a purtat trei ani semnele unei hoațe și vrea să joace fapta întoarsă; nu găsește niciun actor dispus să îi ia locul, fiindcă nimeni nu vrea rolul.",
+          "În piață au fost scoase la sorți rolurile pentru piesa de mâine, iar orașul se strânge să vadă cine iese ucigaș și cine rămâne fără chip."
+        ],
+        "en": [
+          "The lots drew the part of the arsonist for the twelve-year-old boy, and his mother has one night to find someone to take the role before the marks appear on his skin.",
+          "A rich merchant pays actors to play a neighbour's deed, and the neighbour wakes with stained hands and no cattle.",
+          "The woman has worn the marks of a thief for three years and wants to play the deed reversed; she finds no actor willing to take her place, because no one wants the role.",
+          "The roles for tomorrow's play were drawn in the square, and the city gathers to see who comes out a murderer and who is left faceless."
+        ]
+      }
+    },
+    {
+      "id": "cult-invented-feasts",
+      "tags": [
+        "calendar",
+        "sărbătoare",
+        "suferință"
+      ],
+      "title": {
+        "ro": "Universul în care calendarul scornește sărbători noi când lumea suferă",
+        "en": "A universe where the calendar invents new holidays when the world suffers"
+      },
+      "law": {
+        "ro": "Când suferința oamenilor trece de o anumită măsură, calendarul naște singur o sărbătoare nouă, cu zi, cu nume și cu rânduieli pe care nimeni nu le-a scris. Sărbătoarea se ține întocmai, fiindcă ea se hrănește din bucurie, iar bucuria luată din lume se preface în ușurare: oamenii se odihnesc, uită o vreme de foamete și de război. Uitarea nu se dă însă înapoi, ci se așază în pământ: locurile unde s-a sărbătorit prea mult rămân sterpe, iar acolo nu se mai poate semăna nimic ani întregi. Copiii născuți în zilele nou făcute nu au zi de naștere, ci apar în registre cu numele sărbătorii, iar acei copii cresc mai veseli și mor mai tineri. Cei care nu țin sărbătoarea se îmbolnăvesc fără pricină, iar preoții calendarului umblă cu cartea prin sate și hotărăsc unde se poate, și unde nu se poate, să se bucure.",
+        "en": "When human suffering passes a certain measure the calendar gives birth by itself to a new holiday, with its day, its name and rules no one wrote. The holiday must be kept exactly, because it feeds on joy, and joy taken from the world turns into relief: people rest and forget famine and war for a while. The forgetting is not given back, but settles into the ground: places where too much has been celebrated stay barren, and nothing can be sown there for years. Children born on the newly made days have no birthday but appear in the registers under the name of the holiday, and those children grow merrier and die younger. Those who do not keep the holiday fall ill for no reason, and the calendar priests walk the villages with the book, deciding where joy may be had and where it may not."
+      },
+      "openings": {
+        "ro": [
+          "După al patrulea an de secetă, calendarul a născut o sărbătoare pe care nimeni nu o știa, iar primarul trebuie să hotărască dacă o vestește satului, știind ce lasă în urmă.",
+          "Copilul ei s-a născut în ziua nouă și nu are zi de naștere; femeia vrea să îl înscrie cu o dată obișnuită, iar preotul calendarului nu îi dă voie.",
+          "Femeia nu a putut sări peste foc anul trecut, iar de atunci tânjește fără pricină; vraciul spune că trebuie să țină sărbătoarea întreagă, oricât ar costa.",
+          "Câmpul unde s-a dansat trei zile nu mai rodește nimic, iar satul se strânge să hotărască dacă mai ține sărbătoarea ori o lasă să moară și rabdă boala."
+        ],
+        "en": [
+          "After the fourth year of drought the calendar gave birth to a holiday no one knew, and the mayor must decide whether to announce it to the village, knowing what it leaves behind.",
+          "Her child was born on the new day and has no birthday; the woman wants to register him with an ordinary date, and the calendar priest will not allow it.",
+          "The woman could not jump over the fire last year, and since then she has pined for no reason; the healer says she must keep the whole holiday, whatever it costs.",
+          "The field where people danced for three days bears nothing now, and the village gathers to decide whether to keep the holiday or let it die and endure the sickness."
+        ]
+      }
+    },
+    {
+      "id": "cult-calendar-relief",
+      "tags": [
+        "calendar",
+        "viață",
+        "datorie"
+      ],
+      "title": {
+        "ro": "Universul în care calendarul este viu și își ia zilele înapoi din viața oamenilor",
+        "en": "A universe where the calendar is alive and takes its days back from people's lives"
+      },
+      "law": {
+        "ro": "Calendarul nu este un obicei, ci un trup care se hrănește cu zile: el naște sărbători ca să fie ținut, iar din fiecare sărbătoare neținută își ia înapoi zilele din viața oamenilor. Un sat care lasă o sărbătoare să treacă nearămată bătrânește cu un an în câteva zile, iar copiii se nasc obosiți și cu părul alb. Zilele calendarului se socotesc de preoți, care văd în oase cât a mai rămas de trăit și hotărăsc când se poate odihni lumea. Cine vrea să adauge o sărbătoare trebuie să aducă zile din viața lui și să le pună pe masă, la vedere, fiindcă nimic nu se dă fără să se ia. Bătrânii se ceartă pentru dreptul de a ține sărbătorile mari, fiindcă cine le ține primește zilele celorlalți, iar orașele bogate au oameni plătiți să nu facă nimic altceva toată viața decât să serbeze.",
+        "en": "The calendar is not a custom but a body that feeds on days: it gives birth to holidays in order to be kept, and from every holiday unkept it takes back days from people's lives. A village that lets a holiday pass unmarked ages a year in a few days, and children are born tired and white haired. The calendar's days are counted by priests, who read in the bones how much life is left and decide when the world may rest. Anyone who wants to add a holiday must bring days out of his own life and lay them on the table, in the open, because nothing is given without being taken. The old quarrel over the right to keep the great holidays, because whoever keeps them receives the days of the others, and rich cities keep paid people who do nothing all their lives but celebrate."
+      },
+      "openings": {
+        "ro": [
+          "Preotul a citit în oasele satului și a spus că mai sunt șapte luni de trăit dacă nu se ține sărbătoarea care vine; primarul socotește cine poate plăti zile.",
+          "Bătrânul vrea să adauge o sărbătoare pentru fiul lui mort în război și trebuie să pună pe masă douăzeci de zile din viața lui, la vedere.",
+          "Femeia refuză să țină sărbătoarea mare ca să își țină copilul mic, iar de trei zile i se albește părul; obștea se adună să hotărască dacă o silește.",
+          "Orașul bogat angajează oameni care serbează toată viața, iar satul de lângă trimite soli să ceară un împrumut de zile, fiindcă nu mai are cine sărbători."
+        ],
+        "en": [
+          "The priest has read the village's bones and says there are seven months of life left unless the coming holiday is kept; the mayor counts who can pay in days.",
+          "The old man wants to add a holiday for his son killed in the war and must lay twenty days of his own life on the table, in the open.",
+          "The woman refuses to keep the great holiday so as to keep her small child, and for three days her hair has been whitening; the assembly gathers to decide whether to force her.",
+          "The rich city hires people to celebrate all their lives, and the next village sends envoys to ask for a loan of days, because there is no one left to celebrate."
+        ]
+      }
+    },
+    {
+      "id": "cult-played-rule",
+      "tags": [
+        "joc",
+        "lege",
+        "noroc"
+      ],
+      "title": {
+        "ro": "Universul în care legile se hotărăsc prin jocuri, iar mișcarea câștigătoare se ascultă",
+        "en": "A universe where laws are settled by games and the winning move must be obeyed"
+      },
+      "law": {
+        "ro": "Nicio lege nu se votează, ci se câștigă: două părți se așază la tablă în piață, iar hotărârea este mișcarea care închide partida, bună pentru toți, oricât de nedreaptă pare. Cine pierde trebuie să îndeplinească ce i s-a cerut și nu poate cere revanșa decât după un an și o zi, ca lumea să aibă vreme să se obișnuiască. Trișatul este singura crimă fără joc de apărare: cine este prins mutând o piesă în ascuns pierde toate drepturile și devine piatră de tablă pentru partida următoare. Copiii joacă din leagăn, iar cei cu mâini bune se antrenează ca soldații, fiindcă un jucător bun poate lua un sat întreg și îl poate ține treizeci de ani. Partidele mari se joacă o dată la șapte ani, cu tot orașul în piață, iar în zilele acelea nimeni nu doarme și nimeni nu mănâncă, fiindcă de tablă atârnă tot ce se va întâmpla.",
+        "en": "No law is voted on, it is won: two sides sit down at the board in the square, and the ruling is the move that closes the game, good for everyone, however unjust it seems. The loser must do what was demanded and may not ask for a rematch until a year and a day have passed, so that the world may grow used to it. Cheating is the one crime with no defence game: whoever is caught moving a piece in secret loses all rights and becomes a board stone for the next match. Children play from the cradle, and those with good hands train like soldiers, because a good player can take a whole village and hold it for thirty years. The great matches are played once every seven years, with the whole city in the square, and in those days no one sleeps and no one eats, because everything to come hangs on the board."
+      },
+      "openings": {
+        "ro": [
+          "Fata are paisprezece ani și mâini bune, iar tatăl ei, bolnav, o trimite la tabla mare să joace dreptul familiei la pădure împotriva starostelui.",
+          "Partida pentru hotarul satului s-a terminat la miezul nopții, iar mișcarea câștigătoare cere ca treizeci de oameni să sape un canal prin pământul lor.",
+          "Un trișor a fost prins în piață cu piesa ascunsă în mânecă, iar mulțimea cere să fie prefăcut în piatră de tablă înainte de partida de mâine.",
+          "Băiatul are un an și o zi de așteptare până la revanșă, iar între timp trebuie să îndeplinească o cerere nedreaptă, pe care tatăl lui refuză să o vadă împlinită."
+        ],
+        "en": [
+          "The girl is fourteen with good hands, and her sick father sends her to the great board to play the family's right to the forest against the headman.",
+          "The match for the village boundary ended at midnight, and the winning move requires thirty people to dig a canal through their own land.",
+          "A cheater was caught in the square with a piece hidden in his sleeve, and the crowd demands he be turned into a board stone before tomorrow's match.",
+          "The boy has a year and a day to wait for his rematch, and meanwhile must fulfil an unjust demand that his father refuses to see carried out."
+        ]
+      }
+    },
+    {
+      "id": "cult-kitchen-embassy",
+      "tags": [
+        "bucătărie",
+        "diplomație",
+        "tratat"
+      ],
+      "title": {
+        "ro": "Universul în care bucătăria este ambasada prin care se încheie pacea cu ființele cerului",
+        "en": "A universe where the kitchen is the embassy through which peace with the sky beings is made"
+      },
+      "law": {
+        "ro": "Învoielile cu ființele care umblă pe cer nu se scriu, ci se gătesc: mirosul unei mese se ridică și se așază ca o semnătură, iar dacă felul e greșit, semnătura se rupe și urmează seceta ori grindina. Bucătarul are rang de sol și nu poate fi atins cât timp ține lingura în mână, fiindcă el vorbește cu cei care nu coboară niciodată. Rețetele sunt taine de stat, se predau în bucătării fără fereastră și se scriu în două limbi, ca să nu poată fi furate de la o singură moarte. Cine greșește un fel de pace plătește cu zece ani de secetă pe pământul lui, iar cine gătește bine este cinstit ca un crai și cerut de toate cetățile. Ambasadele sunt bucătării mari, cu mese lungi, iar războaiele încep întotdeauna cu o mâncare rece ori cu o sare pusă de două ori.",
+        "en": "Bargains with the beings that walk the sky are not written but cooked: the smell of a meal rises and settles like a signature, and if the dish is wrong the signature breaks, and drought or hail follows. The cook holds the rank of an envoy and may not be touched while he holds the spoon in his hand, because he speaks with those who never come down. Recipes are state secrets, taught in windowless kitchens and written in two languages, so that they cannot be stolen by a single death. Whoever spoils a peace dish pays with ten years of drought on his land, and whoever cooks well is honoured like a king and demanded by every city. Embassies are large kitchens with long tables, and wars always begin with cold food or with salt put in twice."
+      },
+      "openings": {
+        "ro": [
+          "Bucătarul sol are de gătit mâine un fel de pace pentru grindina care se apropie, iar mirodenia de temelie lipsește; omul pleacă noaptea după ea, cu o zi înainte de semnătură.",
+          "Ucenicul a pus sare de două ori în ciorba solului, iar orașul întreg simte că vremea s-a întors; acum se caută vinovatul înainte de a doua masă.",
+          "O fată din sat gătește atât de bine încât este cerută de o cetate depărtată ca sol, iar familia ei trebuie să hotărască dacă o lasă să plece cu tainele bucătăriei.",
+          "Rețeta păcii de primăvară a fost vândută unui neam străin, iar bucătarul recunoaște în sosul dușmanului mâna lui; trebuie să aleagă între a tăcea și a se pierde."
+        ],
+        "en": [
+          "The envoy cook must prepare a peace dish tomorrow for the hail cloud coming nearer, and the base spice is missing; he sets out at night to find it, one day before the signature.",
+          "The apprentice put salt in the envoy's soup twice, and the whole city feels the weather has turned; the culprit is being sought before the second meal.",
+          "A village girl cooks so well that a distant city asks for her as an envoy, and her family must decide whether to let her go with the secrets of the kitchen.",
+          "The recipe for the spring peace was sold to a foreign people, and the cook recognises his own hand in the enemy's sauce; he must choose between silence and ruin."
+        ]
+      }
+    },
+    {
+      "id": "cult-story-graves",
+      "tags": [
+        "moarte",
+        "poveste",
+        "înmormântare"
+      ],
+      "title": {
+        "ro": "Universul în care morții se îngroapă în povești, iar cine rămâne nepovestit umblă",
+        "en": "A universe where the dead are buried in stories and whoever is left untold walks"
+      },
+      "law": {
+        "ro": "Un om nu moare când i se oprește inima, ci când povestea lui se încheie: atâta timp cât cineva o spune până la capăt, cu început și cu sfârșit, mortul rămâne liniștit sub pământ. Cei ale căror povești au rămas pe jumătate umblă prin case, se așază la masă și cer să li se spună restul, iar dacă nu li se spune, iau din copii câte un an. Povestașii sunt socotiți mai presus de preoți, fiindcă ei închid mormintele cu glasul, iar un povestitor care se oprește la mijloc este dat afară din casă și din sat. Fiecare familie are o poveste lungă, cu morți mulți, care se spune în șapte seri; cine o spune greșit ori o scurtează scoală din pământ pe toți cei îngropați de la început. Copiii învață poveștile neamului înainte de a învăța să scrie, iar cei care le uită ajung să poarte în spate povestirile tuturor celor nespuse, până se lasă pământului tineri.",
+        "en": "A person does not die when his heart stops but when his story ends: as long as someone tells it to the end, with a beginning and a close, the dead man lies quiet under the ground. Those whose stories were left half told walk through the houses, sit down at the table and demand to be given the rest, and if they are not, they take a year from each child. Storytellers rank above priests, because they close graves with their voices, and a teller who stops in the middle is driven from house and village. Every family has one long story, with many dead, told over seven evenings; whoever tells it wrongly or shortens it raises from the ground all those buried since the beginning. Children learn the stories of the kin before they learn to write, and those who forget end up carrying on their backs the untold tales of everyone else, until they lie down young."
+      },
+      "openings": {
+        "ro": [
+          "Bunica a murit la mijlocul poveștii, iar nepoata trebuie să spună restul în șapte seri; dacă greșește un singur nume, toți morții familiei se scoală din pământ.",
+          "Un om fără neam a fost îngropat fără poveste și umblă seara prin sat; câțiva tineri se strâng să îi spună o poveste de la început, dar nu știu nimic despre el.",
+          "Povestașul satului se îmbolnăvește în plină iarnă, iar înainte de a închide ochii trebuie să predea cuiva cele nouă povești lungi pe care le ține în minte.",
+          "Copilul a fost găsit spunând de unul singur povestea unui mort necunoscut, iar de atunci satul se teme că are un al doilea povestaș, mai tânăr decât se cuvine."
+        ],
+        "en": [
+          "Grandmother died in the middle of the story, and her granddaughter must tell the rest over seven evenings; if she gets a single name wrong, all the family dead rise from the ground.",
+          "A man with no kin was buried without a story and walks through the village in the evenings; a few young people gather to tell him a story from the start, but know nothing about him.",
+          "The village storyteller falls ill in the depths of winter, and before he closes his eyes he must pass on to someone the nine long stories he keeps in his mind.",
+          "The child was found telling alone the story of an unknown dead man, and since then the village fears it has a second storyteller, younger than is proper."
+        ]
+      }
+    },
+    {
+      "id": "cult-building-permission",
+      "tags": [
+        "arhitectură",
+        "porți",
+        "excludere"
+      ],
+      "title": {
+        "ro": "Universul în care clădirile hotărăsc cine are voie să intre",
+        "en": "A universe where buildings decide who is allowed to enter"
+      },
+      "law": {
+        "ro": "Ușile nu sunt obiecte, ci judecăți: fiecare clădire simte cine se apropie și se deschide ori se închide după cum omul acela a fost scris în temelia ei. Arhitectul scrie în piatră numele celor care pot intra, iar ce nu este scris nu poate trece, oricât ar împinge cu umărul; de aceea arhitecții sunt mai puternici decât primarii. Cine este scos dintr-un oraș se șterge din toate temeliile, iar porțile și zidurile se strâng în urma lui; astfel de oameni rămân pe câmpuri, hrănindu-se din ce găsesc, fără acoperiș nicăieri. O casă își schimbă firea cu locuitorii: dacă în ea se naște un ucigaș, ușile se strâmbă și nu se mai deschid decât la sânge. Femeile și bărbații nu trec pe aceleași praguri, fiindcă temelia se așază pe un singur fel de pași, iar casele în care se întâlnesc amândoi se crapă în trei ierni.",
+        "en": "Doors are not objects but judgements: every building feels who is approaching and opens or shuts according to whether that person was written into its foundation. The architect writes in stone the names of those who may enter, and whoever is not written cannot pass, however hard he pushes with his shoulder; so architects are stronger than mayors. Anyone cast out of a city is erased from all the foundations, and gates and walls close behind him; such people stay in the fields, feeding on whatever they find, with no roof anywhere. A house changes its temper with its inhabitants: if a murderer is born in it, the doors warp and open only for blood. Women and men do not cross the same thresholds, because a foundation is laid for one kind of step, and houses where both meet split within three winters."
+      },
+      "openings": {
+        "ro": [
+          "Fata vrea să intre în casa bunicii, dar ușa nu se mișcă de la moartea mamei; ea trebuie să afle cine a șters-o din temelie și de ce.",
+          "Un arhitect a scris în piatra unei școli numele a treizeci de copii, iar al patruzecilea, care nu are unde învăța, așteaptă la poartă toată iarna.",
+          "Orașul a scos o familie întreagă pe câmp, iar porțile s-au strâns după ei; tatăl se întoarce noaptea cu ciocanul să spargă temelia.",
+          "În casa nouă se naște un copil, iar în aceeași noapte ușile se strâmbă; arhitectul trebuie să hotărască dacă dărâmă zidul ori șterge copilul din piatră."
+        ],
+        "en": [
+          "The girl wants to enter her grandmother's house, but the door has not moved since her mother died; she must find out who erased her from the foundation and why.",
+          "An architect has written the names of thirty children into a school's stone, and the forty-first, who has nowhere to study, waits at the gate all winter.",
+          "The city has cast a whole family out into the fields, and the gates closed behind them; the father returns at night with a hammer to break the foundation.",
+          "A child is born in the new house, and that same night the doors warp; the architect must decide whether to pull down the wall or erase the child from the stone."
+        ]
+      }
+    },
+    {
+      "id": "cult-alphabet-regime",
+      "tags": [
+        "alfabet",
+        "putere",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care alfabetul se schimbă când se schimbă stăpânirea",
+        "en": "A universe where the alphabet changes when the regime changes"
+      },
+      "law": {
+        "ro": "Când se schimbă stăpânirea, se schimbă și literele: noii stăpâni scot semne vechi și pun altele noi, iar ce este scris cu literele scoase se citește tot mai greu, apoi nu se mai poate citi deloc. Oamenii nu pierd doar cărțile, ci și numele locurilor și al morților, fiindcă în scrisul nou se spune altfel, iar cine nu se poate numi nu se poate moșteni. De aceea bătrânii ascund tăblițe în păduri și învață copiii pe ascuns semnele vechi, iar cei prinși cu tăblițe vechi sunt pedepsiți ca hoți de hotare. Scribii sunt plătiți de stăpânire să rescrie toate documentele în literele noi, iar fiecare rescriere schimbă ceva mic: o hotărnicie, un nume, o datorie, până când lumea nu se mai potrivește cu ce scrie despre ea. Fiecare regim nou aduce și un semn nou, iar copiii cresc citind semne pe care părinții lor nu le vor putea citi niciodată, așa că între generații se așază un zid de litere.",
+        "en": "When the rule changes, the letters change too: the new masters strike out old signs and set new ones, and what was written in the removed letters becomes ever harder to read, and then cannot be read at all. People lose not only books but the names of places and of the dead, because the new writing says them differently, and whoever cannot be named cannot inherit. So the old hide tablets in the woods and teach the children the old signs in secret, and those caught with old tablets are punished as thieves of boundaries. Scribes are paid by the regime to rewrite all documents in the new letters, and each rewriting changes something small: a boundary, a name, a debt, until the world no longer matches what is written about it. Every new regime brings a new sign as well, and children grow up reading signs their parents will never be able to read, so a wall of letters stands between the generations."
+      },
+      "openings": {
+        "ro": [
+          "Scribul are de rescris registrul satului în literele noi, iar la hotarul pădurii o greșeală de un semn ar muta pădurea la vecini; tatăl lui îi cere să încurce semnele.",
+          "Băiatul a găsit o tăbliță veche în pod și citește numele străbunicii, pe care nimeni din familie nu îl mai știe; dacă îl spune cu voce tare, poate pierde moștenirea.",
+          "Un om bătrân refuză să învețe semnele noi și nu mai poate citi hotărârea prin care i se ia casa; fiul lui trebuie să citească pentru el, cu prețul rușinii.",
+          "În pădure au fost găsite tăblițe ascunse, iar stăpânirea trimite oameni să afle cine învață copiii semnele vechi."
+        ],
+        "en": [
+          "The scribe must rewrite the village register in the new letters, and at the forest boundary an error of one sign would move the forest to the neighbours; his father begs him to mix up the signs.",
+          "The boy has found an old tablet in the loft and reads his great-grandmother's name, which no one in the family knows any more; if he says it aloud he may lose his inheritance.",
+          "An old man refuses to learn the new signs and can no longer read the ruling that takes his house; his son must read it for him, at the price of shame.",
+          "Hidden tablets have been found in the woods, and the regime sends men to learn who is teaching the children the old signs."
+        ]
+      }
+    },
+    {
+      "id": "cult-censored-physics",
+      "tags": [
+        "cenzură",
+        "existență",
+        "putere"
+      ],
+      "title": {
+        "ro": "Universul în care ceea ce este interzis prin lege încetează să mai existe fizic",
+        "en": "A universe where whatever is forbidden physically ceases to exist"
+      },
+      "law": {
+        "ro": "Când o vorbă, o unealtă ori o faptă este oprită prin lege, lucrul acela nu mai poate fi făcut: nu se pedepsește, pur și simplu nu se poate, ca și cum mâna ar da în gol. Oamenii care încalcă interdicția pățesc altfel decât hoții: uită ce au făcut, iar cei din jur nu mai văd nici urmă, deși uneori rămâne o gaură în perete ori o tăcere de un ceas. De aceea legiuitorii sunt cei mai temuți oameni ai lumii, fiindcă o lege scrisă rău poate lua apă dintr-un râu ori poate opri un copil să învețe să citească. Ascunderea lucrurilor nu se poate face cu puterea, ci cu înțelegerea: legislația se scrie cu grijă, în cuvinte scurte, și se citește de trei ori înainte de a fi rostită, ca să nu se șteargă ceva nevinovat. Cartea cu legi se află în pivnița unei cetăți fără ferestre, iar cine vrea să scoată o interdicție din ea trebuie să dovedească mai întâi că lucrul oprit a existat cândva, ceea ce nimeni nu mai poate face.",
+        "en": "When a word, a tool or a deed is forbidden by law, that thing can no longer be done: it is not punished, it simply cannot happen, as if the hand met nothing. People who break a ban fare differently from thieves: they forget what they did, and those around them see no trace, though a hole in the wall or an hour of silence sometimes remains. So lawmakers are the most feared people in the world, because a badly written law can take water out of a river or stop a child from learning to read. Hiding things cannot be done by force but by understanding: legislation is written with care, in short words, and read three times before it is spoken, so that nothing innocent is erased. The book of laws lies in the cellar of a windowless fortress, and anyone who wants a ban removed must first prove that the forbidden thing once existed, which no one can do any more."
+      },
+      "openings": {
+        "ro": [
+          "O lege scrisă în grabă oprește fierăria din sat, iar acum nimeni nu mai poate ridica un cui; fierarul cere primarului să scoată interdicția, dar nimeni nu își mai amintește cum arăta o potcoavă.",
+          "Fata vrea să învețe să citească, dar legea satului oprește altceva decât se credea; dascălul citește de trei ori textul, temându-se de ce va pieri.",
+          "În pivnița cetății fără ferestre, un funcționar găsește o pagină scrisă strâmb, iar în ziua următoare râul curge pe alt drum; satul vrea să afle cine a citit ce nu trebuia.",
+          "Un om a furat cartea cu legi ca să șteargă o interdicție veche, iar paznicii nu pot să îl prindă, fiindcă nu mai există nici hoț, nici carte, nici drum spre pivniță."
+        ],
+        "en": [
+          "A law written in haste forbids the village smithy, and now no one can lift a nail; the smith asks the mayor to remove the ban, but nobody remembers what a horseshoe looked like.",
+          "The girl wants to learn to read, but the village law forbids something other than what was believed; the teacher reads the text three times, fearing what will perish.",
+          "In the cellar of the windowless fortress a clerk finds a crookedly written page, and the next day the river runs another way; the village wants to know who read what he should not have.",
+          "A man has stolen the book of laws to erase an old ban, and the guards cannot catch him, because there is no longer a thief, or a book, or a road to the cellar."
+        ]
+      }
+    }
+  ]
+}

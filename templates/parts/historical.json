@@ -1,0 +1,1035 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "hist-sumer-clay-tablets",
+      "tags": [
+        "scriere",
+        "lut",
+        "datorie"
+      ],
+      "title": {
+        "ro": "Universul în care numai faptul scris pe lut ars se socotește adevărat",
+        "en": "A universe where only a fact fired into clay counts as true"
+      },
+      "law": {
+        "ro": "Adevărat este doar ce s-a scris pe lut și s-a ars în cuptor: o recoltă neînscrisă nu există, o învoială nesemnată nu s-a făcut, iar o răfuială neînscrisă nu s-a întâmplat niciodată. Lutul se ia din malul râului după cota anului, iar fiecare oraș primește atâta lut cât îi dă curgerea apei, așa că numărul faptelor adevărate dintr-un an este mărginit și se împarte cu rândul. Numai scribul poate așterne semne, iar omul care nu scrie trebuie să închirieze mâna unui scrib și să plătească în grâu cât stă lângă el. Tăblița arsă nu se poate șterge: cine vrea să schimbe un fapt plătește o a doua tăbliță și aduce pe cea veche de față, ca martor al minciunii. Cine așterne un lucru greșit rămâne ținut de el, fiindcă tăblița arsă se întoarce împotriva mâinii care a scris-o. Satul rămas fără lut anul acela trăiește ca vita, fără nume, fără neam și fără datorii.",
+        "en": "Only what has been pressed into clay and fired in the kiln is real: an unrecorded harvest does not exist, an unwritten agreement was never made, and a quarrel left unrecorded never happened at all. The river gives each town as much mud as its flood allows, so the number of true facts in a year is finite and shared out by turns. Writing belongs to the scribe, and a man who cannot write must rent a scribe's hand and pay in grain for every hour the hand rests beside him. A fired tablet cannot be erased, and whoever wants to change a fact pays for a second tablet and brings the first one openly, as a witness to the lie it carried. Whoever cuts a false record stays chained to it, because the tablet turns against the hand that pressed it. A household left without clay that year lives as cattle do, with no name, no kin and no debt to its credit."
+      },
+      "openings": {
+        "ro": [
+          "Nanu, tânărul scrib al templului, are trei tăblițe nearse și șaisprezece cereri: negustorul de orz vrea să-și înscrie datoria, văduva vrea ca băiatul ei să fie scris fiu al răposatului, iar preotul vrea ca o hotărâre de ieri să nu mai existe. Până la apus lutul se usucă și nu mai primește semne, așa că el trebuie să hotărască pe cine face adevărat.",
+          "Sora lui Nanu îi aduce o tăbliță arsă, găsită într-un zid dărâmat, pe care stă scris că tatăl lor a vândut casa înainte de a muri. Dacă o duce la judecători, casa se pierde pentru totdeauna; dacă o sparge, ea însăși devine hoață de fapte. Are o singură noapte să hotărască.",
+          "Cota râului a scăzut anul acesta și orașul a primit jumătate din lutul de anul trecut. Sunt douăzeci de familii care așteaptă să li se scrie moștenirea și au rămas nouă tăblițe de ars. Starostele le-a așezat pe masă și le cere fiecăruia să spună de ce faptul lui trebuie să existe.",
+          "Un negustor din Kish sosește cu o tăbliță încă moale, pe care scrie că Nanu ar fi dator cu o grămadă de argint. Nanu știe că nu a semnat nimic, dar lutul e ud și orice deget lasă o urmă care seamănă cu a lui. Trebuie să aleagă între a arde tăblița și a-și lăsa numele pe ea."
+        ],
+        "en": [
+          "Nanu, a young scribe of the temple, holds three unfired tablets and sixteen requests: the barley merchant wants his loan recorded, a widow wants her son written as the child of her dead husband, and the priest wants yesterday's verdict to vanish. Mud dries by sunset and takes no marks after that, so he must decide whose fact will be real.",
+          "Nanu's sister brings him a fired tablet found inside a fallen wall, and on it stands that their father sold the house before he died. If she carries it to the judges the house is lost forever; if she breaks it she becomes a thief of facts. She has one night to choose.",
+          "The river rose lower this year and the town received half the mud of last year. Twenty households are waiting for their inheritance to be written and nine tablets are left to fire. The elder set them on the table and told each claimant to say why his fact deserves to exist.",
+          "A trader from Kish arrives with a tablet still soft, which says Nanu owes him a heap of silver. Nanu knows he signed nothing, but the clay is wet and any finger leaves a mark that looks like his. He must choose between burning the tablet and letting his name stand on it."
+        ]
+      }
+    },
+    {
+      "id": "hist-nile-flood-calendar",
+      "tags": [
+        "râu",
+        "măsură",
+        "an"
+      ],
+      "title": {
+        "ro": "Universul în care anul începe când râul se revarsă peste borna de piatră",
+        "en": "A universe where the year begins when the river crosses the stone mark"
+      },
+      "law": {
+        "ro": "Anul nu se numără cu soarele, ci cu înălțimea apei: el începe în ziua în care râul trece peste borna de piatră, iar până atunci nimeni nu se însoară, nu vinde și nu pornește la drum. Când apa scade, hotarele ogoarelor se măsoară din nou cu frânghia, așa că niciun om nu stăpânește pământ mai mult de un an de revărsare, iar cine seamănă pe un petic încă nemăsurat își pierde tot rodul. Grâul se strânge în hambarele regelui, iar fiecare familie primește înapoi atâta hrană cât i se cuvine după ogorul din anul acela. Datoriile scrise se topesc toate în ziua când apa începe să crească, fiindcă nimic împrumutat nu se duce peste un an. Cine ridică stăvilar sau sapă canal fără poruncă își pierde apa de băut pentru tot neamul, iar satul lui se mută pe piatră seacă.",
+        "en": "The year is counted by the height of water, not by the sun: it begins the day the river crosses the stone mark, and until then no man weds, sells or sets out on the road. When the flood pulls back, the field borders are walked again with rope, so no one holds land longer than a single flood, and whoever sows a strip not yet measured loses the whole crop. Grain goes into the king's stores and each household is given back as much food as its measured field deserves that year. Every written debt dissolves on the day the water starts to rise, because nothing borrowed can be carried across to another year. Whoever raises a dyke or cuts a channel without order loses drinking water for his whole line, and his village is moved onto dry stone."
+      },
+      "openings": {
+        "ro": [
+          "Sobek, măsurătorul de ogoare, stă cu frânghia în mână în fața a două familii care au lucrat același petic de pământ: apa a mințit hotarul, iar el trebuie să spună în ce parte cade linia de azi. Amândouă au adus grâu la hambar și amândouă flămânzesc dacă pierd ogorul.",
+          "Cota citită de preoți e mai mică decât borna de piatră, așa că anul nou nu poate fi vestit. Fără vestire, nimeni din sat nu are voie să are, iar copiii lui Sobek mănâncă ultima pâine din casă. El poate muta borna, poate pleca pe drum, ori poate cere regelui să dea poruncă de revărsare.",
+          "Bătrâna care l-a crescut pe Sobek a murit în ceasul când apa a început să crească, iar datoriile ei s-au topit înainte de înmormântare. Neamul ei se poate acum împărți pe ogoare, iar Sobek este cel care trebuie să împartă, deși una dintre rude i-a fost soră de lapte.",
+          "Un slujbaș al regelui vine cu o coală pe care stă scris că ogoarele din bălțile noi trec în seama curții, fiindcă apa le-a acoperit mai mult de trei ani la rând. Oamenii care au semănat acolo nu au nicio tăbliță veche cu care să se apere, doar mâinile și copiii."
+        ],
+        "en": [
+          "Sobek, the field measurer, stands with the rope in his hands before two families who worked the same strip: the water moved the border, and he must say on which side today's line falls. Both households paid grain into the store, and both starve if they lose it.",
+          "The height read by the priests falls short of the stone mark, so the new year cannot be announced. With no announcement, no one in the village may plough, and Sobek's children are eating the last loaf in the house. He can move the mark, take the road, or ask the king to command the flood.",
+          "The old woman who raised Sobek died in the hour the water began to rise, so her debts melted before burial. Her line can now be divided across the fields, and Sobek is the man who must divide it, though one of the heirs nursed at the same breast as he did.",
+          "An officer of the king arrives with a sheet saying the fields in the new marshes pass to the court, because the water covered them three years running. The people who sowed there hold no old tablet to defend themselves with, only their hands and their children."
+        ]
+      }
+    },
+    {
+      "id": "hist-akkadian-empire",
+      "tags": [
+        "oaste",
+        "tribut",
+        "limbă"
+      ],
+      "title": {
+        "ro": "Universul în care cetățile cucerite dau fiul cel mare oastei regelui",
+        "en": "A universe where conquered cities must give their eldest sons to the king's army"
+      },
+      "law": {
+        "ro": "Cetățile cucerite rămân cetăți, dar dau regelui pe cel dintâi fiu al fiecărei familii și o parte din grâne, iar cei care ascund un băiat ori o măsură de orz sunt risipiți cu tot neamul. Oastea regelui nu iernează niciodată mai mult de o lună într-un loc, fiindcă oamenii care se așază la plug nu mai pot fi strânși la chemare. Limba în care se scrie pentru rege este una singură, iar tăblițele cetăților care scriu altfel nu se citesc niciodată înaintea lui, așa că numele lor se sting fără sabie. Anul se numără după fapta cea mare a regelui: un an fără oraș luat și fără zid dărâmat nu are nume și se socotește pierdut. Fiii ostașilor așezați în cetățile cucerite rămân ostași ai regelui, chiar dacă maicile lor vorbesc limba cea veche, iar la șaisprezece ani trebuie să răspundă la chemare.",
+        "en": "A conquered city stays a city, but it gives the king the first son of every household and a share of its grain, and any town that hides a boy or a measure of barley is scattered with all its kin. The royal army never winters more than a month in one place, because soldiers who settle turn into ploughmen and cannot be gathered again. Only one tongue may be written for the king, and tablets from cities that write in another tongue are never read before him, so those names fade without a sword drawn. The year takes its number from the king's great deed: a year with no city taken and no wall thrown down has no name and is counted lost. Sons of soldiers placed in conquered towns remain the king's soldiers even when their mothers speak the old tongue, and at sixteen they must answer the muster."
+      },
+      "openings": {
+        "ro": [
+          "Manishtushu, căpetenia unei cetăți de hotar, trebuie să predea un băiat din fiecare casă. Are trei fii ai lui și o listă de nouăzeci de case, iar în două uși oamenii au zidit intrarea ca să nu fie găsiți. Oastea regelui stă la poartă și numără cu voce tare.",
+          "Un scrib al cetății a scris tăblița de dare în limba bătrână, iar curierii regelui au citit-o și i-au dat foc casei de scris. Sora scribului îl ascunde în podul grânarului și trebuie să hotărască dacă îl predă ori fuge cu el peste hotar.",
+          "Anul se sfârșește în două zile și regele nu a luat niciun oraș. Căpetenia trebuie să aleagă un zid de la margine pe care să-l dărâme în grabă, ca anul să capete un nume, sau să lase anul fără nume și să răspundă pentru asta în fața curții.",
+          "Fiul cel mare al căpeteniei se întoarce din oaste cu o rană la șold și cu limba regelui în gură. Acasă, mama lui îi așterne pâine și o tăbliță prin care i se dă pământ de plugar. El trebuie să spună dacă rămâne ostaș ori se leapădă de chemare."
+        ],
+        "en": [
+          "Manishtushu, chief of a border town, must hand over one boy from each house. He has three sons of his own and a list of ninety houses, and in two doorways the people have walled up the entrance so as not to be found. The king's army waits at the gate, counting aloud.",
+          "A town scribe wrote the tribute tablet in the old tongue, and the king's riders read it and set fire to his writing house. The scribe's sister hides him in the granary loft and must decide whether to hand him over or run with him across the border.",
+          "The year ends in two days and the king has taken no city. The chief must pick a wall on the frontier and throw it down in haste, so that the year gets a name, or leave the year nameless and answer for it before the court.",
+          "The chief's eldest son comes home from the army with a wound in his hip and the king's tongue in his mouth. At home his mother sets bread before him and a tablet granting him plough land. He must say whether he stays a soldier or gives up the muster."
+        ]
+      }
+    },
+    {
+      "id": "hist-babylon-written-code",
+      "tags": [
+        "lege",
+        "piatră",
+        "pedeapsă",
+        "argint"
+      ],
+      "title": {
+        "ro": "Universul în care pedeapsa stă cioplită pe piatră, iar prețul omului se naște cu el",
+        "en": "A universe where punishment stands carved in stone and a person's price is fixed at birth"
+      },
+      "law": {
+        "ro": "Nimeni nu se pedepsește după voia celui puternic, ci numai după rândul care stă cioplit pe piatra din piață, iar judecătorul care schimbă o hotărâre plătește de douăsprezece ori prețul pricinii. Prețul unui om este trecut în tăblița neamului lui: omul slobod plătește un ochi pentru un ochi, omul de rând plătește în argint, iar robul se plătește stăpânului. Cine nu poate aduce martori se coboară în râu, iar dacă apa îl scoate curat, iese slobod, iar pârâșul lui ia pedeapsa scrisă pentru minciună. Învoiala care nu are martori și pecete nu se ascultă în niciun tribunal, oricât de drept ar fi rostul ei. Un rând nou intră pe piatră numai dacă regele îl cioplește cu mâna lui în anul întâi al domniei, așa că toți trăiesc sub rânduiala făcută de un singur om demult.",
+        "en": "No one is punished by the will of the strong, but only by the line cut into the stone in the square, and a judge who alters a verdict pays twelve times the value of the case. A person's price stands in his family tablet: a free man pays an eye for an eye, a commoner pays silver, and a slave is paid for to his owner. Whoever cannot bring witnesses goes down into the river, and if the water carries him out clean he walks free while his accuser takes the written penalty for lying. No agreement without witnesses and a seal is heard in any court, however honest its purpose may be. A new line enters the stone only when the king cuts it there with his own hand in the first year of his reign, so all people live under rules shaped by one man long ago."
+      },
+      "openings": {
+        "ro": [
+          "Un judecător din Babilon are pe masă două tăblițe care dau rânduri deosebite pentru aceeași lovitură, iar omul care îl mituiește este fratele regelui. El trebuie să dea hotărârea în piață, în fața pietrei, înainte de apus.",
+          "Femeia pârâtă că și-a ucis bărbatul cere proba apei, fiindcă nu are martori. Fratele ei, care o însoțește la mal, știe că râul în aprilie nu cruță pe nimeni și trebuie să hotărască dacă o lasă să se coboare ori se coboară el în locul ei.",
+          "Un tălmăcitor găsește o tăbliță de vânzare de pământ cu două nume și fără martori. Cumpărătorul este un om de rând care și-a vândut singura vită pentru ogor, iar dacă tălmăcitorul spune adevărul, omul rămâne fără pământ și fără argint.",
+          "Regele este bolnav și nu mai poate ciopli pe piatră, iar negustorii cer un rând nou pentru împrumuturile de pe mare. Fiul lui, care nu are încă an de domnie, trebuie să hotărască dacă cioplește în locul tatălui ori lasă pricina nerânduită."
+        ],
+        "en": [
+          "A judge in Babylon holds two tablets that give different lines for the same blow, and the man bribing him is the king's brother. He must give his verdict in the square, before the stone, before sunset.",
+          "The woman accused of killing her husband asks for the water trial, because she has no witnesses. Her brother, who walks with her to the bank, knows the April river spares no one and must decide whether to let her go down or go down in her place.",
+          "A translator finds a land sale tablet with two names on it and no witnesses. The buyer is a commoner who sold his only cow for that field, and if the translator speaks the man loses both field and silver.",
+          "The king is ill and can no longer cut stone, and the merchants want a new line for sea loans. His son, who has no regnal year yet, must decide whether to cut it in his father's place or leave the matter unruled."
+        ]
+      }
+    },
+    {
+      "id": "hist-hittite-oaths",
+      "tags": [
+        "jurământ",
+        "zei",
+        "ciumă"
+      ],
+      "title": {
+        "ro": "Universul în care jurământul ține lumea, iar călcarea lui aduce boala peste toți",
+        "en": "A universe held together by oaths, where breaking one brings sickness upon all"
+      },
+      "law": {
+        "ro": "Nimic nu se ține prin ziduri, ci prin jurământ: cetățile supuse, ostașii, preoții și chiar slugile curții se leagă prin cuvânt rostit înaintea zeilor, iar legătura se citește cu glas tare o dată pe an, ca nimeni să nu poată spune că a uitat. Cine rupe jurământul nu păgubește doar pe cel înșelat, ci aduce boala și seceta peste ținutul întreg, fiindcă zeii pedepsesc un neam întreg pentru un singur mincinos. De aceea orașul care află de un jurământ călcat trebuie să scoată pe vinovat din casă și să-l alunge gol, iar dacă îl ascunde, ciuma rămâne în ziduri până îl dă. Cine jură strâmb și moare înainte de a se descoperi este scos din mormânt și ars, iar copiii lui nu mai pot jura niciodată înaintea zeilor, ceea ce îi lasă fără pământ și fără nume. Regele nu poruncește fără jurământ scris, așa că fiecare învoială a lui leagă amândouă părțile prin aceleași cuvinte, iar cine se leapădă își pierde toate cetățile supuse.",
+        "en": "Nothing holds by walls, only by oath: subject towns, soldiers, priests and even palace servants are bound by words spoken before the gods, and the binding is read aloud once a year so that no one may claim to have forgotten. A breaker of oaths does not wrong only the man he deceived; he drags sickness and drought over the whole land, because the gods punish a people for one liar. So a town that learns of a broken oath must drive the guilty one out of doors and out naked, and if it hides him the plague stays inside the walls until he is given up. Whoever swears falsely and dies before he is found is taken from his grave and burned, and his children may never swear before the gods again, which leaves them without land and without a name. The king commands nothing without a written oath, so each of his agreements binds both sides in the same words, and whoever breaks faith loses every town beneath him."
+      },
+      "openings": {
+        "ro": [
+          "Un ostaș din garda cetății trebuie să jure pe pâine și pe untdelemn înaintea oștirii, dar mâna îi tremură: fratele lui a fugit noaptea trecută de sub steag, iar jurământul îl leagă să spună tot. Dacă tace, boala intră în cetate; dacă vorbește, neamul lui se rușinează.",
+          "Ciuma a intrat în cetate de trei luni și preoții caută jurământul călcat. O bătrână știe că fiul ei a jurat strâmb înainte să moară în luptă și că zace îngropat lângă zid. Ea trebuie să spună ori să tacă până la moarte.",
+          "Regele trimite o solie la curtea rivalei cu un jurământ scris, iar tălmăcitorul vede că un cuvânt din rândul cel nou mută hotarul a două cetăți. Dacă tâlcuiește rândul așa cum e scris, începe războiul; dacă îl îndreaptă, rupe jurământul cel întreg.",
+          "Un cioban a jurat că nu a văzut nimic, iar acum turma i s-a îmbolnăvit deodată. Satul îl scoate din casă și îi cere să spună cine a trecut pe potecă în noaptea aceea, dar omul pe care l-ar putea pârî îi hrănește copiii."
+        ],
+        "en": [
+          "A soldier of the city guard must swear on bread and oil before the host, but his hand shakes: his brother ran from under the standard last night, and the oath binds him to tell everything. If he keeps quiet, sickness enters the city; if he speaks, his family is shamed.",
+          "Plague has been in the city three months and the priests are hunting a broken oath. An old woman knows her son swore falsely before he died in battle and lies buried by the wall. She must speak or keep silent until death.",
+          "The king sends an envoy to a rival court with a written oath, and the translator sees that one word in the new line moves the border of two towns. If he renders the line as written, war begins; if he corrects it, he tears the whole oath.",
+          "A shepherd swore he saw nothing, and now his flock has sickened all at once. The village drives him from his house and demands he name who crossed the path that night, but the man he could accuse feeds his children."
+        ]
+      }
+    },
+    {
+      "id": "hist-phoenician-stars",
+      "tags": [
+        "mare",
+        "stele",
+        "neam",
+        "port"
+      ],
+      "title": {
+        "ro": "Universul în care marea se citește după stele, iar drumul se moștenește pe neam",
+        "en": "A universe where the sea is read by the stars and the route is inherited by blood"
+      },
+      "law": {
+        "ro": "Drumul pe mare nu se ține minte în semne, ci în rândul stelelor, iar rândul acesta se strigă din tată în fiu, noaptea, pe punte, și nu se așterne niciodată pe lut. Corabia care pornește fără un pilot al casei nu se întoarce, iar dacă se întoarce, încărcătura ei se ia de templul mării și echipajul rămâne dator cetății pe viață. Fiecare neam de corăbieri dă portului o parte din marfă și un fiu care să învețe cerul, iar acel fiu nu mai are voie să se așeze la plug, căci apa îl cheamă înapoi. Locurile de scos corabia, adăposturile și izvoarele de pe țărmuri se țin tot pe neam, iar cine le arată altcuiva își pierde dreptul de a ancora și de a lua apă în toate porturile care păzesc aceeași rânduială. Portul care nu trimite anul acela nicio corabie spre răsărit este pus la plată, fiindcă zăbava pe mare se socotește pagubă adusă tuturor.",
+        "en": "A sea road is not held in signs but in the order of the stars, and that order is called out from father to son at night on the deck and is never set down in clay. A ship that sails without a pilot of the house does not come back, and if it comes back its cargo is taken by the temple of the sea and its crew owes the city for life. Every house of sailors gives the harbour a share of its cargo and one son to learn the sky, and that son may never settle to the plough, because the water calls him back. Beaching places, shelters and fresh springs along the coast belong to houses too, and whoever shows them to an outsider loses the right to anchor and draw water in every harbour that keeps the same order. A port that sends no ship east that year is charged in silver, because delay at sea is counted a loss done to all."
+      },
+      "openings": {
+        "ro": [
+          "Pilotul Ahiram se întoarce în Tir după doisprezece ani și găsește poarta închisă: casa lui a fost pusă la plată pentru o corabie pierdută pe care el nu a condus-o. Trebuie să dovedească rândul stelelor pe care îl știe ori să dea un fiu în loc.",
+          "Pe punte, în larg, ucenicul vede că steaua de la miazănoapte tremură, semn că vântul se întoarce până dimineață. Pilotul doarme, iar băiatul știe că dacă schimbă drumul fără poruncă, încărcătura se ia; dacă nu-l schimbă, corabia intră în stânci.",
+          "O negustoreasă din Sidon vrea să trimită un singur fiu la școala cerului și are doi. Fiul cel mare e bolnav, cel mic nu vrea să audă de mare. Ea trebuie să hotărască înainte de plecarea corăbiilor spre Gadir.",
+          "Un om al portului a arătat unui străin izvorul ascuns de pe o insulă, pentru un inel de argint. Bătrânii îl aduc la chei și îi cer numele celui care l-a plătit, iar vinovatul este fratele pilotului."
+        ],
+        "en": [
+          "The pilot Ahiram comes home to Tyre after twelve years and finds the gate shut: his house was charged for a ship lost that he never steered. He must prove the star road he knows or hand over a son in his place.",
+          "On the deck, far out, the apprentice sees the northern star waver, a sign that the wind will turn before morning. The pilot sleeps, and the boy knows that shifting course without order forfeits the cargo; if he does not shift, the ship runs onto the rocks.",
+          "A trader of Sidon means to send one son to the school of the sky and has two. The elder is sick, the younger will not hear of the sea. She must decide before the ships leave for Gadir.",
+          "A man of the harbour showed an outsider the hidden spring on an island for a silver ring. The elders bring him to the quay and demand the name of the man who paid him, and the guilty one is the pilot's brother."
+        ]
+      }
+    },
+    {
+      "id": "hist-greek-citizen-vote",
+      "tags": [
+        "adunare",
+        "cetățeni",
+        "sorți",
+        "alungare"
+      ],
+      "title": {
+        "ro": "Universul în care cetățenii cu scut hotărăsc totul cu mâna ridicată",
+        "en": "A universe where shield-bearing citizens decide everything by a show of hands"
+      },
+      "law": {
+        "ro": "Hotărârea nu vine de la rege, ci de la adunarea cetățenilor care stau în piață cu scutul la picior, iar ce s-a hotărât cu mâna ridicată rămâne hotărât chiar dacă a doua zi se dovedește păgubitor. Numai bărbatul născut din părinți ai cetății, cu ogor și cu armă, are glas; femeile, meșteșugarii veniți din alte cetăți și robii lucrează pentru cetate, dar nu hotărăsc nimic în ea. Slujbele cetății nu se dau pe neam, ci se trag la sorți dintr-un ulcior de lut, iar cel căzut la sorți slujește un an și dă socoteală la capăt. Odată pe an adunarea poate alunga pe orice cetățean, fără pricină și fără judecată, scriind numele lui pe ciob de oală, iar cel alungit pleacă zece ani și își păstrează averea. Cine seamănă ură între cetățeni ori cheamă oaste străină în cetate se leapădă de apă, de foc și de piață, iar nimeni nu are voie să-i vorbească.",
+        "en": "The decision does not come from a king but from the assembly of citizens standing in the square with shield at the foot, and what was carried by a show of hands stays carried even if the next day it proves ruinous. Only a man born of parents of the city, with a field and a weapon, has a voice; women, craftsmen who came from other cities and slaves work for the city but decide nothing in it. Offices are not inherited but drawn by lot from a clay jar, and whoever is drawn serves a year and answers for it at the end. Once a year the assembly may send any citizen away, with no cause and no trial, by writing his name on a shard of pottery, and the banished man leaves for ten years and keeps his wealth. Whoever sows hatred among citizens or calls a foreign host into the city is cut off from water, fire and market, and no one may speak to him."
+      },
+      "openings": {
+        "ro": [
+          "Un general întors biruitor cere adunării o coroană și trei corăbii noi. Un cioban ridică mâna și spune că ogoarele din vale au fost arse tocmai de oastea lui. Generalul trebuie să asculte până la sfârșit ori să plece din piață.",
+          "Urna cu nume a fost răsturnată de vânt înainte de sorți, iar doi bărbați se ceartă pentru același ciob. Președintele adunării, ales pentru o singură zi, trebuie să hotărască dacă sorții se trag din nou, deși știe că unul dintre părtași este ginerele lui.",
+          "A venit iar vremea alungării anuale și cineva a scris pe primele cioburi numele fruntașului care hrănește cetatea cu grâul adus din Sicilia. Bătrânul care strânge cioburile îi este dator acelui om pentru viața fiului rănit în luptă.",
+          "O femeie din cetate a ținut în piață un ciob pe care scria un nume de alungat, deși ea nu are glas în adunare. Fratele ei trebuie să spună că el a scris ciobul ori să lase cetatea să o osândească pe ea."
+        ],
+        "en": [
+          "A general back from victory asks the assembly for a crown and three new ships. A shepherd raises his hand and says it was that army which burned the fields in the valley. The general must hear him out or walk out of the square.",
+          "The jar of names was knocked over by wind before the draw, and two men claim the same shard. The chairman of the assembly, chosen for a single day, must rule whether the lot is drawn again, knowing one claimant is his daughter's husband.",
+          "The season of annual banishment has come and someone has already written on the first shards the name of the leader who feeds the city with grain brought from Sicily. The old man gathering the shards owes that leader for his son's life, wounded in battle.",
+          "A woman of the city held a shard in the square with a name to be banished on it, though she has no voice in the assembly. Her brother must say that he wrote the shard, or leave the city to condemn her."
+        ]
+      }
+    },
+    {
+      "id": "hist-roman-census",
+      "tags": [
+        "cenzor",
+        "avere",
+        "oaste",
+        "rang"
+      ],
+      "title": {
+        "ro": "Universul în care averea spusă cenzorului hotărăște glasul și scutul omului",
+        "en": "A universe where the property declared to the censor decides a man's vote and his shield"
+      },
+      "law": {
+        "ro": "O dată la cinci ani fiecare bărbat se înfățișează înaintea cenzorului și spune ce are: pământ, vite, argint, robi și pe cine ține în casă, iar după spusa lui se așază în rândul de avere. Rândul hotărăște cât cântărește glasul lui în adunare și câte scuturi trebuie să dea oastei, așa că cei bogați hotărăsc aproape tot, iar cei săraci slujesc cu trupul. Cine ascunde o bucată de ogor ori un rob este scos din tabelă, își vinde la mezat toată averea și se vinde apoi el însuși ca rob pentru datorii. Cenzorul poate șterge numele unui om din rândul fruntașilor pentru o faptă rușinoasă dovedită, chiar dacă nicio judecată nu l-a osândit, iar rândul pierdut nu se câștigă înapoi decât prin doi copii curați și un război dus la capăt. Tabela de argint a cetății se păstrează în templu, iar cine o arde ori o mută fără porunca bătrânilor răspunde cu viața, fiindcă fără ea cetatea nu mai știe cine sunt cetățenii ei.",
+        "en": "Once every five years each man appears before the censor and declares what he owns: land, cattle, silver, slaves and everyone under his roof, and on the strength of that declaration he is placed in his rank of wealth. The rank decides how much his voice weighs in the assembly and how many shields he must give the army, so the rich decide almost everything while the poor serve with their bodies. A man who hides a strip of field or a slave is struck off the roll, sells all his wealth at auction and is then sold himself into slavery for his debts. The censor may strike a man's name from the roll of the leading class for a proven shameful act, even when no court has condemned him, and a lost rank is regained only by two blameless children and a war carried to its end. The city's table of silver is kept in the temple, and whoever burns it or moves it without the elders' order answers with his life, because without it the city no longer knows who its citizens are."
+      },
+      "openings": {
+        "ro": [
+          "Marco, plugar cu două pogoane, stă la rând înaintea cenzorului, lângă vecinul care i-a împrumutat boii. Dacă spune adevărul, cade în rândul celor fără glas; dacă tace, vecinul poate vorbi în locul lui și atunci pogoanele se schimbă de stăpân.",
+          "Cenzorul a găsit în tabela unei văduve bogate un ogor nedeclarat, iar femeia este mama celui care i-a scăpat viața la război. El trebuie să scrie rândul ori să lase tabela curată, până la apusul zilei de socoteală.",
+          "Un om șters din rândul fruntașilor cere să fie iertat pentru că a dat oastei doi fii, iar cenzorul știe că fapta pentru care l-a scos este adevărată și rușinoasă. Fiica lui stă la ușă cu un coș de poame și nu știe nimic.",
+          "Arhiva tabelei de argint a fost udată de o furtună, iar slujbașii trebuie să hotărască ce nume se copiază din nou. Un scrib dă peste numele unui om mort de zece ani, cu avere mare, și se gândește că nimeni nu-l mai poate cere."
+        ],
+        "en": [
+          "Marcus, a ploughman with two acres, stands in line before the censor beside the neighbour who lent him his oxen. If he tells the truth he falls into the rank without a voice; if he stays silent, the neighbour may speak in his place and then the acres change master.",
+          "The censor has found an undeclared field in the roll of a rich widow, and the woman is the mother of the man who saved his life in the war. He must write the line down or leave the roll clean, before the sun sets on the day of the count.",
+          "A man struck from the leading rank begs pardon because he gave the army two sons, and the censor knows the act he was removed for is real and shameful. His daughter waits at the door with a basket of fruit and knows nothing.",
+          "The record of the silver table was soaked in a storm, and the clerks must decide which names to copy again. A scribe comes upon the name of a man ten years dead, with great wealth, and thinks no one will ever ask for it."
+        ]
+      }
+    },
+    {
+      "id": "hist-chinese-imperial-exam",
+      "tags": [
+        "examen",
+        "slujbă",
+        "neam",
+        "hârtie"
+      ],
+      "title": {
+        "ro": "Universul în care slujba se capătă numai prin examen scris, fără neam",
+        "en": "A universe where office comes only from written tests, never from birth"
+      },
+      "law": {
+        "ro": "Slujba în împărăție nu se moștenește și nu se cumpără: cine vrea să cârmuiască un ținut trebuie să treacă prin trei rânduri de scrisori de examen, iar în sala de scris intră în haine albe, fără nume și fără neam. Locurile se împart pe ținuturi, așa că un ținut de margine are tot atâtea locuri cât unul bogat, iar fiul unui grădinar poate ajunge mai mare peste boieri. Cine este prins că a suflat la scris ori că a plătit pentru subiect este omorât, iar neamul lui nu mai are voie să dea examen trei generații. Slujbașul nu se trimite în ținutul de baștină și nu stă într-un loc mai mult de trei ani, ca să nu-și crească rude și prieteni în pământul pe care îl judecă. Numai omul cu slujbă ține pământ, șade la masa de cinste și scapă neamul de muncă, iar plugarul care nu învață slovele rămâne toată viața în brazdă.",
+        "en": "Office in the empire is not inherited and cannot be bought: whoever would govern a province must pass three rounds of written tests, entering the hall in plain white clothes with no name and no family. Places are allotted by province, so a frontier district has as many places as a rich one, and a gardener's son may come to outrank noblemen. Anyone caught passing notes at the test or paying for the question is put to death, and his kin may not sit the test for three generations. An official is never posted to his home province and never stays in one place longer than three years, so that he cannot grow relatives and friends in the soil he judges. Only the man with office holds land, sits at the table of honour and wins exemption from labour for his line, while the ploughman who never learns the characters stays in the furrow all his life."
+      },
+      "openings": {
+        "ro": [
+          "Wei are optsprezece ani și intră a treia oară în sala de examen, cu mustața crescută lună de lună. Acesta este ultimul an în care tatăl lui mai poate plăti cerneala; dacă nu trece, se întoarce la sapă.",
+          "Prefectul care păzește examenul recunoaște scrisul unui candidat: este fiul omului care l-a scos din mizerie. Subiectul zilei se deschide în trei ceasuri, iar cele două sute de chilii sunt încă pecetluite.",
+          "O slujbașă de ținut, trimisă la douăzeci de zile de mers de casă, primește o scrisoare prin care i se cere să scape un văr de la bătaia cu nuiele. Ea trebuie să hotărască înainte ca oaspeții curții să plece cu ea la vânătoare.",
+          "Un tânăr căzut la sorți citește pe tabla din piață că numele lui a fost așezat în locul altui candidat, la un loc dat deunăzi. Fratele celui păgubit îl așteaptă noaptea în curtea hanului, iar el are de ales între a spune adevărul și a-l lua cu el în slujbă."
+        ],
+        "en": [
+          "Wei is eighteen and for the third time enters the test hall, his moustache grown month by month. This is the last year his father can pay for ink; if he fails, he goes back to the hoe.",
+          "The prefect watching over the test recognises a candidate's hand: it is the son of the man who raised him out of beggary. The question of the day is unsealed in three hours, and the two hundred cells are still sealed.",
+          "A provincial clerk, posted twenty days walk from home, receives a letter asking her to save a cousin from the bamboo beating. She must decide before the court guests leave with her for the hunt.",
+          "A young man who passed reads on the board in the market that his name was placed in another candidate's slot, at a place given only days ago. The wronged man's brother waits for him at night in the inn yard, and he must choose between telling the truth and taking the man into office with him."
+        ]
+      }
+    },
+    {
+      "id": "hist-maurya-empire",
+      "tags": [
+        "iscoade",
+        "lespezi",
+        "drum",
+        "milă"
+      ],
+      "title": {
+        "ro": "Universul în care regele cârmuiește prin iscoade și prin lespezi scrise la drum",
+        "en": "A universe where the king rules through watchers and through words carved along the roads"
+      },
+      "law": {
+        "ro": "Regele nu stăpânește prin sabie, ci prin iscoade și prin lespezi scrise: hotărârile lui se cioplesc pe pietre la drumurile mari, ca orice călător să le citească, iar oamenii lui ascultă în piețe, în hanuri și în taberele de oaste. Slujbașul care ia mită plătește de opt ori ce a luat și este scos din rândul dregătorilor, căci mila regelui nu acoperă pe slujbaș. Fiecare ținut trebuie să aibă drum cu borne, fântâni din cinci în cinci mile și leacuri la casa de popas, iar dregătorul care le lasă în paragină este pedepsit ca un hoț de vite. Cine ucide o vită doar din poftă plătește, iar cine hrănește un străin flămând se socotește că a lucrat pentru rege. Regele dă ascultare celor ce-i scriu, dar nimeni nu are voie să-i aducă jalba altfel decât pe lespede, fiindcă vorba șoptită la ureche este socotită otravă.",
+        "en": "The king rules not by the sword but by watchers and by writing on stone: his decisions are cut onto slabs along the great roads so any traveller may read them, and his people listen in markets, inns and army camps. An official who takes a bribe pays eight times what he took and is driven out of the class of governors, because the king's mercy does not cover the clerk. Every province must keep a road with mile stones, wells every fifth mile and medicines at the rest house, and a governor who lets them fall into ruin is punished as a cattle thief. Whoever kills a beast from mere appetite pays a fine, and whoever feeds a hungry stranger is counted as having worked for the king. The king himself gives audience to what is written to him, yet no one may bring a grievance any way but on the slabs, because a word whispered in the ear is counted as poison."
+      },
+      "openings": {
+        "ro": [
+          "Un dregător de ținut găsește o fântână uscată de două luni pe un drum al regelui și știe că pildele se plătesc. Are argint pentru săpat ori pentru mită, iar muncitorii din satul vecin așteaptă o hotărâre până vine ploaia.",
+          "O iscoadă a regelui stă de trei zile în hanul unui staroste și aude vorbă că dregătorul ia bani de la negustori. Ea îl cunoaște pe dregător de copil, din același sat de pe malul apei mari.",
+          "Un slujbaș zăbovește noaptea la o lespede și citește că pedeapsa pentru primirea de daruri este moartea, nu plata de opt ori. În traistă are un dar de la văduva care vrea pământ pentru fiul ei și trebuie să hotărască până la răsărit.",
+          "Satul lui Bhima vrea să ucidă un cerb pentru ospățul de nuntă, iar Bhima știe că plata o dă toată obștea. Verii lui au pus sarea pe foc și îl întreabă cine merge la pădure."
+        ],
+        "en": [
+          "A governor finds a well dry for two months on a king's road and knows that examples are paid for. He has silver for digging or for a bribe, and the workers of the next village wait for a decision until the rains come.",
+          "A watcher of the king has sat three days in a headman's inn and heard talk that the governor takes money from merchants. She has known the governor since childhood, from the same village on the great river bank.",
+          "An official lingers at night by a slab and reads there that the penalty for taking gifts is death, not eight times the payment. In his bag lies a gift from a widow who wants land for her son, and he must decide before sunrise.",
+          "Bhima's village means to kill a deer for the wedding feast, and Bhima knows the whole community pays the fine. His cousins have already put the salt on the fire and ask him who goes to the forest."
+        ]
+      }
+    },
+    {
+      "id": "hist-angkor-water",
+      "tags": [
+        "apă",
+        "orez",
+        "muncă"
+      ],
+      "title": {
+        "ro": "Universul în care stăpânul iazurilor hotărăște cine mănâncă orez de două ori",
+        "en": "A universe where the master of the reservoirs decides who eats rice twice a year"
+      },
+      "law": {
+        "ro": "Împărăția nu se ține pe ogoare, ci pe apă: cine stăpânește țevile de piatră și iazurile mari hotărăște cine mănâncă orez de două ori pe an și cine mănâncă o singură dată. Fiecare familie datorează în fiecare an nouăzeci de zile de muncă la iaz, la șanț și la zidul de piatră, iar cine nu vine dă unul dintre fiii lui în loc. Regele este socotit zeu pe pământ fiindcă ține apa în frâu, iar când iazul secă, preoții citesc semn rău și jertfesc vite, iar dacă nici atunci nu vine ploaia, se schimbă regele. Pământul rămâne al celui care sapă șanțul și îl curăță trei ani la rând, nu al celui ce l-a moștenit, așa că rudele sărace pot lua ogorul omului leneș. Templul din mijlocul iazului strânge a cincea parte din orez și din pește, iar cine ascunde măsura este legat la malul apei și lăsat acolo o zi și o noapte.",
+        "en": "The kingdom rests not on fields but on water: whoever controls the stone channels and the great reservoirs decides who eats rice twice a year and who eats only once. Every household owes ninety days of work each year on the reservoir, the ditch and the stone wall, and whoever fails to come gives one of his sons in his place. The king is held to be a god on earth because he keeps the water in hand, and when a reservoir runs dry the priests read an evil sign and sacrifice cattle, and if the rain still fails the king is replaced. Land belongs to the one who digs the channel and clears it three years running, not to the one who inherited it, so poor kin may take the field of a lazy man. The temple on the island in the reservoir collects a fifth of the rice and fish, and whoever hides a measure is tied at the water bank and left there a day and a night."
+      },
+      "openings": {
+        "ro": [
+          "Fiul unui dregător mare are nouăzeci de zile de muncă de dat la iaz, dar tatăl lui e bolnav, iar ogorul trebuie semănat în două săptămâni. El trebuie să hotărască dacă merge el la șanț ori trimite pe altcineva în locul lui.",
+          "Preoteasa de la templul din iaz numără orezul adus de sate și vede că lipsește a cincea parte de la satul lui Pok. Fratele ei este starostele acelui sat și îi cere o zi de răgaz până se culcă socotelile.",
+          "Iazul din răsărit a scăzut deodată și se aude că regele va fi schimbat dacă nu vine ploaia. Un tâmplar care lucrează la porțile templului este chemat să taie un zăgaz, faptă pentru care se plătește cu moartea.",
+          "O văduvă a săpat singură un șanț mic spre ogorul ei, iar acum un dregător spune că pământul este al celor ce l-au moștenit. Ea își poate dovedi munca cu martori din sat ori se poate mărita cu vărul dregătorului."
+        ],
+        "en": [
+          "The son of a great officer owes ninety days of work at the reservoir, but his father is sick and the field must be sown within a fortnight. He must decide whether he goes to the ditch himself or sends someone in his place.",
+          "The priestess at the island temple counts the rice brought by villages and sees that the fifth from Pok's village is missing. Her brother is the headman of that village and asks her for one day of grace until the accounts are settled.",
+          "The eastern reservoir has dropped suddenly and word runs that the king will be replaced if the rain does not come. A carpenter working on the temple gates is told to cut a dike, a deed paid for with death.",
+          "A widow dug a small channel to her field by herself, and now an officer says the land belongs to those who inherited it. She can prove her work with village witnesses or marry the officer's cousin."
+        ]
+      }
+    },
+    {
+      "id": "hist-mali-salt-routes",
+      "tags": [
+        "aur",
+        "sare",
+        "caravană",
+        "drum"
+      ],
+      "title": {
+        "ro": "Universul în care tot aurul trece prin mâna regelui, iar lespedea de sare ține loc de argint",
+        "en": "A universe where all gold passes through the king's hand and salt slabs stand in place of silver"
+      },
+      "law": {
+        "ro": "Tot aurul iese din țară prin mâna regelui: cine găsește o bucată de aur o predă curții și primește în schimb sarea de trebuință, iar cine ascunde un grăunte de aur este vândut departe, la mare. Sarea vine din pustiu în lespezi tăiate, iar lespedea ține loc de argint: cu una se cumpără grâu pentru o lună, cu două se cumpără o vită, iar cine sparge o lespede plătește de două ori. Negustorii din miazănoapte și din miazăzi nu se întâlnesc niciodată față în față, ci lasă marfa la hotarul apei și se trag înapoi o zi și o noapte, ca nimeni să nu poată spune cine a dat și cine a luat. Cine merge la locurile sfinte duce cu el grâu și aur dat de rege, iar neamul lui rămâne acasă cu numele curat; drumul se face în cete, fiindcă omul rătăcit singur în pustiu nu se mai întoarce. Povestea neamului se ține de un grăitor de cuvinte care o spune cu voce tare la fiecare nuntă, iar pe rege îl ține vorba lui mai tare decât oștile.",
+        "en": "All gold leaves the land through the king's hand: whoever finds a lump of gold gives it to the court and receives in return the salt he needs, and whoever hides a grain of gold is sold far off, down at the sea. Salt comes out of the desert in cut slabs and a slab stands in place of silver: one buys a month of grain, two buy a cow, and whoever breaks a slab pays twice over. Traders from the north and the south never meet face to face; they leave their goods by the water border and withdraw a day and a night, so that no one can say who gave and who took. Whoever travels to the holy places carries grain and gold given by the king, and his kin stay at home with a clean name; the road is travelled in companies, because a man lost alone in the desert does not come back. A family's story is kept by a speaker of words who tells it aloud at every wedding, and the king is held by that speech more firmly than by his armies."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr căutător de aur găsește în nisip o bucată cât un pumn și știe că trebuie s-o ducă la curte. Sora lui e bolnavă și are nevoie de sare și de leacuri, iar sarea se dă numai celui ce predă aurul întreg.",
+          "O tabără de negustori așteaptă la hotarul apei de trei zile, iar marfa din partea cealaltă nu s-a mișcat. Un ucenic vrea să treacă apa ca să vadă cine e acolo, iar căpetenia caravanei îi spune că cine trece se pune singur în afara neamului.",
+          "O moașă are o lespede de sare spartă în două și trebuie să plătească dublu pentru o vită. Ea poate lipi lespezile cu lut și rășină ori poate cere unui negustor să le ia așa cum sunt.",
+          "Regele pleacă pe drumul sfânt și lasă grăitorul neamurilor să spună cine cârmuiește în lipsa lui. Acesta află că un cumnat al regelui adună aur pe ascuns și trebuie să hotărască între a tăcea și a rosti în fața obștii."
+        ],
+        "en": [
+          "A young gold seeker finds a lump the size of his fist in the sand and knows it must go to the court. His sister is ill and needs salt and medicine, and salt is given only to the man who hands over the whole lump.",
+          "A traders' camp has waited at the water border three days, and the goods on the other side have not moved. An apprentice wants to cross and see who is there, and the caravan leader tells him that whoever crosses puts himself outside the kin.",
+          "A midwife has a salt slab broken in two and must pay double for a cow. She can glue the pieces with clay and resin, or ask a trader to take them as they are.",
+          "The king leaves on the holy road and lets the speaker of lineages say who rules in his absence. The speaker learns that the king's brother-in-law is gathering gold in secret and must choose between silence and speaking before the community."
+        ]
+      }
+    },
+    {
+      "id": "hist-byzantine-state-theology",
+      "tags": [
+        "credință",
+        "împărat",
+        "chipuri"
+      ],
+      "title": {
+        "ro": "Universul în care credința cea dreaptă este legea cetății și slujba se dă după ea",
+        "en": "A universe where right belief is the law of the state and office follows it"
+      },
+      "law": {
+        "ro": "În cetatea de pe malul strâmtorii, neînțelegerea despre firea dumnezeirii nu este o ceartă între învățați, ci pricina cea mai grea a cetății: cine mărturisește altfel decât împăratul își pierde averile și este trimis în cetatea de pe celălalt țărm. Împăratul este socotit ales de sus, iar când unul pierde scaunul, se spune că a pierdut și dreptatea, așa că toți cei ce l-au slujit trebuie să-și spele numele din nou. Slujbele cetății se dau după cât de curat este omul în credință: un cizmar care cântă bine la biserică poate ajunge mai mare peste vistierie, iar un boier cu un gând rătăcit cade la plug. Chipurile sfinte se cinstesc după rânduiala citită în biserică, iar cine le strică pentru că nu i se par potrivite este legat în piață și bătut, ca să nu intre gând nou în obște. Cei care nu primesc rânduiala se strâng în case și se roagă pe ascuns, dar când unul dintre ei se roagă pentru moartea împăratului, tot neamul lui plătește cu pământul.",
+        "en": "In the city on the strait, a disagreement over the nature of the divine is not a quarrel among scholars but the heaviest matter of state: whoever confesses differently from the emperor loses his property and is sent to the city on the other shore. The emperor is held to be chosen from above, and when one loses the throne it is said he lost righteousness with it, so all who served him must wash their names clean again. Offices go by how clean a man is in the faith: a shoemaker who sings well in church may rise above the treasury, while a lord with one stray thought falls to the plough. Holy images are honoured by the order read out in church, and whoever defaces them because they seem wrong to him is bound in the square and beaten, so that no new thought enters the crowd. Those who reject the order gather in their houses and pray in secret, but when one of them prays for the emperor's death, his whole line pays with its land."
+      },
+      "openings": {
+        "ro": [
+          "Un negustor de mătase din cetate a spus la masă, între prieteni, că firea dumnezeirii nu se poate despărți în două. Slujitorul care turna vinul l-a auzit, iar negustorul are o noapte ca să-și scoată copiii din cetate.",
+          "Un zugrav de chipuri sfinte primește poruncă să acopere cu var un întreg perete de biserică. Are doi fii în slujba curții și trebuie să hotărască până dimineață dacă ia varul în mână ori își rupe mâna.",
+          "O femeie boierească ascunde în pivniță un preot rătăcit, iar vecinul care îi păzește curtea cere mâna fiicei ei drept plată pentru tăcere. Fiica aude totul din dosul ușii și trebuie să aleagă pentru amândouă.",
+          "Împăratul vestește o rânduială nouă în chiar ziua când fiul unui dregător împlinește trei ani. Dregătorul trebuie să spună în fața curții dacă primește rânduiala, iar credința și slujba nu se pot ține amândouă."
+        ],
+        "en": [
+          "A silk trader of the city said at table, among friends, that the nature of the divine cannot be divided in two. The servant pouring the wine heard him, and the trader has one night to get his children out of the city.",
+          "A painter of holy images is ordered to cover a whole church wall with lime. He has two sons in court service and must decide by morning whether to take up the lime or break his own hand.",
+          "A noblewoman hides a stray priest in her cellar, and the neighbour who watches her yard asks for her daughter's hand as payment for silence. The daughter hears all of it from behind the door and must choose for both of them.",
+          "The emperor proclaims a new order on the very day a clerk's son turns three. The clerk must say before the court whether he accepts the order, and faith and office cannot both be kept."
+        ]
+      }
+    },
+    {
+      "id": "hist-caliphate-translation",
+      "tags": [
+        "cărți",
+        "tălmăcire",
+        "aur",
+        "hârtie"
+      ],
+      "title": {
+        "ro": "Universul în care cetatea plătește greutatea cărților în aur",
+        "en": "A universe where the city pays the weight of books in gold"
+      },
+      "law": {
+        "ro": "Cetatea plătește greutatea cărții în aur: cine aduce un sul necunoscut, grecesc, persan ori indian, primește atâta aur cât cântărește sulul, iar cel care îl tâlcuiește primește de două ori greutatea tălmăcirii isprăvite. Nimeni nu are voie să oprească o scriere în casa lui: tot ce se tâlcuiește se copiază de trei ori, una pentru casa învățăturii, una pentru lăcașul cel mare și una care se vinde oricui dă prețul hârtiei. Hârtia se face în cetate din zdrențe, iar meșterul care știe poala udă nu destăinuie meșteșugul nimănui din altă cetate, căci altfel meșteșugul s-ar împrăștia și aurul ar seca. În casa învățăturii se ceartă pe față: cine aduce o socoteală nouă trebuie să stea în picioare înaintea tuturor și să-și apere rândurile până când ceilalți se dau bătuți ori îl dovedesc mincinos. Cine arde o carte ori ascunde un sul de ochii cititorilor plătește greutatea lui în aur și, dacă nu are cu ce plăti, slujește la copiat zece ani.",
+        "en": "The city pays the weight of a book in gold: whoever brings an unknown scroll, Greek, Persian or Indian, receives as much gold as the scroll weighs, and the one who renders it into the city's tongue receives twice the weight of the finished translation. No one may keep a writing in his own house: everything translated is copied three times, one for the house of learning, one for the great sanctuary, and one to be sold to anyone who pays the price of the paper. Paper is made in the city from rags, and the master who knows the wet pulp never tells his craft to anyone from another city, for then the craft would spread and the gold would run dry. In the house of learning men argue in the open: whoever brings a new reckoning must stand before all of them and defend his lines until the others give way or prove him a liar. Anyone who burns a book or hides a scroll from readers pays its weight in gold and, if he has nothing to pay with, serves ten years at copying."
+      },
+      "openings": {
+        "ro": [
+          "Un tălmăcitor de grecește primește un sul de socoteli și află că negustorul care l-a adus se plătește în aur după greutatea lui, deși jumătate din sul este sfâșiată. El trebuie să spună în casa învățăturii cât a citit cu adevărat.",
+          "O fată care face hârtie din zdrențe vede că meșteșugul hrănește casa, iar meșterul cel bătrân o ceartă că a vorbit în piață cu un negustor din altă cetate. Ea are de ales între tăcere și drumul singur.",
+          "Un vraci din cetate a tâlcuit o carte de leacuri și a adăugat un rând de la sine. Când boala se întoarce în cetate, ceilalți îl cheamă înaintea casei învățăturii și îi cer să arate sulul cel vechi.",
+          "Un sol străin aduce un sul nou și cere în schimb aur cât greutatea lui, însă solul nu are voie să rămână în cetate mai mult de trei zile. Slujbașul de la vamă trebuie să hotărască greutatea pe loc, cu cântarul din piață."
+        ],
+        "en": [
+          "A translator of Greek receives a scroll of reckonings and learns that the merchant who brought it is paid gold by its weight, though half the scroll is torn. He must tell the house of learning how much he truly read.",
+          "A girl who makes paper from rags sees that her craft feeds the house, and the old master scolds her for talking in the market with a merchant from another city. She must choose between silence and the road alone.",
+          "A healer of the city translated a book of cures and added a line of his own. When the sickness returns to the city, the others summon him before the house of learning and demand he show the old scroll.",
+          "A foreign envoy brings a new scroll and asks gold equal to its weight, but an envoy may not stay in the city more than three days. The customs clerk must settle the weight on the spot, with the market scale."
+        ]
+      }
+    },
+    {
+      "id": "hist-edo-closed-borders",
+      "tags": [
+        "hotar",
+        "rang",
+        "închidere"
+      ],
+      "title": {
+        "ro": "Universul în care hotarul țării se închide, iar rândul omului se naște cu el",
+        "en": "A universe where the country's border closes and a person's rank is born with him"
+      },
+      "law": {
+        "ro": "Hotarul țării se închide: nimeni nu iese și nimeni nu intră, iar cine încearcă să plece pe mare se întoarce în țară numai ca să fie omorât cu toată casa lui. Fiecare om se scrie de la naștere în cartea neamului cu rândul lui, ostaș, plugar, meșteșugar ori negustor, și nici el, nici copiii lui nu pot trece în alt rând, chiar dacă se îmbogățesc ori sărăcesc. Boierii de ținuturi trebuie să țină o casă la curtea stăpânului și să slujească acolo o jumătate de an, apoi în ținutul lor o jumătate de an, iar femeile și copiii lor rămân la curte ca chezășie. Lăcașurile de rugăciune țin fiecare cap de familie într-o carte cu pecetea lor, iar cine nu se află în cartea unui lăcaș nu are pământ de lucrat și nici casă. Negustorii străini se primesc numai pe un ostrov îngust, fără voie de a trece pe uscat, iar cine le vinde unui străin haine ori arme își pierde tot neamul.",
+        "en": "The country closes its border: no one leaves and no one enters, and whoever tries to put to sea is brought back only to be put to death with his whole household. Every person is entered at birth in the book of his line with his rank: warrior, ploughman, craftsman or merchant, and neither he nor his children may move to another rank even if they grow rich or poor. Lords of provinces must keep a house at the ruler's court and serve there half the year, then in their own province half the year, while their wives and children stay at the court as surety. Houses of prayer keep every head of household in a book under their seal, and anyone not found in a house book has no land to work and no house to live in. Foreign traders are received only on a narrow island, with no leave to walk on the mainland, and whoever sells a foreigner clothing or weapons loses all his kin."
+      },
+      "openings": {
+        "ro": [
+          "Un pescar din satul de pe țărmul cel lung a văzut trei corăbii străine în ceață și nu a spus nimic la vamă. Fiul lui cel mare visează să plece cu ele, iar paznicul satului este nașul băiatului.",
+          "Un negustor bogat vrea să cumpere pământ de plugar pentru fiul lui, ca să scape de rândul negustorilor, pe care toți îl socotesc jos. Preotul care ține cartea lăcașului îi cere jumătate din avere pentru rândul cel nou.",
+          "Doamna unui boier de ținut a rămas la curte cu copiii, iar soțul ei a zăbovit în ținut două luni peste rândul slujbei. Ea are o scrisoare de la el, nesigilată, și trebuie să hotărască dacă o arată slujbașului curții.",
+          "Un tălmăcitor de pe ostrovul negustorilor a scris pentru un străin ce pânză se țese în ținut. Un slujitor al vămii îl știe și îi cere bani în fiecare lună; tălmăcitorul nu mai are ce să dea și are o noapte până la cercetare."
+        ],
+        "en": [
+          "A fisherman from the long coast village saw three foreign ships in the mist and said nothing at customs. His eldest son dreams of sailing away with them, and the village watchman is the boy's godfather.",
+          "A rich merchant wants to buy plough land for his son, to escape the merchant rank that everyone counts low. The priest who keeps the house book asks half his wealth for the new rank.",
+          "The wife of a provincial lord stayed at court with the children while her husband lingered two months past his term of service. She has an unsigned letter from him and must decide whether to show it to the court clerk.",
+          "An interpreter on the traders' island wrote down for a foreigner what cloth is woven in the province. A customs servant knows it and asks him for money every month; the interpreter has nothing left to give and one night until the search."
+        ]
+      }
+    },
+    {
+      "id": "hist-venice-archives",
+      "tags": [
+        "notar",
+        "arhivă",
+        "sfat",
+        "taină"
+      ],
+      "title": {
+        "ro": "Universul în care nimic nu există fără semnătura unui notar",
+        "en": "A universe where nothing exists without a notary's signature"
+      },
+      "law": {
+        "ro": "Nimic nu există în cetatea lagunei dacă nu stă scris de un notar cu semnătură și cu zi: casa, corabia, împrumutul, zestrea și chiar învoiala dintre doi pescari se fac adevărate numai prin carte. Numai neamurile scrise în cartea cea de aur au dreptul să șadă în sfatul cel mare, iar cine se îmbogățește din negoț nu intră în carte, oricât aur ar da vistieriei. Hotărârile se iau cu biluțe în urnă, iar cine spune altora cum a votat plătește cu averea și cu slujba, fiindcă tăcerea celui ce votează este socotită temelie a cetății. Cine știe o faptă de trădare și nu o spune în gura de piatră este pedepsit ca trădătorul, așa că nimeni nu are prieten pe care să-l acopere. Vistieria socotește fiecare corabie, fiecare rând de vâsle și fiecare clopot cumpărat, iar slujbașul care rămâne dator fie și cu doi bani este scos din slujbă pentru zece ani.",
+        "en": "Nothing exists in the lagoon city unless a notary has written it with a signature and a date: a house, a ship, a loan, a dowry and even an agreement between two fishermen become real only through the page. Only families written in the golden book may sit in the great council, and a man enriched by trade does not enter the book however much gold he gives the treasury. Decisions are taken with little balls in an urn, and whoever tells others how he voted pays with his wealth and his office, because the silence of the voter is counted a foundation of the city. Whoever knows of a deed of treason and does not speak it into the stone mouth is punished as the traitor is, so no one has a friend he may cover for. The treasury counts every ship, every bench of oars and every bell bought, and an official who remains in debt by even two coins is removed from office for ten years."
+      },
+      "openings": {
+        "ro": [
+          "Un notar are pe masă două foi pentru aceeași casă, scrise la două zile depărtare, cu cumpărători deosebiți. Cel care a plătit mai mult este ginerele stăpânului cetății, iar notarul trebuie să pună semnătura până la amiază.",
+          "O văduvă a găsit în lada bărbatului o scrisoare care spune că un boier a vândut taine corăbiilor străine. Gura de piatră este la două străzi, dar boierul i-a plătit leacurile fiului.",
+          "Un tânăr din neamul cel mare a votat împotriva tatălui său la sorții din sfat, iar cineva a spus mai departe. Tatăl îl cheamă la masă, iar băiatul trebuie să hotărască dacă recunoaște ori tace până la moarte.",
+          "Un slujbaș al vistieriei rămâne dator cu banii pentru două vâsle date unui meșter. El poate acoperi suma din zestrea fiicei ori poate cere unui neam să plătească, iar socoteala se închide la capătul lunii."
+        ],
+        "en": [
+          "A notary holds two deeds for the same house, written two days apart, with different buyers. The one who paid more is the city ruler's son-in-law, and the notary must set his signature before noon.",
+          "A widow found in her husband's chest a letter saying a lord sold secrets to foreign ships. The stone mouth is two streets away, but the lord paid for her son's medicine.",
+          "A young man of a great family voted against his father in the council draw and someone passed it on. The father calls him to table, and the boy must decide whether to admit it or keep silent until death.",
+          "A treasury clerk is short of the money for two oars given to a craftsman. He can cover the sum from his daughter's dowry or ask a kinsman to pay, and the account closes at the end of the month."
+        ]
+      }
+    },
+    {
+      "id": "hist-mongol-riders",
+      "tags": [
+        "curieri",
+        "cai",
+        "veste"
+      ],
+      "title": {
+        "ro": "Universul în care vestea merge pe cai de poștă, iar curierul ia ce cal găsește",
+        "en": "A universe where news rides post horses and a courier takes any horse he finds"
+      },
+      "law": {
+        "ro": "Vestea merge mai repede decât omul: de la un capăt al lumii la celălalt se întinde un lanț de călăreți și de cai, iar cine poartă semnul curierului are dreptul să ia ce cal găsește și să lase în loc unul ostenit. Fiecare sat așezat pe drumul poștei hrănește și adăpostește curierii, iar cine ascunde un cal ori închide poarta plătește cu capul, fiindcă o zi de zăbavă a veștii se socotește o mie de morți în oaste. Curierul nu are voie să spună ce duce și nici să se odihnească singur într-o casă, iar cine îl iscodește de veste este bătut până nu mai poate merge. Negustorii care poartă pecetea de argint a stăpânului călătoresc fără teamă pe tot drumul, dar cine jefuiește o caravană este tăiat în două împreună cu calul lui. Oastea se hrănește din vânătoarea cea mare, care se strânge ca un război, iar hrana adunată astfel se împarte după rând, nu după putere.",
+        "en": "News travels faster than a man: from one end of the world to the other runs a chain of riders and horses, and whoever carries the courier's mark may take any horse he finds and leave a tired one in its place. Every village on the post road must feed and shelter the riders, and whoever hides a horse or shuts his gate pays with his head, because a day's delay of news is counted as a thousand dead in the army. A courier may not say what he carries nor rest alone in a house, and anyone who tries to learn his news is beaten until he can no longer walk. Traders bearing the lord's silver seal ride the whole road without fear, but whoever robs a caravan is cut in two together with his horse. The army feeds on the great hunt, which gathers like a war, and the food taken that way is divided by rank, not by strength."
+      },
+      "openings": {
+        "ro": [
+          "Un curier cu semnul de argint ajunge la o poștă unde caii au fost luați de o ceată de tâlhari. Are două ceasuri să ia cai din satul vecin, iar oamenii acolo îi datorează viața unui frate al lui.",
+          "Un tânăr cioban care a furat unui curier o găleată de lapte acru de iapă se trezește chemat dimineață la rândul de pedeapsă. Sora lui vrea să ascundă calul cel bun, iar peste două zile trece oastea pe drum.",
+          "Un negustor din Buhara are pecetea de argint, dar un dregător de poștă îi cere jumătate din mărfuri ca plată pentru cai. Caravana are nevoie de șase cai și de o noapte de odihnă înainte de a trece râul.",
+          "Un tălmăcitor al curții scrie o scrisoare către o căpetenie din apus și află pe drum că acela a murit. El trebuie să aleagă între a duce scrisoarea fiului și a o arde, știind că un curier care nu duce vestea nu se mai întoarce."
+        ],
+        "en": [
+          "A courier with the silver mark reaches a post station where the horses have been taken by a band of robbers. He has two hours to take horses from the next village, and those people owe their lives to his brother.",
+          "A young herder who stole a pail of mare's milk from a courier wakes to find he is called to the punishment ranks in the morning. His sister wants to hide the good horse, and in two days the army comes down the road.",
+          "A merchant of Bukhara has the silver seal, but a post officer demands half his goods as payment for horses. The caravan needs six horses and one night's rest before crossing the river.",
+          "A court interpreter writes a letter to a chief in the west and learns on the road that the man is dead. He must choose between carrying the letter to the son and burning it, knowing that a courier who does not deliver never returns."
+        ]
+      }
+    },
+    {
+      "id": "hist-aztec-blood-debt",
+      "tags": [
+        "jertfă",
+        "sânge",
+        "soare"
+      ],
+      "title": {
+        "ro": "Universul în care oamenii plătesc zeilor sânge pentru ca soarele să răsară",
+        "en": "A universe where people pay the gods in blood so that the sun will rise"
+      },
+      "law": {
+        "ro": "Soarele se ridică doar pentru că i se plătește datoria: lumea de acum a fost cumpărată de zei cu sângele lor, iar oamenii trebuie să dea înapoi, an de an, sânge și inimi care să țină soarele pe drum. Fiecare om datorează, la rândul lui, sânge din urechi, din limbă ori din braț, iar cine se codește este socotit dator și luat în piață ca rob pentru plata neamului. Războaiele se fac mai mult pentru robi și pentru jertfă decât pentru pământ, așa că oastea nu stă în cetăți, ci merge în pământul vecin ca să prindă oameni vii, iar viteazul este cunoscut după câți a prins. Copiii merg la școala templului și la școala tinerilor, iar cine nu învață rândul calendarului nu se poate însura, fiindcă nunta se face numai în zilele numărate de preot. Cine își dă viața pe piatra jertfei se socotește fericit, iar neamul lui primește pământ, cinste și scutire de dare un an întreg, în timp ce omul mort bătrân în așternut este jelit ca unul care și-a cheltuit datoria degeaba.",
+        "en": "The sun rises only because its debt is paid: this world was bought by the gods with their own blood, and people must give back, year after year, blood and hearts enough to keep the sun on its road. Every person owes blood in turn from ear, tongue or arm, and whoever hesitates is counted a debtor and taken in the market as a slave to settle for his line. Wars are fought more for captives and offerings than for land, so the army does not sit in cities but goes into neighbouring country to take living men, and a warrior is known by how many he took. Children go to the temple school and to the school of youths, and whoever does not learn the order of the calendar may not marry, because a wedding is held only on days counted out by the priest. Whoever gives his life on the sacrifice stone is counted blessed, and his family receives land, honour and one year free of tribute, while a man who dies old in bed is mourned as one who wasted his debt."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr războinic se întoarce din luptă fără niciun rob și trebuie să dea socoteală în piață, înaintea preoților. Are o soră frumoasă, iar rândul lui îi dă dreptul s-o dea în locul pierderii.",
+          "O moașă vede că pruncul născut noaptea are semnul rău al zilei, iar preoții cer să fie dat zeilor. Mama nu vrea să-l dea, iar moașa poate schimba semnul de pe tăblița nașterii.",
+          "Un negustor de cacao vrea să-și scoată fiul din școala tinerilor, fiindcă băiatul fuge de bătaie. Învățătorul are nevoie de un rob pentru jertfa lunii și îi cere băiatul în schimbul scrisorii de iertare.",
+          "Un ostaș prins de vecini stă legat de patru zile într-o colivie de lemn, sub ochii satului. Sora lui poate cumpăra un alt rob pe care să-l dea în loc, ori îl poate lăsa să urce pe piatră, iar el îi cere ceva în fiecare seară."
+        ],
+        "en": [
+          "A young warrior returns from battle with no captive at all and must answer in the market before the priests. He has a beautiful sister, and his rank allows him to give her in place of his loss.",
+          "A midwife sees that the child born that night carries the bad sign of the day and the priests demand he be given to the gods. The mother will not give him up, and the midwife can alter the sign on the birth tablet.",
+          "A cacao merchant wants to take his son out of the school of youths, because the boy runs from the beatings. The teacher needs a slave for the month's offering and asks for the boy in exchange for a letter of pardon.",
+          "A soldier taken by neighbours has sat bound four days in a wooden cage under the eyes of the village. His sister can buy another slave to give in his place, or she can let him climb the stone, and he asks her for something every evening."
+        ]
+      }
+    },
+    {
+      "id": "hist-inca-labor",
+      "tags": [
+        "muncă",
+        "hambare",
+        "noduri"
+      ],
+      "title": {
+        "ro": "Universul în care nimeni nu plătește cu bani, ci cu zile de muncă",
+        "en": "A universe where no one pays in coin but in days of labour"
+      },
+      "law": {
+        "ro": "Nu se plătește cu bani, ci cu muncă: fiecare familie dă în fiecare an un număr de zile de trudă la drumuri, la ziduri, la canale și la ogoarele de hrană, iar răsplata vine înapoi în mălai, lână și pește sărat. Pământul nu este al nimănui: slujbașii îl împart din nou la fiecare început de an după câți oameni are fiecare casă, așa că ogorul trece de la un neam la altul și nimeni nu poate vinde pământ. Hrana se strânge în hambarele de pe drumuri și se dă la nevoie, iar cine ascunde mălai în casă este judecat de slujbașul locului și dat la muncă de două ori. Socotelile se țin în noduri pe fire, un nod pentru oameni, unul pentru ogoare și unul pentru zilele de trudă, iar cine înnoadă strâmb firele dă socoteală înaintea slujbașilor celor mari. Aurul și argintul nu se poartă și nu se cheltuie, ci intră în temple și în curtea stăpânului, iar cine ascunde o bucată plătește cu zile de trudă cât o viață de om.",
+        "en": "Payment is not made in coin but in labour: every household gives the state a number of days of toil each year on roads, walls, canals and the food fields, and the return comes in maize, wool and salted fish. Land belongs to no one: officers divide it again at the start of every year according to how many people each house has, so a field passes from one line to another and no one may sell the soil. Food is gathered into storehouses along the roads and given out in need, and whoever hides maize in his house is judged by the local officer and sent to work twice over. Accounts are kept in knots on cords, one knot for people, one for fields and one for days of toil, and whoever ties the cords crookedly answers before the great officers. Gold and silver are neither worn nor spent but go into the temples and the lord's court, and whoever hides a piece pays with as many days of toil as a lifetime holds."
+      },
+      "openings": {
+        "ro": [
+          "Un slujbaș cu nodurile socotelii vine în satul lui Rumi să împartă ogoarele din nou, iar anul acesta neamul lui primește un petic de piatră. El știe că ar putea înnoda firele altfel și nimeni nu ar vedea.",
+          "O tânără țesătoare este aleasă să meargă la curtea stăpânului cu țesături de lână de alpaca, iar drumul ține două luni. Iubitul ei este chemat la rândul de trudă pentru zid în chiar luna plecării.",
+          "Hambarele de pe drum au fost golite de o oaste în trecere, iar satul trebuie să dea hrana de anul viitor mai devreme. Preotul satului ascunde doi saci de mălai în templu și îi arată copiilor flămânzi.",
+          "Un meșter de poduri a greșit o socoteală de fire și acum i se cer o sută de zile de muncă în plus. Fiul lui cel mic s-a născut noaptea trecută, iar rândul de trudă nu iartă pe nimeni."
+        ],
+        "en": [
+          "A knot officer comes to Rumi's village to divide the fields again, and this year his own line gets a strip of stony ground. He knows he could tie the cords differently and nobody would see.",
+          "A young weaver is chosen to go to the lord's court with cloth of alpaca wool, and the road takes two months. Her sweetheart is called to the labour roll for the wall in the very month she leaves.",
+          "The storehouses along the road have been emptied by a passing army and the village must hand over next year's food early. The village priest hides two sacks of maize in the temple and shows them to hungry children.",
+          "A bridge builder got a knot account wrong and is now asked for a hundred extra days of work. His youngest son was born last night, and the labour roll spares no one."
+        ]
+      }
+    },
+    {
+      "id": "hist-england-joint-stock",
+      "tags": [
+        "corabie",
+        "părți",
+        "socoteală"
+      ],
+      "title": {
+        "ro": "Universul în care negustorii împart corabia și pierderea în părți scrise",
+        "en": "A universe where merchants divide ship and loss into written shares"
+      },
+      "law": {
+        "ro": "Negustorii se leagă între ei pe hârtie: fiecare pune în corabie o parte, iar nimeni nu răspunde pentru datoriile altuia mai mult decât partea lui, așa că o corabie pierdută nu omoară neamul celui ce a pus bani. Cine semnează ia câștig după câte părți are, iar socoteala se citește cu glas tare la capătul călătoriei, înaintea tuturor celor ce au pus bani. Regele dă numai unei singure adunări de negustori dreptul de a umbla pe un drum maritim, așa că alte corăbii care trec pe acolo fără învoială se iau ca pradă. Părțile se pot vinde altuia, iar cine cumpără o parte cumpără și partea de pierdere care merge cu ea. Cine scrie socoteală mincinoasă în catastiful adunării plătește de trei ori ce a ascuns și nu mai are voie să pună bani în nicio corabie a cetății.",
+        "en": "Merchants bind themselves together on paper: each puts a share into the ship and no one answers for another's debts beyond his own share, so a lost ship does not kill the family of the man who put money in. Whoever signs takes profit by how many shares he holds, and the account is read aloud at the end of the voyage before everyone who put in money. The king gives one company of merchants alone the right to sail a sea route, so other ships that pass that way without leave are taken as spoil. Shares may be sold to another, and whoever buys a share buys the share of loss that goes with it. Whoever writes a false account in the company's book pays three times what he hid and may never put money into any ship of the city again."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr scriitor de socoteli citește catastiful înaintea negustorilor și vede că lipsește o ladă de piper, iar unchii lui au semnat pentru ea. El trebuie să spună cifra adevărată ori să scrie ce i s-a șoptit.",
+          "O văduvă vrea să cumpere două părți dintr-o corabie spre cetățile din răsărit, cu banii luați din zestrea fetei. Slujbașul adunării știe că jumătate din corăbii nu se întorc și trebuie să-i spună înainte de a semna.",
+          "O corabie a adunării s-a întors cu marfă de preț și cu jumătate din oameni bolnavi. Căpitanul cere plată pentru cei morți pe drum, iar negustorii se ceartă în sala socotelilor până dimineață.",
+          "Un negustor din alt oraș a trimis o corabie pe drumul scris în hrisovul adunării, fără învoială. Căpitanul celui care ține hrisovul trebuie să hotărască dacă ia corabia ca pradă ori cere o parte din marfă."
+        ],
+        "en": [
+          "A young clerk reads the book before the merchants and sees a chest of pepper missing, and his uncles signed for it. He must name the true number or write what was whispered to him.",
+          "A widow wants to buy two shares in a ship bound for the cities of the east with money taken from her daughter's dowry. The company clerk knows that half the ships do not return and must tell her before she signs.",
+          "A company ship has come back with precious goods and half its men sick. The captain asks payment for those who died on the way, and the merchants argue in the counting house until morning.",
+          "A merchant from another town has sent a ship along the route written in the company charter without leave. The captain of the charter holder must decide whether to seize the ship or claim a share of its goods."
+        ]
+      }
+    },
+    {
+      "id": "hist-plague-1348",
+      "tags": [
+        "ciumă",
+        "muncă",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care o treime din oameni au murit, iar mâna de lucru se plătește cu trei prețuri",
+        "en": "A universe where a third of the people died and labour costs three times as much"
+      },
+      "law": {
+        "ro": "Moartea a luat o treime din oameni și a lăsat ogoarele fără brațe: cine mai poate munci cere un preț de trei ori mai mare, iar stăpânii pământului caută să-l țină legat de brazdă prin rânduieli scrise. Nimeni nu are voie să ceară plată mai mare decât cea hotărâtă în cetate, iar cine pleacă de la stăpânul lui în căutare de plată mai bună este prins ca fugar și însemnat pe obraz. Casele celor morți se moștenesc după fire, însă dacă tot neamul a pierit, averea se ia de stăpânul pământului, iar satul rămas pustiu se dă celui care aduce plugari din altă parte. Slujitorii leacurilor poartă cearșafuri date cu untură peste față și nu ating pe cei bolnavi, iar cine ascunde un bolnav în casă este scos cu tot neamul din sat și lăsat pe câmp. Cei care merg golind ulițele ca să-și bată trupul pentru păcate sunt socotiți tulburători ai rânduielii și sunt risipiți de oaste acolo unde se arată.",
+        "en": "Death took a third of the people and left the fields without hands: whoever can still work asks three times the old price, and owners of land try to tie him to the furrow with written rules. No man may demand more than the wage fixed in the town, and whoever leaves his master in search of better pay is hunted as a runaway and marked on the face. Houses of the dead pass by blood, but if a whole line has perished the property goes to the lord of the soil, and a village left empty is given to whoever brings ploughmen from elsewhere. Keepers of the sick wear cloth greased with fat over the face and do not touch the ill, and whoever hides a sick person in his house is driven out of the village with all his household and left in the fields. Those who walk the streets scourging their bodies for sin are counted disturbers of order and are scattered by soldiers wherever they appear."
+      },
+      "openings": {
+        "ro": [
+          "Un plugar rămas singurul sănătos din sat cere o plată nouă stăpânului, iar acesta îi arată rânduiala scrisă a cetății. Are două zile să semneze ori să fugă cu copiii pe drumul cel mare.",
+          "O femeie își îngroapă bărbatul și copiii într-o singură zi și rămâne cu o casă și două ogoare. Fratele răposatului sosește de la mănăstire și se roagă pentru partea lui din avere.",
+          "Un preot de sat a fost găsit ducând pâine unui bolnav ascuns într-un șopron. Bătrânii satului trebuie să hotărască dacă îl scot pe câmp ori îl păstrează, știind că boala se întoarce.",
+          "Un ostaș călare găsește un sat gol, cu câinii slabi și cu grâul necultivat, și are poruncă să aducă plugari de peste râu. Cel care îl însoțește știe că familia lui trăiește chiar în acel sat părăsit."
+        ],
+        "en": [
+          "A ploughman left as the only healthy man in the village asks his lord for new pay, and the lord shows him the written rule of the town. He has two days to sign or to flee with his children along the high road.",
+          "A woman buries her husband and her children in one day and is left with a house and two fields. Her dead husband's brother arrives from the monastery and prays for his part of the estate.",
+          "A village priest was found carrying bread to a sick man hidden in a shed. The village elders must decide whether to drive him into the fields or keep him, knowing the sickness comes back.",
+          "A mounted soldier finds an empty village with thin dogs and untended wheat, and he has orders to bring ploughmen from across the river. The man riding with him knows his own family still lives in that abandoned village."
+        ]
+      }
+    },
+    {
+      "id": "hist-tsarist-reforms",
+      "tags": [
+        "slujbă",
+        "rang",
+        "dare"
+      ],
+      "title": {
+        "ro": "Universul în care neamul nu ține loc de slujbă, iar rândul se câștigă prin tabel",
+        "en": "A universe where birth does not replace service and rank is won by a table"
+      },
+      "law": {
+        "ro": "Neamul nu mai ține loc de slujbă: boierul care nu intră în oaste ori în slujba scrisă își pierde pământul, iar omul de jos care slujește bine ajunge mai mare peste neamurile vechi. Bărbile lungi se plătesc cu dare la intrarea în cetate, iar cine nu plătește este ras în piață în fața tuturor, fiindcă rânduiala cea nouă cere chip curat. Fiecare suflet bărbătesc se scrie în catagrafia dării pe cap, așa că omul este legat de satul în care a fost scris și nu se poate muta fără învoiala stăpânului și a slujbașului. Slujba curții se dă după tabelul rândurilor, iar cine ajunge la un anumit rând capătă neam de boier pentru copiii lui, chiar dacă tatăl lui a fost plugar. Străinii meșteri de corăbii, de puști și de turnuri se primesc cu plată mare și cu scutire de dare, iar cine îi ocărăște ori le strică lucrul plătește ca pentru furt din vistierie.",
+        "en": "Birth no longer takes the place of service: a lord who does not enter the army or the written service loses his land, while a low-born man who serves well rises above the old families. Long beards are taxed at the city gate, and whoever does not pay is shaved in the square before everyone, because the new order demands a clean face. Every male soul is entered in the head-tax roll, so a man is tied to the village where he was written and may not move without the leave of his master and the clerk. Court service follows the table of ranks, and whoever reaches a certain rank gains noble line for his children, even when his father was a ploughman. Foreign masters of shipbuilding, guns and towers are received with high pay and freedom from tax, and whoever insults them or spoils their work pays as for theft from the treasury."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr boier se întoarce de la școlile apusului cu haine străine și cu barbă scurtă, iar tatăl lui îl așteaptă la masă cu tot neamul. El trebuie să-și scrie numele în rândurile slujbei, ceea ce tatăl socotește rușine.",
+          "Un plugar care a învățat socotelile la școala curții primește rând de slujbaș, iar stăpânul satului cere să i se dea înapoi. Episcopul care l-a sprijinit are nevoie de un răspuns până la slujba de dimineață.",
+          "O femeie boierească se plânge că bărbatul ei a fost luat la oaste pentru totdeauna și că averea se scrie acum pe numele slujbei. Notarul curții o întreabă dacă fiul ei vrea să intre în rânduri în locul tatălui.",
+          "Un meșter olandez de corăbii cere pământ și oameni pentru șantier, iar slujbașul locului află că printre oameni sunt fugari. El trebuie să hotărască repede, înainte ca meșterul să scrie la curte."
+        ],
+        "en": [
+          "A young lord returns from schools in the west in foreign clothes and with a short beard, and his father waits at table with all the kin. He must write his name into the service ranks, which his father counts a disgrace.",
+          "A ploughman who learned arithmetic at the court school is given the rank of clerk, and the lord of his village demands him back. The bishop who supported him needs an answer by morning service.",
+          "A noblewoman complains that her husband was taken into the army forever and that the estate is now written in the service's name. The court notary asks her whether her son will enter the ranks in his father's place.",
+          "A Dutch shipwright asks for land and men for his yard, and the local clerk learns that among the men are runaways. He must decide quickly, before the master writes to the court."
+        ]
+      }
+    },
+    {
+      "id": "hist-galleon-silver",
+      "tags": [
+        "argint",
+        "flotă",
+        "vamă"
+      ],
+      "title": {
+        "ro": "Universul în care argintul munților este al regelui, iar flota pleacă de două ori pe an",
+        "en": "A universe where mountain silver belongs to the king and the fleet sails twice a year"
+      },
+      "law": {
+        "ro": "Argintul din munți este al regelui mai înainte de a fi al celui care l-a scos: o cincime se ia din fiecare leat, iar cine toarnă argint în alt chip și nu-l aduce la topitorie plătește cu viața. Două flote se strâng pe an, una spre răsăritul mării și una spre apus, iar corăbiile care trec singure oceanul se socotesc pradă, iar echipajul lor este trimis la muncă în mine. Numai negustorii cetății mame au voie să vândă în porturile de peste ape, iar cine vinde acolo fără învoială își pierde marfa și arendarea. Averea se măsoară în argint topit, așa că prețurile se schimbă în fiecare an, iar cine a semnat o învoială în argint trebuie să dea atâta argint cât scrie, nu atâtea mărfuri câte socotea. Slujbașul trimis peste ape la socoteala leatului rămâne acolo șase ani și nu se însoară, ca să nu-și facă neam în pământul pe care îl numără.",
+        "en": "The silver from the mountains belongs to the king before it belongs to the man who dug it: a fifth is taken from every load, and whoever casts silver into some other form and does not bring it to the smelter pays with his life. Two fleets gather each year, one for the eastern sea and one for the west, and ships that cross the ocean alone are counted as spoil, with their crews sent to work in the mines. Only merchants of the mother city may sell in the ports overseas, and whoever sells there without leave loses his goods and his lease. Wealth is measured in smelted silver, so prices shift every year, and a man who signed an agreement in silver must deliver as much silver as it says, not as many goods as he reckoned. An officer sent overseas to count the load stays six years and does not marry, so that he does not build a line in the land he counts."
+      },
+      "openings": {
+        "ro": [
+          "Un miner din munții înalți găsește un leat bogat și știe că a cincea parte se ia pentru rege, iar restul se toarnă în lespezi la topitorie. Fratele lui cel mic e bolnav, iar leacurile se plătesc în argint topit.",
+          "Căpitanul unei corăbii care a trecut oceanul singur sosește în port cu mărfuri de preț și cu jumătate din oameni morți. Slujbașul vămii se întreabă dacă să scrie corabia ca pradă ori să-și ia partea pe ascuns.",
+          "O negustoreasă din cetatea mamă are două lăzi de mătase pentru peste ape și nu are loc în flotă. Ea poate plăti un căpitan să ducă lăzile pe ascuns ori poate aștepta încă un an, timp în care mătasea se strică.",
+          "Un slujbaș de leat are de ales între a se însura cu fiica unui crescător de vite de peste ape și a-și pierde slujba. Copilul care s-ar naște ar fi socotit om al pământului nou, fără drept de a se întoarce."
+        ],
+        "en": [
+          "A miner in the high mountains finds a rich load and knows a fifth goes to the king, while the rest is cast into bars at the smelter. His little brother is sick, and medicine is paid in smelted silver.",
+          "The captain of a ship that crossed the ocean alone reaches port with precious goods and half his men dead. The customs officer wonders whether to write the ship down as spoil or take his own share in secret.",
+          "A trader of the mother city has two chests of silk for overseas and no place in the fleet. She can pay a captain to carry the chests in secret or wait another year, while the silk spoils.",
+          "A load officer must choose between marrying the daughter of a cattle raiser overseas and losing his post. A child born there would be counted a person of the new land, with no right to come back."
+        ]
+      }
+    },
+    {
+      "id": "hist-pacific-islands",
+      "tags": [
+        "corăbii",
+        "neam",
+        "opreliște"
+      ],
+      "title": {
+        "ro": "Universul în care insulele se leagă prin corăbii, iar pământul se ține pe neam",
+        "en": "A universe where islands are joined by canoes and land is held by lineage"
+      },
+      "law": {
+        "ro": "Insulele nu se leagă prin ziduri, ci prin corăbii: numai neamul care știe citi valurile, vânturile și rândul stelelor poate porni peste apă, iar cine fură drumul altui neam se pierde cu toată corabia. Pământul de pe insulă se ține pe neam, nu pe om: o bucată de ogor nu se vinde, ci se dă în folosință celui care poate hrăni neamul, iar capul neamului ia ogoarele înapoi când cineva își calcă vorba dată. Un lucru atins de capul neamului ori de preot se socotește oprit, nimeni nu are voie să-l atingă, iar cine încalcă opreliștea se îmbolnăvește și moare dacă nu se curăță cu rugăciune și cu daruri. Cine a greșit greu pleacă pe o corabie cu hrană, cu apă și cu doi semeni și caută alt țărm, iar dacă nu-l găsește, nu se mai întoarce, fiindcă insula nu primește înapoi pe cel ce a plecat. Bătrânii țin în minte numele strămoșilor și rândul drumurilor, iar tânărul care nu învață numele nu are voie să se însoare.",
+        "en": "Islands are joined not by walls but by canoes: only a line that can read the waves, the winds and the order of the stars may set out over water, and whoever steals another line's route is lost with the whole canoe. Land on the island is held by lineage, not by person: a strip of field is not sold but lent to whoever can feed the kin, and the head of the line takes it back when a man breaks his given word. A thing touched by the head of the line or by the priest is counted forbidden, no one may touch it, and whoever breaks the ban sickens and dies unless he is cleaned with prayer and gifts. Whoever has done a grave wrong leaves in a canoe with food, water and two companions and looks for another shore, and if he finds none he does not come back, because the island does not take back the man who left. The elders keep in memory the names of ancestors and the order of the routes, and a young man who does not learn the names may not marry."
+      },
+      "openings": {
+        "ro": [
+          "Tânărul pescar a învățat rândul stelelor de la bunicul lui, dar bătrânul a murit înainte de a-i spune drumul spre insula de corali. Tatăl lui vrea totuși să pornească pe apă cu douăzeci de oameni la bord.",
+          "O furtună a aruncat pe țărm o corabie străină cu trei oameni bolnavi, iar capul neamului trebuie să spună dacă îi primește ori îi lasă în apă. Fata lui a văzut corabia și s-a apropiat de unul dintre ei.",
+          "Un ogor a fost dat unui neam mai tânăr pentru trei ani, iar acum bătrânul neamului vrea să-l ia înapoi. Familia care l-a lucrat are grâu în pământ și doi copii mici.",
+          "Un preot a atins o canoe nouă, iar de atunci nimeni nu are voie să se urce în ea. Meșterul care a cioplit-o trebuie să ceară iertare ori să ardă canoea și să înceapă alta înainte de sezonul pescuitului."
+        ],
+        "en": [
+          "The young fisherman learned the order of the stars from his grandfather, but the old man died before telling him the route to the coral island. His father means to set out over water anyway with twenty people aboard.",
+          "A storm has thrown a foreign canoe onto the shore with three sick men, and the head of the line must say whether he takes them in or leaves them in the water. His daughter saw the canoe and went near one of them.",
+          "A field was given to a younger line for three years, and now the elder head wants it back. The family that worked it has grain in the ground and two small children.",
+          "A priest touched a new canoe, and since then no one may board it. The craftsman who carved it must beg pardon or burn the canoe and start another before the fishing season."
+        ]
+      }
+    },
+    {
+      "id": "hist-song-printing",
+      "tags": [
+        "tipar",
+        "hârtie",
+        "curte"
+      ],
+      "title": {
+        "ro": "Universul în care plăcile de tipar hotărăsc cine are glas, iar curtea le strânge",
+        "en": "A universe where printing blocks decide who has a voice and the court collects them"
+      },
+      "law": {
+        "ro": "Cuvântul se înmulțește prin plăci de lemn și prin litere mișcătoare: cine ține plăcile ține glasul, iar curtea strânge plăcile care se ating de rânduială și le arde, ca gândul rău să nu se împrăștie în mii de bucăți. Tipograful care scoate o carte fără voie se pedepsește cu surghiun, iar cine vinde plăcile altcuiva este legat lângă cuptorul de cerneală până mărturisește unde au ajuns copiile. Hârtia de bani se tipărește numai de curte, iar cine desenează un ban de hârtie este omorât, fiindcă fiecare ban tipărit răpește argint din mâinile oamenilor. Fiecare carte nouă se citește de slujbașii curții mai înainte de a fi vândută, iar dacă într-însa stă un rând care slăbește rânduiala, placa se sfărâmă în piață. Meșterii care știu să toarne litere mișcătoare se scriu în catagrafia curții și nu au voie să iasă din țară, căci meșteșugul lor se socotește averea împăratului.",
+        "en": "The word multiplies through wooden blocks and movable letters: whoever holds the blocks holds the voice, and the court collects the blocks that touch on the order of things and burns them, so that a bad thought is not scattered in a thousand pieces. A printer who brings out a book without leave is exiled, and whoever sells the blocks on is bound beside the ink oven until he confesses where the copies went. Paper money is printed only by the court, and whoever draws a paper note is killed, because every note printed takes silver out of people's hands. Every new book is read by the court clerks before it is sold, and if a line in it weakens the order, the block is smashed in the market. Craftsmen who know how to cast movable letters are entered in the court roll and may not leave the country, for their craft is counted the emperor's wealth."
+      },
+      "openings": {
+        "ro": [
+          "Un tipograf a scos fără voie o carte de cântece despre un slujbaș lacom, iar plăcile au fost găsite la el în pod. Ucenicul lui are o noapte să le ascundă ori să le ardă în cuptorul de cerneală.",
+          "Un negustor vrea să plătească o datorie cu banii de hârtie ai curții și află că o parte dintre ei sunt făcuți de mână. El trebuie să spună de la cine i-a luat, știind că vărul lui i-a schimbat la un han.",
+          "O femeie care toarnă litere mișcătoare primește o socoteală de bani din altă cetate, iscălită de soțul ei mort. Slujbașul curții o întreabă de unde are literele, iar în casă are două ciocane și un tipar mic.",
+          "Un tânăr ispravnic vrea să dea la tipar o carte de socoteli pentru plugari, cu prețuri de grâu. Preotul satului îi spune că rândul despre prețuri slăbește rânduiala curții, iar prietenia lor este mai veche decât slujba."
+        ],
+        "en": [
+          "A printer brought out without leave a book of songs about a greedy official, and the blocks were found in his loft. His apprentice has one night to hide them or burn them in the ink oven.",
+          "A merchant wants to pay a debt with the court's paper money and learns that some of it was made by hand. He must say who gave it to him, knowing his cousin changed it at an inn.",
+          "A woman who casts movable letters receives an account of money from another city, signed by her dead husband. The court clerk asks her where her letters come from, and in the house she has two hammers and a small press.",
+          "A young clerk wants to print a book of accounts for ploughmen, with grain prices. The village priest tells him that the line about prices weakens the court's order, and their friendship is older than his post."
+        ]
+      }
+    },
+    {
+      "id": "hist-steppe-tribute",
+      "tags": [
+        "cai",
+        "pășune",
+        "tribut"
+      ],
+      "title": {
+        "ro": "Universul în care puterea se măsoară în cai, iar cetățile de la margine plătesc tribut",
+        "en": "A universe where power is counted in horses and border towns pay tribute"
+      },
+      "law": {
+        "ro": "Poporul nu are cetate, ci turme, iar puterea se măsoară în cai: cine are mai multe turme are mai mulți oameni în oaste, iar cine rămâne fără turme slujește neamul bogat și merge cu el la război. Pășunea nu se stăpânește, ci se folosește după rândul neamurilor și după anotimp, așa că cine oprește o fântână ori paște peste rândul lui este judecat de căpetenii și plătește cu cai. Cetățile de la marginea stepei plătesc tribut în grâne, în pânză și în meșteri, iar dacă nu plătesc, oastea călare le arde, iar dacă plătesc, negustorii lor umblă slobozi prin tabere. Fiul fiecărei căpetenii supuse se crește o vreme în tabăra cea mare, ca să învețe rândul stepei, iar dacă tatăl ridică sabia, fiul plătește pentru el. Adunarea căpeteniilor se face primăvara, când se împart pășunile și se hotărăște războiul, iar cine nu vine nu are parte de pășune anul acela.",
+        "en": "The people have no city but herds, and power is counted in horses: whoever has more herds has more men in the host, while a man left without herds serves a rich line and rides with it to war. Pasture is not owned but used by the order of the lines and by season, so whoever blocks a spring or grazes beyond his turn is judged by the chiefs and pays in horses. Towns at the edge of the steppe pay tribute in grain, cloth and craftsmen, and if they do not pay the mounted host burns them, while if they pay their traders move freely through the camps. The son of every subject chief is raised for a time in the great camp, to learn the order of the steppe, and if the father raises his sword, the son pays for him. The assembly of chiefs is held in spring, when pastures are divided and war is decided, and whoever does not come has no share of pasture that year."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr păstor a găsit un izvor nou între două pășuni și vrea să-și mute turma acolo înaintea neamului vecin. Tatăl lui este plecat cu oastea, iar hotărârea se ia la adunarea de primăvară.",
+          "Fiul unei căpetenii supuse crește de trei ani în tabăra cea mare și află că tatăl lui a ridicat sabia la hotar. Căpetenia stepei îi pune în mână un arc și îi cere să spună ce va face.",
+          "Un negustor din cetatea de la margine vine cu pânză și cu unelte, dar tributul anului a fost luat de o ceată de călăreți răzleți. El trebuie să spună ce s-a întâmplat înainte ca oastea cea mare să ajungă la ziduri.",
+          "O femeie rămasă văduvă are două sute de cai și niciun fiu în vârstă de arc. Neamul cel bogat îi cere caii ca plată pentru pășune, iar ea poate cere ocrotirea adunării."
+        ],
+        "en": [
+          "A young herder has found a new spring between two pastures and wants to move his herd there before the neighbouring line. His father is away with the host, and the matter is decided at the spring assembly.",
+          "The son of a subject chief has been raised three years in the great camp and learns that his father has raised his sword at the border. The chief of the steppe puts a bow in his hand and tells him to say what he will do.",
+          "A trader from the border town comes with cloth and tools, but the year's tribute was taken by a band of stray riders. He must tell what happened before the great host reaches the walls.",
+          "A woman left a widow has two hundred horses and no son old enough for the bow. The rich line demands her horses as payment for pasture, and she can ask the assembly for protection."
+        ]
+      }
+    },
+    {
+      "id": "hist-west-africa-iron",
+      "tags": [
+        "fier",
+        "meșter",
+        "bare"
+      ],
+      "title": {
+        "ro": "Universul în care meșterul fierului nu poate fi rob și nu poate fi rege",
+        "en": "A universe where the iron master can be neither slave nor king"
+      },
+      "law": {
+        "ro": "Fierul nu se scoate de oricine: meșterul care știe să topească piatra roșie din pământ are mâinile socotite altfel decât ale oamenilor, așa că nu poate fi rob, nu poate fi rege și nu poate fi judecat de cei ce nu-i știu meșteșugul. Fiecare sat care are cuptor își plătește meșterul cu grâu și cu vite, iar meșterul nu are voie să spună altui neam amestecul pământului și al cărbunelui, chiar dacă i se dă aur. Cu fiare de plug se ară pământul cel tare, așa că neamul care are meșter de fier mănâncă tot anul, iar neamul care nu are muncește cu lemnul și flămânzește în lunile secetoase. Bara de fier ține loc de bani pe drumurile de sare: pentru două bare se ia un sac de sare, pentru cinci se ia o vită, iar cine toarnă bare mai scurte plătește de trei ori. Cine pune mâna pe cuptorul altuia ori fură piatra roșie este dat peste apă, afară din țară, cu tot neamul lui.",
+        "en": "Iron is not taken from the ground by just anyone: the master who knows how to melt the red stone has hands counted differently from other men, so he cannot be made a slave, cannot be king and cannot be judged by those who do not know his craft. Every village with a furnace pays its master in grain and cattle, and the master may not tell another line the mix of earth and charcoal, even if gold is offered. Ploughs of iron turn the hard soil, so a line with a smith eats all year, while a line without one works with wood and goes hungry in the dry months. Iron bars stand in place of coin on the salt roads: two bars buy a sack of salt, five buy a cow, and whoever casts shorter bars pays three times over. Whoever lays hands on another's furnace or steals the red stone is put across the water, out of the country, with all his kin."
+      },
+      "openings": {
+        "ro": [
+          "Un meșter de fier primește ca ucenic un fecior de neam regesc, iar băiatul vrea să învețe amestecul pământului și al cărbunelui. Meșterul știe că dacă îl învață, meșteșugul iese din neamul lui pentru totdeauna.",
+          "Două sate se ceartă pentru o vână de piatră roșie găsită pe hotar, iar judecata s-a făcut până la cinci bare de fier. Meșterul care toarnă barele este rudă cu oameni din amândouă satele.",
+          "Un negustor de sare aduce bare de fier mai scurte decât rândul și le dă unui sat flămând. Femeia care strânge sarea pentru iarnă trebuie să hotărască dacă le primește ori îl dă pe negustor în piață.",
+          "Cuptorul meșterului a crăpat în timpul topirii, iar satul are nevoie de pluguri până vin ploile. Preotul cere o jertfă de vită pentru cuptor, iar meșterul știe că nu vitele trebuie schimbate, ci piatra."
+        ],
+        "en": [
+          "An iron master takes a boy of royal line as apprentice, and the boy wants to learn the mix of earth and charcoal. The master knows that if he teaches him, the craft leaves his own line forever.",
+          "Two villages quarrel over a vein of red stone found on the border, and the case has gone as far as five iron bars. The master who casts the bars is related to people in both villages.",
+          "A salt trader brings iron bars shorter than the standard and gives them to a hungry village. The woman who gathers the salt for winter must decide whether to take them or give the trader up in the market.",
+          "The master's furnace cracked while melting, and the village needs ploughs before the rains come. The priest asks for the sacrifice of a cow for the furnace, while the master knows it is not the cattle that must be changed but the stone."
+        ]
+      }
+    },
+    {
+      "id": "hist-elam",
+      "tags": [
+        "moștenire",
+        "soră",
+        "dumbravă"
+      ],
+      "title": {
+        "ro": "Universul în care moștenirea merge la fiul surorii, iar dumbrava zeului nu se taie",
+        "en": "A universe where inheritance passes to the sister's son and the god's grove is never cut"
+      },
+      "law": {
+        "ro": "Neamul se ține pe soră, nu pe fiu: moștenirea și scaunul domniei merg la fiul surorii regelui, iar copiii bărbatului cu soția lui rămân ai neamului femeii, fiindcă sângele casei se socotește numai prin mame. Cine se însoară plătește prețul miresei în argint și în vite, iar plata se scrie pe tăbliță înaintea a doi oameni ai zeului din dumbravă, altfel copiii nu au parte de avere. Dumbrăvile de lângă ziduri sunt ale zeului și nu se taie: cine taie un copac din dumbravă plătește de șapte ori lemnul și aduce un vas de argint la templu. Slujbașii templului numără vitele, grânele și argintul cetății și dau socoteală la fiecare lună nouă, iar cine rămâne dator este luat rob al zeului și slujește la mori până plătește de două ori. Vara, când apa curge tulbure, judecățile se amână pentru că râul nu poate lua probele, iar cei așteptați sunt ținuți în curtea templului.",
+        "en": "A line is held through the sister, not through the son: inheritance and the seat of rule pass to the king's sister's son, while a man's children by his wife belong to the woman's line, because the blood of the house is counted only through mothers. Whoever marries pays the bride price in silver and cattle, and the payment is written on a tablet before two men of the god of the grove, or the children have no share of the estate. The groves beside the walls belong to the god and are not cut: whoever cuts a tree in the grove pays seven times the timber and brings a silver vessel to the temple. Temple clerks count the cattle, grain and silver of the city and give account at every new moon, and whoever remains in debt is taken as a slave of the god and works at the mills until he pays twice over. In summer, when the water runs muddy, trials are postponed because the river cannot take the proofs, and those waiting are held inside the temple court."
+      },
+      "openings": {
+        "ro": [
+          "O femeie din cetate naște un băiat în noaptea când fratele ei, stăpânul țării, moare fără fiu. Preoții din dumbravă spun că pruncul trebuie dus la curte, iar tatăl copilului vrea să-l țină acasă.",
+          "Un tăietor de lemne a luat trei copaci din dumbrava zeului ca să-și acopere casa. Preotul îi cere șapte cară de lemn și un vas de argint, iar omul are doar două capre.",
+          "Un slujbaș al templului rămâne dator cu o parte din grânele numărate la luna nouă. Femeia lui vinde argintul de la nuntă ca să-l scoată din robia zeului, dar fiul surorii lui cere averea neamului.",
+          "O fată vrea să se mărite cu un negustor venit de peste râu, iar mama ei spune că prețul miresei trebuie scris pe tăbliță înaintea oamenilor zeului. Negustorul cere ca învoiala să se facă în casa lui."
+        ],
+        "en": [
+          "A woman of the city bears a boy on the night her brother, the ruler of the land, dies without a son. The priests of the grove say the child must go to the court, while the child's father wants to keep him at home.",
+          "A woodcutter took three trees from the god's grove to roof his house. The priest asks seven cartloads of timber and a silver vessel, and the man has only two goats.",
+          "A temple clerk falls short of a share of the grain counted at the new moon. His wife sells her wedding silver to buy him out of the god's slavery, but his sister's son claims the estate of the line.",
+          "A girl wants to marry a trader who came from across the river, and her mother says the bride price must be written on a tablet before the god's men. The trader asks that the agreement be made in his own house."
+        ]
+      }
+    },
+    {
+      "id": "hist-carthage-sea",
+      "tags": [
+        "mare",
+        "colonii",
+        "sfat"
+      ],
+      "title": {
+        "ro": "Universul în care marea de la apus este a cetății, iar bătrânii hotărăsc războiul",
+        "en": "A universe where the western sea belongs to the city and elders decide war"
+      },
+      "law": {
+        "ro": "Cetatea nu se cârmuiește de regi, ci de bătrânii caselor negustorești: judecătorii se aleg pe un an, oastea se plătește din vama portului, iar cine aduce mai mult argint din mare are mai mult glas în sfat. Marea de la apus este a cetății: nicio corabie străină nu trece dincolo de stâlpii de piatră, iar cine este prins vâslind pe acolo se scufundă cu toată marfa și cu echipajul. Coloniile de pe țărmuri trimit cetății a zecea parte din rod și din pește, iar în schimb primesc ocrotirea corăbiilor de război și dreptul de a-și alege starostii. Ogoarele din jur se lucrează de robi așezați pe pământ, cu socoteală de zile și de cules, iar cine fuge este însemnat și vândut în altă parte, în timp ce robul cu rod bun poate cumpăra o bucată de pământ. Sfatul hotărăște războiul numărând corăbii și greutăți de argint, iar generalul care pierde o flotă este răstignit chiar dacă a pierdut fiindcă sfatul i-a dat prea puține corăbii.",
+        "en": "The city is not ruled by kings but by the elders of the trading houses: judges are chosen for a year, the army is paid out of harbour dues, and whoever brings more silver from the sea has more voice in the council. The western sea belongs to the city: no foreign ship passes beyond the stone pillars, and any found rowing there is sunk with cargo and crew. Colonies on the coasts send the city a tenth of their crops and fish, and in return receive the guard of warships and the right to choose their own headmen. The fields around are worked by slaves settled on the land, with accounts of days and harvest, and a runaway is branded and sold elsewhere, while a slave with a good crop may buy a strip of ground. The council decides war by counting ships and weights of silver, and a general who loses a fleet is crucified even if he lost because the council gave him too few ships."
+      },
+      "openings": {
+        "ro": [
+          "Un căpitan se întoarce de la stâlpii de piatră cu o corabie străină prinsă în larg și cu marfă bună la bord. Sfatul îi cere să o scufunde, iar pe ea se află un tălmăcitor care i-a scăpat odată viața.",
+          "O femeie care ține socotelile unei moșii de măslini găsește că rodul anului nu se leagă cu zilele de muncă ale robilor. Fiul stăpânului o întreabă dacă vrea să scrie socoteala frumoasă ori socoteala adevărată.",
+          "Un staroste de colonie vine la cetate să ceară corăbii pentru pescuit, fiindcă tâlharii i-au luat două bărci. Bătrânii sfatului îi spun că flota este pentru război, iar colonia poate plăti din rodul anului viitor.",
+          "Un general întors de pe mare cu două corăbii din zece trebuie să stea înaintea sfatului și să lămurească pierderea. Fratele lui cel mic este chiar unul dintre cei ce numără voturile."
+        ],
+        "en": [
+          "A captain comes back from the stone pillars with a foreign ship taken on the open sea and good cargo aboard. The council demands he sink it, and aboard her is an interpreter who once saved his life.",
+          "A woman who keeps the accounts of an olive estate finds that the year's crop does not match the slaves' days of work. The owner's son asks her whether she means to write the fair account or the true one.",
+          "A colony headman comes to the city to ask for fishing boats, since robbers have taken two. The council elders tell him the fleet is for war, and the colony may pay from next year's crop.",
+          "A general back from sea with two ships out of ten must stand before the council and explain the loss. His younger brother is one of those counting the votes."
+        ]
+      }
+    },
+    {
+      "id": "hist-italian-city-states",
+      "tags": [
+        "statut",
+        "neamuri",
+        "turnuri",
+        "izgonire"
+      ],
+      "title": {
+        "ro": "Universul în care statutele scrise cârmuiesc cetatea, iar neamurile ridică turnuri",
+        "en": "A universe where written statutes govern the city and rival families raise towers"
+      },
+      "law": {
+        "ro": "Cetatea se cârmuiește prin statute scrise și prin slujbași aduși din altă cetate: căpetenia cetății nu are rude în oraș, nu poate cumpăra pământ și pleacă după un an cu socoteala închisă. Neamurile mari se luptă pentru locuri în sfat și își ridică turnuri, iar cine ridică turnul mai înalt își arată puterea, până când cetatea hotărăște să taie toate turnurile la aceeași înălțime. Fiecare meserie are casa ei, cu steag, cu bătrâni și cu socoteală de ajutor dat membrilor bolnavi, iar cine lucrează fără să fie în casa meseriei nu poate vinde în piață. Cei care pierd cearta între neamuri sunt izgoniți și își pierd casele, care se dărâmă ca să nu se întoarcă nimeni în ele, iar uneori izgoniții se întorc cu oaste plătită. Casele de bani țin socotelile domnilor și ale regilor de departe, iar când un rege nu plătește, casa cea mare cade și cu ea cad casele neamurilor care i-au dat bani.",
+        "en": "The city governs itself by written statutes and by officers brought from another city: the chief officer has no kin in town, may not buy land and leaves after a year with his accounts closed. Great families fight for seats in the council and raise towers, and whoever builds the taller tower shows his power, until the city decides to cut all towers to the same height. Every trade has its own house, with a banner, elders and an account of aid given to sick members, and whoever works outside the trade house may not sell in the market. Those who lose a quarrel between families are banished and lose their houses, which are pulled down so that no one may return to them, and sometimes the banished come back with a paid army. Houses of money keep the accounts of lords and of far-off kings, and when a king does not pay, the great house falls and with it fall the houses of the families that lent to him."
+      },
+      "openings": {
+        "ro": [
+          "O căpetenie nouă sosește în cetate cu soția și cu doi slujbași și află în prima zi că două neamuri își ridică turnurile peste înălțimea îngăduită. Are o lună să hotărască dacă le taie ori închide ochii.",
+          "Un negustor de postav vrea să intre în casa meseriei, dar are un văr izgonit acum șapte ani. Bătrânii casei îi cer să scrie pe hârtie că nu-l mai socotește rudă.",
+          "Fiul unui neam izgonit se întoarce la poarta cetății cu o ceată de călăreți plătiți și cere casele înapoi. Sora lui trăiește în oraș și este măritată cu unul dintre bătrânii sfatului.",
+          "O casă de bani află că regele de dincolo de munți nu mai poate plăti împrumutul, iar tatăl fetei care se mărită cu fiul casei a pus bani în acel împrumut. Nunta este peste trei zile."
+        ],
+        "en": [
+          "A new chief officer arrives in the city with his wife and two clerks and learns on his first day that two families are raising their towers above the allowed height. He has one month to decide whether to cut them or look away.",
+          "A cloth merchant wants to enter the trade house, but he has a cousin banished seven years ago. The elders of the house demand he write on paper that he no longer counts him as kin.",
+          "The son of a banished family returns to the city gate with a band of paid riders and demands the houses back. His sister lives in town and is married to one of the council elders.",
+          "A house of money learns that the king beyond the mountains can no longer pay the loan, and the father of the girl marrying the banker's son put money into that loan. The wedding is in three days."
+        ]
+      }
+    },
+    {
+      "id": "hist-hanseatic-league",
+      "tags": [
+        "porturi",
+        "hering",
+        "jurământ"
+      ],
+      "title": {
+        "ro": "Universul în care cetățile de pe mare se leagă prin jurământ și închid porturile împreună",
+        "en": "A universe where sea towns swear a league and close their harbours together"
+      },
+      "law": {
+        "ro": "Cetățile de pe mare se leagă între ele prin jurământ, nu prin stăpân: fiecare își ține sfatul și legile, dar toate închid împreună porturile aceluia care calcă rânduiala negustorilor. Negustorul venit de departe sălășluiește numai în curțile de lemn ale legăturii, unde doarme, mănâncă și își ține socotelile după legile cetății lui, iar cine îl jefuiește pe drum este prigonit în toate porturile. Heringul, sarea, blănurile și grânele se cumpără și se vând la prețul hotărât la adunarea din fiecare an, iar cine vinde mai ieftin ca să strice piața altuia este scos din negoț trei ani. Corăbiile se plătesc de obște: fiecare negustor pune parte după câte lăzi are la bord, iar dacă se pierde corabia, pierderea se împarte la fel, așa că nimeni nu trage folos din nenorocirea altuia. Orice corabie care trece pe apele legăturii fără învoială este oprită, iar echipajul nu are drept de pâră decât la judecata cetății unde a fost prins.",
+        "en": "The sea towns bind themselves to one another by oath, not by a ruler: each keeps its own council and laws, but together they close their harbours to any town that breaks the merchants' order. A trader from far away lodges only in the league's wooden yards, where he sleeps, eats and keeps his accounts under the laws of his own city, and whoever robs him on the road is hunted in every port. Herring, salt, furs and grain are bought and sold at the price fixed at each year's assembly, and whoever undersells to ruin another's market is shut out of trade for three years. Ships are paid for in common: each merchant puts in a share by how many chests he has aboard, and if the ship is lost the loss is shared the same way, so no one gains from another's misfortune. Any ship that passes the league's waters without leave is stopped, and its crew has no right of complaint except before the court of the town where it was taken."
+      },
+      "openings": {
+        "ro": [
+          "Un negustor are două lăzi de hering în plus pe o corabie care s-a scufundat la intrarea în port. Ceilalți negustori îi cer să plătească pentru toate lăzile, iar el poate dovedi că o parte erau ale unui văr din alt port.",
+          "Un tânăr slujbaș al curții de lemn dintr-un oraș de răsărit trebuie să judece pricina dintre doi negustori care se ceartă pe o pânză de in. Legile celor două cetăți spun lucruri deosebite, iar sezonul se închide în două săptămâni.",
+          "O cetate mică a vândut marfă unui port scos din rânduială, iar sfatul celorlalte cetăți hotărăște închiderea porturilor pentru ea. Fratele primarului are două corăbii plină cu sare, gata de plecare.",
+          "Un pescar care a prins hering în afara sezonului este prins de o corabie a legăturii și adus în port. Fiul lui vrea să plătească amenda din banii zestrei surorii, iar sora află abia la nuntă."
+        ],
+        "en": [
+          "A merchant has two extra chests of herring on a ship that sank at the harbour mouth. The other merchants demand he pay for every chest, and he can prove that some belonged to a cousin in another port.",
+          "A young clerk of the wooden yard in an eastern town must judge a case between two merchants quarrelling over a length of linen. The laws of the two cities say different things, and the season closes in two weeks.",
+          "A small town sold goods to a port shut out of the order, and the council of the other towns decides to close its harbours in turn. The mayor's brother has two ships full of salt ready to sail.",
+          "A fisherman who took herring out of season is caught by a league ship and brought into port. His son wants to pay the fine from his sister's dowry, and the sister only learns of it at the wedding."
+        ]
+      }
+    },
+    {
+      "id": "hist-persian-qanats",
+      "tags": [
+        "apă",
+        "canale",
+        "rânduri"
+      ],
+      "title": {
+        "ro": "Universul în care apa curge sub pământ, iar partea fiecăruia se măsoară cu ceasul",
+        "en": "A universe where water runs underground and each share is measured by the clock"
+      },
+      "law": {
+        "ro": "Apa nu curge pe deasupra, ci pe sub pământ, prin șanțuri lungi săpate de meșteri care au găsit izvorul la poalele munților: cine sapă canalul stăpânește apa, iar neamul lui ține parte din ea din tată în fiu. Partea nu se măsoară cu găleata, ci cu ceasul de apă: apa se împarte în rânduri de un ceas și un sfert, ziua și noaptea, iar slujbașul numit de sat măsoară rândurile cu un vas de aramă prin care curge apa. Cine ia apă în afara rândului plătește cât rodul pe care l-a stropit greșit, iar dacă se întâmplă a doua oară, i se ia partea de apă și o cumpără alt neam. Satul care nu sapă ori nu curăță canalul la vreme rămâne fără apă când vine seceta, iar oamenii lui se înhamă la vitele celor cu apă, pentru hrană. Casa se răcorește cu vânt prin coșuri de lut, iar cine ridică o casă mai înaltă și ia vântul casei vecine plătește ori dărâmă rândul adăugat.",
+        "en": "Water does not run above ground but beneath it, through long channels dug by masters who found the spring at the foot of the mountains: whoever digs the channel owns the water, and his line holds a share of it from father to son. Shares are not measured by the bucket but by the water clock: water is divided into turns of an hour and a quarter, by day and by night, and the officer named by the village measures the turns with a copper bowl through which the water runs. Whoever draws water outside his turn pays as much as the crop he wrongly watered, and if it happens a second time his share is taken from him and bought by another line. A village that does not dig or clear its channel in time is left without water when drought comes, and its people yoke themselves to the oxen of those who have water, for food. A house is cooled by wind through clay shafts, and whoever raises a taller house and takes his neighbour's wind must pay or pull down the added row."
+      },
+      "openings": {
+        "ro": [
+          "Meșterul de canale a găsit izvorul la poalele muntelui, dar drumul apei până la sat trece pe sub ogoarele a două neamuri. Unul dintre ele cere jumătate din apă ca să lase săpătura, iar meșterul nu mai are argint pentru salahori.",
+          "Slujbașul apei găsește vasele de aramă sparte în chiar ziua când începe rândul de seceriș. Fără măsurătoare, familiile se ceartă la gura canalului, iar grâul se usucă pe ogoare.",
+          "Un plugar a luat apă în rândul vecinului ca să-și scape pomii, iar acum i se cere plata rodului. El poate plăti cu oile ori își poate pierde rândul de apă pe viață.",
+          "Un negustor de mirodenii vrea să cumpere rândul de apă al unei văduve și îi oferă aur. Văduva are un fiu care se întoarce de la școala din oraș și care ar putea trăi din ogor dacă apa rămâne."
+        ],
+        "en": [
+          "The channel master has found the spring at the foot of the mountain, but the water's path to the village runs beneath the fields of two lines. One of them asks half the water to allow the digging, and the master has no silver left for hired men.",
+          "The water officer finds the copper bowls broken on the very day the harvest turn begins. With no measuring, the families quarrel at the channel mouth, and the wheat dries in the fields.",
+          "A ploughman drew water in his neighbour's turn to save his trees, and now he is asked to pay the value of the crop. He can pay in sheep or lose his water turn for life.",
+          "A spice trader wants to buy a widow's water turn and offers gold. The widow has a son returning from school in the city, and he could live off the field if the water stays."
+        ]
+      }
+    },
+    {
+      "id": "hist-korean-movable-type",
+      "tags": [
+        "slove",
+        "tipar",
+        "școală"
+      ],
+      "title": {
+        "ro": "Universul în care slovele sunt ale tuturor, iar tiparul de metal se ține la curte",
+        "en": "A universe where letters belong to all and metal type is kept by the court"
+      },
+      "law": {
+        "ro": "Semnele scrisului nu sunt ale învățaților, ci ale tuturor: curtea a făcut un rând de slove ușoare, pe care plugarul le învață în trei luni, iar cine ține învățătura ascunsă este pedepsit pentru că a furat din graiul obștii. Tiparul cu litere de metal se ține de curte, în casa învățăturii: cine toarnă litere în alt loc și scoate carte de vânzare este luat cu slujbași și trimis la robie pe corăbii. Cărțile alese se tipăresc și se împart curților de ținut, iar slujbașul care nu citește bine cartea înaintea oamenilor este scos din rând. Cine scrie cuvinte potrivnice curții pe hârtie ori pe zid este căutat cu peceți și, dacă este găsit, plătește cu viața neamului lui, fiindcă scrisul umblă mai departe decât omul. Copiii tuturor rândurilor pot învăța slovele la școala satului, dar cine vrea slujbă la curte trebuie să treacă prin slovele străvechi și prin socoteala cerului.",
+        "en": "The marks of writing belong to everyone, not to scholars: the court made a set of simple letters that a ploughman learns in three months, and whoever keeps learning hidden is punished for stealing from the speech of all. Printing with metal letters is held by the court, in the house of learning: whoever casts letters elsewhere and brings out books for sale is taken with officials and sent to slavery on the ships. Chosen books are printed and sent out to the district courts, and a clerk who cannot read a book well before the people is removed from his rank. Whoever writes words against the court on paper or on a wall is hunted with seals, and if found he pays with his family's lives, because writing travels farther than a man can. Children of every rank may learn the letters at the village school, but whoever wants office at court must pass through the old characters and through the reckoning of the sky."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr din satul de munte a învățat slovele ușoare în iarna trecută și acum scrie scrisori pentru vecini. Slujbașul ținutului află că a scris și o plângere despre dare, iar băiatul este chemat la casa slujbei.",
+          "O văduvă care toarnă litere de metal în curtea mănăstirii vinde două cărți unui negustor străin. Un ucenic al casei învățăturii o vede și trebuie să hotărască dacă o pârăște ori tace.",
+          "Un slujbaș de ținut primește cărțile noi din cetatea mare și trebuie să le citească în piață, dar nu a învățat bine slovele străvechi. Poate cere ajutorul fiicei lui, care citește, ori poate spune că este bolnav.",
+          "Copilul unui pescar este trimis la școala satului cu bani de la un neam bogat care vrea să-l ia ucenic. Învățătorul vede că băiatul scrie mai bine decât fiul neamului, iar duminică se predau slovele străvechi."
+        ],
+        "en": [
+          "A young man from a mountain village learned the simple letters last winter and now writes letters for his neighbours. The district clerk learns he also wrote a complaint about the tax, and the boy is summoned to the office house.",
+          "A widow who casts metal letters in the courtyard of a monastery sells two books to a foreign trader. An apprentice of the house of learning sees her and must decide whether to report her or keep quiet.",
+          "A district clerk receives the new books from the great city and must read them aloud in the market, but he never learned the old characters well. He can ask his daughter, who reads, for help, or claim to be ill.",
+          "A fisherman's child is sent to the village school with money from a rich line that wants him as an apprentice. The teacher sees the boy writes better than the line's own son, and on Sunday the old characters are taught."
+        ]
+      }
+    },
+    {
+      "id": "hist-aksum-gold-coin",
+      "tags": [
+        "monedă",
+        "port",
+        "tămâie"
+      ],
+      "title": {
+        "ro": "Universul în care numai moneda cu chipul regelui are preț",
+        "en": "A universe where only coin bearing the king's image has value"
+      },
+      "law": {
+        "ro": "Regele își pune numele și chipul pe monedă, iar moneda curge numai de la curte: cine bate argint ori aur în alt loc își pierde mâna și averea, fiindcă numai chipul regelui dă preț argintului. Fiecare negustor care intră în portul de la mare trebuie să-și schimbe marfa în banii curții, iar cine iese din țară cu monedă străină este oprit ca hoț de avere. Curtea primește fildeș, tămâie și robi ca dare, iar în schimb dă monedă nouă și slobozenie pentru drumurile de peste mare. Stâlpii uriași ridicați lângă cetate se înalță pentru cei mari ai neamului, iar cine ridică un stâlp mai înalt decât al curții plătește cu pământul lui, fiindcă rânduiala casei domnitoare nu se întrece. Preotul cel mare și regele se socotesc una înaintea norodului, așa că rânduielile de credință se scriu ca rânduieli de cetate, iar cine nu le primește nu are loc de negoț în port.",
+        "en": "The king puts his name and image on the coin, and coin flows only from the court: whoever strikes silver or gold elsewhere loses his hand and his wealth, because only the king's image gives the silver its worth. Every trader entering the sea port must change his goods into the court's money, and whoever leaves the country carrying foreign coin is stopped as a thief of wealth. The court receives ivory, incense and slaves as tribute, and in return gives new coin and leave to travel the sea roads. The giant pillars raised near the city are set up for the great men of the line, and whoever raises a pillar taller than the court's pays with his land, because the order of the ruling house is not to be outdone. The high priest and the king are counted one before the people, so rules of faith are written as rules of the city, and whoever does not accept them has no place of trade in the port."
+      },
+      "openings": {
+        "ro": [
+          "Un meșter de monedă de la curte găsește trei bucăți de argint bătute cu un chip asemănător, dar cu numele schimbat. El trebuie să spună regelui cine le-a făcut, iar urma duce la fratele reginei.",
+          "Un negustor de tămâie sosește în port cu marfă de preț și cu monedă din altă țară. Slujbașul portului îi cere să schimbe tot în banii curții, iar negustorul pierde astfel două părți din averea lui.",
+          "O femeie care taie piatră pentru stâlpi află că stâlpul început de neamul ei ar fi mai înalt decât al curții. Bătrânul neamului nu vrea să scadă piatra, iar solul regelui stă la poartă.",
+          "Un tânăr preot trimis la școala din altă țară se întoarce cu rânduieli deosebite de credință. Unchiul lui este preot mare la lăcașul din cetate și îi cere să tacă până după sărbătoare."
+        ],
+        "en": [
+          "A mint master at the court finds three pieces of silver struck with a similar image but a changed name. He must tell the king who made them, and the trail leads to the queen's brother.",
+          "An incense trader arrives at the port with precious goods and with coin from another country. The port clerk demands he change everything into the court's money, and the trader thus loses two parts of his wealth.",
+          "A woman who cuts stone for pillars learns that the pillar begun by her line would stand taller than the court's. The elder of the line will not lower the stone, and the king's messenger stands at the gate.",
+          "A young priest sent to a school in another country returns with different rules of faith. His uncle is high priest at the sanctuary in the city and asks him to keep silent until after the feast."
+        ]
+      }
+    }
+  ]
+}

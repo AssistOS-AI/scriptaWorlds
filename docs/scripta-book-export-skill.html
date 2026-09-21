@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scripta-book-export skill - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › scripta-book-export</p>
+      <p class="kicker">Skills</p>
+      <h1>scripta-book-export</h1>
+
+      <p class="lead"><a href="wiki.html#definition-scripta-book-export">scripta-book-export</a> is the print skill: one command that turns the chapters of a universe into a DOCX file, a PDF file or both, using the skill's own TrueType, layout, PDF and DOCX engines. The server asks for it during an export turn, and a reader reaches the produced files from the header menu of the reader interface.</p>
+
+      <section>
+        <h2>What the skill covers</h2>
+        <p>The skill exists so that a book written as Markdown chapters can be produced as a printed edition without an external toolchain. The renderer contains its own font parser and subsetter, its own page layout engine, its own PDF writer and its own DOCX writer built on the compression and hashing modules of Node.js, and it depends on no npm package, no Python and no other command. It reads the book, it writes only edition files inside the <code>exports/</code> folder, and its whole result is reported as a single JSON line on standard output, which is what makes it usable both by an agent and by the project check.</p>
+        <p>An export turn works in two steps: the agent writes the editorial metadata, then it runs the command and reads the JSON line back. The server then verifies that at least one edition file appeared, and fails the turn with <code>NO_EXPORT</code> when it did not, so a reported successful edition always corresponds to a file on disk.</p>
+      </section>
+
+      <section>
+        <h2>Folder contents</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>SKILL.md</code></td>
+              <td>The agent procedure, the command-line reference, the file naming and language rules, the accepted Markdown subset, the font search order and the hard rules of the export.</td>
+            </tr>
+            <tr>
+              <td><code>scripts/build-book.mjs</code></td>
+              <td>The command-line entry point: it parses the options, loads the book, paginates it, calls the two writers and prints the single JSON line.</td>
+            </tr>
+            <tr>
+              <td><code>scripts/lib/*.mjs</code></td>
+              <td>The engines, as ES modules: <code>errors.mjs</code> (exit codes, errors, text and byte helpers), <code>truetype.mjs</code> (the font parser and subsetter), <code>fonts.mjs</code> (the font search and <code>BookFace</code>), <code>markdown.mjs</code> (the accepted Markdown subset), <code>book.mjs</code> (language, labels and the book model), <code>layout.mjs</code> (pagination and the table of contents), <code>pdf.mjs</code> (the PDF writer) and <code>docx.mjs</code> (the ZIP and OOXML writer).</td>
+            </tr>
+            <tr>
+              <td><code>DS.md</code></td>
+              <td>The design summary: the engines, the layout strategy, the font selection and the reasons behind the command-line contract.</td>
+            </tr>
+            <tr>
+              <td><code>skill.json</code>, <code>dependencies.md</code></td>
+              <td>The catalog manifest and the local dependency record, including the optional system-font requirement and the tools used only to verify produced files during development.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Command line</h2>
+        <pre><code>node skills/scripta-book-export/scripts/build-book.mjs \
+  --universe &lt;universe-folder&gt; [--out &lt;folder&gt;] [--format both|docx|pdf] [--fonts &lt;folder&gt;] [--language &lt;code&gt;]</code></pre>
+        <p>Inside a universe the same script is reachable through the skill link, so the documented form for an agent is <code>node .agents/skills/scripta-book-export/scripts/build-book.mjs --universe . --format both</code>.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Option</th>
+              <th scope="col">Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--universe</code></td>
+              <td>The universe folder, required; it accepts <code>.</code> so the command can run from inside the book.</td>
+            </tr>
+            <tr>
+              <td><code>--out</code></td>
+              <td>The destination folder, defaulting to the <code>exports/</code> folder of the universe.</td>
+            </tr>
+            <tr>
+              <td><code>--format</code></td>
+              <td><code>both</code> by default, or <code>docx</code> or <code>pdf</code> alone.</td>
+            </tr>
+            <tr>
+              <td><code>--fonts</code></td>
+              <td>A folder of <code>.ttf</code> files that replaces the system font search.</td>
+            </tr>
+            <tr>
+              <td><code>--language</code></td>
+              <td>The language of the edition labels, resolved in the order <code>--language</code>, then the language in the editorial metadata file, then the language of the universe, then <code>ro</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>An unknown option, a missing value, an invalid format, an invalid language code or a missing universe is a usage failure: the JSON line carries <code>USAGE</code> or <code>MISSING_UNIVERSE</code> and the process exits with status 2, so an invalid invocation never produces a partial edition.</p>
+      </section>
+
+      <section>
+        <h2>Editorial metadata and language</h2>
+        <p>Before running the command the agent writes the [editorial metadata](wiki.html#definition-edition-metadata) to <code>exports/edition.json</code> with a title and, optionally, a subtitle, an author, a year, a dedication, a preface, an afterword and a language. Only the title is required; a missing value is completed from the universe metadata, and the renderer itself reads the title, the identifier and the language of the universe and uses the folder name when no identifier is present. The preface and the afterword are Markdown and their section heading becomes their title; the dedication is set on its own page, and both the preface and the afterword appear in the table of contents.</p>
+        <p>The resolved edition language localizes labels only: the table of contents heading, the default preface and afterword headings, the chapter label, the fallback title of an untitled chapter and the language metadata written into the files. Romanian and English are required; any other code uses the English labels. The prose written by the agent is never translated, so a book in one language can be produced with labels in another.</p>
+      </section>
+
+      <section>
+        <h2>Produced files</h2>
+        <p>An edition file is named <code>&lt;slug&gt;-&lt;YYYYMMDD&gt;.pdf</code> or <code>.docx</code>, where the slug is the title normalized to lowercase letters, digits and hyphens with diacritics transliterated and the date is the build date. The output folder is created when it does not exist, and nothing else in the universe is touched: chapters, metadata, the editorial file and the turn records are read-only for the renderer.</p>
+        <p>The PDF has a separate title page, the optional dedication, a table of contents whose titles and page numbers are computed by the layout engine, chapters that start on a new page under the localized chapter label, footer page numbering that omits the title page, bookmarks for titles, and a subsetted serif font with a Unicode mapping, which is what makes the text selectable and the diacritics correct. The DOCX has the same structure expressed through standard styles, page breaks between chapters, footer page numbering, and a real table-of-contents field whose cached result was computed by the same layout engine, so the page numbers are correct before a word processor refreshes the field.</p>
+      </section>
+
+      <section>
+        <h2>Input requirements and fonts</h2>
+        <p>The renderer reads the chapter files of the universe sorted by chapter number and requires at least one; without a chapter it fails with <code>NO_CHAPTERS</code>. A chapter title is its first heading, with a fallback built from the file name and then a localized untitled label. The accepted Markdown subset is the one the narrative skill writes: level one and level two headings, with deeper levels treated as level two, paragraphs separated by a blank line, blockquotes, scene separators and bold or italic emphasis. Tables, images, code, raw HTML and links are not accepted.</p>
+        <p>For the PDF the renderer searches system font locations in a fixed order and accepts a family only when its regular face covers, through its character map, every character of the book. Missing styles fall back to the regular face, and when no family covers at least the Latin set plus the Romanian diacritics the command fails with <code>MISSING_FONT</code> and exit status 1. The remedy is to install a serif TrueType font package or to point the renderer at a folder of <code>.ttf</code> files with <code>--fonts</code>; OpenType CFF fonts and font collections are ignored, and no font is bundled or redistributed with the repository.</p>
+      </section>
+
+      <section>
+        <h2>Result and exit codes</h2>
+        <p>On success the single JSON line carries <code>ok</code>, the edition title, the chapter count, the word count and an outputs array whose entries carry the format, an absolute path, the byte size and the page count, where the page count is an integer for a PDF and <code>null</code> for a DOCX. On failure it carries <code>ok: false</code> with a message and a code such as <code>USAGE</code>, <code>MISSING_UNIVERSE</code>, <code>NO_CHAPTERS</code>, <code>MISSING_FONT</code>, <code>BAD_JSON</code>, <code>IO_ERROR</code> or <code>INTERNAL</code>.</p>
+        <p>Exit statuses are part of the contract: 0 for success, 2 for a usage failure and 1 for a processing failure. A caller must treat any nonzero status as a failed edition, surface the code, and never infer success from partial output or from the existence of the process. The agent is required to report only what it read from that JSON line.</p>
+      </section>
+
+      <section>
+        <h2>Dependencies and boundaries</h2>
+        <p>The folder requires Node.js 20 or later, uses only built-in modules, and needs no installation step, no build step and no network access at runtime. A system serif TrueType font is an optional requirement that becomes mandatory the moment a PDF is requested, and its absence is reported rather than worked around. The inspection tools used during development to verify produced files are listed in the dependency record as verification tools, not as dependencies of the command.</p>
+        <p>The skill is a producer, not an editor: it never modifies the book, never writes the editorial metadata itself and never decides when an edition should exist. The complete contract, including the exit codes and the language order, is specified in <a href="specsLoader.html?spec=DS008-scripta-book-export-skill.md">DS008-scripta-book-export-skill</a>; the narrative side is <a href="scripta-ala-skill.html">scripta-ala</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

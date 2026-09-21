@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › Wiki</p>
+      <p class="kicker">Reference</p>
+      <h1>Wiki</h1>
+
+      <p class="lead">This is the canonical terminology page of scriptaWorlds. Every project-specific term, file, role and mechanism used in the documentation has one entry here with the anchor other pages link to. Each entry states what the term means, what it is for, who or what uses it, how it behaves, and where its limits are.</p>
+
+      <section>
+        <h2>The book and its concepts</h2>
+
+        <section id="definition-universe">
+          <h3>Universe</h3>
+          <p>A universe is one persistent science-fiction book together with everything that belongs to it: a folder under <code>universes/</code>, the law that defines it, its canon, its chapters, its reading history, its version archive and its editions. It is created from a <a href="#definition-start-template">start template</a> of the <a href="#definition-library">library</a>, from a <a href="#definition-compound">compound</a> of <a href="#definition-ingredient">ingredients</a> chosen in the <a href="#definition-periodic-table">table of ideas</a>, or from a client's own law, premise and language, and it is identified by a slug derived from the title that existed at creation. Readers select a universe from the header of the reader interface; the server lists them sorted by the time of the last change, so the book that was just continued appears first. A universe is open or closed, and closing it prevents new chapters without deleting anything.</p>
+          <p>Its title is optional at creation. A reader starting from a template sends no title, so the universe starts with a provisional name and the flag <code>autoTitle: true</code>, and the first successful chapter names it: the agent writes one <a href="#definition-short-name">short name</a> to <code>universe-title.txt</code> and the server adopts it, clears the flag and keeps the descriptive line as the summary shown under the title. A universe created by an integration that sends a title is named immediately, and a title states what is unique in that world rather than decorating it, because the title is how a reader chooses between books.</p>
+        </section>
+
+        <section id="definition-fundamental-law">
+          <h3>Fundamental law</h3>
+          <p>The fundamental law is the rule, stated at the metaphysical level, that defines a universe: how the world exists, what sustains life, and which constraints are absolute. It is the identity of the universe, not its decoration, and the product refuses to create a universe without one: without a law and without an <a href="#definition-ingredient">ingredient</a> the creation is rejected with the error code <code>BAD_LAW</code>, and a law shorter than 24 characters is rejected the same way. A law written by the client comes first and the lines of the chosen ingredients follow it, which is what <code>composeLaw</code> does with a <a href="#definition-compound">compound</a>. The law is stored in the universe metadata, repeated in the charter, placed as the first section of the canon, and included in every prompt sent to the agent with the instruction that no chapter may break it and that a second fundamental law may only be introduced through a cause already established in the canon. Civilizations, technologies, religions and conflicts are consequences of the law; a character, a civilization or a single idea is not a substitute for it.</p>
+        </section>
+
+        <section id="definition-universe-id">
+          <h3>Universe identifier</h3>
+          <p>The universe identifier is the folder name and the key used in every route and file name, and it must match the pattern <code>[a-z0-9][a-z0-9-]{2,63}</code>. It is derived from the title by a slug function that removes diacritics, lowercases the text, collapses everything else into hyphens and truncates the result, falling back to <code>univers</code> when nothing usable remains. When the derived identifier is already taken, the server appends a counter, and it answers <code>ID_TAKEN</code> when it cannot find a free one. Two readers can therefore choose the same title without colliding, and the identifier never changes afterwards.</p>
+        </section>
+
+        <section id="definition-short-name">
+          <h3>Short name</h3>
+          <p>A short name is the title ALA gives a book it has to name: the prompt asks for four or five words like a book title the reader will see in the header, and the server accepts anything from two to seven words up to sixty characters, so a longer descriptive line is refused and the naming duty stays in the prompt of the following turns. It is written as the first non-empty line of <code>universe-title.txt</code> and adopted after the turn, which clears <code>autoTitle</code> and keeps the earlier descriptive line as <code>summary</code>, shown as the discreet line under the title in the reader interface. <code>universe-title.txt</code> is a hand-off file rather than a permanent part of the folder: the server removes it once it has adopted the name, so a universe never keeps a stale line that contradicts its title. A universe whose displayed title is still a whole sentence — more than seven words — is renamed the same way at its next chapter.</p>
+        </section>
+
+        <section id="definition-ala">
+          <h3>ALA</h3>
+          <p>ALA is the narrative agent of a universe: the role the prompt assigns to the coding agent, and the voice a reader meets in the interface. In fiction ALA is close to a god of its world; as a process it is the agent that plans an episode, writes it and commits its consequences to the canonical files. ALA speaks to the reader in the <a href="#definition-offer">offer</a> that follows every chapter and in the invitation of the start screen, and it is also ALA that names a book that was created without a title, by writing a <a href="#definition-short-name">short name</a> for the world it has just written. It is not a separate service: ALA is what the <a href="#definition-omp">agent process</a> is asked to be during a turn, and every one of its chapters is required to be a consequence of the universe's law.</p>
+        </section>
+
+        <section id="definition-chapter">
+          <h3>Chapter</h3>
+          <p>A chapter, also called an episode, is one reading unit of a book: a file named <code>chapters/NNNN-slug.md</code> whose first line is the title and whose body is narrative text in the language of the book. A chapter carries one dramatic question, is expected to fall inside the configured <a href="#definition-word-band">word band</a>, closes at least one old promise after the first episode, and ends with at most one major hook. Its prose uses a small Markdown subset, headings, paragraphs, blockquotes, scene separators and emphasis, because that is what both the browser renderer and the print renderer accept. The reading order of a book is the numeric order of chapter numbers, and a chapter is always produced by exactly one <a href="#definition-turn">turn</a>, which the chapter exposes as its turn number.</p>
+        </section>
+
+        <section id="definition-offer">
+          <h3>Offer</h3>
+          <p>The offer is ALA's direct address to the reader at the end of a chapter: a file <code>chapters/NNNN-offer.json</code> holding a teaser of two or three sentences and two or three concrete decisions, each with a short label and the exact prompt that can be sent as the next request. It exists so that continuing a book does not require composing a prompt: the reader presses a decision and the agent receives its prompt verbatim, or copies the prompt into the input field to change it first. The server normalizes the file before publishing it, bounding the teaser, the labels and the prompts and dropping unusable options, and exposes the same object on the chapter list and on a single chapter read. A missing or unusable offer is recorded as a warning on the turn rather than failing it, and the interface then falls back to a <a href="#definition-continuation-ideas">continuation idea</a>.</p>
+        </section>
+
+        <section id="definition-chapter-version">
+          <h3>Chapter version</h3>
+          <p>A chapter version is an earlier text of a chapter that has been rewritten, stored as <code>chapters/.history/NNNN-vK.md</code> and numbered by counting the entries already archived for that chapter. Archiving happens before a rewrite overwrites a chapter and also when later chapters are dropped by a confirmed rewrite, which makes the archive append-only: the text of every superseded version can be recovered, and a chapter read reports how many versions exist so the interface can mark it as rewritten. The archive is not a draft area; it is history, and nothing in the product edits it.</p>
+        </section>
+
+        <section id="definition-charter">
+          <h3>Charter</h3>
+          <p>The charter is the file <code>charter.md</code> that the server writes when a universe is created and that a human or client may edit afterwards. It holds the language of the fiction, the fundamental law as an inviolable section, and the permanent narrative rules of that universe: one dramatic question per episode, limits on new characters, names and concepts, the requirement that every cosmological idea be lived by a character with a concrete want, honesty and agency rules, and the prohibition of retroactive canon changes without an explicit fork. The agent reads the charter before writing and treats it as a constraint with priority over its own preferences, which is what lets an operator tune a single universe without touching the skill that all universes share.</p>
+        </section>
+
+        <section id="definition-canon">
+          <h3>Canon</h3>
+          <p>The canon is the file <code>canon.md</code>, the state of the world the agent maintains across chapters. Its sections are the fundamental laws, the ingredients the universe is composed from, the world, the recurring characters, the timeline, the stable facts, and the mysteries with a fixed cause; text values are written in the language of the book while section names stay English. The agent adds short verifiable facts and only removes an old fact when the episode contradicts it, and it must say why. The server writes the canon once, when the universe is created, and overwrites it from a snapshot when a turn has to be rolled back or a chapter is rewritten; between those moments it only reads a bounded summary for the universe detail, and it never edits the narrative facts the agent recorded.</p>
+        </section>
+
+        <section id="definition-threads">
+          <h3>Threads</h3>
+          <p>The thread list is the file <code>threads.json</code>, the bookkeeping of everything the story has left open: open and closed threads, promises made to the reader, and answers that were deferred. An entry carries an identifier, a kind of <code>promise</code>, <code>mystery</code>, <code>decision</code> or <code>question</code>, its text, the chapter that created it, the chapter by which it should pay off, and a status of <code>open</code>, <code>deferred</code>, <code>closed</code> or <code>abandoned</code>, with the closing chapter and the resolution for a closed entry. The agent is required to record a deferred revelation here with its due chapter, and the server reads the file to derive continuation ideas and to expose the thread summary of a universe. The file is part of the narrative contract: the agent maintains its content, and the server writes it only when the universe is created and when it restores a snapshot.</p>
+        </section>
+
+        <section id="definition-atlas">
+          <h3>Atlas</h3>
+          <p>The atlas is the file <code>atlas.json</code>, the record of which thematic axes an episode touched. It keeps a version marker and an array of axes, each with an English identifier and a name and an array of nodes; a node has an identifier, a label, the chapters that touched it, and a state of <code>mentioned</code>, <code>dramatized</code>, <code>decision</code> or <code>recontextualized</code>. The twelve axes are mind and identity, life and death, time and causality, artificial autonomy, civilization and power, abundance and scarcity, alien alterity, reality and simulation, body and evolution, knowledge and truth, cosmic scale, and culture and meaning. The atlas is what keeps a long book from retelling the same idea: the creative palette in the narrative skill lists the axes so the agent can choose one that has not been dramatized yet, and the validator warns when a chapter touched no node at all.</p>
+        </section>
+
+        <section id="definition-episode-plan">
+          <h3>Episode plan</h3>
+          <p>The episode plan is the file <code>drafts/NNNN-plan.md</code> that the agent writes before the prose of a chapter. It holds fixed keys, one per line: the dramatic question, the anchor character and what that character wants, the primary speculative idea, the human need, the opening hook, four to six causal beats, the decision where the reader has agency, the local consequence visible in the same episode, a longer horizon, the payoff, at most one return hook, the new entities, and at most one new deferred answer with its due chapter. The plan is not canonical: the chapter is the artifact of record, and the plan exists so that the invariants can be checked before the text is written and so that the reader can see how an episode was built.</p>
+        </section>
+
+        <section id="definition-template-catalog">
+          <h3>Template catalog</h3>
+          <p>The template catalog is the list of proposed universes behind <code>templates/universes.json</code>, which lets a client start a book from a prepared proposal without inventing a law. Each entry has an identifier, tags, and a localized descriptive title, law and set of openings; an opening is a concrete first move that names who is in the scene, which problem they face and what is at stake, and each entry carries three or four of them so that a reader can choose the start of the story instead of writing it. The server serves the list through the templates route, resolving each localized value in the order requested language, English, Romanian, and dropping any entry that lacks an identifier, a title or a law.</p>
+          <p>The catalog is assembled from a main file plus optional part files under <code>templates/parts/</code>, merged by identifier with the first occurrence winning, so it can be split into thematic files without changing the reader. Its size is not part of any interface: the route reports a count and clients read that count. This catalog is no longer the way into the product: the reader interface starts from the <a href="#definition-library">library</a> of start templates and from the <a href="#definition-periodic-table">table of ideas</a>, and it reads neither this route nor these entries, which stay available to API clients and keep their content unchanged. Creating a universe from a proposal still copies the chosen title, law and opening into the new book and keeps no link back to the template, so editing the catalog never changes an existing universe.</p>
+        </section>
+
+        <section id="definition-exploration">
+          <h3>Exploration</h3>
+          <p>Exploration is the product's name for what a reader does with a universe: entering a possible world defined by its law, reading what happens in it, and deciding what should happen next. The exploration surface is what the interface shows when no universe is selected: the <strong>start screen</strong>, which opens with one short paragraph under an information glyph — what a template is, and that nothing starts before <code>Send</code> — then two tabs and no form field at all. <strong>Library</strong> lists the <a href="#definition-start-template">start templates</a> of the <a href="#definition-library">library</a>, each row with its title, sector, genealogy, one-line summary and cell symbols, and choosing one loads the template: it is read in full next to the list, with the <a href="#definition-indications">indications</a> the book gives for that night and the night itself in a fold, and its <code>Use</code> control puts the <code>request</code> of the template into the request field of the composer, turning into <code>In use</code> while the template holds that field. <strong>Ingredients</strong> shows the <a href="#definition-periodic-table">table of ideas</a> as a grid of twelve families by fifteen operators with a search box, a legend of the operators, at most six choices, a control that clears them and a fold for proposing an element the table does not contain; a cell, an operator or a family opens the <code>Details</code> dialog, which shows what stands behind it — for a cell the idea, what its family changes, where it is seen and the nights that already use it — and can insert the cell into the compound. Neither tab creates anything, and no tab holds a title field, a premise field, a language selector or a button that starts a story.</p>
+          <p>The <a href="#definition-composer">composer</a> field is therefore the only input of the interface, and the language of the new book is chosen in the header selector, which the browser remembers. The two tabs compose one text rather than excluding each other: a template that was chosen stays chosen while the reader browses the table, the ingredients stay chosen while the reader browses the library, and the field holds the <code>request</code> of the template followed by an <code>Operations added by me:</code> block in which each chosen operation appears as its <a href="#definition-cell">ingredient</a> sentence, never as the two-letter address the table uses for it. Pressing Send creates the universe from both — <code>POST /api/universes</code> carries <code>library</code> and <code>elements</code> together, and the server adds the chosen <a href="#definition-ingredient">ingredients</a> on top of the cells of the template, without duplicates and at most six in all — and starts its first chapter from the edited text in the same request, so an exploration begins with a chapter rather than with an empty book, and the new book is named by that chapter with a <a href="#definition-short-name">short name</a>. Text alone composes nothing: without a template or an ingredient the server refuses the request with <code>BAD_LAW</code>, and the only way an edited text becomes the law of a world is the <a href="#definition-empty-template">empty template</a>, whose whole promise is that the first request defines the world. The vocabulary is part of the design: the interface talks about exploring universes rather than about writing files or administering a project.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>The Table and the library</h2>
+
+        <section id="definition-periodic-table">
+          <h3>Periodic Table of Speculative Ideas</h3>
+          <p>The Periodic Table of Speculative Ideas is the <a href="#definition-design-instrument">design instrument</a> of the project: twelve families across fifteen operators, one hundred and eighty operations in all, kept in <code>data/periodic-table.json</code> after being read out of <code>vision/periodic_table.pdf</code>. A cell carries a systematic identifier from <code>01.01</code> to <code>12.15</code>, a systematic symbol built from the letter of its family and the letter of its operator — <code>CA</code> is COSMOS with ALTERATION — the mnemonic symbol the book prints for it, a name, a one-line gist, a prompt line, a literary landmark and the prose the book devotes to it. It exists because a universe is not a prompt but a <a href="#definition-compound">compound</a> of a few operations, and a table makes the choice of those operations visible and repeatable. <code>src/periodic.mjs</code> reads the table, <code>GET /api/table</code> serves the grid — the twelve families with the cells that belong to them, the fifteen operators and one line per cell — <code>GET /api/table/cells/:symbol</code> serves everything the book says about one cell, <code>resolveElements</code> resolves a reader's selection and <code>composeLaw</code> composes the law from it.</p>
+        </section>
+
+        <section id="definition-design-instrument">
+          <h3>Design instrument</h3>
+          <p>Design instrument is the name the project gives to the printed book <code>vision/periodic_table.pdf</code> and to the artifact the product reads out of it. It is a design instrument because it is consulted before anything is written: <code>npm run table</code> reads the data file out of the book and its <code>--check</code> mode compares the file with the book without writing, and <code>npm run library</code> turns the nights of the same book into the seventy-four <a href="#definition-start-template">start templates</a> of the <a href="#definition-library">library</a>. It is never a text the reader has to study: the interface shows the table as a grid of named operations with a legend, and the reader picks from it while the request text composes itself in the field.</p>
+        </section>
+
+        <section id="definition-family">
+          <h3>Family</h3>
+          <p>A family is one of the twelve rows of the table: COSMOS, SPACE, TIME, LIFE, MIND, BODY, INFORMATION, SOCIETY, ARTIFACT, CONTACT, FANTASY and META-REALITY. Every family has its own letter, used in the systematic symbol of an operation, and each operation belongs to exactly one family, which is the field of reality it acts on. A family is not a genre label: it says what kind of thing is changed — matter and scale, distance, order in time, the living, the mental, the bodily, information, the social, the made, the encountered, the impossible, and the world that describes itself.</p>
+        </section>
+
+        <section id="definition-operator">
+          <h3>Operator</h3>
+          <p>An operator is one of the fifteen columns of the table, the mechanism an operation applies: ALTERATION, SUBSTITUTION, EXTENSION, RATE, BOUNDARY, DISTRIBUTION, COPYING, COUPLING, EXTERNALIZATION, INVERSION, LOOP, GENESIS, SCARCITY SHIFT, REFLEXIVITY and OUTFINITE. Each operator has a single letter used in systematic symbols and one sentence saying what it does, for example that alteration changes the value or form of an existing rule without changing the kind of thing it acts on. The interface shows the operators as the columns of the grid and as a legend next to it, because the same mechanism read in another family is another idea.</p>
+        </section>
+
+        <section id="definition-cell">
+          <h3>Cell</h3>
+          <p>A cell is one square of the table — the intersection of a <a href="#definition-family">family</a> and an <a href="#definition-operator">operator</a>, and therefore one speculative operation with a name, an identifier and a symbol. There are exactly one hundred and eighty of them, and <code>npm run check</code> asserts that count, asserts that every systematic symbol is the letter of its family followed by the letter of its operator, and opens a cell to confirm that it offers the idea, the sentence about what that family changes and the nights of the course that already use it, instead of the book's repeated skeleton. A cell is what a reader can choose as an <a href="#definition-ingredient">ingredient</a>, and it is what a <a href="#definition-start-template">start template</a> names when it says which operations are already at work in its world. Every cell carries a <strong>prompt line</strong>, one sentence written for the request field — the interface can drop it in unchanged — and an <strong>ingredient</strong> sentence that names the cell and says what it does, in the form <code>Neutron Life: a universe where organisms live in degenerate matter (life and evolution, extension).</code> The ingredient sentence is what every text written for a person carries: the composed law, the <code>Ingredients</code> section of the canon, the <code>AGENTS.md</code> inside the universe folder, the first-chapter request and the chapter and rewrite prompts. The two-letter <code>symbol</code> is only an address — it identifies the cell inside the table, inside a template and inside <code>universe.json</code>, and it never appears in that prose; <code>npm run check</code> asserts exactly that for the ingredient lines, the composed law and the <code>AGENTS.md</code>, and it shows the symbol in the grid and in the library list only as the address of an operation.</p>
+          <p>Opening a cell — from the grid, or through <code>GET /api/table/cells/:symbol</code> — shows what that operation offers a reader: the idea in one line (the <code>essence</code>) with the longer <code>prompt</code> under it, what its <a href="#definition-family">family</a> changes (<code>familyNote</code>), the operator with the sentence saying what it does, the work it is <code>Seen in</code>, and up to three nights of the course that already work it, each with its sector, the situation it starts in and the problem already under way there, and a control that opens that night in the Library tab. The raw prose the book devotes to a cell is deliberately not served: it repeats a skeleton across all one hundred and eighty entries, so the payload distils it into those fields and the grid stays small while the reader still sees what the cell is for and where it has already been used.</p>
+        </section>
+
+        <section id="definition-ingredient">
+          <h3>Ingredient</h3>
+          <p>An ingredient is one operation a reader chooses when a universe is composed. It is stored in <code>universe.json</code> as an entry of <code>elements</code> with its symbol, name, family, operator and gist, and it is either a cell of the table or an element the reader proposes, which is marked <code>custom: true</code> and carries a name and, optionally, a family, an operator and a note. At most six ingredients compose one universe. They are resolved by <code>src/periodic.mjs</code> before anything is written, listed in <code>canon.md</code> under <code>Ingredients</code>, named in the <code>AGENTS.md</code> of the universe and repeated in every chapter and rewrite prompt, so the agent writes from the recipe and not from a summary of it. The law, the canon, the <code>AGENTS.md</code> of the universe and the agent prompts carry them as sentences rather than as addresses — a cell contributes its <a href="#definition-cell">ingredient</a> sentence, a proposed element its name and note — so no two-letter symbol appears in the composed law, in the canon, in the folder instructions or in a prompt. A symbol the table does not contain is refused with <code>UNKNOWN_ELEMENT</code>, an unknown family with <code>BAD_ELEMENT_FAMILY</code>, an unknown operator with <code>BAD_ELEMENT_OPERATOR</code> and a malformed list with <code>BAD_ELEMENTS</code>.</p>
+        </section>
+
+        <section id="definition-compound">
+          <h3>Compound</h3>
+          <p>A compound is a universe understood as the combination of the operations it was composed from: at most six <a href="#definition-ingredient">ingredients</a>, whose lines <code>composeLaw</code> appends to the <a href="#definition-fundamental-law">fundamental law</a>. A law the client wrote comes first and the ingredient lines follow it, and a creation with neither a law nor an ingredient is refused with <code>BAD_LAW</code>. The word matters because it says what the product does: it does not generate a prompt, it composes a world out of a small number of chosen operations whose consequences the agent must then respect in every chapter.</p>
+        </section>
+
+        <section id="definition-library">
+          <h3>Library</h3>
+          <p>The library is the folder <code>library/</code> that holds the worlds a reader can start from: <code>library/index.json</code> with one line per template — slug, kind, number, title, sector, genealogy, cell symbols and summary — and <code>library/&lt;slug&gt;/template.json</code> with the template itself, read only when a template is chosen. The index also carries <code>cellScenes</code>, the reverse index of the table: for a symbol, up to three nights that already work that cell, each with its title, sector, situation and story. It holds the <a href="#definition-empty-template">empty template</a> first and then the seventy-four nights of the book, seventy-five entries in all. It is rebuilt from the printed table by <code>npm run library</code>, which requires <code>pdftotext</code> and writes the index and every template folder again; <code>npm run library -- --check</code> compares the index with the folders and with the book and writes nothing. <code>GET /api/library</code> serves the index and <code>GET /api/library/:slug</code> serves one template, which is why the start screen lists seventy-five worlds without reading seventy-five folders. The library is deliberately separate from the older <a href="#definition-template-catalog">template catalog</a>, which the interface no longer reads and which is kept unchanged for API clients.</p>
+        </section>
+
+        <section id="definition-start-template">
+          <h3>Start template</h3>
+          <p>A start template is one world a reader can begin from: a night of the book reduced to what a universe needs before its first chapter — a title, a sector, a genealogy, the cells that are active in it, the prohibition that holds there, the situation the story starts in, one central problem, a summary of that problem, a request text, the <a href="#definition-indications">indications</a> as a labelled list and the night as it is printed. The request adds nothing generic to what the book says: it is the text the interface drops into the field, and the reader edits it before sending. Choosing a template in the Library tab puts that text into the request field and shows the rest next to the list; nothing exists until the reader sends it. The server then builds the universe from the template with <code>creationFromTemplate</code> in <code>src/library.mjs</code>: the law from the prohibition, the premise from the situation and the story, the cells as <a href="#definition-ingredient">ingredients</a> — with the operations the reader added on top, without duplicates and at most six — and no title, because ALA names the book after the first chapter with a <a href="#definition-short-name">short name</a>. A slug the library does not contain is refused with <code>UNKNOWN_TEMPLATE</code> and a malformed slug with <code>BAD_TEMPLATE</code>.</p>
+        </section>
+
+        <section id="definition-indications">
+          <h3>Indications</h3>
+          <p>Indications are what the book states about a night before any story is written, carried by a <a href="#definition-start-template">start template</a> as a labelled list: Sector, Genealogy, Prohibition when the night states one, Active cells, Situation, Central tension and Seen in. In a template file the field is <code>indications</code>, an array of <code>{label, text}</code> pairs. They exist so that a reader can see what a world is built from without reading the night itself: the Library tab shows them next to the <code>request</code> of the chosen template, and the request repeats the same material as prose written for the request field. The hand-written <a href="#definition-empty-template">empty template</a> carries no indications, because no night stands behind it.</p>
+        </section>
+
+        <section id="definition-empty-template">
+          <h3>Empty template</h3>
+          <p>The empty template is the first entry of the library, marked <code>kind: "empty"</code>, the one template that is written by hand instead of being read from the book. It carries no prohibition and no cells, because it is the world in which no law is fixed yet, and the first request the reader sends becomes its first law. It exists so that a reader who wants no prepared world still starts from the same field as everyone else, with nothing decided in advance.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Persistence, execution and failure</h2>
+
+        <section id="definition-turn">
+          <h3>Turn</h3>
+          <p>A turn is one client request together with the agent execution it caused, and it is the unit of work, of queueing and of history in the product. Every turn has a number inside its universe, a kind that says whether it writes a chapter or an edition, a status, and a durable record on disk. A chapter turn produces one chapter and its offer; a rewrite turn produces a new version of one existing chapter; an export turn produces the printed files. A turn is created before any work starts, which is what makes the product survive a restart, and its number is separate from the chapter number so that rewriting a chapter does not erase the record of what happened before.</p>
+        </section>
+
+        <section id="definition-turn-record">
+          <h3>Turn record</h3>
+          <p>A turn record is the file <code>turns/NNNN.json</code> that describes one turn: its number, kind, status, timestamps and duration, the request it came from, the model that ran it, the requested format, the chapter it produced or the exports it produced, the agent's final answer, the composed log of the tools it used and the text it wrote, any warnings, the normalized offer, and the error message when it failed. Requests read it as a summary in the universe detail, and the <a href="#definition-console">console</a> of a chapter reads the whole record for one turn. Turn records live as long as the universe folder does; they are never rewritten except to advance the status of the turn they describe.</p>
+        </section>
+
+        <section id="definition-state-snapshot">
+          <h3>State snapshot</h3>
+          <p>A state snapshot is the copy of <code>canon.md</code>, <code>threads.json</code> and <code>atlas.json</code> that the server takes into <code>turns/NNNN.prev/</code> before a chapter or export turn starts. A rewrite turn takes no new snapshot, because a rewrite begins by restoring the snapshot of the chapter it is rewriting. It is deliberately kept after a successful turn, because it is exactly the state of the world before that chapter existed, and that is what makes a later rewrite of that chapter possible; it is consumed only when a state restore actually happens, either for a rewrite or for the recovery of an interrupted turn. The price of rewritable history is therefore that one snapshot folder per chapter remains on disk, and the benefit is that no component ever has to guess what the canon looked like earlier.</p>
+        </section>
+
+        <section id="definition-queue">
+          <h3>Queue</h3>
+          <p>The queue is the FIFO list of turns waiting for a universe, and it exists so that a reader never has to wait for a previous request to finish before sending the next one. A request is appended even when the universe is already writing, is answered immediately with a <a href="#definition-job">job</a> that reports its position, and starts in turn order; different universes run their turns in parallel, and each universe runs at most one turn at a time. The queue is persisted rather than kept in memory: the turn record is written with the status <code>queued</code> before the request is acknowledged, so a restart resumes the waiting turns in the same order with the same requests. There is no implicit ceiling on simultaneous turns across the server; the <a href="#definition-concurrency-limit">concurrency limit</a> is optional.</p>
+        </section>
+
+        <section id="definition-job">
+          <h3>Job</h3>
+          <p>A job is the live handle on a turn while the server process runs: an identifier, the universe, the kind, the requested format, the status, the timestamps, the turn number, the request text, the position in its universe queue and, at the end, the result or the error. A new turn receives a random job identifier and a retried turn reuses an identifier derived from its universe and turn number. Jobs exist only in memory, so a job identifier from an earlier process is no longer found, and the durable description of the same work is the <a href="#definition-turn-record">turn record</a>. The job snapshot is what a client receives when it submits a request, what the jobs route returns, and what the event stream repeats while the work progresses.</p>
+        </section>
+
+        <section id="definition-store-lock">
+          <h3>Store lock</h3>
+          <p>The store lock is the file <code>universes/.server.lock</code> that a server takes, with <code>acquireStoreLock</code> in <code>src/lock.mjs</code>, before it touches anything else in the store, and releases when it stops. It exists because two servers on one store corrupt real work: each of them would treat the turns found on disk as its own and mark the running turns of the other as <a href="#definition-interrupted-turn">interrupted</a>, and both would resume the same queue. The file holds the process identifier and the start time of the owner; a second instance refuses to start while that process is alive, printing that another server already owns the folder, and takes the lock over when the process is gone. Only <code>node src/server.mjs</code> starts a server and takes the lock: importing the module has no side effects, because the check suite imports it to read the function that maps a creation request body.</p>
+        </section>
+
+        <section id="definition-interrupted-turn">
+          <h3>Interrupted turn</h3>
+          <p>An interrupted turn is a turn that was running when the server stopped. At the next startup the server converts every record with the status <code>running</code> into <code>interrupted</code>, restores the canon, the threads and the atlas from the turn's <a href="#definition-state-snapshot">snapshot</a>, deletes the partial chapter and offer files of that chapter number, and writes the completed state back to the record with the reason. The reader sees it as a failed item with an explanation and a retry action rather than as a chapter that mysteriously changed. Nothing that the interrupted turn had produced survives into the book, which is why a restart can never leave half a chapter behind.</p>
+        </section>
+
+        <section id="definition-retry">
+          <h3>Retry</h3>
+          <p>A retry restarts an interrupted or failed turn with the same request and the same turn number, so the history of a book has no holes and a reader does not have to repeat what they asked for. It is available from the interface and through the retry route, and it is refused with <code>NOT_RETRYABLE</code> for any turn that is still queued, running or already finished, because retrying completed work would duplicate a chapter. A retry of a chapter turn for a closed universe is refused as well; the universe has to be reopened first.</p>
+        </section>
+
+        <section id="definition-event-stream">
+          <h3>Event stream</h3>
+          <p>The event stream is the server-sent-events route of a universe, used by the reader interface to show work in progress without polling. Without a job parameter it covers every turn of the universe and replays the buffered events of the running one, so a reader who opens the page in the middle of a chapter sees the recent history; with a job parameter it covers that job only. The event types are the job snapshot, a short progress phase, fragments of the agent's live text, tool calls with their result, the end of the turn, an error, and a refresh notice after a turn finished. At most 800 events are buffered per job, and the stream is never the only path to the truth: the universe detail carries the running and waiting jobs, and the client falls back to polling the job route when the stream cannot be kept open.</p>
+        </section>
+
+        <section id="definition-continuation-ideas">
+          <h3>Continuation ideas</h3>
+          <p>Continuation ideas are concrete next steps derived by the server from the state of a universe, without running the agent: up to two open threads or promises ordered by the chapter in which they are due, at most one deferred answer, the first option of the last chapter's offer, a continuation of the last chapter title when no offer exists, and a suggestion to let time pass. Each idea carries a short label, the prompt it would send and a source that names where it came from. They are what the composer shows when a chapter has no offer, so a reader always has something to press even when the last chapter left no offer behind. The interface does not offer closing a universe, so the ideas never appear in a closing panel.</p>
+        </section>
+
+        <section id="definition-omp">
+          <h3>omp</h3>
+          <p><code>omp</code> is the Oh My Pi command-line coding agent that writes every chapter and every edition. The server starts one instance per turn, in headless mode, with automatic approval, without a session or a title and with the prompt on standard input, so the agent behaves as a batch writer of files inside the universe folder rather than as an interactive assistant. Its location is taken from the <code>OMP_BIN</code> environment variable with <code>omp</code> as the fallback, and the server probes it at startup and refuses to listen when the probe fails, because a machine that cannot run the agent cannot continue a book. Running the agent as a process is what gives it the file tools that a direct model call would not have, at the cost that the product depends on the binary and on its own authentication.</p>
+        </section>
+
+        <section id="definition-model-configuration">
+          <h3>Model configuration</h3>
+          <p>The model configuration is the single model used for every turn of every universe, taken from the model environment variable with a documented default. It is reported by the configuration and health routes, written into the universe metadata when a universe is created, and written into each turn record, so a book can be read later together with the model that wrote it. There is no per-universe switch, no routing between model tiers and no automatic fallback to a cheaper model: changing the model is an operator decision that affects new turns, and existing records keep the value they were produced with.</p>
+        </section>
+
+        <section id="definition-word-band">
+          <h3>Word band</h3>
+          <p>The word band is the pair of minimum and maximum word counts of a chapter, configured by environment and stated in the prompt as the target length. The server measures the written chapter afterwards, stripping headings and splitting the remaining text on whitespace, records a warning when the chapter is below the minimum or far above the maximum, and never fails the turn for length alone. The band exists because a chapter is a reading unit as well as a narrative one: it is reported by the configuration route and used by the server to warn about a chapter outside it. The narrative validator has its own defaults, 800 to 2500 words, and warns on them unless it is given the same bounds on the command line.</p>
+        </section>
+
+        <section id="definition-concurrency-limit">
+          <h3>Concurrency limit</h3>
+          <p>The concurrency limit is the optional global bound on how many turns run at the same time across the whole server, configured by environment with zero meaning unlimited. It is independent of the <a href="#definition-queue">queue</a>, which already guarantees that each universe runs at most one turn at a time: the limit protects a machine that hosts many universes at once, while the per-universe rule protects the narrative continuity of a single book. The effective value is reported as a number or as <code>null</code> by the configuration and health routes, which lets an operator confirm what the running process actually applies.</p>
+        </section>
+
+        <section id="definition-error-code">
+          <h3>Error code</h3>
+          <p>An error code is the stable machine-readable part of an API failure, delivered inside the error object next to an English message that may be reworded. Codes separate causes that a client must handle differently, such as a law that is too short, a universe that is closed, a rewrite that would drop later chapters, a turn that cannot be retried, an agent that could not run, or a chapter that never appeared on disk. An error can also carry structured fields beside the code, and one of them is the list of chapters that a rewrite would discard. The reader interface reacts to codes rather than to messages, and the failure reference on the operations page lists the codes an operator is likely to meet.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Interfaces</h2>
+
+        <section id="definition-reader-interface">
+          <h3>Reader interface</h3>
+          <p>The reader interface is the static browser client in <code>public/</code>: an HTML document, a bootstrap module of 161 lines, further modules under <code>public/ui/</code> for state, API access, errors, the universe, the slides, the overlays, the actions and the event stream, one module per rendered surface under <code>public/ui/render/</code>, a Markdown renderer that builds DOM nodes for chapter prose, and a stylesheet split per surface under <code>public/styles/</code> — all served by the same server with no build step. It presents a universe as a book of one chapter per slide, shows unfinished work as its own numbered slice in the same reading flow, opens every secondary surface as a dialog over the page, and keeps printing actions out of that flow. It is written in English while the book keeps its own language, and it stores the reading position in the address and in browser storage so that a reload or a shared link returns to the same chapter. It is also the reference consumer of the API: everything it does is a documented route.</p>
+        </section>
+
+        <section id="definition-composer">
+          <h3>Composer</h3>
+          <p>The composer is the single card at the bottom of the reader interface that holds ALA's voice and the writing field for the next request. When the current chapter has an <a href="#definition-offer">offer</a>, the card shows its teaser and up to three compact links whose labels come from that offer, and pressing one fills the field with the prompt it carries without sending anything, so the reader can change the text before sending it. When the chapter has no offer, the first <a href="#definition-continuation-ideas">continuation idea</a> is shown instead as a suggestion that fills the field rather than sending it. The field accepts free text, grows with its content up to seven lines (or a little under half of the window height on a short screen) and then scrolls inside itself, can also be dragged taller by its lower edge — a height the reader chose that way is never shrunk back, the automatic growth only raises the lower bound — sends on Enter and inserts a newline on Shift+Enter, and keeps its text when a request cannot be sent, which is why it is also the only input of the <a href="#definition-exploration">start screen</a> before a universe exists.</p>
+        </section>
+
+        <section id="definition-dialog">
+          <h3>Dialog</h3>
+          <p>A dialog is how the reader interface presents anything that is not the book itself: a fixed overlay drawn above the page, with a dimmed backdrop, a visible <code>×</code>, centred on both axes and closed on <code>Esc</code>, on a click on the backdrop and through the <code>×</code>. A dialog never takes layout space and never pushes the content. There are five of them: <code>Universes</code> (the button in the header), <code>Edition</code> (the compact <code>⋯</code> button, which also carries <code>New universe</code>), <code>What you asked for</code> (the <code>i</code> link of a chapter), <code>Rewrite chapter</code> and <code>Details</code> (a cell, an operator or a family of the table, opened from the Ingredients tab). The <code>Details</code> dialog of a cell shows the idea, the sentence about what that family changes, the work the cell is seen in and up to three nights of the course that already use it, each with a control that opens that night in the Library tab, and it offers one action, <code>Insert in my new world</code>, which becomes <code>In your world</code> and is disabled once the cell is chosen: taking a cell out of the compound is done from the <code>×</code> of its chip in the selection, so a reader never removes an ingredient from a page that describes it. The Library tab works the same way: opening a row only reads a template, and <code>Use</code> on the template is what puts it in charge of the request field. All but <code>Edition</code> are nearly full screen and <code>Edition</code> is small; reading is never a dialog, because a chapter always occupies the page. Nothing unfolds in the reading flow any more: the agent log of a chapter is the one exception and unfolds inside its own card as the <a href="#definition-console">console</a>.</p>
+        </section>
+
+        <section id="definition-edition-metadata">
+          <h3>Edition metadata</h3>
+          <p>The edition metadata is the file <code>exports/edition.json</code> that the agent writes before the print renderer runs. It carries the title of the edition and, optionally, a subtitle, an author, a year, a dedication, a preface, an afterword and a language; only the title is required, and every missing value is completed from the universe record. The preface and the afterword are Markdown whose first heading becomes their title, the dedication is set on its own page, and the language in this file is consulted before the language of the universe when the renderer resolves the labels of the edition. The renderer reads the file and never writes it, and a file that is not valid JSON fails the command with <code>BAD_JSON</code> rather than being ignored.</p>
+        </section>
+
+        <section id="definition-console">
+          <h3>Console</h3>
+          <p>The console is the agent's own log of a chapter, unfolded inside the chapter card by the <code>Console</code> link that sits next to <code>i</code> and <code>Rewrite</code> in the head of the slice. It holds the prompt the server sent, the numbered list of tools the agent used with their outcomes, the text it narrated, its final answer and, for a failed turn, the tail of its raw output and its standard error. It exists so that a reader can see how a chapter was made and so that an operator can diagnose a bad or failed chapter without leaving the book. It is collapsed by default, it grows inside the card rather than in an overlay or a panel, and it is the only place in the interface where technical detail about a turn is shown — the request that produced the chapter is read in the <a href="#definition-dialog">dialog</a> behind the <code>i</code> link instead.</p>
+        </section>
+
+        <section id="definition-droplater">
+          <h3>dropLater</h3>
+          <p><code>dropLater</code> is the flag a client sends when it accepts that rewriting a chapter removes the chapters that came after it. A rewrite request without the flag is refused with <code>LATER_CHAPTERS</code> when later chapters exist, and the refusal carries the chapter numbers inside the error object so that the interface can state the consequence and ask for explicit confirmation. The flag is the difference between a harmless correction and a destructive edit: with it, the later chapters are archived and removed before the new version of the target chapter is written.</p>
+        </section>
+
+        <section id="definition-edition">
+          <h3>Edition</h3>
+          <p>An edition is the printable form of a book: a DOCX file, a PDF file or both, produced inside the <code>exports/</code> folder of a universe from its chapters and its <a href="#definition-edition-metadata">editorial metadata</a>. It is requested as an <a href="#definition-turn">export turn</a>, whose <code>kind</code> on the wire is <code>export</code>, so it takes a place in the same durable queue as a chapter, streams the same progress and can be retried the same way; the turn fails with <code>NO_EXPORT</code> when no file appeared, which is what keeps a reported success equal to a file on disk. The interface treats editions as a discreet feature: the newest file of each format is downloadable from the header menu, and editions are never reading pages. A produced file is served only through the file route of that universe, which accepts edition file names and nothing else.</p>
+        </section>
+
+        <section id="definition-edition-language">
+          <h3>Edition language</h3>
+          <p>The edition language is the language of the labels of a printed edition: the table of contents heading, the default preface and afterword headings, the chapter label, the fallback title of an untitled chapter and the language metadata inside the file. It is resolved from the command-line option first, then from the language in the editorial metadata file, then from the language of the universe, and finally from Romanian, which lets one book be produced with labels in another language without translating its prose. Romanian and English labels are required; any other code falls back to the English labels.</p>
+        </section>
+
+        <section id="definition-book-language">
+          <h3>Book language</h3>
+          <p>The book language is the language of the fiction of a universe, chosen in the header selector before the universe is created and changeable afterwards through the settings route. It governs everything the agent writes inside the story: chapter titles, prose, dialogue, place names and the <a href="#definition-offer">offer</a>, and the reader interface marks the rendered prose with it so that a browser applies the correct typography. It is deliberately separate from the language of the interface, which is English, and from the language of the schema, which is English everywhere: file names, plan keys, canon section names, thread kinds and statuses, and atlas identifiers never change with the book. Changing it affects later turns; text already written is not translated.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Skills and tooling</h2>
+
+        <section id="definition-project-skill">
+          <h3>Project skill</h3>
+          <p>A project skill is a folder under <code>skills/</code> that the repository itself implements and distributes as part of the product: its own instructions, its own reference material, its own scripts and its own dependency record, discovered by the presence of a skill manifest inside the folder. The repository has two, the narrative skill and the print skill, and both are self-contained so that copying a folder carries everything it needs. A project skill is a product artifact: it is documented here and specified in the design specifications, it is linked into every universe folder, and it is exercised by the project check. Engineering tooling installed for agents is not a product skill and is not part of this documentation.</p>
+        </section>
+
+        <section id="definition-skill-symlink">
+          <h3>Skill symlink</h3>
+          <p>A skill symlink is the link <code>.agents/skills/&lt;name&gt;</code> inside a universe folder that points at the canonical <code>skills/&lt;name&gt;</code> in the repository. The server creates one for every project skill when a universe is created and refreshes all of them at startup, replacing a link whose target no longer matches and removing a link whose target is no longer a project skill while leaving real files alone. The links are what make the prompt's references to a skill resolve inside the universe the agent is working in: the agent can read the narrative rules and the file schemas from its own folder, and the print command works from inside the book, without copying skill folders into every universe or installing anything globally.</p>
+        </section>
+
+        <section id="definition-scripta-ala">
+          <h3>scripta-ala</h3>
+          <p>scripta-ala is the narrative project skill: the working order, the narrative invariants, the file schemas and the creative palette that the agent must follow when it writes an episode. Its instructions are mandatory rather than advisory, and the prompt of every chapter and rewrite turn tells the agent to read it before writing. It also ships the validator that checks a chapter and the state files around it, which is the only mechanical check of a chapter's shape before the server verifies the result itself. The full contract is documented in its page and specified in <a href="specsLoader.html?spec=DS007-scripta-ala-skill.md">DS007-scripta-ala-skill</a>.</p>
+        </section>
+
+        <section id="definition-scripta-book-export">
+          <h3>scripta-book-export</h3>
+          <p>scripta-book-export is the print project skill: one dependency-free command that turns the chapters and the editorial metadata of a universe into a DOCX file, a PDF file or both. It contains its own font handling, layout engine and document writers, reports its result as a single JSON line with absolute paths, sizes and page counts, and signals failure with documented codes and exit statuses. An export turn asks the agent to write the metadata and run this command, and the produced files are what the reader downloads. The full contract is documented in its page and specified in <a href="specsLoader.html?spec=DS008-scripta-book-export-skill.md">DS008-scripta-book-export-skill</a>.</p>
+        </section>
+
+        <section id="definition-validator">
+          <h3>Validator</h3>
+          <p>The validator is the read-only script of the narrative skill that reads a universe folder and reports what is wrong with a chapter before the agent commits to its answer. It checks the chapter file and its title, the Markdown subset, the presence of the plan and of every plan key, the offer, the thread list, the atlas identifiers and node states, and the canon sections, and it separates hard errors from warnings such as a chapter outside the word band or an overdue thread. It writes nothing, prints one JSON line and each finding, and exits with a nonzero status when it found an error. The agent must fix every error and run it again, and the project check runs it against a temporary universe to prove that it still matches the file contract.</p>
+        </section>
+
+        <section id="definition-check-script">
+          <h3>Check script</h3>
+          <p>The check script is <code>scripts/check.mjs</code>, run by <code>npm run check</code>, and it verifies the whole technology chain of the project without spending model budget. It checks the Node.js version, probes the agent binary, asserts the skill manifests exist, creates temporary universes, exercises the law and language validation, asserts that skill links are installed, writes a chapter and reads it back through the store, closes and reopens a universe, runs the validator and the print renderer and parses their JSON reports, lists universes, and reproduces a restart in which a queued turn stays on disk, a running turn becomes interrupted, the canon is rolled back and the partial chapter disappears. It also asserts the <a href="#definition-periodic-table">periodic table</a> data, since the table is a data contract: one hundred and eighty unique <a href="#definition-cell">cells</a> whose systematic symbol is the letter of the family followed by the letter of the operator, a cell opened with the idea, the sentence about what its family changes and the nights that already use it, the resolution of <a href="#definition-ingredient">ingredients</a> and the composition of the law, the rule that neither the law nor the ingredient lines nor the <code>AGENTS.md</code> of a universe writes a two-letter symbol where a sentence belongs, the mapping of the creation request body in which <code>premise</code> wins over <code>opening</code> and a template fills only the gaps, the <a href="#definition-library">library</a> against its folders, a night template with cells and a central problem and the universe composed from it, the <a href="#definition-store-lock">store lock</a>, and the fact that importing the server module starts no server and takes no lock. It exits with a nonzero status if any check failed and always removes the universes it created, which makes it safe to run on a working instance.</p>
+        </section>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

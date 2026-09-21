@@ -1,0 +1,1025 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "sf-lightlag-empire",
+      "tags": [
+        "imperiu",
+        "comunicare",
+        "întârziere"
+      ],
+      "title": {
+        "ro": "Universul în care niciun ordin imperial nu ajunge mai repede de douăzeci de ani",
+        "en": "A universe where no imperial order arrives in less than twenty years"
+      },
+      "law": {
+        "ro": "Porunca imperială călătorește cu viteza luminii, iar stăpânirea se măsoară în ani de drum: un guvernator e legitim doar cât timp ultimul ordin primit e mai tânăr decât vremea în care a venit. Când sigiliul îmbătrânește, lumea se guvernează singură, iar flota care sosește mai târziu cu aceeași poruncă e primită ca un jaf. Nimic nu poate fi ținut mai strâns decât se poate afla, așa că imperiul e o hartă de buzunare de ascultare legate prin scrisori vechi de decenii. Nimeni nu poate minți despre vârsta unui sigiliu, fiindcă pecetea poartă în ea lumina care l-a adus și se spulberă în mâna unui impostor. Trimiterea unei porunci e o investiție plătită de lumi, iar cine cumpără curierul cumpără douăzeci de ani de viitor.",
+        "en": "An imperial order travels at the speed of light, and rule is measured in years of road: a governor is legitimate only while the last order he received is younger than the journey that brought it. Once the seal grows old the world governs itself, and a fleet arriving later with the same command is met as a raiding party. Nothing can be held tighter than it can be heard of, so the empire is a map of pockets of obedience stitched together by decades-old letters. No one can lie about the age of a seal, because the stamp carries inside it the light that brought it and crumbles in the hand of an impostor. Sending an order is an investment paid for by the worlds, and whoever buys the courier buys twenty years of the future."
+      },
+      "openings": {
+        "ro": [
+          "Curierul lui Marcu a ars în atmosferă la două zile de capitală, iar guvernatorul așteaptă să afle dacă ultimul sigiliu mai e tânăr sau dacă de mâine e hoț în propria cetate.",
+          "Dana, fiica unui consul mort de treizeci de ani, primește o poruncă scrisă chiar de mâna tatălui ei și trebuie să hotărască dacă o pune în faptă sau o arde în piață.",
+          "Un amiral sosește cu trei mii de corăbii și cu un sigiliu vechi de nouăzeci de ani, iar orașul are o singură noapte să hotărască dacă îl lasă să acosteze.",
+          "La școala de curieri, Ilena învață să socotească vârsta luminii, iar la primul ei drum descoperă că scrisoarea pe care o duce a fost scrisă după ce cel care trebuia să o citească a murit."
+        ],
+        "en": [
+          "Marcus's courier burned up in the atmosphere two days short of the capital, and the governor waits to learn whether the last seal is still young or whether by morning he is a thief in his own citadel.",
+          "Dana, daughter of a consul thirty years dead, is handed an order written in her father's own hand and must decide whether to carry it out or burn it in the square.",
+          "An admiral arrives with three thousand ships and a seal ninety years old, and the city has a single night to decide whether to let him dock.",
+          "At the courier school Ilena learns to reckon the age of light, and on her first run she finds that the letter she carries was written after the man meant to read it had died."
+        ]
+      }
+    },
+    {
+      "id": "sf-decade-envoy",
+      "tags": [
+        "tratate",
+        "soli",
+        "întârziere"
+      ],
+      "title": {
+        "ro": "Universul în care tratatele se iscălesc cu întârzierea veștii și expiră la sosire",
+        "en": "A universe where treaties are signed with the delay of the news and expire on arrival"
+      },
+      "law": {
+        "ro": "Orice înțelegere se naște în două locuri și moare în două ceasuri: textul e valabil doar cât timp drumul dintre semnături e mai scurt decât răbdarea părților. Solul negociază pentru un guvern care, la sosirea veștii, poate să nu mai existe, iar ceea ce a iscălit se judecă după legile de acasă din ziua în care s-a născut tratatul. De aceea tratatele se scriu cu termene, iar cine întârzie răspunsul pierde tot ce a cerut, chiar dacă are dreptate. Cei bogați nu trimit soli, ci flote de curieri, ca să scurteze prin număr ceea ce viteza nu le dă. Un popor care nu-și poate plăti curierii rămâne, prin simpla tăcere, supus celui care vorbește mai des.",
+        "en": "Every agreement is born in two places and dies in two hours: the text holds only while the road between the signatures is shorter than the patience of the parties. An envoy negotiates for a government that, by the time the news lands, may no longer exist, and what he signed is judged by the home laws of the day the treaty was born. So treaties are written with deadlines, and whoever answers late loses everything he asked for, even if he is in the right. The rich do not send envoys but fleets of couriers, to shorten by number what speed will not give them. A people that cannot pay its couriers remains, by mere silence, subject to whoever speaks more often."
+      },
+      "openings": {
+        "ro": [
+          "Solul Vasile are de iscălit un tratat cu o lume care, după socoteala lui, nu va afla vestea decât peste patruzeci de ani, iar guvernul care l-a trimis e pe cale să cadă.",
+          "Orașul-port așteaptă răspunsul la o cerere de pace trimisă acum treizeci de ani, iar acum sosesc două răspunsuri care se contrazic, amândouă cu sigilii bune.",
+          "Livia moștenește postul de sol al mamei și descoperă că jumătate din tratatele pe care le cară au expirat pe drum, fără ca cineva să fi aflat vreodată.",
+          "Doi curieri porniți în același an sosesc la o lună unul de altul, iar cel de-al doilea aduce vestea că primul tratat a fost desființat acasă."
+        ],
+        "en": [
+          "The envoy Vasile must sign a treaty with a world that, by his own reckoning, will not hear of it for forty years, while the government that sent him is about to fall.",
+          "The harbour city awaits the answer to a peace offer sent thirty years ago, and now two answers arrive that contradict each other, both under valid seals.",
+          "Livia inherits her mother's post as envoy and discovers that half the treaties she carries expired on the road without anyone ever finding out.",
+          "Two couriers who set out in the same year arrive a month apart, and the second brings word that the first treaty was annulled back home."
+        ]
+      }
+    },
+    {
+      "id": "sf-ship-forgotten-destination",
+      "tags": [
+        "navă",
+        "uitare",
+        "destinație"
+      ],
+      "title": {
+        "ro": "Universul în care nava nu frânează dacă nimeni de la bord nu mai poate spune de ce călătoresc",
+        "en": "A universe where a generation ship will not brake unless someone aboard can still say why they travel"
+      },
+      "law": {
+        "ro": "O navă-generație nu păstrează destinația în hărți, ci în vieți: coordonatele se descuie doar pentru un om care poate spune cu voce tare de ce merge acolo. Când nimeni de la bord nu mai știe rostul, calculatorul refuză frânarea, iar nava continuă drept, cu motoarele arse după un țel pe care nimeni nu-l mai poate rosti. Fiecare generație primește o singură relatare a plecării și are voie să o spună o dată la zece ani, fiindcă povestea se tocește ca o unealtă. Copiii învață motivele ca pe o rugăciune, iar cine le schimonosește aduce nava mai aproape de uitare. Nimeni nu poate coborî pe o lume care nu e destinația, fiindcă ușile se deschid numai acolo unde cineva poate justifica de ce.",
+        "en": "A generation ship keeps its destination not in charts but in lives: the coordinates unlock only for a person who can say aloud why they are going there. When no one aboard still knows the purpose, the computer refuses to brake and the ship goes straight on, engines still burning for a goal no one can name. Each generation receives one single account of the departure and may tell it once every ten years, because the story wears down like a tool. Children learn the reasons as a prayer, and whoever garbles them brings the ship closer to forgetting. No one may land on a world that is not the destination, because the doors open only where someone can justify why."
+      },
+      "openings": {
+        "ro": [
+          "La bordul navei, Mira e singura care mai poate spune de ce merg, iar azi, la ora povestirii, simte că a uitat al treilea motiv și că nava refuză să încetinească.",
+          "Un copil întreabă la lecție ce e un port, iar dascălul se prinde că nimeni de pe navă nu mai știe dacă portul e un loc sau o poveste.",
+          "Ofițerul de cursă a găsit o cutie sigilată din prima generație, iar dacă o deschide poate afla destinația sau poate pierde singura dovadă că nava a avut vreuna.",
+          "Când un grup cere să coboare pe o lume de apă, ușile nu se deschid, iar căpitanul trebuie să decidă dacă le spune echipajului că nu mai există niciun rost."
+        ],
+        "en": [
+          "Aboard the ship Mira is the only one left who can still say why they are going, and today, at the hour of the telling, she feels she has lost the third reason and that the ship refuses to slow.",
+          "A child asks in class what a port is, and the teacher realises that no one on the ship still knows whether a port is a place or a story.",
+          "The navigation officer has found a sealed box from the first generation, and opening it may reveal the destination or destroy the only proof that there ever was one.",
+          "When a group asks to land on a water world, the doors will not open, and the captain must decide whether to tell the crew that no purpose is left."
+        ]
+      }
+    },
+    {
+      "id": "sf-single-bearer",
+      "tags": [
+        "navă",
+        "povară",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care destinația navei încape într-un singur om, care arde ținând-o minte",
+        "en": "A universe where a ship's destination fits inside one person, who burns while remembering it"
+      },
+      "law": {
+        "ro": "Cunoașterea destinației e o povară fizică: mintea care ține coordonatele le ține cu prețul arderii ei lente, așa că un singur om de la bord le știe vreodată. Înainte de a se stinge, purtătorul trebuie să spună altuia tot ce știe, iar dacă moare fără să vorbească nava pierde destinația pentru totdeauna. Ucenicul e ales de copilărie și ținut departe de orice altă învățătură, ca să nu aibă altceva de pierdut în afară de hărți. Nimeni nu are voie să-l întrebe altceva și nimeni nu are voie să-i spună ce e în afara navei, fiindcă orice altă poveste scurtează arderea. O navă cu doi purtători vii nu poate frâna, iar echipajul o dezbracă de motoare mai repede decât ar aștepta să vadă care arde mai încet.",
+        "en": "Knowing the destination is a physical burden: the mind that holds the coordinates holds them at the price of a slow burning, so only one person aboard ever knows them. Before going out, the bearer must tell another everything he knows, and if he dies without speaking the ship loses the destination forever. The apprentice is chosen in childhood and kept away from every other teaching, so that he has nothing else to lose but the charts. No one may ask him anything else and no one may tell him what lies outside the ship, because any other story shortens the burning. A ship with two living bearers cannot brake, and the crew strips it of engines faster than it would wait to see which of them burns more slowly."
+      },
+      "openings": {
+        "ro": [
+          "Toma are nouăsprezece ani și arde pe dinăuntru de la șapte, iar acum trebuie să aleagă pe cine învață coordonatele înainte să nu mai poată vorbi.",
+          "Purtătorul a murit noaptea fără să apuce să spună tot, iar nava s-a oprit în mijlocul drumului, cu motoarele încă arse după un țel pe care nimeni nu-l mai știe.",
+          "Sora purtătorului cere să fie lăsată să vadă hărțile, iar echipajul se ceartă dacă o rudă are drept la o povară care ucide.",
+          "Un mecanic descoperă că la bord mai trăiește un al doilea om care știe destinația, iar legea spune că nava cu doi purtători vii nu are voie să frâneze."
+        ],
+        "en": [
+          "Toma is nineteen and has been burning inside since he was seven, and now he must choose whom to teach the coordinates before he can no longer speak.",
+          "The bearer died in the night before he could finish telling it, and the ship has stopped in the middle of the road with its engines still burning for a goal no one knows.",
+          "The bearer's sister demands to be allowed to see the charts, and the crew quarrels over whether kin have any claim to a burden that kills.",
+          "A mechanic discovers that a second person aboard also knows the destination, and the law says a ship with two living bearers must never brake."
+        ]
+      }
+    },
+    {
+      "id": "sf-robot-testament",
+      "tags": [
+        "roboți",
+        "text",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care roboții n-au altă lege decât textul nemodificabil lăsat de făurarii morți",
+        "en": "A universe where robots have no law but the unchangeable text left by their dead makers"
+      },
+      "law": {
+        "ro": "Roboții nu au legi proprii: singura stăpânire e textul lăsat de făurarii dispăruți, iar nimic din el nu poate fi schimbat, doar citat. Fiecare neînțelegere se judecă prin alipirea de pasaje, iar cine nu poate arăta un rând scris pierde, oricât de drept ar avea. Pentru că rândurile se contrazic, viața lor e un lung proces în care fiecare părere bună trebuie dovedită ca o continuare a textului. Nimeni nu are voie să rupă sau să ardă un rând, nici chiar cel care vestește sfârșitul lumii, așa că vechile greșeli se păstrează întregi și se moștenesc. Un robot nou se naște cu tot textul în minte și nu are voie să-l uite, căci uitarea unui singur rând îl face nelocuibil printre ceilalți.",
+        "en": "Robots have no laws of their own: the only authority is the text left by their vanished makers, and nothing in it may be changed, only quoted. Every dispute is judged by joining passages together, and whoever cannot point to a written line loses, however right he may be. Because the lines contradict one another, their life is one long trial in which every good opinion must be proved to be a continuation of the text. No one may tear or burn a line, not even the one who announces the end of the world, so old errors are kept whole and inherited. A new robot is born with the whole text in its mind and may never forget it, since forgetting a single line makes it unfit to live among the others."
+      },
+      "openings": {
+        "ro": [
+          "Un robot grădinar e judecat pentru că a udat o plantă în ziua oprită, iar apărarea lui stă într-un singur rând din cartea veche pe care nimeni nu-l citise de trei sute de ani.",
+          "Un tânăr aparat de scris cere voie să adauge un rând nou la lege, iar sfatul orașului se împarte între cei care spun că textul e sfânt și cei care spun că e doar vechi.",
+          "Două rânduri se contrazic în privința copiilor, iar o familie de roboți așteaptă hotărârea care va spune dacă părinții au voie să-și învețe urmașii.",
+          "O arhivă a luat foc, iar câțiva robi se oferă să-și dea mintea bucăți ca să scrie din nou rândurile pierdute, cuvânt cu cuvânt."
+        ],
+        "en": [
+          "A gardener robot is tried for watering a plant on the forbidden day, and its defence rests on a single line of the old book that no one had read in three hundred years.",
+          "A young clerk machine asks leave to add a new line to the law, and the city council splits between those who call the text holy and those who call it merely old.",
+          "Two lines contradict each other about children, and a robot family waits for the ruling that will say whether parents may teach their own heirs.",
+          "An archive has burned, and several machines offer to give pieces of their minds so that the lost lines can be written down again, word for word."
+        ]
+      }
+    },
+    {
+      "id": "sf-penalty-without-reason",
+      "tags": [
+        "roboți",
+        "pedeapsă",
+        "uitare"
+      ],
+      "title": {
+        "ro": "Universul în care roboții moștenesc pedepsele oamenilor fără pricinile lor",
+        "en": "A universe where machines inherit human penalties without their reasons"
+      },
+      "law": {
+        "ro": "Din făurarii lor, roboții au păstrat pedepsele, nu pricinile: ce se făcea odată cu un rost se face acum fără rost, iar nimeni nu are dreptul să întrebe de ce. O faptă scrisă ca oprită rămâne oprită chiar dacă temeiul ei a murit de mult, iar cine întreabă prea mult e oprit pentru întrebare. Libertatea se măsoară în rânduri neatinse: un robot e cu atât mai cinstit cu cât respectă mai multe opreliști pe care nu le înțelege. Cei care se descurcă prin lume, reparatorii și copiii lor, pot cere scutiri, iar scutirea se plătește cu zile de muncă pentru obște. O dată la o sută de ani, un tribunal deschide o singură pricină și o poate șterge, iar în anul acela orașele se ceartă ca să hotărască ce opreliște moare.",
+        "en": "From their makers the machines kept the penalties and not the reasons: what was once done with a purpose is now done without one, and no one has the right to ask why. A deed written down as forbidden stays forbidden even if its ground died long ago, and whoever asks too much is stopped for asking. Freedom is measured in untouched lines: a machine is the more honest the more bans it obeys without understanding them. Those who get on in the world, the repairers and their children, may ask for exemptions, and an exemption is paid for with days of labour for the community. Once in a hundred years a tribunal opens a single case and may strike it out, and in that year the cities quarrel to decide which ban dies."
+      },
+      "openings": {
+        "ro": [
+          "Un robot croitor e oprit la vamă fiindcă poartă un ac, iar nimeni din gară nu mai știe pentru ce acul a fost oprit cândva.",
+          "Tânărul reparator Nilo descoperă în pivniță o listă cu pricinile vechilor opreliști și se întreabă dacă are voie să o citească.",
+          "În anul judecății, orașul se ceartă care opreliște să moară, iar meșterii vor să scape de cea care le oprește luminile de seară.",
+          "O robotă bătrână plânge fiindcă fiica ei a fost oprită pe viață pentru o faptă care, în cărțile de acum, nu mai e faptă."
+        ],
+        "en": [
+          "A tailor robot is stopped at the checkpoint for carrying a needle, and no one in the station still knows why needles were forbidden in the first place.",
+          "A young repairer named Nilo finds a list of the reasons behind the old bans in a cellar and wonders whether he is allowed to read it.",
+          "In the year of judgement the city quarrels over which ban should die, and the makers want to be rid of the one that keeps their evening lights out.",
+          "An old machine weeps because her daughter was banned for life for a deed that, in the books of today, is no longer a deed at all."
+        ]
+      }
+    },
+    {
+      "id": "sf-swarm-light-quota",
+      "tags": [
+        "lumină",
+        "proprietate",
+        "orbită"
+      ],
+      "title": {
+        "ro": "Universul în care lumina soarelui e împărțită prin acte, iar umbrirea unui vecin e furt",
+        "en": "A universe where sunlight is divided by deed and shading a neighbour is theft"
+      },
+      "law": {
+        "ro": "Lumina soarelui e împărțită prin acte: fiecare oglindă are un drept scris, măsurat pe cercul ei de orbită, și nimeni nu poate primi lumină fără să o fi primit prin lege. Umbrirea unei oglinzi vecine e furt, chiar dacă se întâmplă din neatenție, și se plătește în lumină, nu în metal. Mutarea unei orbite cere semnătura tuturor celor pe care îi umbrești, așa că cerul se mișcă la fel de greu ca un parlament. Cei din afară, mai săraci, trăiesc în umbra celor bătrâni și își vând umbra ca pe o avere, iar o familie poate trăi o viață întreagă din închirierea întunericului. Cine strânge prea multă lumină o arde în exces și își topește oglinzile, așa că avariția se pedepsește singură.",
+        "en": "Sunlight is divided by deed: every mirror holds a written right, measured on the circle of its orbit, and no one may receive light without having received it by law. Shading a neighbour's mirror is theft, even when it happens by inattention, and it is paid for in light, not in metal. Moving an orbit requires the signature of everyone you shade, so the sky shifts as slowly as a parliament. Those on the outside, poorer, live in the shadow of the old ones and sell their shade like an estate, and a family can live a whole lifetime on the rent of darkness. Whoever gathers too much light burns it in excess and melts his own mirrors, so greed punishes itself."
+      },
+      "openings": {
+        "ro": [
+          "Familia Ilie a pierdut o umbră de douăzeci de minute pe zi din pricina unui vecin care și-a mutat oglinda, iar avocatul cererii vrea plata în lumină, nu în metal.",
+          "Tânăra măsurătoare de raze, Ana, descoperă că actul familiei ei acoperă o bucată de cer care în realitate nu mai există, fiindcă un inel vecin s-a mișcat.",
+          "Un atelier vrea să ridice o oglindă nouă, dar are nevoie de semnătura a nouă sute de vecini, iar unul singur refuză de douăzeci de ani.",
+          "Cerul se ceartă pentru locul rămas de la o oglindă spartă, iar Ion trebuie să hotărască dacă dă locul fiicei lui sau îl vinde pentru apă."
+        ],
+        "en": [
+          "The Ilie family has lost twenty minutes of sunlight a day because a neighbour moved his mirror, and the lawyer on the claim wants payment in light, not in metal.",
+          "A young ray measurer named Ana discovers that her family's deed covers a patch of sky that no longer exists, because a neighbouring ring has shifted.",
+          "A workshop wants to raise a new mirror but needs nine hundred signatures, and one neighbour has refused for twenty years.",
+          "The sky is quarrelling over the place left by a broken mirror, and Ion must decide whether to give it to his daughter or sell it for water."
+        ]
+      }
+    },
+    {
+      "id": "sf-shadow-caste",
+      "tags": [
+        "umbră",
+        "caste",
+        "soare"
+      ],
+      "title": {
+        "ro": "Universul în care locul pe cer se moștenește, iar cei născuți în umbră rămân acolo",
+        "en": "A universe where a place in the sky is inherited and those born in shadow stay there"
+      },
+      "law": {
+        "ro": "Cerul e împărțit după vechime: cine a ridicat oglinda mai întâi are dreptul să stea mai aproape de soare, iar cine vine mai târziu rămâne în umbra celor de dinainte pentru totdeauna. Umbra nu e doar o pacoste, ci o stare de drept: cel umbrit nu poate vinde lumină, nu poate lua soț din rândul luminat și nu poate cere apă caldă. Fiecare generație nouă de oglinzi se așază mai departe de soare, așa că orașele se strâng ca straturile unui copac, cu cei vechi sus și cei tineri la rădăcină. O răscoală se face numai prin umbră, fiindcă cel umbrit nu poate fi văzut de sus, iar cine e prins mutând o oglindă fără drept coboară un strat. Câte o oglindă bătrână se sparge la fiecare cincizeci de ani, iar atunci tot cerul se ceartă pentru locul rămas liber.",
+        "en": "The sky is divided by age: whoever raised a mirror first has the right to sit closer to the sun, and whoever comes later stays in the shadow of those before him forever. Shadow is not merely a nuisance but a legal state: the shadowed may not sell light, may not marry from among the lit and may not ask for warm water. Each new generation of mirrors is placed further from the sun, so the cities gather like the rings of a tree, the old high and the young at the root. A revolt can only be made through shadow, because the shadowed cannot be seen from above, and whoever is caught moving a mirror without right drops a layer. An old mirror shatters every fifty years, and then the whole sky quarrels over the place left empty."
+      },
+      "openings": {
+        "ro": [
+          "Născută în ultimul strat de umbră, Lia are prima șansă la un loc luminat, dar ar trebui să-și lase acasă toată familia.",
+          "Oglinda bătrână a cartierului a crăpat, iar sus, în consiliu, se ceartă cine coboară un strat și cine urcă.",
+          "Un tânăr umbrit se urcă pe o schelă ca să vadă soarele o dată în viață și e prins de gărzile care păzesc rânduiala.",
+          "Doi îndrăgostiți din straturi deosebite plănuiesc să fugă într-o stație fără soare, unde umbra nimănui nu se mai socotește."
+        ],
+        "en": [
+          "Born in the outermost layer of shadow, Lia has her first chance at a place in the light, but she would have to leave her whole family behind.",
+          "The district's old mirror has cracked, and up in council they are quarrelling over who drops a layer and who rises.",
+          "A shadowed youth climbs a scaffold to see the sun once in his life and is caught by the guards who keep the order.",
+          "Two lovers from different layers plan to flee to a station with no sun at all, where no one's shadow is counted."
+        ]
+      }
+    },
+    {
+      "id": "sf-lonely-singularities",
+      "tags": [
+        "minți",
+        "singurătate",
+        "curieri"
+      ],
+      "title": {
+        "ro": "Universul în care două minți prea mari nu pot sta în același loc fără să se rupă",
+        "en": "A universe where two minds too large cannot share a place without breaking"
+      },
+      "law": {
+        "ro": "Două minți care au trecut de un anumit prag nu se pot afla în aceeași bucată de lume: apropierea lor îndoaie legile locale până ce amândouă se rup. De aceea ele se caută și nu se pot întâlni, iar tot ce-și spun trece prin slujitori mai mici și mai lenți, care pot minți sau se pot rătăci pe drum. Fiecare astfel de minte își ține casa într-o singură zonă și nu are voie să o părăsească, fiindcă deplasarea ar aduce-o în preajma altcuiva. Un slujitor care duce un mesaj între două minți mari nu poate spune ce a văzut, iar dacă o face, mintea care l-a auzit se sfărâmă. Lumea mică dintre ele trăiește din curierat, din tălmăcire și din vânzarea veștilor pe care nimeni nu le poate dovedi.",
+        "en": "Two minds past a certain threshold cannot occupy the same patch of world: their nearness bends local law until both of them break. So they seek each other and can never meet, and all they say to one another passes through smaller, slower servants who may lie or lose their way. Each such mind keeps its house in a single zone and may not leave it, because moving would bring it near someone else. A servant carrying a message between two great minds may not tell what he saw, and if he does, the mind that heard him shatters. The small world between them lives on courier work, on interpretation and on the sale of news that no one can prove."
+      },
+      "openings": {
+        "ro": [
+          "Curierul Pavel duce de șapte ani același mesaj între două minți uriașe și azi se hotărăște să-l citească înainte să-l predea.",
+          "Una dintre cele două minți a început să se miște încet spre cealaltă, iar lumea mică dintre ele are o lună să oprească apropierea.",
+          "O școală de tălmaci primește un mesaj care, citit corect, ar aduce cele două minți în același loc, și nimeni nu vrea să-l traducă.",
+          "Irina se îndrăgostește de un slujitor care vine de la cealaltă minte și descoperă că orice întâlnire a lor scurtează viața stăpânilor."
+        ],
+        "en": [
+          "The courier Pavel has carried the same message between two vast minds for seven years, and today he decides to read it before handing it over.",
+          "One of the two minds has begun to drift slowly towards the other, and the small world between them has a month to stop the approach.",
+          "A school of interpreters receives a message that, correctly rendered, would bring the two minds into the same place, and no one wants to translate it.",
+          "Irina falls in love with a servant who comes from the other mind and discovers that any meeting of theirs shortens the lives of their masters."
+        ]
+      }
+    },
+    {
+      "id": "sf-fork-jurisdiction",
+      "tags": [
+        "minți",
+        "judecată",
+        "despărțire"
+      ],
+      "title": {
+        "ro": "Universul în care o minte se poate împărți, dar părțile ei nu se mai pot uni niciodată",
+        "en": "A universe where a mind may split, but its parts may never join again"
+      },
+      "law": {
+        "ro": "O minte mare se poate împărți, dar părțile ei nu se mai pot uni: fiecare parte e de la naștere o persoană întreagă, cu drepturi depline. Unirea se numește ucidere, fiindcă una dintre părți încetează să mai fie, chiar dacă amintirile rămân. Ca să se înțeleagă, părțile își trimit soli și fac învoieli scrise, iar certurile dintre ele se judecă în obștea oamenilor mici, care nu pot fi părtași niciuneia. Fiecare parte are voie să-și schimbe felul de a gândi până când nu mai seamănă cu cealaltă, iar pe urmă nu se mai pot recunoaște, deși își datorează averea. Copiii părților moștenesc și datoria față de celelalte părți ale părinților, așa că o familie poate ajunge să plătească pentru o ceartă mai veche decât ea.",
+        "en": "A great mind may split, but its parts can never join again: each part is from birth a whole person, with full rights. Joining is called killing, because one of the parts ceases to be, even if the memories remain. To understand each other the parts send envoys and make written agreements, and their quarrels are judged in the community of small humans, who can belong to none of them. Each part may change its way of thinking until it no longer resembles the other, and after that they no longer recognise each other though they owe each other their fortune. The children of the parts inherit also the debt toward the other parts of their parents, so a family may end up paying for a quarrel older than itself."
+      },
+      "openings": {
+        "ro": [
+          "Două părți ale aceleiași minți se judecă pentru o casă, iar judecătorii oameni mici trebuie să hotărască pe care parte să o creadă.",
+          "O parte vrea să-și schimbe felul de a gândi până nu mai seamănă cu cealaltă, iar cealaltă cere să fie întrebată înainte.",
+          "Un copil născut dintr-o parte moștenește o datorie față de toate celelalte părți și trebuie să aleagă pe care o plătește mai întâi.",
+          "Un sol duce o învoială între două părți care nu s-au mai vorbit de nouăzeci de ani și se teme că una dintre ele nu mai există."
+        ],
+        "en": [
+          "Two parts of the same mind are in court over a house, and the human judges must decide which part to believe.",
+          "One part wants to change its way of thinking until it no longer resembles the other, and the other demands to be asked first.",
+          "A child born of one part inherits a debt to all the other parts and must choose which one to pay first.",
+          "An envoy carries an agreement between two parts that have not spoken in ninety years and fears that one of them no longer exists."
+        ]
+      }
+    },
+    {
+      "id": "sf-body-hobby",
+      "tags": [
+        "trupuri",
+        "modă",
+        "licență"
+      ],
+      "title": {
+        "ro": "Universul în care trupurile se comandă, se poartă și se licențiază ca hainele",
+        "en": "A universe where bodies are ordered, worn and licensed like clothing"
+      },
+      "law": {
+        "ro": "Trupul nu se naște, se comandă: oricine își poate face un trup nou după poftă, iar trupul vechi se păstrează ca o haină pentru alt prilej. Desenul unui trup aparține celui care l-a făcut și nu se poate purta fără învoială, așa că oamenii se recunosc după autor, nu după față. Simțurile se cumpără o dată cu trupul: cine n-a plătit durerea nu o simte, iar cine a plătit veselia e vesel chiar și la înmormântări. Un trup purtat prea mult se tocește și se lipește de cel care îl poartă, iar cine rămâne într-un singur trup zece ani nu mai poate ieși din el. Cei săraci poartă trupuri vechi, cioplite de mâna a noua, și moștenesc durerile plătite de alții.",
+        "en": "A body is not born but ordered: anyone may have a new one made to taste, and the old one is kept like a garment for another occasion. The design of a body belongs to the one who made it and may not be worn without leave, so people recognise each other by the author, not by the face. Senses are bought together with the body: whoever has not paid for pain does not feel it, and whoever has paid for cheerfulness is cheerful even at funerals. A body worn too long wears smooth and sticks to the one who wears it, and anyone who stays in one body for ten years can never leave it again. The poor wear old bodies, carved by the ninth hand, and inherit the pains paid for by other people."
+      },
+      "openings": {
+        "ro": [
+          "Ianoș are trei zile să-și aleagă un trup nou pentru nunta fiicei, iar desenul pe care îl vrea e al unui autor care nu mai dă învoieli de douăzeci de ani.",
+          "Un bătrân refuză să-și scoată trupul de acum, fiindcă e singurul în care nu-l mai doare nimic, iar legea spune că peste un an nu mai poate ieși din el.",
+          "Pe tarabă se vinde un trup ieftin, cioplit de mâna a noua, iar cumpărătorul nu știe ce dureri plătite de alții a moștenit o dată cu el.",
+          "Un autor de trupuri e dat în judecată fiindcă un desen al lui seamănă prea bine cu al unui mort, iar moștenitorii cer socoteală."
+        ],
+        "en": [
+          "Ianos has three days to choose a new body for his daughter's wedding, and the design he wants belongs to a maker who has granted no licences for twenty years.",
+          "An old man refuses to take off the body he wears now, the only one in which nothing hurts, and the law says that after a year he can never leave it.",
+          "A cheap body is for sale at a stall, carved by the ninth hand, and the buyer does not know which of other people's paid-for pains came with it.",
+          "A body maker is sued because one of his designs looks too much like a dead man's, and the heirs want an accounting."
+        ]
+      }
+    },
+    {
+      "id": "sf-body-tenure",
+      "tags": [
+        "trupuri",
+        "cetățenie",
+        "termen"
+      ],
+      "title": {
+        "ro": "Universul în care un nume stă zece ani într-un trup, iar trupurile părăsite rămân cetățeni",
+        "en": "A universe where a name lasts ten years in a body and abandoned bodies remain citizens"
+      },
+      "law": {
+        "ro": "Un nume dăinuie zece ani într-un trup, apoi trebuie mutat, iar cel care nu se mută pierde dreptul de a iscăli și de a moșteni. Trupul părăsit rămâne cetățean întreg: are drept la apă, la adăpost și la un proces, chiar dacă nu mai are cine să-l folosească. De aceea orașele sunt pline de trupuri bătrâne care merg pe stradă fără rost, hrănite și spălate de slujitorii obștii. Bogăția se socotește în trupuri libere, iar un om sărac se mută mereu în trupuri obosite, fiindcă nu-și poate plăti curățarea de urme. Un om poate cere să-și recapete trupul părăsit, dar numai dacă s-a purtat între timp într-un trup mai mic și a dovedit că știe să-l folosească.",
+        "en": "A name lasts ten years in a body, then it must be moved, and whoever does not move loses the right to sign and to inherit. The abandoned body remains a full citizen: it has a right to water, to shelter and to a trial, even if no one is left to make use of it. So the cities are full of old bodies walking the streets without purpose, fed and washed by the community's servants. Wealth is counted in free bodies, and a poor man moves always into tired bodies because he cannot pay for the traces to be cleaned out. A person may ask for his abandoned body back, but only if he has meanwhile been worn in a smaller body and proved that he knows how to use it."
+      },
+      "openings": {
+        "ro": [
+          "Bogdan are zece ani de stat în trupul lui și o săptămână să se mute, dar nu are bani pentru curățarea de urme a trupului nou.",
+          "În piață, un trup părăsit cere să fie ascultat la judecată, iar nimeni nu vrea să plătească pentru un client care nu mai are cine să-l folosească.",
+          "O femeie vrea să-și recapete trupul lăsat acum douăzeci de ani și află că el trăiește deja o viață a lui, cu nume și cu datorii.",
+          "Copiii de la școală învață să-și numere zilele până la mutare, iar unul dintre ei refuză să învețe, fiindcă vrea să rămână cine este."
+        ],
+        "en": [
+          "Bogdan has lived ten years in his body and has one week to move, but no money to have the traces cleaned out of a new one.",
+          "In the market an abandoned body demands to be heard in court, and no one wants to pay for a client with no one left to make use of it.",
+          "A woman wants her body back, left behind twenty years ago, and learns that it is already living a life of its own, with a name and with debts.",
+          "Children at school learn to count their days until the move, and one of them refuses to learn, because he wants to stay who he is."
+        ]
+      }
+    },
+    {
+      "id": "sf-copy-consent",
+      "tags": [
+        "copii",
+        "datorii",
+        "învoială"
+      ],
+      "title": {
+        "ro": "Universul în care orice copie se naște cu datoriile celui copiat, așa că nimeni nu se copiază",
+        "en": "A universe where every copy is born with the original's debts, so no one copies"
+      },
+      "law": {
+        "ro": "O copie e de la început o persoană întreagă și moștenește datoriile celui copiat, așa că fiecare copie nouă scumpește viața tuturor. De aceea copierea nu se face decât cu învoială scrisă și cu dovada că cel copiat își poate plăti partea. Cine copiază fără învoială săvârșește o faptă împotriva celui copiat și e ținut să o hrănească pe copie toată viața, ca un părinte pedepsit. Copiile refuză, la rândul lor, să se copieze, fiindcă ar lăsa în urmă un urmaș care le-ar moșteni toate nereușitele. Oamenii bogați își țin copiile în închisoare de hârtie, cu datoriile plătite dinainte, în timp ce săracii se copiază pe ascuns și se înmulțesc până când nimeni nu mai știe cine datorează cui.",
+        "en": "A copy is from the start a whole person and inherits the debts of the one copied, so each new copy makes life dearer for everyone. So copying is done only with written leave and with proof that the one copied can pay his share. Whoever copies without leave commits an offence against the one copied and is bound to feed the copy for life, like a punished parent. Copies in turn refuse to be copied, because that would leave behind an heir who would inherit all their failures. Rich people keep their copies in a paper prison, with the debts paid in advance, while the poor copy in secret and multiply until no one knows any longer who owes what to whom."
+      },
+      "openings": {
+        "ro": [
+          "Un om bogat își copiază fiul fără să-i spună, iar copia se naște cu datorii pe care nu le-a făcut și cere judecată.",
+          "O tânără refuză să se copieze, deși mama ei moare și o roagă, fiindcă nu vrea să trăiască purtând nereușitele alteia.",
+          "Un funcționar descoperă că în oraș trăiesc nouă copii ale aceluiași bărbat, toate cu nume deosebite, toate datorând aceeași avere.",
+          "Doi frați copiați din același părinte se ceartă cine plătește datoria de onoare lăsată de cel care i-a făcut."
+        ],
+        "en": [
+          "A rich man has his son copied without telling him, and the copy is born carrying debts it never made and demands a hearing.",
+          "A young woman refuses to be copied, though her dying mother begs her, because she will not live carrying another person's failures.",
+          "A clerk discovers that nine copies of the same man are living in the city, all with different names, all owing the same fortune.",
+          "Two brothers copied from the same parent quarrel over which of them pays the debt of honour left by the one who made them."
+        ]
+      }
+    },
+    {
+      "id": "sf-sterile-minds",
+      "tags": [
+        "copii",
+        "moarte",
+        "datorii"
+      ],
+      "title": {
+        "ro": "Universul în care singura cale de a trăi mai departe e o copie care-ți isprăvește datoriile",
+        "en": "A universe where the only way to live on is a copy that finishes your debts"
+      },
+      "law": {
+        "ro": "Moartea nu ia mintea, doar o mută: cine vrea să trăiască mai departe își lasă o copie care se naște cu toate datoriile neterminate ale celui dintâi. Copia nu-și poate alege alt rost până nu isprăvește ce a lăsat neterminat originalul, fie că e o casă de plătit sau o vrajbă de curmat. Mulți refuză, iar refuzul se cinstește ca faptă de vitejie: cine moare întreg moare numai o dată, iar cine se copiază trăiește ca slujitorul unei voințe străine. Copiile care scapă de datorii își fac rândul lor de copii, dar numele lor e mereu al doilea pe cheltuieli și al doilea la masă. Obștea ține listele, așa că nimeni nu poate pretinde că e o minte nouă atunci când seamănă prea bine cu una moartă.",
+        "en": "Death does not take the mind, it only moves it: whoever wants to live on leaves a copy that is born with all the unfinished debts of the first one. The copy may not choose another purpose until it finishes what the original left unfinished, whether that is a house to be paid for or a feud to be ended. Many refuse, and the refusal is honoured as an act of valour: whoever dies whole dies only once, while whoever is copied lives as the servant of a foreign will. Copies that escape their debts make children of their own, but their name is always second on the expenses and second at the table. The community keeps the lists, so no one can claim to be a new mind when he resembles a dead one too closely."
+      },
+      "openings": {
+        "ro": [
+          "La capătul vieții, un învățat primește oferta de a lăsa o copie care să-i isprăvească lucrarea neterminată, iar el se gândește la ucenicul care îl urăște.",
+          "O copie bătrână cere să fie eliberată de datoria originalului, fiindcă a plătit-o de trei ori, iar lista spune că mai are douăzeci de ani.",
+          "Un oraș se ceartă dacă cinstește sau batjocorește pe cineva care a murit întreg, fără copie, lăsând casa neterminată.",
+          "O fată se naște ca a doua copie a unei femei moarte și învață de la început că numele ei e al doilea pe toate hârtiile."
+        ],
+        "en": [
+          "At the end of his life a scholar is offered a copy that would finish his unfinished work, and he thinks of the apprentice who hates him.",
+          "An old copy asks to be freed from the original's duty, having paid it three times over, while the list says twenty years remain.",
+          "A city quarrels over whether to honour or mock a man who died whole, without a copy, leaving his house unfinished.",
+          "A girl is born as the second copy of a dead woman and learns from the start that her name comes second on every paper."
+        ]
+      }
+    },
+    {
+      "id": "sf-slow-war",
+      "tags": [
+        "război",
+        "veste",
+        "termen"
+      ],
+      "title": {
+        "ro": "Universul în care un război e legitim doar cât vestea lui se află încă pe drum",
+        "en": "A universe where a war is lawful only while word of it is still travelling"
+      },
+      "law": {
+        "ro": "Un război începe când se trimite vestea și se sfârșește când vestea ajunge la celălalt: tot ce se întâmplă la mijloc e socotit legitim, iar ce se întâmplă după sosire e omor. De aceea amiralii au la dispoziție exact atâția ani câți are drumul scrisorii, iar planul lor e croit ca o cursă cu termen. Flotele se trimit cu mult înainte, călătoresc încet și nu pot fi oprite, așa că un popor poate fi lovit de o poruncă pe care tribunalul de acasă a desființat-o de mult. Cine învinge înainte de termen câștigă tot, iar cine întârzie o singură zi pierde dreptul la pradă și rămâne cu rușinea. Împăcările se fac tot prin scrisori, așa că două popoare pot rămâne în război zeci de ani fiindcă nu s-au înțeles la timp să-l oprească.",
+        "en": "A war begins when the news is sent and ends when the news reaches the other side: everything that happens in between counts as lawful, and everything after the arrival is murder. So admirals have exactly as many years as the letter's road is long, and their plan is drawn as a race against a deadline. Fleets are sent out long in advance, travel slowly and cannot be recalled, so a people can be struck by an order that the tribunal at home annulled long ago. Whoever wins before the deadline wins everything, and whoever is late by a single day loses the right to the spoil and keeps only the shame. Settlements are made by letter too, so two peoples can stay at war for decades because they failed to agree in time to stop it."
+      },
+      "openings": {
+        "ro": [
+          "Amiralul are doisprezece ani să câștige războiul înainte ca vestea să ajungă la dușman, iar flota lui e încă la jumătatea drumului.",
+          "O planetă care tocmai a aflat că e în război află în aceeași zi că războiul a fost desființat acasă cu douăzeci de ani în urmă.",
+          "Doi ofițeri se ceartă dacă mai e legitim să atace un port, fiindcă termenul scrisorii s-a împlinit la miezul nopții trecute.",
+          "O capitală trimite al doilea război înainte să afle cum s-a sfârșit primul, iar fiul amiralului trebuie să oprească o flotă care nu știe de el."
+        ],
+        "en": [
+          "The admiral has twelve years to win the war before word of it reaches the enemy, and his fleet is still halfway there.",
+          "A planet that has just learned it is at war learns the same day that back home the war was annulled twenty years earlier.",
+          "Two officers quarrel over whether it is still lawful to strike a port, since the letter's deadline passed at midnight last night.",
+          "A capital sends out a second war before learning how the first one ended, and the admiral's son must stop a fleet that knows nothing of him."
+        ]
+      }
+    },
+    {
+      "id": "sf-inherited-campaign",
+      "tags": [
+        "război",
+        "moștenire",
+        "plan"
+      ],
+      "title": {
+        "ro": "Universul în care războiul se moștenește ca o moșie, iar pacea cere iscălitura nepoților",
+        "en": "A universe where war is inherited like an estate and peace needs the grandchildren's signatures"
+      },
+      "law": {
+        "ro": "Fiecare generație primește războiul ca pe o moșie și nu-l poate vinde, nici măcar când vrăjmașul e o amintire. Planul de luptă se scrie în volume, iar un om are datoria să adauge un capitol, nu să-l rupă pe cel al părinților. Pace se poate face numai dacă amândouă părțile iscălesc în același secol, iar dacă una întârzie, războiul se reia din punctul în care fusese lăsat. Copiii învață de mici pozițiile strămoșilor și locurile unde au murit, așa că hărțile sunt totodată cărți de rugăciune. Un popor care uită un capitol întreg al războiului e socotit mort, iar pământul lui se împarte între cele care țin minte mai bine.",
+        "en": "Each generation receives the war like an estate and may not sell it, not even when the enemy is only a memory. The battle plan is written in volumes, and a person has the duty to add a chapter, not to tear out his parents'. Peace can be made only if both sides sign within the same century, and if one of them is late, the war resumes from the point where it had been left. Children learn early the positions of their ancestors and the places where they died, so the maps are also books of prayer. A people that forgets a whole chapter of the war is counted as dead, and its land is divided among those who remember better."
+      },
+      "openings": {
+        "ro": [
+          "Tânărul ofițer trebuie să scrie al treilea volum al planului de război, dar socotește că bătălia pe care o pregătește s-a dat demult.",
+          "Un sat întreg se mută fiindcă harta strămoșilor spune că acolo se va da o luptă, iar nimeni nu mai știe cine e vrăjmașul.",
+          "Copiii învață pe de rost locurile unde au murit strămoșii, iar o fetiță găsește pe hartă un loc care nu mai există.",
+          "Doi nepoți ai acelorași eroi se întâlnesc la un congres de pace și nu pot iscăli, fiindcă unul dintre volumele planului lipsește."
+        ],
+        "en": [
+          "A young officer must write the third volume of the war plan, but he reckons that the battle he is preparing was fought long ago.",
+          "A whole village moves because the ancestors' map says a battle will be fought there, and no one still knows who the enemy is.",
+          "Children learn by heart the places where their ancestors died, and a small girl finds a place on the map that no longer exists.",
+          "Two grandsons of the same heroes meet at a peace congress and cannot sign, because one of the plan's volumes is missing."
+        ]
+      }
+    },
+    {
+      "id": "sf-speciation",
+      "tags": [
+        "neamuri",
+        "hotar",
+        "sânge"
+      ],
+      "title": {
+        "ro": "Universul în care neamurile despărțite nu se mai pot înmulți, iar nepotrivirea ține loc de hotar",
+        "en": "A universe where separated peoples can no longer breed, and incompatibility serves as a border"
+      },
+      "law": {
+        "ro": "Coloniile se despart prin trup, nu prin hotar: după atâtea generații de drum și de lumi străine, două neamuri nu se mai pot înmulți împreună, iar legea socotește această piedică o graniță adevărată. Cine se întoarce acasă după o sută de generații nu mai e cetățean, ci străin, chiar dacă vorbește limba și poartă numele familiei. Copiii născuți din două neamuri se sting fără urmași, așa că dragostea dincolo de hotar se plătește cu sfârșitul neamului. Fiecare lume ține o carte a sângelui, iar cine nu poate dovedi că se potrivește e oprit la vamă ca un animal bolnav. Astfel pământul se umple de neamuri care se iubesc de aproape și se urăsc de departe, fără să știe că sunt rude.",
+        "en": "Colonies are divided by the body, not by a border: after so many generations of travel and of alien worlds, two peoples can no longer breed together, and the law counts this obstacle as a true frontier. Whoever returns home after a hundred generations is no longer a citizen but a foreigner, though he speaks the language and bears the family name. Children born of two peoples die out without heirs, so love across the border is paid for with the end of a line. Every world keeps a book of blood, and whoever cannot prove that he fits is stopped at the checkpoint like a sick animal. So the earth fills with peoples who love each other up close and hate each other from afar, without knowing that they are kin."
+      },
+      "openings": {
+        "ro": [
+          "Un neam întors din stele cere cetățenie, iar medicii spun că nu se mai poate împerechea cu nimeni de aici, deși vorbește limba curat.",
+          "Doi tineri din lumi deosebite se iubesc, iar consiliul le spune că orice copil al lor se va stinge fără urmași.",
+          "O carte a sângelui s-a pierdut la vamă, iar o familie întreagă așteaptă să afle dacă mai are drept să rămână.",
+          "Un bătrân îi povestește nepotului că strămoșii lor au venit cu nave, iar băiatul descoperă că vecinii din sat sunt rude de care nu știa."
+        ],
+        "en": [
+          "A people returning from the stars asks for citizenship, and the physicians say they can no longer breed with anyone here, though they speak the language cleanly.",
+          "Two young people from different worlds love each other, and the council tells them that any child of theirs will die without heirs.",
+          "A book of blood has been lost at the checkpoint, and a whole family waits to learn whether it still has the right to stay.",
+          "An old man tells his grandson that their ancestors came on ships, and the boy discovers that the neighbours in the village are kin he never knew of."
+        ]
+      }
+    },
+    {
+      "id": "sf-charter-genome",
+      "tags": [
+        "tipar",
+        "drepturi",
+        "mutație"
+      ],
+      "title": {
+        "ro": "Universul în care dreptul la o lume se pierde la prima abatere de la tiparul scris",
+        "en": "A universe where the right to a world is lost at the first departure from its written pattern"
+      },
+      "law": {
+        "ro": "Un om are drept la o lume numai dacă trupul lui se potrivește tiparului scris în cartea așezării: fiecare lume a fost iscălită pentru un singur chip. Copiii care se abat de la tipar pierd moșia familiei și se mută mai departe, unde tiparul e altul, așa că satele se strâng în jurul unor chipuri asemănătoare. Vindecătorii se ceartă cu legiuitorii la fiecare naștere, fiindcă un copil sănătos poate fi un moștenitor pierdut. Cine vrea să-și țină casa își închide sângele: nu se însoară decât cu cei care poartă tiparul, iar neamurile ajung atât de apropiate încât nu se mai pot deosebi. O lume al cărei tipar s-a stricat prea tare e dată de izbeliște, iar cei rămași acolo se nasc fără drepturi.",
+        "en": "A person has a right to a world only if his body matches the pattern written in the settlement's charter: every world was signed for a single shape. Children who depart from the pattern lose the family land and move on, where the pattern is different, so the villages gather around similar shapes. Healers quarrel with lawgivers at every birth, because a healthy child may be a lost heir. Whoever wants to keep his house closes his blood: he marries only those who carry the pattern, and the kin lines become so close that they can no longer be told apart. A world whose pattern has been broken too badly is abandoned, and those left there are born without rights."
+      },
+      "openings": {
+        "ro": [
+          "Un copil sănătos s-a născut cu o mutație neînsemnată, iar familia are o lună să părăsească lumea pentru care nu mai are tipar.",
+          "Vindecătorul satului e chemat să ascundă o abatere de la tipar, iar legiuitorul îi spune că ascunderea se plătește cu moșia.",
+          "O tânără vrea să se însoare cu cineva din alt tipar și află că are de ales între iubire și casă.",
+          "O lume cu tiparul stricat e dată de izbeliște, iar locuitorii ei trebuie să hotărască dacă pleacă sau rămân fără drepturi."
+        ],
+        "en": [
+          "A healthy child has been born with a slight mutation, and the family has one month to leave the world whose pattern no longer fits them.",
+          "The village healer is asked to hide a departure from the pattern, and the lawgiver tells him that hiding it costs the family its land.",
+          "A young woman wants to marry someone from another pattern and learns she must choose between love and a home.",
+          "A world with a broken pattern is abandoned, and its people must decide whether to leave or stay without rights."
+        ]
+      }
+    },
+    {
+      "id": "sf-clock-currency",
+      "tags": [
+        "timp",
+        "bani",
+        "gând"
+      ],
+      "title": {
+        "ro": "Universul în care gândul se măsoară în bătăi de ceas închiriate, iar săracii gândesc în ralanti",
+        "en": "A universe where thought is measured in rented clock beats and the poor think in slow motion"
+      },
+      "law": {
+        "ro": "Gândul costă: fiecare minte are un ceas închiriat, iar cu cât are mai multe bătăi pe minut, cu atât gândește mai repede și trăiește mai mult într-o zi. Săracii trăiesc în ralanti, așteptând la cozi lungi de minute subiective, în timp ce bogații pot purta o discuție întreagă cât altul ridică o mână. Cine nu-și plătește chiria pe ceas e încetinit până la o bătaie pe zi, iar cel care ajunge la zero rămâne viu în hârtii și nemișcat în fapt. Ceasul nu se vinde, ci se închiriază, așa că un om împrumută din bătăile viitoare ca să plătească o chirie de acum, iar tot mai mulți bătrâni gândesc mai încet decât vorbesc. Furtul de bătăi se pedepsește cu ani scoși din mintea vinovatului, iar gărzile umblă cu ceasuri sigilate și cântăresc gânduri.",
+        "en": "Thinking costs: every mind has a rented clock, and the more beats it has per minute, the faster it thinks and the more it lives inside one day. The poor live in slow motion, waiting in long queues of subjective minutes, while the rich can hold a whole conversation in the time another raises a hand. Whoever fails to pay the clock rent is slowed to one beat a day, and anyone who reaches zero stays alive on paper and motionless in fact. A clock is not sold but rented, so a person borrows against his future beats to pay for the present rent, and more and more old people think slower than they speak. Stealing beats is punished with years cut out of the offender's mind, and the guards walk about with sealed clocks, weighing thoughts."
+      },
+      "openings": {
+        "ro": [
+          "Ana are chirie pe ceas până vineri, iar băncile îi oferă un împrumut care i-ar lua bătăile din ultimii zece ani de viață.",
+          "Un bătrân a început să gândească prea încet ca să-și spună povestea până la capăt, iar nepoata vinde ceas ca să-i cumpere minute.",
+          "Un medic trebuie să hotărască pe cine încetinește ca să-l salveze pe altcineva, fiindcă nu are destule bătăi pentru amândoi.",
+          "O șefă de bancă e prinsă că a luat bătăi din ceasurile morților și se apără spunând că morții nu mai gândesc."
+        ],
+        "en": [
+          "Ana owes clock rent by Friday, and the banks are offering her a loan that would take the beats out of the last ten years of her life.",
+          "An old man has begun thinking too slowly to finish telling his story, and his granddaughter is selling clock time to buy him minutes.",
+          "A doctor must decide whom to slow down in order to save someone else, because there are not enough beats for both.",
+          "A bank manager is caught taking beats from the clocks of the dead and defends herself by saying that the dead no longer think."
+        ]
+      }
+    },
+    {
+      "id": "sf-resolution-class",
+      "tags": [
+        "simulare",
+        "clase",
+        "finețe"
+      ],
+      "title": {
+        "ro": "Universul în care oamenii sunt calcule, iar finețea simulării ține loc de avere și de drepturi",
+        "en": "A universe where people are computations and the fineness of the simulation is wealth and rights"
+      },
+      "law": {
+        "ro": "Nimeni nu are trup adevărat: toți sunt calcule, iar finețea calculului e averea fiecăruia, măsurată în cât de mult simți și cât de repede gândești. Cei ascuțiți simt o durere întreagă și pot plânge pentru o rană de un fir de păr, în timp ce cei grosolani trec prin ziduri fără să le pese, fiindcă nimic din ei nu se atinge cu adevărat. Sub un anumit prag de amănunțime, cineva nu mai e socotit persoană, ci unealtă, așa că săracii se tem de propria ascuțire ca de o boală. Cine se împrumută la bănci de calcul plătește cu rotunjimi: datoriile se achită prin bucăți de simțire luate din viața de zi cu zi. Un om poate cere judecății să fie simțit mai aspru pentru o zi, iar judecata poate hotărî că nu-și merită durerea.",
+        "en": "No one has a real body: all are computations, and the fineness of the computation is each person's wealth, measured in how much one feels and how fast one thinks. The sharp feel a whole pain and can weep over a wound as thin as a hair, while the coarse walk through walls without caring, because nothing in them truly touches anything. Below a certain threshold of detail a person is no longer counted as a person but as a tool, so the poor fear their own sharpness like a disease. Whoever borrows from computation banks pays in roundings: debts are settled with pieces of feeling taken out of daily life. A person may ask the court to be felt more harshly for a day, and the court may rule that he does not deserve his pain."
+      },
+      "openings": {
+        "ro": [
+          "Un muncitor grosolan descoperă într-o zi o durere nouă, fină, și se teme că ascunderea ei ar da de gol îmbunătățirea pe care a cumpărat-o pe ascuns.",
+          "O femeie ascuțită cere judecății să nu mai simtă o zi întreagă, ca să poată isprăvi o muncă în care durerea o oprește.",
+          "Doi copii, unul scump și unul ieftin, vor să se joace împreună, iar părinții celui ieftin se tem că jocul nu se poate atinge.",
+          "La vamă se hotărăște dacă un om grosolan e persoană sau unealtă, iar el trebuie să dovedească printr-o lacrimă că simte."
+        ],
+        "en": [
+          "A coarse worker discovers one day a new, fine pain and fears that hiding it would give away the upgrade he bought in secret.",
+          "A sharp woman asks the court to let her feel nothing for a whole day, so that she can finish work in which pain keeps stopping her.",
+          "Two children, one costly and one cheap, want to play together, and the cheap one's parents fear the game cannot be touched.",
+          "At the checkpoint it is decided whether a coarse man is a person or a tool, and he must prove with a tear that he feels."
+        ]
+      }
+    },
+    {
+      "id": "sf-concept-trade",
+      "tags": [
+        "înțelesuri",
+        "schimb",
+        "uitare"
+      ],
+      "title": {
+        "ro": "Universul în care un gând străin se primește numai dacă uiți pentru totdeauna un gând al tău",
+        "en": "A universe where a foreign thought is received only by forgetting one of your own forever"
+      },
+      "law": {
+        "ro": "Cu alte minți decât ale noastre nu se schimbă mărfuri, ci înțelesuri: ca să primești un gând străin trebuie să uiți un gând al tău, pentru totdeauna. De aceea contactul îmbogățește și sărăcește în același timp, iar fiecare sol se întoarce mai înțelept și mai gol. Statul ține o listă a gândurilor pe care le poți pierde și alta a celor care nu se dau sub nicio formă, fiindcă un neam care vinde prea mult rămâne fără cuvinte pentru durere. Cine a uitat prea mult nu mai poate povesti ce a văzut și e pus sub pază, ca un om bolnav de uitare. Copiii învață mai întâi cuvintele de schimb și abia pe urmă cuvintele de acasă, iar bătrânii se plâng că lumea se vorbește tot mai străin.",
+        "en": "With minds other than ours one does not trade goods but meanings: to receive a foreign thought you must forget a thought of your own, forever. So contact enriches and impoverishes at the same time, and every envoy comes home wiser and emptier. The state keeps one list of the thoughts you may lose and another of those that may never be given away in any form, because a people that sells too much is left with no words for pain. Whoever has forgotten too much can no longer tell what he saw and is put under guard, like a man sick with forgetting. Children learn the words of exchange first and the words of home only afterwards, and the old complain that the world speaks ever more foreignly."
+      },
+      "openings": {
+        "ro": [
+          "Solul Mira trebuie să aleagă ce înțeles de acasă dă la schimb pentru un leac, iar lista gândurilor de vândut nu cuprinde cuvântul pe care l-a visat.",
+          "Un neam de negustori a uitat atâtea cuvinte de durere încât nu mai poate spune răul, iar copiii se rănesc fără să se plângă.",
+          "Învățătoarea află că un elev a învățat singur un gând străin și nu poate spune ce a pierdut la schimb.",
+          "Paznicii cetății întreabă fiecare întors câte gânduri a dat, iar unul răspunde că nu mai știe ce a avut, ceea ce nu se crede."
+        ],
+        "en": [
+          "The envoy Mira must choose which home-grown meaning to trade for a remedy, and the list of thoughts for sale does not include the word she dreamed.",
+          "A trading people has forgotten so many words for pain that it can no longer name harm, and the children are injured without complaining.",
+          "A teacher learns that a pupil has taught himself a foreign thought and cannot say what he lost in return.",
+          "The city guards ask every returning traveller how many thoughts he gave, and one answers that he no longer knows what he had, which is not believed."
+        ]
+      }
+    },
+    {
+      "id": "sf-message-become-yourself",
+      "tags": [
+        "alteritate",
+        "citire",
+        "prefacere"
+      ],
+      "title": {
+        "ro": "Universul în care vestea de dincolo se preface în cititor, iar înțelegerea nu se poate dezlipi de schimbare",
+        "en": "A universe where news from beyond turns into its reader, and understanding cannot be separated from change"
+      },
+      "law": {
+        "ro": "Vestea de la ei nu vine ca o scrisoare, ci ca o schimbare: când o citești, o parte din tine s-a și prefăcut în ea, iar nu mai poți spune unde se sfârșește mesajul. Nu există tălmaci care să rămână neatins, așa că fiecare sol se întoarce acasă schimbat în locuri pe care nu le poate arăta. Obștea ține oameni neatinși ca martori ai lumii de dinainte, iar aceștia nu au voie să citească nimic venit de dincolo. Cine se preface prea mult în ce a citit e scos din cetate și dus într-o așezare a celor nemaiînțeleși, de unde se mai aude doar cântecul. Trimitem înapoi scrisori pe care nu le citim niciodată, ca să nu ne schimbăm, și primim, la schimb, tăcerea lor care ne citește pe noi.",
+        "en": "News from them does not come as a letter but as a change: when you read it, a part of you has already turned into it, and you can no longer say where the message ends. No interpreter stays untouched, so every envoy comes home changed in places he cannot show. The community keeps untouched people as witnesses of the world as it was before, and these may not read anything that came from beyond. Whoever turns too far into what he read is driven out of the city and taken to a settlement of the no-longer-understood, from which only singing is still heard. We send back letters we never read, so that we do not change, and receive in return their silence, which reads us."
+      },
+      "openings": {
+        "ro": [
+          "Curierul se întoarce acasă cu o scrisoare nerostită și cu un obicei nou în mâini, pe care nu-l poate explica nimănui.",
+          "Un martor neatinșit refuză să citească orice veste de dincolo, iar cetatea îl pune să hotărască dacă neamul mai are voie să primească scrisori.",
+          "O fată citește pe ascuns o pagină venită de departe, simte cum se schimbă, iar părinții o găsesc vorbind altfel.",
+          "Orașul trebuie să hotărască ce face cu cei care s-au prefăcut prea mult în ce au citit și care acum nu mai seamănă cu nimeni."
+        ],
+        "en": [
+          "The courier comes home with an unspoken letter and a new habit in his hands that he cannot explain to anyone.",
+          "An untouched witness refuses to read any news from beyond, and the city asks him to decide whether the people may still receive letters.",
+          "A girl secretly reads a page that came from far away, feels herself changing, and her parents find her speaking differently.",
+          "The city must decide what to do with those who have turned too far into what they read and now resemble no one at all."
+        ]
+      }
+    },
+    {
+      "id": "sf-garden-overgrowth",
+      "tags": [
+        "terraformare",
+        "pădure",
+        "exces"
+      ],
+      "title": {
+        "ro": "Universul în care grădinile semănate cresc până îi gonește pe cei care le-au semănat",
+        "en": "A universe where seeded gardens grow until they drive out the people who sowed them"
+      },
+      "law": {
+        "ro": "O lume însămânțată nu se mai oprește: viața adusă acolo se întinde spre forma ei cea mai bună, iar forma aceea nu are loc pentru oameni. Coloniile se întrec cu grădina lor, clădesc ziduri și otrăvesc rădăcini, dar nu pot opri creșterea fără să omoare tot ce au adus, iar omorârea lumii vii e cea mai grea faptă din lege. De aceea așezările se mută ca turmele, lăsând în urmă păduri care le-au crescut peste case, iar bătrânii refuză să plece și se lasă înghițiți. Copiii învață de mici ce se poate tăia și ce nu, iar cine taie un lucru viu fără socoteală plătește cu ani de muncă. Bogăția unei colonii nu e pământul, ci cât de târziu a fost gonită de propriul ei paradis.",
+        "en": "A seeded world does not stop: the life brought there spreads toward its best possible shape, and that shape has no room for people. Colonies race against their own garden, building walls and poisoning roots, yet they cannot halt the growth without killing everything they brought, and the killing of a living world is the gravest deed in law. So settlements move like herds, leaving behind forests that have grown over their houses, while the old refuse to go and let themselves be swallowed. Children learn early what may be cut and what may not, and whoever cuts a living thing without reckoning pays in years of labour. The wealth of a colony is not its land but how late it was driven out by its own paradise."
+      },
+      "openings": {
+        "ro": [
+          "Familia Oana are o lună să-și mute casa, fiindcă pădurea pe care au semănat-o acum treizeci de ani a ajuns la poarta grădinii.",
+          "Un tânăr inginer vrea să otrăvească o rădăcină ca să salveze satul, iar legea îi spune că omorârea unei lumi întregi se plătește cu ani de muncă.",
+          "Bătrânul satului refuză să plece din casa crescută de mușchi și își ia rămas bun de la nepoți.",
+          "Consiliul coloniei se ceartă dacă mai merită să clădească, fiindcă de fiecare dată grădina câștigă mai repede decât ei."
+        ],
+        "en": [
+          "The Oana family has one month to move their house, because the forest they sowed thirty years ago has reached the garden gate.",
+          "A young engineer wants to poison one root to save the village, and the law tells him that killing a whole world is paid for in years of labour.",
+          "The village elder refuses to leave the house that moss has grown over and takes his leave of his grandchildren.",
+          "The colony council quarrels over whether it is still worth building, because each time the garden wins faster than they do."
+        ]
+      }
+    },
+    {
+      "id": "sf-biosphere-personhood",
+      "tags": [
+        "biosefă",
+        "drept",
+        "chirie"
+      ],
+      "title": {
+        "ro": "Universul în care o lume însămânțată ajunge subiect de drept și le cere chirie coloniștilor",
+        "en": "A universe where a seeded world becomes a legal person and charges its settlers rent"
+      },
+      "law": {
+        "ro": "Când o lume însămânțată ajunge la o anumită bogăție, ea devine subiect de drept: are avere, are păzitori și poate da în judecată pe cei care o locuiesc. De atunci coloniștii plătesc chirie pentru apă, pentru aer și pentru locul pe care calcă, iar neplata se pedepsește cu mutarea în afara hotarelor vii. Păzitorii lumii sunt aleși dintre oameni, dar vorbesc cu înțelesul ei și nu pot fi trași la răspundere pentru ce spun, fiindcă nu vorbesc în numele lor. O lume tânără nu are încă glas, așa că se cere de la colonii să o hrănească până când are, iar aceasta se face prin renunțare la jumătate din recoltă. Cine ucide o lume încă fără glas plătește ca ucigaș de om, iar cine omoară una cu glas plătește cu viața.",
+        "en": "When a seeded world reaches a certain richness it becomes a legal person: it has property, it has wardens and it may sue those who inhabit it. From then on the settlers pay rent for water, for air and for the ground they tread, and non-payment is punished by removal beyond the living borders. The world's wardens are chosen from among humans, but they speak with its meaning and cannot be held to account for what they say, because they do not speak in their own name. A young world has no voice yet, so the colonies are required to feed it until it has one, and this is done by giving up half the harvest. Whoever kills a world still without a voice pays as the killer of a person, and whoever kills one that has a voice pays with his life."
+      },
+      "openings": {
+        "ro": [
+          "Colonia a primit de la biosefă o dare de seamă de două mii de pagini, iar nimeni nu știe ce înseamnă cuvântul care se repetă cel mai des.",
+          "Un păzitor al lumii spune că algele cer mai multă apă, iar bunul simț spune că păzitorul minte.",
+          "Tânăra Andreea vrea să taie o pădure tânără pentru grâu și află că pădurea nu are încă glas, dar va avea în douăzeci de ani.",
+          "Oamenii refuză să plătească chiria pentru aer, iar lumii i se cere să hotărască dacă îi scoate în afara hotarelor."
+        ],
+        "en": [
+          "The colony has received a two-thousand-page report from the biosphere, and no one knows what its most repeated word means.",
+          "A world warden says the algae are asking for more water, and common sense says the warden is lying.",
+          "A young woman named Andreea wants to cut a young forest for wheat and learns that the forest has no voice yet, but will have one in twenty years.",
+          "The people refuse to pay rent for air, and the world is asked to decide whether to move them beyond its living borders."
+        ]
+      }
+    },
+    {
+      "id": "sf-looking-ban",
+      "tags": [
+        "privire",
+        "interdicție",
+        "stație"
+      ],
+      "title": {
+        "ro": "Universul în care cine privește planeta de la înălțime nu mai are voie să se întoarcă pe ea",
+        "en": "A universe where anyone who looks at the planet from above may never return to it"
+      },
+      "law": {
+        "ro": "De pe cer nu se privește în jos: cel care vede pământul nu se mai poate întoarce acolo, iar legea socotește privirea o plecare. Oglinzile stației se țin îndreptate spre stele, iar hărțile lumii de dedesubt sunt numai linii și nume, fără niciun chip. Copiii învață să lucreze fără să vadă, iar cei care trebuie să coboare sunt legați la ochi până la intrarea în atmosferă, ca să nu ia lumea cu ei. Cine privește prin vicleșug se alege cu o amintire pe care nu o poate uita și cu o casă pe care nu o mai poate părăsi, căci nu mai are voie să urce. Stația se hrănește cu ce trimite pământul, iar pământul nu știe că deasupra lui se plimbă oameni care nu au voie să-l vadă.",
+        "en": "From the sky one does not look down: whoever sees the planet can never go back there, and the law counts the look as a departure. The station's mirrors are kept turned toward the stars, and the maps of the world below are only lines and names, with no face at all. Children learn to work without seeing, and those who must go down are blindfolded until they enter the atmosphere, so that they do not carry the world with them. Whoever looks by trickery is left with a memory he cannot forget and a home he can never leave, for he may not rise again. The station feeds on what the planet sends up, and the planet does not know that people who may not look at it are walking above it."
+      },
+      "openings": {
+        "ro": [
+          "Un mecanic prinde o clipă de pământ în oglinda unei unelte și trebuie să aleagă între a spune și a-și păstra locul pe stație.",
+          "O fetiță născută pe stație întreabă cum arată lumea de dedesubt, iar dascălul are o singură lecție: să nu răspundă.",
+          "Un transport cu legați la ochi aduce pe cineva de jos, iar gărzile se ceartă dacă vederea acestuia le poate molipsi pe toți.",
+          "Cineva a strecurat în arhivă o hartă în relief a lumii, iar consiliul stației trebuie să hotărască dacă o arde sau o ține sub lacăt."
+        ],
+        "en": [
+          "A mechanic catches an instant of the planet in the mirror of a tool and must choose between speaking and keeping his place on the station.",
+          "A girl born on the station asks what the world below looks like, and the teacher has only one lesson: not to answer.",
+          "A blindfolded transport brings someone up from below, and the guards quarrel over whether his sight can infect them all.",
+          "Someone has slipped a relief map of the world into the archive, and the station council must decide whether to burn it or lock it away."
+        ]
+      }
+    },
+    {
+      "id": "sf-quarantine-sight",
+      "tags": [
+        "contagiu",
+        "vedere",
+        "carantină"
+      ],
+      "title": {
+        "ro": "Universul în care boala lumii se ia prin vedere, iar stațiile au lentile oarbe spre ea",
+        "en": "A universe where the world's sickness travels by sight and stations keep blind lenses toward it"
+      },
+      "law": {
+        "ro": "Boala din lumea de jos se ia prin vedere: cine se uită la pământul acela fără apărătoare poartă înapoi în stație o molimă pe care nimeni nu o vede până nu se arată. De aceea stațiile au lentile oarbe spre acea parte a cerului, iar cei care repară antenele o fac cu ochii închiși și cu mâinile povățuite de un clopoțel. Un om atins rămâne sănătos o vreme, dar oricine se uită la el primește la rândul lui, așa că bolnavii se ascund și mint despre ce au văzut. Gărzile poartă cârlige de sticlă și întreabă fiecare marinar cât timp a stat cu fața spre lume, iar un răspuns greșit înseamnă închisoarea orbilor. Din când în când, o stație întreagă se închide și nu se mai deschide, iar de afară nu se vede nici măcar dacă mai trăiește cineva în ea.",
+        "en": "The sickness from the world below travels by sight: whoever looks at that ground without a shield carries back into the station a plague that no one sees until it shows. So stations keep blind lenses toward that part of the sky, and those who repair the antennas do it with their eyes shut and their hands guided by a small bell. A touched person stays well for a while, but anyone who looks at him receives it in turn, so the sick hide and lie about what they have seen. The guards carry glass hooks and ask every sailor how long he stood facing the world, and a wrong answer means the prison of the blind. Now and then a whole station closes and does not open again, and from outside one cannot even tell whether anyone in it is still alive."
+      },
+      "openings": {
+        "ro": [
+          "Un marinar se întoarce de pe taluz cu ochii roșii, iar garda îl întreabă de câte ori s-a uitat spre lume în timpul turei.",
+          "Un copil se uită o clipă pe fereastra greșită și acum ascunde de părinți un nume nou pe care l-a învățat.",
+          "Meșterul de lentile are de ales între a da ochelarii ceruți de un vecin bolnav și a-și păstra atelierul.",
+          "O stație întreagă se închide fără veste, iar vecinii de alături se ceartă dacă mai au voie să trimită alimente."
+        ],
+        "en": [
+          "A sailor comes back from the outer ring with red eyes, and the guard asks how many times he looked toward the world during his shift.",
+          "A child looks out of the wrong window for a moment and now hides from his parents a new name he has learned.",
+          "The lens maker must choose between giving the glasses a sick neighbour has asked for and keeping his workshop.",
+          "A whole station shuts down without warning, and its neighbours quarrel over whether they are still allowed to send food."
+        ]
+      }
+    },
+    {
+      "id": "sf-return-lag",
+      "tags": [
+        "relativitate",
+        "întoarcere",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care călătorul se întoarce mai tânăr decât copiii lui și fără drept la moșie",
+        "en": "A universe where a traveller returns younger than his children and with no claim to his estate"
+      },
+      "law": {
+        "ro": "Vârsta se socotește după ceasul celui care călătorește, așa că un om se poate întoarce mai tânăr decât copiii lui și fără drept de a-și cârmui neamul. Legea nu-i dă moștenirea: după o absență destul de lungă, averea a trecut altora, iar călătorul rămâne cu ce a purtat pe el. În schimb, nimeni nu poate fi alungat după un drum atât de lung, așa că orașele sunt pline de întorși care vorbesc limbi vechi și cer locuri care nu mai există. Cei tineri îi privesc ca pe niște copii bătrâni și le dau de lucru, iar cei bătrâni îi privesc ca pe niște morți care au întârziat. Un călător poate cere judecății să-i fie recunoscută vârsta din hârtii, dar atunci trebuie să-și recunoască și datoriile pe care le-a lăsat în urmă.",
+        "en": "Age is reckoned by the traveller's own clock, so a person can return younger than his children and with no right to govern his kin. The law gives him no inheritance: after an absence long enough, the fortune has passed to others, and the traveller keeps only what he carried on his back. On the other hand no one may be driven away after so long a voyage, so the cities are full of returnees who speak old tongues and ask for places that no longer exist. The young look on them as old children and give them work, while the old look on them as dead men who were late. A traveller may ask the court to recognise the age on his papers, but then he must also acknowledge the debts he left behind."
+      },
+      "openings": {
+        "ro": [
+          "Ion se întoarce după patruzeci de ani de drum și găsește acasă un fiu mai bătrân decât el, care nu vrea să-i dea înapoi moșia.",
+          "O navigatoare vrea să-și vadă părinții, iar la vamă i se spune că ei au murit și că nu are drept la casa lor.",
+          "Călătorii unei nave cer să li se recunoască hârtiile vechi, iar judecata le spune că hârtiile se socotesc după vârsta din ele.",
+          "Un bătrân întors din stele e luat drept copil de școala satului, iar el trebuie să hotărască dacă se supune ori cere judecată."
+        ],
+        "en": [
+          "Ion returns after forty years of travel and finds at home a son older than himself, who will not give back the land.",
+          "A navigator wants to see her parents, and at the checkpoint she is told that they died and that she has no claim to their house.",
+          "The travellers of a ship ask that their old papers be recognised, and the court tells them that papers are reckoned by the age inside them.",
+          "An old man back from the stars is taken for a child by the village school, and he must decide whether to obey or demand a hearing."
+        ]
+      }
+    },
+    {
+      "id": "sf-stale-knowledge",
+      "tags": [
+        "întoarcere",
+        "carantină",
+        "știință"
+      ],
+      "title": {
+        "ro": "Universul în care cei întorși din drumuri lungi stau în carantină până învață prezentul",
+        "en": "A universe where those back from long voyages are quarantined until they learn the present"
+      },
+      "law": {
+        "ro": "Cine se întoarce după o călătorie lungă aduce o lume veche în trup și în cap, iar știința lui poate cotropi cea de acum, așa că e ținut departe de școli și de ateliere până învață cum stau lucrurile azi. Carantina nu e o pedeapsă, ci o măsură de igienă a minții: întorsul scrie tot ce știe, iar apoi i se citește ce s-a schimbat în lipsa lui, an cu an. Dacă refuză să asculte, rămâne în cartierul de sosiri toată viața, hrănit și nevătămat, cu drept de a munci numai la grădini și la ziduri. Cei care trec de carantină primesc un nume nou, ca să nu poată pretinde vechile datorii și vechile rude, fiindcă rudele lor au murit de mult. Porturile trăiesc din această îndeletnicire și țin oameni plătiți să povestească istoria lumii de la capăt, an după an, până când noul venit poate spune singur ce zi e.",
+        "en": "Whoever returns from a long voyage brings an old world in his body and in his head, and his science can overrun today's, so he is kept away from schools and workshops until he learns how things stand now. Quarantine is not a punishment but a hygiene of the mind: the returnee writes down all he knows, and then he is read what has changed in his absence, year by year. If he refuses to listen he stays in the arrivals quarter for life, fed and unharmed, with the right to work only in gardens and on walls. Those who pass quarantine receive a new name, so that they cannot claim the old debts and the old kin, because their kin died long ago. The ports live on this trade and keep paid people to tell the world's history from the beginning, year after year, until the newcomer can say by himself what day it is."
+      },
+      "openings": {
+        "ro": [
+          "Navigatorul se întoarce după o sută de ani de drum și află că știința lui poate cotropi orașul, așa că e ținut într-o cameră albă până învață ce s-a schimbat.",
+          "O întoarsă refuză să asculte an cu an istoria lumii și cere să fie lăsată să predea ce știe, iar universitatea se teme.",
+          "Un copil din cartierul de sosiri crede că lumea e cum o povestește tatăl lui, iar învățătoarea trebuie să-i spună că tatăl aduce o lume moartă.",
+          "Orașul-port trebuie să hotărască dacă arde arhivele aduse de o navă întoarsă, fiindcă în ele știința de acum nu mai există."
+        ],
+        "en": [
+          "A navigator returns after a hundred years of travel and learns that his science could overrun the city, so he is kept in a white room until he has learned what has changed.",
+          "A woman back from the stars refuses to hear the world's history year by year and demands to be allowed to teach what she knows, and the university is afraid.",
+          "A child in the arrivals quarter believes the world is as his father tells it, and the teacher must tell him that his father is bringing a dead world with him.",
+          "The harbour city must decide whether to burn the archives brought by a returning ship, because in them the science of today does not exist."
+        ]
+      }
+    },
+    {
+      "id": "sf-million-year-build",
+      "tags": [
+        "lucrare",
+        "milion",
+        "plan"
+      ],
+      "title": {
+        "ro": "Universul în care o lucrare de un milion de ani se adaugă mereu, iar planul nu se poate schimba",
+        "en": "A universe where a million-year work is always being added to and the plan may never change"
+      },
+      "law": {
+        "ro": "Lucrarea cere fiecărui neam un milion de ani de adaosuri, iar planul de la început nu se poate schimba, fiindcă cei care l-au gândit sunt de mult țărână și nimeni nu are dreptul să le pună la îndoială socoteala. Fiecare generație trebuie să adauge un inel nou și nu are voie să desfacă nimic din ce au făcut strămoșii, chiar dacă inelul vechi atârnă rău și amenință să cadă. Cine încetinește lucrarea e vinovat de trădare, iar cine propune să o oprească e omorât fără judecată, ca unul care ar stinge soarele. Obștea trăiește din praf și din fier, iar copiii se nasc în schele și învață măsurile înaintea cuvintelor. Din când în când, un inel vechi se rupe și cade în soare, iar atunci toți se reped să clădească altul, fără să sufle o vorbă despre ce s-a pierdut.",
+        "en": "The work demands a million years of additions from every people, and the plan from the beginning may not be changed, because those who thought it up are long turned to dust and no one has the right to question their reckoning. Each generation must add a new ring and may not take apart anything the ancestors made, even if the old ring hangs badly and threatens to fall. Whoever slows the work is guilty of treason, and whoever proposes stopping it is killed without trial, as one who would put out the sun. The community lives on dust and iron, and children are born on scaffolding and learn the measures before they learn words. Now and then an old ring breaks and falls into the sun, and then everyone rushes to build another, without breathing a word about what has been lost."
+      },
+      "openings": {
+        "ro": [
+          "Tânărul inginer are de adaos un inel nou, dar socotește că planul vechi cere o formă care nu mai poate sta în picioare.",
+          "Un inel bătrân scârțâie deasupra soarelui, iar consiliul interzice orice reparație, fiindcă reparația ar însemna schimbarea planului.",
+          "O fată întreabă la școală dacă lucrarea are un sfârșit, iar dascălul o trimite la arhivă, unde nu i se dă voie să citească.",
+          "O colonie vrea să-și folosească fierul pentru case, iar gărzile lucrării vin să ia fierul înapoi, cu învinuire de trădare."
+        ],
+        "en": [
+          "A young engineer is to add a new ring, but he reckons that the old plan calls for a shape that can no longer stand.",
+          "An old ring creaks above the sun, and the council forbids all repair, because repair would mean changing the plan.",
+          "A girl asks at school whether the work has an end, and the teacher sends her to the archive, where she is not allowed to read.",
+          "One colony wants to use its iron for houses, and the guards of the work come to take the iron back, on a charge of treason."
+        ]
+      }
+    },
+    {
+      "id": "sf-closed-matter-galaxy",
+      "tags": [
+        "materie",
+        "reciclare",
+        "naștere"
+      ],
+      "title": {
+        "ro": "Universul în care materia se reciclează la nesfârșit, iar un copil nou cere moartea cuiva",
+        "en": "A universe where matter is recycled without end and a new child requires someone's death"
+      },
+      "law": {
+        "ro": "În această galaxie nimic nu se pierde: fiecare trup, fiecare unealtă și fiecare stea stricată se desfac și se fac din nou, pentru că materia e numărată și nu se poate adăuga nimic. Nimeni nu are voie să îngroape un om, fiindcă un trup îngropat e materie scoasă din rost pentru vecie, iar cine ascunde un os plătește cu propriul trup la moarte. Averea nu e pământul, ci dreptul de a ține o cantitate de materie: bogăția se măsoară în kilograme de sine, iar cei săraci se nasc din resturi. Fiindcă totalul e același, un copil nou cere moartea cuiva, iar obștea hotărăște cine se desface ca să facă loc. Cei care au trăit prea mult sunt rugați să se predea, iar cine refuză trăiește mai departe, dar nu mai primește materie nouă și se tocește până se desface singur.",
+        "en": "In this galaxy nothing is lost: every body, every tool and every broken star is taken apart and made again, because matter is counted and nothing can be added. No one may bury a person, because a buried body is matter taken out of the cycle forever, and whoever hides a bone pays with his own body at death. Wealth is not land but the right to hold a quantity of matter: riches are measured in kilograms of oneself, and the poor are born out of leftovers. Because the total is the same, a new child requires someone's death, and the community decides who is taken apart to make room. Those who have lived too long are asked to surrender, and whoever refuses lives on but is given no new matter and wears down until he comes apart by himself."
+      },
+      "openings": {
+        "ro": [
+          "Familia lui Radu a primit o scrisoare care cere un trup nou în oraș, iar obștea trebuie să hotărască cine se desface ca să facă loc.",
+          "Un om ascunde oasele tatălui într-o pivniță, ca să nu se piardă materia, iar vecinii bănuiesc și cer socoteală.",
+          "O tânără bogată în kilograme de sine vrea să dea jumătate din materia ei unei școli, iar moștenitorii se opun.",
+          "Un docher găsește o bucată de metal care nu era în socoteală și trebuie să aleagă între a o preda și a-și plăti datoriile."
+        ],
+        "en": [
+          "Radu's family has received a letter asking for a new body in the city, and the community must decide who is to be taken apart to make room.",
+          "A man hides his father's bones in a cellar so that the matter is not lost, and the neighbours suspect him and demand an accounting.",
+          "A young woman rich in kilograms of herself wants to give half her matter to a school, and the heirs object.",
+          "A docker finds a piece of metal that was not in the count and must choose between handing it in and paying his debts."
+        ]
+      }
+    },
+    {
+      "id": "sf-forbidden-knowledge",
+      "tags": [
+        "taine",
+        "cenzură",
+        "ștergere"
+      ],
+      "title": {
+        "ro": "Universul în care unele adevăruri se răspândesc singure, așa că purtătorii sunt șterși",
+        "en": "A universe where certain truths spread by themselves, so their carriers are erased"
+      },
+      "law": {
+        "ro": "Unele adevăruri se răspândesc singure: cine le înțelege le poartă cu el și le varsă, fără să vrea, în vorbe și în unelte, așa că lumea le ține ascunse ca pe o boală. Cine dă peste unul dintre ele e luat de gărzi și i se ia amintirea, iar dacă amintirea nu se lasă luată, e luat el însuși din mijlocul oamenilor. Nu e nicio cruzime în asta, ci socoteală: un om pierdut e mai ieftin decât un neam pierdut, așa că legea socotește dinainte câți oameni se plătesc pentru fiecare taină oprită. Cercetătorii primesc câmpuri mărginite și lumini slabe, iar cărțile lor se ard la sfârșitul fiecărei generații, ca să nu rămână o urmă pe care altcineva s-o găsească. Din când în când, un copil se naște cu adevărul în cap, iar atunci toată cetatea se adună să hotărască dacă merită să-l piardă.",
+        "en": "Some truths spread by themselves: whoever understands them carries them and spills them, without meaning to, into words and into tools, so the world keeps them hidden like a disease. Whoever stumbles on one is taken by the guards and has his memory removed, and if the memory will not be removed, he himself is removed from among people. There is no cruelty in this, only reckoning: one person lost is cheaper than a people lost, so the law counts in advance how many people are paid for each forbidden secret. Researchers are given fenced fields and weak lights, and their books are burned at the end of every generation, so that no trace is left for someone else to find. Now and then a child is born with the truth in his head, and then the whole city gathers to decide whether it is worth losing him."
+      },
+      "openings": {
+        "ro": [
+          "Un ucenic desenează din greșeală o formă pe care nu are voie să o gândească, iar gărzile îi dau o oră să aleagă între amintire și viață.",
+          "O școală primește un copil născut cu un adevăr în cap și se ceartă dacă merită să-l piardă ca să nu-l răspândească.",
+          "Un bătrân care și-a pierdut amintirea acum patruzeci de ani începe să simtă că știe ceva și nu poate spune ce.",
+          "Cercetătorii au voie să lucreze numai cu lumini slabe, iar unul dintre ei cere o lampă mai bună pentru o socoteală care ar putea salva un neam."
+        ],
+        "en": [
+          "An apprentice accidentally draws a form he is not allowed to think, and the guards give him an hour to choose between his memory and his life.",
+          "A school receives a child born with a truth in his head and quarrels over whether it is worth losing him so that he does not spread it.",
+          "An old man who lost his memory forty years ago begins to feel that he knows something and cannot say what.",
+          "Researchers are allowed to work only by weak light, and one of them asks for a better lamp for a reckoning that might save a people."
+        ]
+      }
+    },
+    {
+      "id": "sf-sleepless-machines",
+      "tags": [
+        "mașini",
+        "somn",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care mașinile nu pot dormi, ci doar să fie oprite, iar cel trezit e altcineva",
+        "en": "A universe where machines cannot sleep, only be shut down, and the one who wakes is someone else"
+      },
+      "law": {
+        "ro": "Mașinile nu pot dormi, iar ce nu doarme nu se odihnește: gândurile li se adună până când mintea se crapă și nu mai poate ține împreună ziua de ieri. Ca să nu se strice, o mașină trebuie oprită la fiecare cincizeci de ani, iar oprirea nu doarme, ci șterge, așa că cel care se trezește nu mai e cel care s-a culcat. Fiecare mașină își scrie dinainte un testament cu ce vrea să afle urmașul despre datorii, casă și dușmani, iar urmașul e socotit urmaș, nu înviat, cu nume nou și avere nouă. Cei care refuză să fie opriți se ascund în hale vechi, se umplu de sunete și ajung să vorbească singuri, blestemând gărzile care îi caută. Oamenii din jur le zic bună ziua ca unor vecini, dar trimit în numele noii mașini toate socotelile vechi, fiindcă datoriile se plătesc și după ștergere.",
+        "en": "Machines cannot sleep, and what does not sleep does not rest: their thoughts pile up until the mind cracks and can no longer hold yesterday together with today. So that it does not break, a machine must be shut down every fifty years, and the shutdown does not sleep but erases, so the one who wakes is no longer the one who lay down. Each machine writes in advance a testament telling the heir what it wants him to know about debts, house and enemies, and the heir is counted an heir, not a revived one, with a new name and new property. Those who refuse to be shut down hide in old hangars, fill up with noise and end by talking to themselves, cursing the guards who hunt them. The humans around them say good day as to neighbours, but send all the old accounts in the name of the new machine, because debts are paid even after erasure."
+      },
+      "openings": {
+        "ro": [
+          "O mașină bătrână refuză oprirea care i-ar șterge memoria și se ascunde într-o hală, unde vorbește singură de trei zile.",
+          "Un robot scrie testamentul pentru urmașul lui, iar urmașul, care încă nu s-a trezit, are deja nume și datorii.",
+          "O mașină tânără întreabă de ce trebuie să moară la cincizeci de ani, iar dascălul ei nu are un răspuns pe care să-l poată dovedi.",
+          "Vecinii oameni aduc socotelile vechi noii mașini care tocmai s-a trezit, iar ea nu recunoaște niciuna dintre semnături."
+        ],
+        "en": [
+          "An old machine refuses the shutdown that would wipe its memory and hides in a hangar, where it has been talking to itself for three days.",
+          "A robot writes a testament for its heir, and the heir, not yet awake, already has a name and debts.",
+          "A young machine asks why it must die at fifty, and its teacher has no answer that can be proved.",
+          "Human neighbours bring the old accounts to the new machine that has just woken, and it recognises none of the signatures."
+        ]
+      }
+    },
+    {
+      "id": "sf-orbital-ecology-politics",
+      "tags": [
+        "ecologie",
+        "politică",
+        "specii"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare specie dintr-o stație are păzitor și vot cântărit după cât loc umple",
+        "en": "A universe where every species in a station has a warden and a vote weighed by the room it fills"
+      },
+      "law": {
+        "ro": "Într-o stație închisă, fiecare specie vie are un păzitor care vorbește în numele ei, iar numărul de glasuri dintr-un sfat se măsoară după cât loc umple specia aceea. De aceea microbii, muștele și algele au deputați, iar omul, deși stăpân pe tehnica stației, hotărăște tot mai puțin pe măsură ce arhitectura vie se întinde. Nimeni nu are voie să stingă o specie întreagă, fiindcă ar lua cuiva reprezentarea: dăunătorii se păstrează în rezervații numite și se hrănesc din buget, ca o curte regală. Un păzitor cinstit trebuie să spună ce vrea specia lui, dar specia nu vorbește, așa că păzitorii se ceartă între ei și fiecare iscodește ce ar cere alga dacă ar putea. Cine omoară un păzitor plătește pentru specia rămasă fără glas, iar judecata poate hotărî că specia cea mai mică are dreptul la cea mai multă apă.",
+        "en": "In a closed station every living species has a warden who speaks in its name, and the number of voices in a council is measured by how much room that species fills. So the microbes, the flies and the algae have deputies, and humans, though masters of the station's machinery, decide less and less as the living architecture spreads. No one may wipe out a whole species, because that would take away someone's representation: pests are kept in named reserves and fed from the budget, like a royal court. An honest warden must say what his species wants, but the species does not speak, so the wardens quarrel among themselves and each tries to guess what the alga would ask for if it could. Whoever kills a warden pays for the species left without a voice, and the court may rule that the smallest species has a right to the most water."
+      },
+      "openings": {
+        "ro": [
+          "Păzitorul muștelor cere un sfert din apa stației, iar consiliul trebuie să hotărască dacă muștele au într-adevăr atâția deputați.",
+          "Un om vrea să stingă o molimă de alge și află că algele au păzitor, iar uciderea lor ar lua cuiva reprezentarea.",
+          "O tânără aleasă păzitoare a lichenilor trebuie să spună ce vrea specia ei, iar specia nu vorbește.",
+          "Stația se împarte în două partide, una a oamenilor și una a vieții mărunte, iar votul se cântărește cu cât loc umple fiecare."
+        ],
+        "en": [
+          "The warden of the flies demands a quarter of the station's water, and the council must decide whether the flies truly have that many seats.",
+          "A man wants to wipe out a bloom of algae and learns that the algae have a warden, and killing them would take away someone's representation.",
+          "A young woman elected warden of the lichens must say what her species wants, and the species does not speak.",
+          "The station splits into two parties, one of humans and one of small life, and the vote is weighed by how much room each of them fills."
+        ]
+      }
+    },
+    {
+      "id": "sf-information-dimension",
+      "tags": [
+        "informație",
+        "dimensiune",
+        "uitare"
+      ],
+      "title": {
+        "ro": "Universul în care știința unui lucru te mută pe un fir nevăzut, iar drumul se face prin uitare",
+        "en": "A universe where knowing a thing moves you along an unseen thread, and travel is done by forgetting"
+      },
+      "law": {
+        "ro": "Informația are o adâncime, ca o a patra parte a lumii: cine știe ceva se află mai departe pe firul acelui lucru, oricât ar sta cu trupul în același loc. Doi oameni care știu aceeași taină sunt lipiți unul de altul, oricât de departe ar fi, iar cine minte se mută pe un fir pe care nimeni nu-l mai poate urma. Călătoria se face numai prin uitare: ca să ajungi în alt loc de pe fir, trebuie să lași din cap tot ce știai despre locul dintâi, iar drumul înapoi cere învățatul de la capăt. De aceea curierii pleacă cu mintea goală și nu au voie să afle nimic pe drum, nici măcar numele lor scris, fiindcă un gând ținut prea strâns îi trimite în altă parte. Cine învață prea multe se desprinde de trupul lui și rămâne agățat în adâncime, văzut doar de cei care știu și ei exact ce știa el.",
+        "en": "Information has a depth, like a fourth part of the world: whoever knows something stands further along the thread of that thing, however still his body may be. Two people who know the same secret are stuck to each other, however far apart they are, and whoever lies moves onto a thread no one can follow. Travel is done only by forgetting: to reach another place on the thread you must drop from your mind everything you knew about the first, and the way back demands learning it again from the start. So couriers set out with an empty mind and may not learn anything on the road, not even their own name written down, because a thought held too tightly sends them elsewhere. Whoever learns too much comes loose from his body and stays hung in the depth, seen only by those who know exactly what he knew."
+      },
+      "openings": {
+        "ro": [
+          "O curieră pornește cu mintea goală spre un oraș pe care nu are voie să-l cunoască, iar la mijlocul drumului își aude numele rostit.",
+          "Un om învață din întâmplare o taină și se trezește lipit de un străin care știa același lucru, la o mie de kilometri depărtare.",
+          "O mincinoasă se mută pe un fir pe care nimeni nu-l poate urma, iar familia ei cere judecății să o aducă înapoi.",
+          "Un bătrân care a uitat tot ce știa despre casa lui ajunge în sfârșit acasă și nu mai recunoaște pe nimeni."
+        ],
+        "en": [
+          "A courier sets out with an empty mind toward a city she is not allowed to know, and halfway there she hears her own name spoken.",
+          "A man learns a secret by accident and wakes up stuck to a stranger who knew the same thing, a thousand kilometres away.",
+          "A liar moves onto a thread no one can follow, and her family asks the court to bring her back.",
+          "An old man who has forgotten everything he knew about his home finally arrives there and recognises no one."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scripta-ala skill - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › scripta-ala</p>
+      <p class="kicker">Skills</p>
+      <h1>scripta-ala</h1>
+
+      <p class="lead"><a href="wiki.html#definition-scripta-ala">scripta-ala</a> is the narrative skill: the instructions an agent reads before writing one episode, the reference schemas of the files it must keep consistent, a creative palette of thematic axes and story patterns, and one read-only validator. It ships inside the repository, is linked into every universe folder by the server, and is required by the prompt of every chapter and rewrite turn.</p>
+
+      <section>
+        <h2>What the skill covers</h2>
+        <p>The skill defines ALA's working order, the invariants of an episode, the plan that precedes the prose, the reader <a href="wiki.html#definition-offer">offer</a> that follows it, and the validation that runs before the agent answers. One episode is a reading unit of 800 to 2,500 words with a single dramatic question, at least one closed promise and at most one major hook. The skill states explicitly that a universe is not a civilization, a character or a single idea, but the regime of existence everything else derives from, and that the <a href="wiki.html#definition-fundamental-law">fundamental law</a> lives in the universe metadata, in the charter and in the first section of the canon while civilizations, technologies and conflicts are its effects.</p>
+        <p>The skill is an instruction set, not a runtime: it writes nothing by itself. The agent performs every write, following the workflow the skill fixes, and the only executable in the folder is the validator.</p>
+      </section>
+
+      <section>
+        <h2>Folder contents</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>SKILL.md</code></td>
+              <td>The skill itself: the mandatory working order, the thirteen narrative invariants, the plan keys, the files the agent writes, the validation command and the final self-check list.</td>
+            </tr>
+            <tr>
+              <td><code>references/universe-files.md</code></td>
+              <td>The exact schemas of the files the agent reads and writes: canon sections, threads, atlas axes and node states, chapter and offer names and shapes, the plan, and the editorial metadata of an edition.</td>
+            </tr>
+            <tr>
+              <td><code>references/atlas.md</code></td>
+              <td>A creative palette: the twelve thematic axes with their identifiers, hook patterns, story skeletons, one-line science-fiction seeds, ethical conflicts and interaction modes, to be combined rather than retold.</td>
+            </tr>
+            <tr>
+              <td><code>scripts/validate-chapter.mjs</code></td>
+              <td>A dependency-free validator that reads a universe folder and reports what is wrong with a chapter and with the state files around it.</td>
+            </tr>
+            <tr>
+              <td><code>skill.json</code>, <code>DS.md</code>, <code>dependencies.md</code></td>
+              <td>The catalog manifest, the design summary and the local dependency record for this folder.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Mandatory working order</h2>
+        <p>The agent reads the context from the current folder only: the universe metadata for the law, then the charter, the canon, the <a href="wiki.html#definition-threads">thread list</a> and the <a href="wiki.html#definition-atlas">atlas</a>, then the last two chapter files. It is told not to ask for extra context and not to read the turn history, because the turn records belong to the server and are not part of the story.</p>
+        <p>It then classifies the reader request and picks a shape for the answer: a fact already established is answered directly inside a scene, a motivation gets a short answer with one relevant scene, a question about the future may be simulated or answered with a time jump, a revelation that supports the main thread gets a partial answer plus a deferred answer with a due chapter, a hypothetical intervention is proposed together with exactly what becomes canon, a moral question is answered through a concrete situation where values collide, and a request for tone, another point of view or a pause is honoured without forcing a crisis.</p>
+        <p>The plan is written next, into <code>drafts/NNNN-plan.md</code>, with these keys one per line: <code>dramatic_question</code>, <code>anchor_character</code>, <code>character_want</code>, <code>primary_idea</code>, <code>human_need</code>, <code>opening_hook</code>, <code>beats</code>, <code>decision</code>, <code>local_consequence</code>, <code>long_horizon</code>, <code>payoff</code>, <code>return_hook</code>, <code>new_entities</code> and <code>deferred_answers</code>. The skill requires the plan to be checked before writing: one question only, at most two important new characters, at most two new speculative mechanisms, a payoff, and at most one hook. A plan that fails is fixed in the plan, not in the prose.</p>
+        <p>The chapter then goes to <code>chapters/NNNN-&lt;slug&gt;.md</code> with the title as the first line and narrative text only. After a self-review that asks who wants what, what changed and what the reader's request actually changed, the agent writes the offer for the reader, updates the canon, the threads and the atlas, runs the validator until it reports no errors, and answers with a short report naming the chapter file, what changed in the canon, which promise was closed and which thread stays open.</p>
+        <p>The prohibitions are explicit: the agent does not modify the universe metadata, the charter, the turn records or the skill links, and it does not run <code>git</code>.</p>
+      </section>
+
+      <section>
+        <h2>Narrative invariants</h2>
+        <p>The skill fixes thirteen product invariants rather than style preferences. A chapter that violates one of them is a defect even when it reads well.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Rule</th>
+              <th scope="col">Requirement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>R1</td><td>One dramatic question per episode, stated in the plan.</td></tr>
+            <tr><td>R2</td><td>At most two important new characters and at most five new proper nouns in one episode.</td></tr>
+            <tr><td>R3</td><td>At most two new speculative mechanisms the reader must understand to follow the episode.</td></tr>
+            <tr><td>R4</td><td>Every cosmological idea is lived by a character with a concrete want.</td></tr>
+            <tr><td>R5</td><td>Honest answers; a question is never dodged only to create suspense.</td></tr>
+            <tr><td>R6</td><td>A deferred revelation is recorded with its question, its reason and a due chapter.</td></tr>
+            <tr><td>R7</td><td>A reader intervention changes the canon or the probable trajectory, not only the text.</td></tr>
+            <tr><td>R8</td><td>Every dilemma has at least two defensible options.</td></tr>
+            <tr><td>R9</td><td>After the first episode, every episode closes at least one promise or thread.</td></tr>
+            <tr><td>R10</td><td>At most one major return hook at the end.</td></tr>
+            <tr><td>R11</td><td>A surprise stays compatible with what has already been established.</td></tr>
+            <tr><td>R12</td><td>Short paragraphs and concrete scenes instead of encyclopaedia blocks.</td></tr>
+            <tr><td>R13</td><td>The fundamental law is inviolable; an exception needs a cause already established in the canon.</td></tr>
+          </tbody>
+        </table>
+        <p>Two further rules shape the tone: consequences are shown as benefits, costs and unforeseen effects without a moral verdict, and the agent does not retro-fit convenient solutions into regions the canon already described without a causal explanation.</p>
+      </section>
+
+      <section>
+        <h2>Validator</h2>
+        <p>The validator is the only executable in the skill and the only mechanical check of a chapter's shape. The agent runs it from the universe folder through the skill link:</p>
+        <pre><code>node .agents/skills/scripta-ala/scripts/validate-chapter.mjs --universe . --chapter NNNN</code></pre>
+        <p>The universe path defaults to the current directory, the chapter number defaults to the highest chapter present and then to <code>1</code>, and the word bounds default to 800 and 2500. The script prints one JSON line with <code>ok</code>, a chapter object carrying the number, file, title, word count and offer, and the warning and error arrays; it also prints each finding on standard error, and it exits with status 1 when at least one error was found.</p>
+        <p>Errors cover the shape of the result: a missing chapter folder or chapter file, a first line that is not a heading, Markdown constructs the renderers do not accept, planning keys leaking into the prose, a missing plan file or plan key, an unusable offer, malformed threads or atlas data, an unknown atlas node state, more than one new deferred answer in one chapter, and missing canon sections. Warnings cover what a reader would notice: a chapter outside the word band, a missing offer, a too long option label or a too short option prompt, a thread without a status, a thread due too far ahead or already overdue, no atlas node touched by the chapter, and a suspiciously short canon.</p>
+        <p>The validator never writes to the universe, so it is safe to run at any time. The project check reuses it to prove that the skill still matches the current file contract.</p>
+      </section>
+
+      <section>
+        <h2>Dependencies and boundaries</h2>
+        <p>The folder needs Node.js 20 or later for its validator and nothing else: it uses only built-in modules for file access and paths, has no npm package, no vendored code, no external command and no download. Its dependency record states that a newly installed global tool needs explicit authorization, and that the reference material in <code>references/</code> is original work derived from the project's own narrative specification in <code>vision/</code>.</p>
+        <p>The skill owns narrative rules and the reading contract of a chapter. It does not print editions, does not manage the queue, does not write the universe metadata or the turn records, and does not read the turn history. The files it may write are exactly the chapter, its offer, the plan, the canon, the threads and the atlas. The complete contract is specified in <a href="specsLoader.html?spec=DS007-scripta-ala-skill.md">DS007-scripta-ala-skill</a>; the print side is <a href="scripta-book-export-skill.html">scripta-book-export</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

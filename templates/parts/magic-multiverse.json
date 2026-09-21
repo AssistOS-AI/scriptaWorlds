@@ -1,0 +1,1025 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "magic-pret-cantarit",
+      "tags": [
+        "magie",
+        "preț",
+        "greutate"
+      ],
+      "title": {
+        "ro": "Universul în care prețul vrajei se cântărește dinainte, iar cântăritorul plătește lipsa cu trupul lui",
+        "en": "A universe where a spell's price is weighed beforehand and the weigher pays the shortfall with his own flesh"
+      },
+      "law": {
+        "ro": "Nicio vrajă nu se rostește până când un cântăritor cu licență nu i-a cântărit prețul pe talerul de os, fir cu fir, în fața a doi martori. Prețul se ia întotdeauna din trupul celui care rostește: unghii, sânge, greutate, dinți, ani de vedere. Dacă vraja nu se împlinește întocmai, lipsa nu se întoarce asupra vrăjitorului, ci asupra cântăritorului, care pierde din carnea lui exact cât a cântărit greșit. De aceea cântăritorii sunt slabi, îmbătrâniți înainte de vreme și foarte atenți, iar unul care cântărește prea des moare tânăr. Cine rostește fără cântărire rămâne fără voce pentru totdeauna, iar cei care l-au auzit uită pe loc ce le-a spus.",
+        "en": "No spell may be spoken until a licensed weigher has weighed its price on the bone scale, thread by thread, before two witnesses. The price is always taken from the body of the caster: nails, blood, weight, teeth, years of sight. If the spell is not fulfilled exactly, the shortfall does not fall back on the sorcerer but on the weigher, who loses from his own flesh precisely what he weighed wrong. That is why weighers are thin, old before their time and very careful, and one who weighs too often dies young. Whoever speaks without a weighing loses his voice forever, and those who heard him forget what he said on the spot."
+      },
+      "openings": {
+        "ro": [
+          "Tânăra cântăritoare Alma a cântărit prețul unei ploi de trei zile și la al doilea cântar talerul s-a lăsat cu un dram mai mult decât jurase; dacă rostește vraja, plătește cu două degete din mâna ei bună, iar dacă nu, satul rămâne fără apă pentru vară.",
+          "La târg, o femeie îi cere lui Iosif să cântărească o vrajă care să oprească sângerarea fiului ei, iar firul de păr adus cântărește cât un pumn; are o singură zi să afle dacă prețul acela este al ei sau al cântăritorului.",
+          "Un vrăjitor bogat i-a oferit cântăritorului Petru un dar de cincizeci de ani ca să nu mai pună întrebări la cântărire, iar Petru ține talerul în mână și nu știe dacă să refuze, să tacă ori să ceară martori cu nume.",
+          "Când sergentul aduce un vrăjitor prins rostind fără licență, judecătorul îi poruncește cântăritorului să cântărească vraja deja rostită, ca orașul să afle ce s-a luat din el și cine plătește lipsa."
+        ],
+        "en": [
+          "Young weigher Alma weighed the price of three days of rain, and on the second weighing the pan sank one dram heavier than her oath allowed; if she speaks the spell she pays with two fingers of her good hand, and if she does not, the village goes without water for the summer.",
+          "At the fair a woman asks Iosif to weigh a spell to stop her son's bleeding, and the single hair she brought weighs as much as a fist; he has one day to learn whether that price belongs to her or to the weigher.",
+          "A rich sorcerer has offered weigher Petru a gift of fifty years in exchange for asking no more questions at the scale, and Petru stands with the pan in his hand, unsure whether to refuse, to stay silent, or to demand named witnesses.",
+          "When the sergeant brings in a sorcerer caught speaking without a licence, the judge orders the weigher to weigh the spell already spoken, so the town may learn what was taken from it and who pays the shortfall."
+        ]
+      }
+    },
+    {
+      "id": "magic-pret-cantarit-amanunt",
+      "tags": [
+        "magie",
+        "datorie",
+        "greutate"
+      ],
+      "title": {
+        "ro": "Universul în care vrăjile se cumpără în rate, iar restul neplătit se așază ca piatră pe vraci",
+        "en": "A universe where spells are bought in instalments and the unpaid remainder settles on the caster like stone"
+      },
+      "law": {
+        "ro": "Orice vrajă se poate plăti în rate mici, iar vraja lucrează de la prima rată, dar numai atât cât este plătită. O vrajă de vindecare cumpărată pe zece ani închide o rană pe jumătate, iar partea rămasă nu se închide niciodată până la ultima rată. Restul neplătit se adaugă trupului celui care a cumpărat: câtă putere îi lipsește vrajei, atâta greutate primește omul, câte un dram pentru fiecare zi de întârziere. Vrăjitorii care au cumpărat în rate o vrajă mare ajung să nu se mai poată ridica din pat și sunt hrăniți cu lingura de ucenicii lor. Nimeni nu vinde unei singure persoane mai mult de două vrăji în rate pe an, iar cine calcă rânduiala este așezat pe taler până i se ia averea.",
+        "en": "Any spell may be paid for in small instalments, and the spell works from the first payment, but only as far as it is paid. A healing spell bought over ten years half closes a wound, and the rest never seals before the last instalment. The unpaid remainder is added to the body of the buyer: as much power as the spell lacks, so much weight the buyer gains, one dram for every day of delay. Sorcerers who have bought a great spell in instalments end up unable to rise from bed, fed with a spoon by their apprentices. No one sells a single person more than two spells on instalments in a year, and whoever breaks that rule is set on the scale until his wealth is taken."
+      },
+      "openings": {
+        "ro": [
+          "Vraciul Damian a cumpărat în rate o vrajă care să scoată piatra dintr-un puț, iar piatra a ieșit pe jumătate și atârnă deasupra apei; dacă nu plătește azi rata, câștigă trei dramuri de greutate și nu mai urcă scara spre casa bolnavilor.",
+          "Sora lui îi cere ucenicului să mintă în catastif și să treacă o rată drept plătită, iar ucenicul vede cum spinarea vrăjitorului se lasă încet spre pământ în timp ce vraja, eliberată, începe să lucreze peste tot satul.",
+          "Un negustor vrea să cumpere în rate o vrajă de secetă asupra hanului rival, iar vraciul știe că orice dram neplătit se va așeza pe el, nu pe negustor, și că nu poate opri vraja după prima rată.",
+          "Judecătorul din port dă peste un om care apasă cât doi boi și nu se poate mișca, iar catastiful arată treisprezece vrăji cumpărate în rate pe numele lui de către alți oameni; trebuie să afle cine plătește restul."
+        ],
+        "en": [
+          "Sorcerer Damian bought on instalments a spell to lift a stone out of a well, and the stone came up halfway and now hangs above the water; if he does not pay today's instalment he gains three drams of weight and can no longer climb the stairs to the house of the sick.",
+          "His sister asks the apprentice to lie in the ledger and mark an instalment as paid, and the apprentice watches the sorcerer's back sink slowly toward the ground while the spell, released, begins to work across the whole village.",
+          "A merchant wants to buy on instalments a spell of drought against a rival inn, and the sorcerer knows that every unpaid dram will settle on himself and not on the merchant, and that the spell cannot be stopped after the first payment.",
+          "The harbour judge finds a man who weighs as much as two oxen and cannot move, while the ledger shows thirteen spells bought on instalments in his name by other people; he must find out who is paying the remainder."
+        ]
+      }
+    },
+    {
+      "id": "magic-vraja-iubita",
+      "tags": [
+        "magie",
+        "iubire",
+        "vină"
+      ],
+      "title": {
+        "ro": "Universul în care vraja rea lovește mereu persoana iubită de cel care o rostește",
+        "en": "A universe where a harmful spell always strikes the person the caster loves"
+      },
+      "law": {
+        "ro": "Orice vrajă rostită cu intenție rea se îndreaptă nu spre cel vizat, ci spre omul pe care vorbitorul îl iubește cel mai mult în clipa rostitului. Singura cale de a lovi pe altcineva este să depui mai întâi, la un grefier, o declarație de dușmănie cu numele celui urât, jurată în fața a doi martori; fără ea, vraja se întoarce spre iubit. Declarația ține un an și se depune pentru un singur nume, iar cel declarat află despre ea în aceeași zi, fiindcă lumea nu ține dușmănii ascunse. De aceea asasinii se mută singuri departe de familii și se antrenează să nu iubească nimic, iar în războaie soldații se urăsc mai întâi cu acte în regulă. Copiii învață de la șapte ani că o vrajă rostită la supărare este cea mai scumpă greșeală a vieții lor, iar mama aflată lângă un fiu furios este în cel mai mare pericol.",
+        "en": "Any spell spoken with harmful intent travels not to its target but to the person the speaker loves most in that instant. The only way to strike another is to file with a clerk first a declaration of enmity naming the one you hate, sworn before two witnesses; without it the spell turns to your beloved. A declaration holds for one year and covers a single name, and the named person learns of it the same day, because the world keeps no hidden hatreds. So assassins move far from their families and train themselves to love nothing, and in wars soldiers must first hate each other on paper. Children learn from the age of seven that a spell spoken in anger is the costliest mistake of their lives, and a mother standing near an angry son is in the greatest danger."
+      },
+      "openings": {
+        "ro": [
+          "După ce i-a ucis fratele, Vlad află că singurul nume pe care poate depune declarația de dușmănie este cel al bătrânei care l-a crescut, iar grefierul nu poate primi actul fără ca ea să fie înștiințată în aceeași zi.",
+          "În timpul unei certuri la fântână, băiatul aruncă o vrajă de orbire; tatăl lui stă la doi pași, iar sora lui aleargă între ei strigând ca amândoi să-și pună mâinile la ochi.",
+          "Ofițerul are nevoie de o vrajă de arsură împotriva dușmanului de la poartă, dar ura lui adevărată s-a dus de mult spre omul care i-a luat logodnica, iar martorii refuză să jure pe un nume pe care nu-l cred.",
+          "La spitalul de campanie, o soră citește lista declarațiilor depuse de soldații din ziua aceea și se oprește la propriul nume, scris de mâna fiului pe care nu l-a văzut de trei ani."
+        ],
+        "en": [
+          "After killing his brother, Vlad learns that the only name he may file a declaration of enmity against is that of the old woman who raised him, and the clerk cannot accept the paper without informing her the same day.",
+          "During a quarrel at the well the boy throws a spell of blinding; his father stands two steps away, and his sister runs between them shouting at both to cover their eyes.",
+          "The officer needs a spell of burning against the enemy at the gate, but his real hatred long ago went to the man who took his betrothed, and the witnesses refuse to swear to a name they do not believe.",
+          "At the field hospital a nurse reads the list of declarations filed by the soldiers that day and stops at her own name, written in the hand of the son she has not seen in three years."
+        ]
+      }
+    },
+    {
+      "id": "magic-vraja-iubita-oglinda",
+      "tags": [
+        "magie",
+        "dar",
+        "țintă"
+      ],
+      "title": {
+        "ro": "Universul în care vraja năpraznică nimerește ultimul om căruia i-ai dat ceva fără să ceri nimic",
+        "en": "A universe where a harmful spell lands on the last person you gave something to without asking anything back"
+      },
+      "law": {
+        "ro": "O vrajă rostită ca să rănească lovește automat pe ultimul om căruia vorbitorul i-a dat ceva fără să ceară plată sau schimb, fiindcă lumea ține socoteala dărniciei în locul iubirii. De aceea darul nerăsplătit se numește lanț, iar cine dă aproape de o bătălie își alege singur cine va suferi în locul dușmanului. Fiecare comunitate ține un catagraf al darurilor, iar ofițerii verifică seara lista celor care au primit pâine de la vracii din tabără. Cine vrea să rămână liber cu vrăjile sale plătește tot ce primește, chiar și un ac, fiindcă un dar plătit iese din socoteală. Cei bogați sunt feriți de vrăji, fiindcă nimeni nu le dă nimic, iar cei miloși umblă cu spatele gol și nu stau niciodată lângă un om supărat.",
+        "en": "A spell spoken to wound lands automatically on the last person the speaker gave anything to without asking for payment or return, because the world keeps a ledger of generosity rather than of love. So an unrepaid gift is called a chain, and whoever gives freely just before a battle chooses for himself who will suffer in the enemy's place. Every community keeps a register of gifts, and officers check in the evening the list of those who accepted bread from the sorcerers of the camp. Anyone who wishes to stay free with his spells pays for everything he receives, down to a needle, because a paid gift drops out of the account. The rich are safe from spells, since nobody gives them anything, while the merciful walk with bare backs and never stand beside an angry man."
+      },
+      "openings": {
+        "ro": [
+          "Măcelarul Ilie i-a dat unui copil de pe drum o bucată de carne fără să ceară bani, iar dimineața află că vraciul satului, supărat pe primar, a aruncat un blestem care a coborât exact pe spinarea copilului.",
+          "Armata pleacă la luptă mâine, iar Ivona, care pregătește hrana vraciilor, trebuie să decidă ce daruri plătește înapoi până la răsărit, ca să nu fie ea ținta vrăjilor din bătălie.",
+          "Un negustor se plânge că vrăjile lui se întorc mereu spre cerșetorii pe care i-a hrănit, dar nu vrea să plătească pentru pomană, așa că îi cere unui preot să jure că pomana nu a fost un dar.",
+          "La judecată, o femeie dovedește cu catastiful că vraciul care i-a omorât bărbatul îi dăduse, cu un an înainte, un dar nerăsplătit, și cere socoteala dărniciei în fața întregului sat."
+        ],
+        "en": [
+          "Butcher Ilie gave a child on the road a piece of meat without asking for money, and in the morning he learns that the village sorcerer, angry at the mayor, cast a curse that came down exactly on the back of that child.",
+          "The army marches tomorrow, and Ivona, who cooks for the sorcerers, must decide which gifts to pay back before sunrise so that she is not the target of the spells cast in the battle.",
+          "A merchant complains that his spells always turn on the beggars he has fed, yet he will not pay for his own alms, so he asks a priest to swear that the alms were not a gift at all.",
+          "At the trial a woman proves with the ledger that the sorcerer who killed her husband had given her an unrepaid gift a year earlier, and she demands the account of generosity before the whole village."
+        ]
+      }
+    },
+    {
+      "id": "magic-blestem-termen",
+      "tags": [
+        "blestem",
+        "moștenire",
+        "termen"
+      ],
+      "title": {
+        "ro": "Universul în care blestemul moștenit are termen de plată egal cu anii trăiți de cel blestemat",
+        "en": "A universe where an inherited curse falls due after exactly as many years as the cursed one lived"
+      },
+      "law": {
+        "ro": "Blestemul rostit asupra unei familii nu rămâne pe cel care l-a primit, ci trece la fiul cel mai mare în ziua morții lui, apoi mai departe din moștenitor în moștenitor. Termenul de plată este limpede: numărul de ani pe care blestematul i-a trăit după rostire, așa că cine moare repede lasă urmașului un singur an, iar cine trăiește nouăzeci de ani îi lasă nouăzeci. Plata nu se face în bani sau în sânge de animal, ci prin fapta pe care blestemul o cere, la scara și în forma cerută, o singură dată în fiecare generație. Când termenul se împlinește neplătit, blestemul se desparte între toți copiii vii ai datornicului, iar fiecare primește întreaga cerință, nu o parte din ea. De aceea familiile blestemate își îngroapă bătrânii repede și fără leacuri, iar moașele sunt plătite să scrie corect anul morții în catastif.",
+        "en": "A curse spoken over a family does not stay on the one who received it; it passes to the eldest son on the day of his death, and then onward from heir to heir. The due date is plain: the number of years the cursed one lived after the curse was spoken, so a man who dies quickly leaves his heir a single year, and a man who reaches ninety leaves ninety. Payment is never made in coin or in the blood of animals but by the deed the curse demands, at the stated scale and in the stated form, once in every generation. When the term runs out unpaid the curse splits among all the living children of the debtor, and each of them receives the whole requirement, not a share of it. That is why cursed families bury their old quickly and without remedies, and pay midwives to record the year of death correctly in the register."
+      },
+      "openings": {
+        "ro": [
+          "Sanda are nouă zile ca să repare moara pe care străbunicul ei a promis-o cândva unui mort, altfel termenul de nouăzeci de ani al tatălui se împarte între ea și cele patru surori ale ei.",
+          "Doctorul satului este plătit să țină bătrânul în viață încă o lună, iar fiul acestuia numără zilele și se întreabă dacă mila prelungită nu este, de fapt, o condamnare la moarte pentru toți copiii lui.",
+          "Un tânăr moștenitor descoperă în catastiful familiei că tatăl lui a murit la treizeci și doi de ani, iar el trebuie să săvârșească fapta cerută înainte de a împlini aceeași vârstă, fără să știe ce anume cere blestemul.",
+          "La judecata de pace, două familii se ceartă pe un cadavru: fiecare vrea să-l îngroape pe bătrân în curtea ei, ca termenul de plată al blestemului să se scurteze pentru copiii celeilalte."
+        ],
+        "en": [
+          "Sanda has nine days to repair the mill her great-grandfather once promised to a dead man, or her father's ninety-year term will be split among her and her four sisters.",
+          "The village doctor is paid to keep the old man alive one more month, and the man's son counts the days, wondering whether drawn-out mercy is in fact a death sentence for all his children.",
+          "A young heir discovers in the family ledger that his father died at thirty-two, and he must perform the required deed before reaching that same age, without knowing what the curse actually asks of him.",
+          "At the peace court two families fight over a corpse: each wants to bury the old man in its own yard, so that the curse's due date will be shortened for the children of the other."
+        ]
+      }
+    },
+    {
+      "id": "magic-blestem-termen-rascumparare",
+      "tags": [
+        "blestem",
+        "bătrânețe",
+        "ani"
+      ],
+      "title": {
+        "ro": "Universul în care blestemul îmbătrânește ca un om și moare de bătrânețe dacă familia îl hrănește cu ani",
+        "en": "A universe where a curse ages like a person and dies of old age if the family feeds it years"
+      },
+      "law": {
+        "ro": "Un blestem moștenit are termen de plată, dar termenul nu se scurtează cu bani, ci se scurtează cu viață: cine vrea să scape mai repede îi dă blestemului din anii lui, câte un an pentru fiecare an scăzut din datorie. Blestemul bătrânește ca orice ființă și moare de bătrânețe la o sută de ani de la rostire, oricâte generații ar fi trecut peste el. Dacă urmașii nu plătesc nimic și nu hrănesc blestemul, el își ia singur vârsta din trupurile lor, câte o lună pentru fiecare an de întârziere, luată întotdeauna de la cel mai tânăr. Așa se face că nepoții unui blestemat se nasc uneori cu părul alb și cu mâinile uscate, iar cei care se oferă să hrănească blestemul mor primii, ca să scape copiii. Nimeni nu poate plăti datoria altcuiva, dar oricine din neam poate hrăni blestemul, iar catapisma familiei ține socoteala anilor dați și a celor scăzuți.",
+        "en": "An inherited curse has a due date, but that date is not shortened with money; it is shortened with life: whoever wants to be done sooner gives the curse years of his own, one year for every year struck off the debt. The curse grows old like any living thing and dies of old age one hundred years after it was spoken, however many generations have passed over it. If the heirs pay nothing and feed the curse nothing, it takes its age out of their bodies by itself, one month for every year of delay, always from the youngest. So the grandchildren of a cursed man are sometimes born with white hair and withered hands, and those who offer to feed the curse die first, so that the children may be spared. No one can pay another's debt, but anyone in the bloodline may feed the curse, and the family's cataclysm book keeps the count of years given and years struck off."
+      },
+      "openings": {
+        "ro": [
+          "Bătrânul Radu s-a oferit să hrănească blestemul cu doisprezece ani din viața lui, ca nepotul bolnav să apuce să crească, iar familia are o singură noapte să hotărască dacă primește schimbul.",
+          "O mamă tânără vede că fetița ei, născută acum o lună, are părul alb, și înțelege că nimeni nu a plătit nimic blestemului în ultimii ani, deci cineva a luat anii copilului fără să întrebe.",
+          "Scribul familiei descoperă că blestemul are nouăzeci și șapte de ani și că mai are nevoie de trei ani ca să moară, iar singurul membru al neamului dispus să-i dea este mireasa care intră în casă mâine.",
+          "La înmormântarea tatălui, doi frați se ceartă pe catapismă: unul vrea să plătească fapta cerută și să termine, celălalt vrea să hrănească blestemul până moare, chiar dacă asta înseamnă să-și bage fiicele în pământ."
+        ],
+        "en": [
+          "Old Radu has offered to feed the curse twelve years of his own life so that his sick grandson may live to grow up, and the family has a single night to decide whether to accept the trade.",
+          "A young mother sees that her daughter, born a month ago, has white hair, and understands that nobody has paid the curse anything for years, so someone has been taking the child's years without asking.",
+          "The family scribe discovers that the curse is ninety-seven years old and needs three more years to die, and the only member of the bloodline willing to give them is the bride entering the house tomorrow.",
+          "At their father's funeral two brothers quarrel over the cataclysm book: one wants to perform the required deed and be done, the other wants to feed the curse until it dies, even if that means putting his own daughters in the ground."
+        ]
+      }
+    },
+    {
+      "id": "magic-oglinzi-lumi",
+      "tags": [
+        "oglinzi",
+        "dimensiuni",
+        "reflex"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare oglindă este o lume paralelă cu o singură lege proprie, gravată pe ramă",
+        "en": "A universe where every mirror is a parallel world with one law of its own engraved on the frame"
+      },
+      "law": {
+        "ro": "Fiecare oglindă este o fereastră întreagă spre o lume paralelă care are o singură lege proprie, gravată pe ramă, și nimic din ce se petrece în fața oglinzii nu se supune legilor de dincoace. Reflexul din oglindă trăiește, muncește și îmbătrânește ca un om de sine stătător, iar noaptea, când nimeni nu se uită, își vede de treburile lui acolo. Ca să treci dincolo trebuie să-ți schimbi locul cu reflexul tău: el iese în lumea ta, în trupul tău, iar tu intri în a lui, cu datoriile și dușmanii lui. Cine sparge o oglindă nu strică un geam, ci șterge din lumea aceea toate ființele care se vedeau în ea în clipa aceea. De aceea oglinzile se moștenesc cu acte, se închiriază pe zile și se acoperă cu pânză în casele unde cineva plânge.",
+        "en": "Every mirror is a whole window onto a parallel world that has one law of its own engraved on its frame, and nothing done before the mirror obeys the laws of this side. The reflection in the glass lives, works and ages like a person in his own right, and at night, when nobody is looking, he goes about his business over there. To cross you must trade places with your reflection: he comes out into your world in your body, and you step into his, with his debts and his enemies. Whoever breaks a mirror does not break a pane of glass but erases from that world every being who was mirrored in it at that instant. So mirrors are inherited by deed, rented by the day, and covered with cloth in houses where someone is weeping."
+      },
+      "openings": {
+        "ro": [
+          "Ileana are o oglindă de la mama ei, cu legea gravată pe ramă, și află că reflexul ei a vândut deja casa din lumea cealaltă, iar cumpărătorii bat la fereastra oglinzii să-și ia locul.",
+          "Un hoț s-a strecurat printr-o oglindă de han ca să scape de gardă, dar legea de dincolo spune că orice om care intră rămâne până când altcineva îi ia locul, iar hoțul trebuie să convingă pe cineva să facă schimbul azi.",
+          "Fetița sparge oglinda bunicii cu o minge, iar în sat oamenii cad la pământ unul câte unul, pentru că toți cei care se oglindeau acolo în clipa aceea s-au stins în lumea lor.",
+          "Negustorul vrea să deschidă un depozit de oglinzi în port, dar fiecare oglindă aduce cu ea un reflex care are propriile pretenții, iar portul are o singură zi ca să decidă cine răspunde pentru ce iese din ele."
+        ],
+        "en": [
+          "Ileana owns a mirror from her mother with the law engraved on its frame, and she learns that her reflection has already sold the house in the other world, and that the buyers are knocking at the mirror's glass to take her place.",
+          "A thief slipped through an inn's mirror to escape the guard, but the law beyond says that anyone who enters stays until another takes his place, and the thief must convince someone to trade with him today.",
+          "The little girl breaks her grandmother's mirror with a ball, and in the village people fall to the ground one by one, because everyone mirrored there at that instant has gone out in their own world.",
+          "A merchant wants to open a warehouse of mirrors in the harbour, but each mirror brings with it a reflection with claims of its own, and the harbour has one day to decide who answers for whatever comes out of them."
+        ]
+      }
+    },
+    {
+      "id": "magic-oglinzi-domiciliu",
+      "tags": [
+        "oglinzi",
+        "locuințe",
+        "chirie"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare oglindă este o cameră de locuit din altă dimensiune, cu chiriași și contract",
+        "en": "A universe where every mirror is a rented living room in another dimension, complete with tenants and a lease"
+      },
+      "law": {
+        "ro": "Oglinzile nu sunt podoabe, ci camere: fiecare oglindă este o încăpere a unei case din altă dimensiune, cu fereastră, cu prag și uneori cu chiriași. Intrarea se face numai după ce bați de trei ori și primești răspuns scris pe sticlă, iar cine intră fără să bată nu mai iese, fiindcă devine reflexul camerei și e folosit de stăpânul ei ca mână de lucru. Aceeași încăpere poate fi cumpărată de două gospodării deodată, una de dincoace, alta de dincolo, iar când amândouă o folosesc în același ceas pereții se subțiază și cine se află înăuntru rămâne pe jumătate. Chiria se plătește în ore de muncă ale reflexului, pe care proprietarul le poate închiria mai departe fără să întrebe pe nimeni. Actele de proprietate se țin în două registre paralele, iar un notar care nu are semnătura din ambele lumi nu poate vinde nimic.",
+        "en": "Mirrors are not ornaments but rooms: each mirror is a chamber of a house in another dimension, with a window, a threshold and sometimes tenants. Entry is made only after knocking three times and receiving a written answer on the glass, and whoever walks in without knocking never comes out, because he becomes the room's reflection and is used by its owner as a pair of working hands. The same chamber can be bought by two households at once, one on this side and one on the other, and when both use it in the same hour the walls thin and whoever is inside is left only half there. Rent is paid in the reflection's hours of work, which the owner may rent on to others without asking anyone. Deeds of ownership are kept in two parallel registers, and a notary whose signature is missing in either world can sell nothing."
+      },
+      "openings": {
+        "ro": [
+          "Familia lui Toma a cumpărat ieftin o oglindă mare pentru hol și a descoperit că în cameră stă deja un chiriaș de dincolo, care refuză să se mute și pretinde că are acte mai vechi.",
+          "Sora lui bate de trei ori la sticla oglinzii de la capul patului, iar răspunsul scris care apare spune că tatăl lor, dat dispărut acum un an, locuiește acolo ca reflex al camerei și nu mai poate ieși.",
+          "Un proprietar vrea să-și închirieze încăperea din oglindă la două familii în același ceas, ca să scoată dublu, iar notarul îi cere semnătura din ambele lumi fără să-i spună ce se întâmplă cu cei care se află înăuntru.",
+          "La tribunalul din port, doi vecini se ceartă pe o oglindă de bucătărie: unul are contract de dincoace, altul de dincolo, iar în cameră doarme chiar acum un copil, pe jumătate vizibil."
+        ],
+        "en": [
+          "Toma's family bought a large mirror for the hall cheaply and discovered that the room already has a tenant from the other side, who refuses to move and claims an older lease.",
+          "His sister knocks three times on the glass of the mirror by the bed, and the written answer that appears says their father, reported missing a year ago, lives there as the room's reflection and can no longer come out.",
+          "A landlord wants to rent his mirror chamber to two families in the same hour for double pay, and the notary demands his signature from both worlds without telling him what happens to whoever is inside.",
+          "At the harbour court two neighbours fight over a kitchen mirror: one holds a contract from this side, the other from beyond, and a child is asleep in that chamber right now, half visible."
+        ]
+      }
+    },
+    {
+      "id": "magic-oras-doua-dimensiuni",
+      "tags": [
+        "oraș",
+        "dimensiuni",
+        "dublu"
+      ],
+      "title": {
+        "ro": "Universul orașului care stă în două dimensiuni deodată, cu două adrese pe aceeași plăcuță",
+        "en": "A universe of a city standing in two dimensions at once, with two addresses on the same plate"
+      },
+      "law": {
+        "ro": "Orașul stă în două dimensiuni în același timp, cu aceleași străzi și aceleași case, dar cu două istorii care nu se potrivesc, iar fiecare clădire are două adrese scrise pe aceeași plăcuță. Fiecare locuitor are un trup pe fiecare parte, iar cele două trupuri împart o singură soartă: ce câștigă unul se pierde la celălalt, ce se rănește într-o parte se simte în cealaltă. Legea se deosebește de la o parte la alta, iar fapta se judecă acolo unde a fost prins trupul, dar pedeapsa se ispășește în cealaltă dimensiune, de celălalt trup. Podul dintre cele două jumătăți se deschide o singură oră pe zi, iar cine vrea să treacă trebuie să ajungă la el în același ceas cu trupul din partea cealaltă. Părinții își învață copiii să nu mintă niciodată, fiindcă minciuna spusă într-o parte se citește pe fața trupului din partea cealaltă.",
+        "en": "The city stands in two dimensions at once, with the same streets and the same houses but two histories that do not match, and every building has two addresses written on the same plate. Each resident has a body on each side, and the two bodies share a single fate: whatever one gains the other loses, whatever is wounded on one side aches on the other. The law differs from side to side, and a deed is tried where the body was caught, but the sentence is served in the other dimension, by the other body. The bridge between the two halves opens for one hour a day, and whoever wants to cross must reach it in the same hour with the body from the other side. Parents teach their children never to lie, because a lie told on one side is read on the face of the body on the other."
+      },
+      "openings": {
+        "ro": [
+          "Mihai a fost prins furând pâine în partea de răsărit, iar pedeapsa este să slujească zece ani în partea de apus, unde trupul lui nu are nici casă, nici rude și nu cunoaște pe nimeni.",
+          "Femeia are o singură oră ca să ajungă pe pod împreună cu trupul din cealaltă dimensiune, pentru că numai împreună pot trece să-și vadă fiul internat, iar unul dintre trupuri stă acum într-o închisoare la două străzi depărtare.",
+          "Primarul din răsărit a semnat un contract de apă pe care primarul din apus nu l-a văzut niciodată, iar locuitorii simt pe piele că una dintre jumătăți a câștigat ceva ce cealaltă a pierdut.",
+          "O fată descoperă că rana de la mâna ei, vindecată de mult, sângerează din nou, fiindcă trupul de dincolo a fost lovit în aceeași clipă, și trebuie să afle cine îl folosește pe trupul acela fără să întrebe."
+        ],
+        "en": [
+          "Mihai was caught stealing bread on the eastern side, and the sentence is to serve ten years on the western side, where his body has no home, no family and knows nobody at all.",
+          "The woman has one hour to reach the bridge together with her body from the other dimension, because only together can they cross to visit their hospitalised son, and one of the bodies is right now in a jail two streets away.",
+          "The mayor of the east has signed a water contract that the mayor of the west has never seen, and the residents feel on their skin that one half of the city has gained what the other half lost.",
+          "A girl discovers that the wound on her hand, healed long ago, is bleeding again, because the body on the other side was struck in that same instant, and she must find out who is using that body without asking."
+        ]
+      }
+    },
+    {
+      "id": "magic-oras-doua-dimensiuni-vama",
+      "tags": [
+        "oraș",
+        "moarte",
+        "graniță"
+      ],
+      "title": {
+        "ro": "Universul în care morții unei jumătăți de oraș se trezesc vii în cealaltă jumătate, peste zid",
+        "en": "A universe where the dead of one half of the city wake alive in the other half, beyond the wall"
+      },
+      "law": {
+        "ro": "Cele două jumătăți ale orașului se deosebesc printr-o singură lege: cine moare în partea de răsărit se trezește viu în partea de apus, în același ceas, cu amintirile morții lui intacte. În partea de apus toți locuitorii sunt oameni care au murit în cealaltă jumătate, iar fiecare își poate urmări propria înmormântare de pe acoperiș, cu binoclul, peste zid. Mormintele trebuie ținute pline și plătite dinainte, căci cine moare fără o groapă pregătită în răsărit nu se mai trezește nicăieri, iar acela este singurul mod de a muri cu adevărat. Copiii născuți în apus sunt singurii care mor de două ori: se nasc, mor în răsărit la maturitate și se întorc acasă, iar la a doua moarte nu mai vin nicăieri. Cele două primării nu au voie să schimbe listele de morți, iar funcționarul care ascunde un deces este pedepsit cu ștergerea numelui din ambele registre.",
+        "en": "The two halves of the city differ in a single law: whoever dies in the eastern half wakes alive in the western half, in the same hour, with the memories of his death intact. In the western half all residents are people who died in the other half, and each of them can watch his own funeral from the rooftops with field glasses, across the wall. Graves must be kept ready and paid for in advance, since whoever dies without a prepared plot in the east wakes nowhere, and that is the only way to die for good. Children born in the west are the only ones who die twice: they are born, they die in the east at maturity and come home, and at their second death they come nowhere. The two town halls may not alter the lists of the dead, and a clerk who hides a death is punished by having his name struck from both registers."
+      },
+      "openings": {
+        "ro": [
+          "Văduva statea la căpătâiul soțului când acesta a murit, iar acum îl vede de pe acoperișul casei din apus, viu și supărat, cerându-i să-i plătească din nou chiria pe care o plătise deja o dată.",
+          "Un funcționar de la starea civilă a ascuns moartea unei femei pentru a-i lua casa, iar femeia s-a trezit în apus fără mormânt pregătit și îl caută acum ca să afle unde a fost îngropată de fapt.",
+          "Copilul născut în apus împlinește mâine optsprezece ani, adică ziua morții lui în răsărit, iar părinții trebuie să decidă dacă îi spun totul sau îl lasă să afle singur pe podul care se deschide o oră.",
+          "Familia nu are bani pentru două gropi, iar bunicul se îmbolnăvește în răsărit: cineva trebuie să hotărască în noaptea asta dacă bătrânul moare cu adevărat sau se trezește în apus, unde nimeni nu-l așteaptă."
+        ],
+        "en": [
+          "The widow was at her husband's bedside when he died, and now she sees him from the west rooftop, alive and angry, demanding she pay again the rent he had already paid once.",
+          "A registrar hid the death of a woman in order to take her house, and the woman woke in the west with no grave prepared, and she is now looking for him to learn where she was actually buried.",
+          "The boy born in the west turns eighteen tomorrow, which is the day of his death in the east, and his parents must decide whether to tell him everything or let him find out alone on the bridge that opens for one hour.",
+          "The family cannot afford two plots, and the grandfather is falling ill in the east: someone must decide tonight whether the old man dies for good or wakes in the west, where nobody is waiting for him."
+        ]
+      }
+    },
+    {
+      "id": "magic-timp-ramificat-acte",
+      "tags": [
+        "timp",
+        "acte",
+        "cancelarie"
+      ],
+      "title": {
+        "ro": "Universul în care timpul se ramifică, iar călătoria într-o altă ramură se face numai cu cerere aprobată",
+        "en": "A universe where time branches and travel into another branch requires an approved permit"
+      },
+      "law": {
+        "ro": "Timpul nu este unul singur: fiecare hotărâre mare a lumii despică vremea în ramuri, iar fiecare ramură se poartă ca un ținut cu graniță, cu vamă și cu cancelarie. Călătoria între ramuri se face numai cu acte: o cerere scrisă, aprobată de cancelaria vremii, care numește data, ramura și scopul mersului, valabilă pentru o singură zi. Nu se poate intra într-o ramură în care trăiește vreo copie a călătorului, așa că singurele ramuri deschise străinilor sunt cele în care omul nu s-a născut niciodată sau a murit înainte de a avea copii. Cine trece granița fără acte nu este arestat, ci dispare din ramura lui cu tot cu urme, iar familia depune după el un dosar de pierdere care se aprobă abia peste șapte ani. Funcționarii vremii citesc pe fiecare hârtie nu doar data, ci și interesul călătorului, iar cine este prins cu un interes nescris în cerere se întoarce în ramura lui cu zece ani mai târziu.",
+        "en": "Time is not one: every great decision of the world splits the age into branches, and each branch behaves like a province with a border, a customs post and a chancery. Travel between branches is done only with papers: a written request approved by the chancery of time, naming the date, the branch and the purpose of the journey, valid for a single day. No one can enter a branch in which any copy of the traveller is alive, so the only branches open to strangers are those in which the person was never born or died before having children. Whoever crosses the border without papers is not arrested; he vanishes from his own branch without a trace, and his family files a loss dossier that is approved only after seven years. The clerks of time read on every paper not just the date but the traveller's interest, and anyone caught with an interest left unwritten returns to his branch ten years later."
+      },
+      "openings": {
+        "ro": [
+          "Elena are aprobare pentru o singură zi într-o ramură în care fiul ei s-a născut, dar actul nu spune că vrea să-l oprească din a intra în armată, iar vameșul îi citește cererea cu degetul pe rânduri.",
+          "Un bărbat căruia i s-a refuzat cererea s-a strecurat totuși peste graniță noaptea trecută, iar dimineața soția lui a găsit casa goală și un dosar de pierdere pe masă, fără să știe ce ramură să caute.",
+          "Cancelaria vremii îi cere lui Andrei să aleagă între a-și salva sora, care moare mâine în ramura lui, și a rămâne în ramura în care a fost scutit de război, fiindcă nu poate avea amândouă.",
+          "Un funcționar tânăr descoperă că tatăl lui a cerut acum douăzeci de ani o aprobare pentru o ramură în care fiul său nu se naște, iar hârtia stă pe birou așteptând o semnătură."
+        ],
+        "en": [
+          "Elena holds a permit for one day in a branch where her son was born, but the document does not state that she means to stop him from joining the army, and the customs officer reads her request with a finger on every line.",
+          "A man whose request had been refused slipped across the border last night anyway, and in the morning his wife found the house empty and a loss dossier on the table, with no idea which branch to search.",
+          "The chancery of time asks Andrei to choose between saving his sister, who dies tomorrow in his branch, and staying in the branch where he was spared the war, because he cannot have both.",
+          "A young clerk discovers that his father applied twenty years ago for a permit to a branch in which his son is never born, and the paper has been lying on the desk waiting for a signature ever since."
+        ]
+      }
+    },
+    {
+      "id": "magic-timp-ramificat-audienta",
+      "tags": [
+        "timp",
+        "judecată",
+        "ani"
+      ],
+      "title": {
+        "ro": "Universul în care trecutul se schimbă numai prin cerere, plătită cu ani din viața petiționarului",
+        "en": "A universe where the past changes only by petition, paid for with years of the petitioner's life"
+      },
+      "law": {
+        "ro": "Un fapt trecut nu se schimbă prin putere, ci numai prin cerere: cine vrea altfel depune un dosar la Tribunalul Vremii, cu data, locul și schimbarea dorită. Cererea se citește în toate ramurile în care fapta a avut urmări, iar cei atinși votează unul câte unul, fiecare cu drept de refuz care se poate cumpăra. Plata nu se face în bani, ci în ani scăzuți din viața petiționarului: un an din urmă pentru fiecare om nemulțumit, luați din cei rămași, iar cine nu are destui ani moare în ziua judecății. Schimbarea se face apoi fără fast, peste noapte: lumea se trezește cu alta în locul celei vechi, iar numai petiționarul păstrează amintirea amândurora. Cine depune cereri peste puterile lui rămâne fără moștenitori, fiindcă anii plătiți nu se restituie niciodată, nici când schimbarea se dovedește zadarnică.",
+        "en": "A past fact is not changed by force but only by petition: whoever wants otherwise files a dossier with the Tribunal of Time, naming the date, the place and the desired change. The petition is read in every branch where the deed had consequences, and those touched by it vote one by one, each holding a right of refusal that can be bought. Payment is not made in money but in years cut from the petitioner's life: one year back for every person dissatisfied, taken from those remaining, and whoever has too few years dies on the day of the hearing. The change is then made without ceremony, overnight: the world wakes to another one in place of the old, and only the petitioner keeps the memory of both. Whoever files beyond his means leaves no heirs, because years paid are never returned, not even when the change proves useless."
+      },
+      "openings": {
+        "ro": [
+          "Irina a depus o cerere ca să-și readucă fiul din război, iar la citirea dosarului se ridică nouăsprezece nemulțumiți, ceea ce ar însemna nouăsprezece ani din viața ei, din cei douăzeci și doi pe care îi mai are.",
+          "Un om bogat cumpără refuzurile rudelor celui mort, ca să poată schimba o noapte de acum zece ani, iar funcționarul tribunalului trebuie să spună dacă un refuz cumpărat mai este un refuz.",
+          "Petiționarul se trezește în lumea nouă și descoperă că noii lui vecini nu-l cunosc, că soția lui a murit altfel și că singura dovadă a celeilalte vieți sunt cei șapte ani pe care i-a plătit pentru schimbare.",
+          "La tribunalul din provincie, o femeie cere anularea propriei nașteri, iar judecătorul trebuie să decidă dacă cineva care nu s-a născut poate plăti anii cuveniți celor nemulțumiți."
+        ],
+        "en": [
+          "Irina filed a petition to bring her son back from the war, and at the reading nineteen dissatisfied people stood up, which would mean nineteen years out of her life, from the twenty-two she has left.",
+          "A rich man is buying up the refusals of a dead man's relatives so he can change one night ten years ago, and the tribunal clerk must decide whether a purchased refusal is still a refusal.",
+          "The petitioner wakes in the new world and finds that his new neighbours do not know him, that his wife died differently, and that the only evidence of the other life is the seven years he paid for the change.",
+          "At the provincial tribunal a woman asks for her own birth to be annulled, and the judge must decide whether someone who was never born can pay the years owed to those dissatisfied."
+        ]
+      }
+    },
+    {
+      "id": "magic-lege-fizica-anuala",
+      "tags": [
+        "fizică",
+        "lege",
+        "vot"
+      ],
+      "title": {
+        "ro": "Universul în care o singură lege a fizicii se schimbă pe an, după o listă scurtă de două sute douăsprezece",
+        "en": "A universe where one law of physics changes each year, chosen from a short list of two hundred and twelve"
+      },
+      "law": {
+        "ro": "O singură lege a fizicii se schimbă pe an, în aceeași zi pentru toți, iar schimbarea se anunță cu treizeci de zile înainte prin măsurători publice de pendule, umbre și greutăți etalon. Lista legilor care pot fi alese este scrisă pe zidul fiecărei primării și cuprinde două sute douăsprezece rânduri; nimeni nu poate cere o lege care nu se află pe listă și nimeni nu poate sări un an. Aceeași lege nu poate fi aleasă doi ani la rând, iar votul se cântărește după pământ: cine are mai mult aruncă mai multe pietre în urnă. Casele, uneltele și podurile se construiesc pentru oricare lege de pe listă, fiindcă altfel ar sta degeaba o parte din an, așa că morile au două roți, iar sobele două coșuri. Mașinile care nu se potrivesc legii anului nu se strică, ci îngheață până la anul următor, iar cine le apără cu arma este pedepsit pentru oprirea schimbării.",
+        "en": "One law of physics changes each year, on the same day for everyone, and the change is announced thirty days ahead through public measurements of pendulums, shadows and standard weights. The list of laws that may be chosen is written on the wall of every town hall and holds two hundred and twelve lines; nobody may ask for a law that is not on the list and nobody may skip a year. The same law may not be chosen two years running, and the vote is weighed by land: whoever owns more throws more stones into the urn. Houses, tools and bridges are built for any law on the list, since otherwise they would stand idle part of the year, so mills have two wheels and stoves two chimneys. Machines that do not match the law of the year are not broken but frozen until the next year, and whoever defends them with a weapon is punished for halting the change."
+      },
+      "openings": {
+        "ro": [
+          "Cu trei zile înainte de schimbare, meșterul Vasile trebuie să hotărască dacă își lasă moara deschisă în anul greutății, când pietrele se lasă încet și roata se învârte degeaba, sau o închide și rămâne fără pâine pentru iarnă.",
+          "Primarul promite că va vota legea luminii, cerută de sticlari, dar proprietarii de păduri vor legea umbrei, iar țăranii așteaptă să vadă în ce coș iese piatra cântărită.",
+          "O fată născută în anul sunetului nu poate învăța să cânte la fluier în anul tăcerii, iar dascălul ei trebuie să o pregătească pentru un an întreg fără sunet, cu semne pe tablă.",
+          "În ziua măsurătorilor, un pendul din turn se oprește cu o zi mai devreme decât prevestește anunțul, iar orașul trebuie să aleagă între două legi de pe listă înainte de miezul nopții."
+        ],
+        "en": [
+          "Three days before the change, master builder Vasile must decide whether to keep his mill open through the year of weight, when stones fall slowly and the wheel turns for nothing, or to close it and go without bread for the winter.",
+          "The mayor promises to vote for the law of light, demanded by the glaziers, but the forest owners want the law of shadow, and the farmers wait to see into which basket the weighed stone falls.",
+          "A girl born in the year of sound cannot learn to play the whistle in the year of silence, and her teacher must prepare her for a whole year without sound, using signs on a slate.",
+          "On the day of the measurements a pendulum in the tower stops one day earlier than the announcement foretold, and the town must choose between two laws on the list before midnight."
+        ]
+      }
+    },
+    {
+      "id": "magic-lege-fizica-licitatie",
+      "tags": [
+        "fizică",
+        "proprietate",
+        "licitație"
+      ],
+      "title": {
+        "ro": "Universul în care fizica se licitează pe hotare, iar înăuntrul stâlpilor de fier stă legea celui care plătește",
+        "en": "A universe where physics is auctioned by plot, and inside the iron stakes stands the law of whoever pays"
+      },
+      "law": {
+        "ro": "Legea fizicii nu se schimbă pentru toată lumea, ci se licitează: cine plătește mai mult alege legea care se va ține un an în pământul lui, înăuntrul unui hotar trasat cu stâlpi de fier. De aceea fizica este proprietate: în cartierele bogate norii plouă la cerere și pietrele cad încet, iar în afara stâlpilor rămâne legea obișnuită, cu tot ce aduce ea. Hotarul ține exact un an și costă din nou la fiecare prelungire, iar cine nu plătește a doua oară vede legea proprie stinsă la miezul nopții, împreună cu tot ce a fost clădit sub ea. Nimeni nu poate schimba legea peste hotarul altcuiva, dar oricine poate cumpăra o lege care face viața vecinului mai grea, iar avocații de hotar trăiesc din astfel de certuri. Copiii săraci cresc învățând două sisteme de numărat: unul pentru curtea casei și altul pentru drumul de afară.",
+        "en": "The law of physics is not changed for everyone but auctioned: whoever pays most chooses the law that will hold for a year on his land, inside a boundary marked with iron stakes. So physics is property: in rich districts clouds rain on request and stones fall slowly, while outside the stakes the ordinary law remains, with everything it brings. A boundary holds exactly one year and must be paid for again at each renewal, and whoever fails the second payment sees his own law extinguished at midnight, along with everything built under it. No one may change the law across another's boundary, but anyone may buy a law that makes a neighbour's life harder, and boundary lawyers live off such quarrels. Poor children grow up learning two systems of counting: one for the yard at home and one for the road outside."
+      },
+      "openings": {
+        "ro": [
+          "Familia lui Pavel are trei zile să strângă banii pentru prelungirea hotarului, altfel la miezul nopții legea blândă a curții se stinge și casa construită pentru ploaie cade în legea obișnuită, unde ploaia vine când vrea ea.",
+          "Un moșier cumpără legea vântului statornic pentru hotarul lui, iar satul de alături, unde vântul nu mai ajunge, trebuie să-și mute morile sau să plătească pentru o lege pe care nimeni nu și-o permite.",
+          "Fetița trece stâlpii de fier cu o găleată de apă, iar apa se varsă altfel în mână de fiecare dată când calcă dintr-o lege în alta; dascălul o întreabă ce lege vrea să creadă.",
+          "La licitația de primăvară, doi vecini licitează pentru aceeași lege a greutății, iar notarul le spune că cel care pierde va trăi un an întreg lângă o curte în care lucrurile cad altfel decât în a lui."
+        ],
+        "en": [
+          "Pavel's family has three days to raise the money to renew the boundary, or at midnight the gentle law of their yard goes out and the house built for rain falls back under the ordinary law, where rain comes when it pleases.",
+          "A landowner buys the law of steady wind for his plot, and the village beside it, where the wind no longer reaches, must move its mills or pay for a law nobody can afford.",
+          "The little girl crosses the iron stakes with a bucket of water, and the water spills differently in her hands each time she steps from one law into another; her teacher asks her which law she means to believe.",
+          "At the spring auction two neighbours bid for the same law of weight, and the notary tells them that whoever loses will live a whole year beside a yard where things fall differently than in his own."
+        ]
+      }
+    },
+    {
+      "id": "magic-duplicare-obiecte",
+      "tags": [
+        "obiecte",
+        "copii",
+        "iubire"
+      ],
+      "title": {
+        "ro": "Universul în care orice lucru se poate înmulți, în afară de lucrurile iubite, care se nasc seci",
+        "en": "A universe where anything can be duplicated except loved things, whose copies are born hollow"
+      },
+      "law": {
+        "ro": "Orice obiect se înmulțește cu o vrajă scurtă și ieftină, dar copia unui lucru iubit de stăpânul lui se naște seacă: nu are greutate, se sparge la prima atingere și se preface în praf până la apus. De aceea înmulțirea ține loc de judecată: cine vrea să afle ce iubește cu adevărat un om nu-l întreabă, ci înmulțește lucrul și se uită la copie. Hainele și uneltele se fac în trei exemplare pentru fiecare meserie, iar mâncarea nu se poate înmulți deloc, fiindcă orice mâncare este așteptată de cineva. Un hoț prins cu copii seci este lăsat liber, fiindcă legea socotește că nu a luat nimic, iar unul prins cu un singur lucru adevărat printre copii plătește pentru toate. Bogații își cumpără obiecte pe care nu le iubesc ca să le poată înmulți, iar lucrurile lor dragi stau într-o cameră fără ușă.",
+        "en": "Any object is multiplied by a short and cheap spell, but the copy of a thing loved by its owner is born hollow: it has no weight, it shatters at the first touch and turns to dust by sunset. So duplication serves as a trial: whoever wants to learn what a person truly loves does not ask him but multiplies the thing and looks at the copy. Clothes and tools are made in three examples for every trade, while food cannot be multiplied at all, because every food is awaited by someone. A thief caught with hollow copies is released, since the law counts that he took nothing, while one caught with a single true object among the copies pays for all of them. The rich buy objects they do not love so that they can multiply them, and keep the things they hold dear in a room without a door."
+      },
+      "openings": {
+        "ro": [
+          "La vamă, un negustor cere înmulțirea unui lădoi de postav, iar copiile ies seci una după alta; vameșul înțelege că omul iubește postavul acela și îl oprește pentru contrabandă de lucruri scumpe.",
+          "Mama trebuie să dea fiului ei, care pleacă la oaste, o haină înmulțită în trei exemplare, dar în ziua plecării copiile se fărâmiță în mâinile ei, iar satul trage concluzia că femeia își iubește fiul mai mult decât voiește legea.",
+          "Un meșter de unelte își pierde toată marfa când un client cere o singură copie care iese seacă, fiindcă vestea se răspândește și nimeni nu mai cumpără de la el nimic care nu se înmulțește.",
+          "Judecătorul trebuie să hotărască dacă o femeie care a furat un inel adevărat, fără să știe că îl iubea, este vinovată pentru tot ce a luat sau doar pentru greutatea inelului."
+        ],
+        "en": [
+          "At customs a merchant asks for a bale of broadcloth to be multiplied, and the copies come out hollow one after another; the officer understands that the man loves that cloth and stops him for trafficking in costly things.",
+          "A mother must give her son, leaving for the army, a coat multiplied in three examples, but on the day of departure the copies crumble in her hands, and the village concludes that she loves her son more than the law allows.",
+          "A toolmaker loses his whole stock when a customer asks for a single copy that comes out hollow, because the news spreads and nobody buys from him anything that cannot be multiplied.",
+          "A judge must decide whether a woman who stole a true ring, without knowing that she loved it, is guilty for everything she took or only for the weight of the ring."
+        ]
+      }
+    },
+    {
+      "id": "magic-duplicare-obiecte-mostire",
+      "tags": [
+        "copii",
+        "drepturi",
+        "datorii"
+      ],
+      "title": {
+        "ro": "Universul în care oamenii se pot înmulți, dar copia nu are parte de iubirea nimănui",
+        "en": "A universe where people can be duplicated, but a copy gets no share of anyone's love"
+      },
+      "law": {
+        "ro": "Oamenii se pot înmulți la fel ca lucrurile, iar copia iese întreagă și sănătoasă, cu o singură lipsă: nimeni nu o iubește, fiindcă iubirea nu se împarte în două. Copiile poartă un semn ars pe ceafă, moștenesc datoriile originalului, dar nu și drepturile lui: nu pot moșteni pământ, nu pot jura mărturie și nu pot intra în bresle. O copie își poate cumpăra un nume al ei numai dacă cineva o iubește un an întreg, iar dovada se face cu martori și cu o carte de socoteli semnată în fiecare zi. Când originalul moare, copia rămâne vie, dar datoria se strânge la un singur termen, așa că majoritatea copiilor fug în alte orașe sub alt nume. Cine înmulțește un om fără să anunțe primăria plătește pentru două vieți și răspunde cu averea lui pentru faptele copiei timp de zece ani.",
+        "en": "People can be multiplied just like objects, and the copy comes out whole and healthy with a single lack: nobody loves it, because love does not divide in two. Copies carry a burnt mark on the nape, they inherit the original's debts but not his rights: they cannot inherit land, cannot swear testimony and cannot enter a guild. A copy may buy a name of its own only if someone loves it for a full year, and the proof is made with witnesses and a ledger signed every day. When the original dies the copy stays alive, but the debt is gathered into a single term, so most copies flee to other towns under another name. Whoever multiplies a person without telling the town hall pays for two lives and answers with his own wealth for the copy's deeds for ten years."
+      },
+      "openings": {
+        "ro": [
+          "Mihail și-a înmulțit mâna de lucru la seceriș, iar copia stă acum în curte, cu semnul ars pe ceafă, și îi cere să-i plătească cele șapte zile de muncă pe care le-a făcut sub numele lui.",
+          "O copie se înfățișează la judecată ca să scape de datoria stăpânului muribund: are nevoie de un an de iubire dovedită, iar singurul om care ar semna zilnic cartea este femeia care l-a crescut pe original, care refuză.",
+          "Primarul descoperă că în oraș trăiesc treizeci de copii nedeclarate, iar breslele cer să fie alungate înainte de iarnă; una dintre ele lucrează la spital și are grijă de bolnavi, fără plată.",
+          "Un negustor bogat moare fără testament, iar copia lui se bate la judecată cu văduva: amândouă au aceeași față, aceeași voce și aceleași amintiri, iar judecătorul trebuie să spună pe cine recunoaște casa."
+        ],
+        "en": [
+          "Mihail duplicated his labourer at harvest, and the copy now stands in the yard with the burnt mark on its nape, demanding payment for the seven days it worked under his name.",
+          "A copy appears in court to escape the dying master's debt: it needs a year of proven love, and the only person who would sign the ledger daily is the woman who raised the original, and she refuses.",
+          "The mayor discovers thirty undeclared copies living in the town, and the guilds demand they be driven out before winter; one of them works in the hospital, tending the sick without pay.",
+          "A rich merchant dies without a will, and his copy fights the widow in court: both have the same face, the same voice and the same memories, and the judge must say which of them the house acknowledges."
+        ]
+      }
+    },
+    {
+      "id": "magic-porti-moneda",
+      "tags": [
+        "porți",
+        "monedă",
+        "curs"
+      ],
+      "title": {
+        "ro": "Universul în care porțile dintre lumi se deschid numai cu bani bătuți în lumea de dincolo",
+        "en": "A universe where gates between worlds open only for coin minted in the world beyond them"
+      },
+      "law": {
+        "ro": "Porțile dintre dimensiuni nu se deschid cu chei, ci cu monedă: fiecare poartă primește numai bani bătuți în dimensiunea de dincolo de ea, întregi și fără rest. Cum banii aceia se fac doar muncind dincolo, iar poarta nu se deschide fără ei, prima trecere a fiecărui om se plătește din buzunarele celor care au trecut și nu s-au mai întors: hainele, sculele și mărunțișul lor se strâng de la poartă și se schimbă pe monedă străină. Cursul nu îl stabilesc băncile, ci numărul celor rămași dincolo: cu cât mai mulți oameni trec și nu se întorc, cu atât moneda străină se scumpește și poarta se strânge mai tare. Cine aruncă în poartă monedă falsă sau furată din aceeași dimensiune este trimis înapoi gol, fără haine și fără amintirea locului de unde a luat banii. Portarii nu vând bilete, ci schimbă lucruri cântăribile, iar ce nu se poate pune pe cântar nu se primește.",
+        "en": "Gates between dimensions do not open to keys but to coin: each gate accepts only money minted in the dimension beyond it, whole pieces and no change given. Since that money is made only by working on the far side, and the gate will not open without it, every person's first crossing is paid out of the pockets of those who crossed and never came back: their clothes, tools and small change are gathered at the gate and traded for foreign coin. The rate is not set by banks but by the number of those who stayed beyond: the more people cross and do not return, the dearer the foreign coin becomes and the tighter the gate closes. Whoever throws false coin into the gate, or coin stolen from the same dimension, is sent back empty, without clothes and without the memory of where he took the money. Gatekeepers sell no tickets, only exchange weighable goods, and whatever cannot be put on a scale is not accepted."
+      },
+      "openings": {
+        "ro": [
+          "Sora lui Radu a trecut poarta acum trei ani și nu s-a întors, așa că hainele și sculele ei stau în lada portarului; dacă vrea s-o caute, Radu trebuie să le vândă pe loc, la prețul de azi al monedei străine.",
+          "Un om grăbit cere portarului să-i schimbe un ceas de aur pe monedă de dincolo, iar portarul îl cântărește de trei ori și vede că ceasul a fost furat din cutia unui mort de la poartă.",
+          "Cursul s-a dublat într-o lună, fiindcă douăzeci de tineri au trecut spre orașul de dincolo și niciunul nu a venit înapoi; femeile de la coadă socotesc câte verighete le mai rămân până la iarnă.",
+          "Portarul are o singură poartă care mai primește monedă veche, iar la rând stau două familii care vor să treacă astăzi; el trebuie să spună cui ia ultimele două monede și pe cine trimite să aștepte alți zece ani."
+        ],
+        "en": [
+          "Radu's sister crossed the gate three years ago and never returned, so her clothes and tools sit in the gatekeeper's chest; if he wants to look for her, Radu must sell them on the spot, at today's price for foreign coin.",
+          "A hurried man asks the gatekeeper to exchange a gold watch for coin from beyond, and the gatekeeper weighs it three times and sees that the watch was stolen from a dead man's box at the gate.",
+          "The rate has doubled in a month, because twenty young people crossed to the city beyond and none came back; the women in the queue count how many rings they have left before winter.",
+          "The gatekeeper has a single gate that still accepts old coin, and two families are waiting to cross today; he must decide who gets the last two coins and who is sent away to wait another ten years."
+        ]
+      }
+    },
+    {
+      "id": "magic-porti-moneda-curs",
+      "tags": [
+        "porți",
+        "muncă",
+        "migrație"
+      ],
+      "title": {
+        "ro": "Universul în care poarta primește doar monedă câștigată prin muncă în lumea de dincolo",
+        "en": "A universe where a gate accepts only coin earned by work in the world beyond"
+      },
+      "law": {
+        "ro": "O poartă primește numai bani câștigați prin muncă în lumea de dincolo: moneda moștenită, furată sau primită în dar se topește în mâna călătorului la trei pași de poartă. De aceea în fiecare dimensiune există o castă de câștigători, oameni care muncesc ani întregi dincolo numai ca să strângă moneda de întoarcere, fără s-o cheltuiască vreodată acolo. Câștigătorii își vând moneda celor grăbiți, dar schimbul se face cu acte și cu martori, iar poarta verifică cine a muncit: cine cumpără moneda altuia trece doar dacă o plătește cu ani de muncă ai lui, dovediți cu catastif. Un om care nu a muncit niciodată dincolo nu poate trece înapoi decât slujind, iar slujba ține până când poarta socotește că munca a fost plătită, uneori o viață întreagă. Copiii născuți lângă poartă învață de mici să numere orele de muncă în loc de bani, fiindcă numai orele trec granița.",
+        "en": "A gate accepts only money earned by work in the world beyond: coin inherited, stolen or received as a gift melts in the traveller's hand three steps from the gate. So in every dimension there is a caste of earners, people who work for years on the far side only to gather the coin of return, without ever spending it there. The earners sell their coin to the hurried, but the exchange is made with papers and witnesses, and the gate checks who has worked: whoever buys another's coin crosses only if he pays for it with years of his own work, proven in the ledger. A person who has never worked beyond can cross back only by serving, and the service lasts until the gate reckons the work is paid for, sometimes a whole lifetime. Children born beside the gate learn early to count hours of work instead of money, because only hours cross the border."
+      },
+      "openings": {
+        "ro": [
+          "După doisprezece ani de muncă în orașul de dincolo, Ioana are în sfârșit moneda de întoarcere, dar află că sora ei a împrumutat-o și a cheltuit-o, iar moneda cheltuită nu se mai întoarce la poartă.",
+          "Un tânăr moștenește de la tatăl lui o pungă de monedă străină, iar la poartă banii i se topesc în palmă; portarul îi spune că poate trece doar slujind, iar el trebuie să aleagă între a rămâne rob dincolo și a se întoarce acasă pe jos, prin munți.",
+          "Câștigătorii au intrat în grevă și nu mai vând monedă nimănui, așa că la poartă se strânge o mulțime de oameni care vor să-și vadă familiile, iar portarul nu are ce să le răspundă.",
+          "O femeie vrea să cumpere monedă cu ani de muncă ai fiului ei, care are nouă ani, iar portarul trebuie să spună dacă munca unui copil se socotește muncă dovedită în catastif."
+        ],
+        "en": [
+          "After twelve years working in the city beyond, Ioana finally holds the coin of return, but learns that her sister borrowed it and spent it, and coin that has been spent never comes back to the gate.",
+          "A young man inherits from his father a purse of foreign coin, and at the gate the money melts in his palm; the gatekeeper tells him he may cross only by serving, and he must choose between remaining a servant beyond and walking home over the mountains.",
+          "The earners have gone on strike and sell coin to nobody, so a crowd of people who want to see their families gathers at the gate, and the gatekeeper has nothing to tell them.",
+          "A woman wants to buy coin with years of work from her son, who is nine, and the gatekeeper must decide whether a child's work counts as proven work in the ledger."
+        ]
+      }
+    },
+    {
+      "id": "magic-dimensiune-idei",
+      "tags": [
+        "idei",
+        "hrană",
+        "memorie"
+      ],
+      "title": {
+        "ro": "Universul în care oamenii se hrănesc cu idei, iar ideea mâncată dispare din mintea tuturor",
+        "en": "A universe where people feed on ideas, and an idea eaten vanishes from every mind"
+      },
+      "law": {
+        "ro": "Într-o dimensiune apropiată, trupurile nu se hrănesc cu mâncare, ci cu idei: cine înghite o idee se satură, dar ideea aceea se șterge în clipa aceea din mintea tuturor, oriunde în lume. Ca să mănânci o idee trebuie s-o înțelegi în întregime, iar una la care crezi deja nu te mai satură, așa că oamenii își schimbă credințele ca să aibă ce pune pe masă. Bibliotecile sunt grânare, iar orașele bogate sunt cele care au strâns idei pe care nu le-au gătit încă, în timp ce foametea din orașele mici se măsoară în cărți arse, nu în hambare goale. Bucătarii sunt filosofii care frământă ideile mari în bucăți mici, fiindcă o idee mâncată întreagă omoară omul, iar una prost înțeleasă îl lasă flămând și bolnav. Cine nu poate pricepe nimic nou este hrănit cu sila, ca un bolnav, iar paznicii ideilor, care nu au voie să citească ce străjuiesc, mor de foame lângă rafturi pline.",
+        "en": "In a nearby dimension bodies do not feed on food but on ideas: whoever swallows an idea is filled, but that idea is erased in that instant from every mind, anywhere in the world. To eat an idea you must understand it completely, and one you already believe no longer fills you, so people change their beliefs in order to have something on the table. Libraries are granaries, and rich cities are those that have stored ideas not yet cooked, while hunger in small towns is measured in burned books rather than empty barns. The cooks are philosophers who knead great ideas into small pieces, because an idea eaten whole kills a person, and one badly understood leaves him hungry and ill. Whoever can grasp nothing new is fed by force, like a sick man, and the guards of ideas, forbidden to read what they watch over, starve beside full shelves."
+      },
+      "openings": {
+        "ro": [
+          "Filozoful Ariton trebuie să gătească pentru banchetul primăriei o idee care să sature două sute de oameni, dar singura idee destul de mare din bibliotecă este cea pe care se întemeiază orașul.",
+          "O femeie își vede fiul slăbind, fiindcă băiatul nu mai poate crede nimic nou; singurul leac este o idee pe care ea o iubește și pe care, dacă o dă fiului ei, o va pierde pentru totdeauna din mintea ei.",
+          "Paznicul bibliotecii are ordin să nu citească nimic din ce străjuiește și numără zilele până la moarte, iar în noaptea aceea unul dintre rafturi este spart de hoți care vor să mănânce o idee mare.",
+          "La masa de seară, un bătrân povestește o idee pe care o ținea pentru bătrânețe, iar familia trebuie să hotărască dacă o mănâncă toți împreună și o pierd, sau îl lasă pe el să moară flămând ca s-o păstreze."
+        ],
+        "en": [
+          "Philosopher Ariton must cook for the town hall banquet an idea that will fill two hundred people, but the only idea in the library large enough is the one the city is founded on.",
+          "A woman watches her son grow thin, because the boy can no longer believe anything new; the only remedy is an idea she loves, and if she gives it to him she will lose it from her own mind forever.",
+          "The library guard is ordered not to read anything he watches over and counts the days until he dies, and that night one of the shelves is broken by thieves who mean to eat a great idea.",
+          "At the evening meal an old man tells an idea he had kept for his old age, and the family must decide whether to eat it together and lose it, or let him starve to keep it."
+        ]
+      }
+    },
+    {
+      "id": "magic-dimensiune-idei-foame",
+      "tags": [
+        "idei",
+        "pomenire",
+        "foame"
+      ],
+      "title": {
+        "ro": "Universul în care oamenii se hrănesc cu gândurile pe care le poartă alții despre ei",
+        "en": "A universe where people feed on the thoughts others carry about them"
+      },
+      "law": {
+        "ro": "Hrana nu se cumpără și nu se cultivă: fiecare om se hrănește cu gândurile pe care le poartă alții despre el, iar satul se satură după cât de des își amintesc străinii de el. Un om la care nu se gândește nimeni flămânzește, chiar dacă are pâine în casă, iar unul despre care vorbește un oraș întreg se îngrașă fără să mănânce nimic. De aceea se plătește pentru pomenire: breslele țin oameni care rostesc numele clienților la răscruci, la fântâni și pe poduri, de trei ori pe zi, câte un ban pentru fiecare pomenire. Gândurile rele hrănesc și ele, dar hrănesc strâmb: cine este urât de mulți ajunge gras și bolnav, iar poveștile locului spun despre primari care au plesnit de ură. Cine își schimbă numele o face cu foame asumată, fiindcă toate gândurile purtate despre numele vechi nu mai ajung la el și se risipesc peste străini.",
+        "en": "Food is neither bought nor grown: every person feeds on the thoughts others carry about him, and a village is filled according to how often strangers remember it. Someone nobody thinks about goes hungry even with bread in the house, while someone a whole city talks about grows fat without eating anything. So remembrance is paid for: guilds keep people who speak the names of their clients at crossroads, at wells and on bridges three times a day, one coin for each mention. Wicked thoughts also feed, but they feed crookedly: whoever is hated by many grows fat and sick, and local tales tell of mayors who burst from hatred. Whoever changes his name does so with hunger accepted, because all the thoughts carried about the old name no longer reach him and scatter over strangers."
+      },
+      "openings": {
+        "ro": [
+          "Bătrâna Ana nu mai are bani pentru pomeniri, iar fiul ei, plecat în alt ținut, nu se gândește la ea de un an; fata ei are o singură zi ca să găsească pe cineva care să rostească numele bătrânei la răscruce.",
+          "Un pomenitor este prins de primar că strigă douăzeci de nume într-un ceas, iar oamenii din listă, hrăniți fără să știe, trebuie acum să plătească datoria de gânduri pe care nimeni nu a dat-o cu voie.",
+          "Un tânăr îndrăgostit descoperă că iubita lui se hrănește din gândurile rele pe care le poartă dușmanul ei, și că singura cale de a o salva este să se facă urât de tot orașul.",
+          "Dascălul satului își schimbă numele ca să scape de o ură veche, iar a doua zi slăbește văzând cu ochii, fiindcă toate gândurile care îl țineau în viață rătăcesc acum pe ulițe după un nume care nu mai există."
+        ],
+        "en": [
+          "Old Ana has no more money for mentions, and her son, gone to another land, has not thought of her in a year; her daughter has one day to find someone to speak the old woman's name at the crossroads.",
+          "A professional rememberer is caught by the mayor shouting twenty names in an hour, and the people on his list, fed without knowing it, must now pay for thoughts nobody gave willingly.",
+          "A young man in love discovers that his beloved feeds on the wicked thoughts her enemy carries, and that the only way to save her is to make himself hated by the whole town.",
+          "The village teacher changes his name to escape an old hatred, and the next day he wastes away before everyone's eyes, because all the thoughts that kept him alive now wander the lanes after a name that no longer exists."
+        ]
+      }
+    },
+    {
+      "id": "magic-pact-ultimul-nascut",
+      "tags": [
+        "pact",
+        "familie",
+        "chezășie"
+      ],
+      "title": {
+        "ro": "Universul în care un pact cere chezășie pe membrul familiei născut cel mai recent",
+        "en": "A universe where a pact demands as surety the family member born most recently"
+      },
+      "law": {
+        "ro": "Când se încheie un pact cu o ființă de dincolo, chezășia nu este sufletul semnatarului, ci membrul familiei născut cel mai recent în ziua aceea, care rămâne legat de pact fără să fi semnat nimic. Legătura se mută singură când se naște alt copil: chezășul de ieri devine liber, iar nou-născutul preia datoria în clipa în care i se taie buricul. Chezășul nu poate refuza nicio cerere a celeilalte părți, oricât de grea, dar nici nu poate fi ucis pentru ea, fiindcă un chezăș mort lasă pactul să cadă întreg asupra celui care l-a încheiat. De aceea familiile care au pacte țin lista nașterilor sub cheie și plătesc moașe să scrie altă zi, iar unele nasc copii pe ascuns, numai ca să scape un frate mai mare. Cine dezvăluie o naștere ascunsă primește jumătate din ce cere pactul, iar cine ucide un chezăș plătește datoria întreagă, cu dobânda strămoșilor.",
+        "en": "When a pact is concluded with a being from beyond, the surety is not the signer's soul but the family member born most recently on that day, who remains bound to the pact without having signed anything. The bond moves by itself when another child is born: yesterday's surety goes free, and the newborn takes up the debt the moment its cord is cut. A surety may refuse no request from the other party, however heavy, but may not be killed for it either, because a dead surety lets the pact fall whole upon the one who concluded it. So families holding pacts keep the list of births under lock and pay midwives to write a different day, and some bear children in secret merely to free an older brother. Whoever reveals a hidden birth receives half of what the pact demands, and whoever kills a surety pays the whole debt, with the interest of the ancestors."
+      },
+      "openings": {
+        "ro": [
+          "Noul-născut al familiei Barbu are trei zile, iar pactul bunicului ceruse deja, dimineață, ca cineva să meargă la moară pe timp de furtună; moașa așteaptă să vadă dacă numele copilului se scrie sau se ascunde.",
+          "Un frate mai mare se duce la primărie ca să declare nașterea surorii lui, ca să scape el de cererile pactului, iar funcționarul îi explică ce se întâmplă cu un copil care devine chezăș la două ceasuri după naștere.",
+          "Tatăl află că fiul lui de doisprezece ani a primit a doua cerere a pactului, iar băiatul nu mai poate spune decât că cererea îl cheamă într-un loc fără nume; familia are o noapte să hotărască dacă ascunde cererea sau o îndeplinește.",
+          "O femeie însărcinată este plătită de o altă familie să nască în aceeași zi cu copilul lor, ca chezășia să treacă de la unul la altul; ea trebuie să decidă dacă primește banii sau spune totul judecătorului."
+        ],
+        "en": [
+          "The newborn of the Barbu family is three days old, and the grandfather's pact asked that same morning for someone to walk to the mill in the storm; the midwife is waiting to see whether the child's name is written or hidden.",
+          "An older brother goes to the town hall to declare his sister's birth so that he may escape the pact's demands, and the clerk explains to him what happens to a child who becomes a surety two hours after being born.",
+          "A father learns that his twelve-year-old son has received the pact's second request, and the boy can only say that the request calls him to a place with no name; the family has one night to decide whether to hide the request or fulfil it.",
+          "A pregnant woman is paid by another family to give birth on the same day as their child, so that the surety passes from one to the other; she must decide whether to take the money or tell the judge everything."
+        ]
+      }
+    },
+    {
+      "id": "magic-pact-ultimul-nascut-lista",
+      "tags": [
+        "pact",
+        "registru",
+        "funcționari"
+      ],
+      "title": {
+        "ro": "Universul în care registratura hotărăște cine este chezășul pactului, iar locurile din carte se vând",
+        "en": "A universe where the registry decides who is the pact's surety, and places in the book are sold"
+      },
+      "law": {
+        "ro": "Chezășul nu îl alege familia, ci registratura: pactul se leagă de membrul care apare ultimul în cartea de nașteri a orașului, așa cum este ea ținută de funcționari. Funcționarii pot muta o linie, dar fiecare mutare se plătește cu un an din viața celui care o cere și se anunță public, ca să nu se facă în ascuns. Copiii nenăscuți au un loc rezervat în registru, iar locurile se pot vinde și moșteni, așa că familiile bogate cumpără dinainte locuri care să-i scape de pact. O naștere nedeclarată în zece zile iese din socoteală, iar copilul acela crește liber, dar nu poate lua nume, nu poate moșteni și nu poate cere dreptate la judecată. Cine ascunde o naștere ori mută o linie pe ascuns plătește cu douăzeci de ani din viață, iar anii luați se adaugă la termenul pactului, ca preț al minciunii.",
+        "en": "The surety is chosen not by the family but by the registry: the pact binds the member who appears last in the town's birth book, exactly as the clerks keep it. Clerks may move a line, but every move is paid for with one year of the requester's life and is announced publicly, so that nothing is done in secret. Unborn children have a reserved place in the registry, and places can be sold and inherited, so rich families buy in advance the places that will save them from the pact. A birth undeclared within ten days drops out of the account, and that child grows up free but can take no name, inherit nothing and ask no justice in court. Whoever hides a birth or moves a line in secret pays twenty years of his life, and the years taken are added to the pact's term as the price of the lie."
+      },
+      "openings": {
+        "ro": [
+          "Un funcționar tânăr descoperă că ultima linie din cartea de nașteri a fost scrisă cu cerneală proaspătă peste o linie veche, iar copilul însemnat astfel este chiar fiul lui, născut acum șase ani.",
+          "O familie săracă vrea să cumpere un loc rezervat pentru copilul nenăscut, iar singurul loc disponibil este al unei familii bogate care îl vinde la prețul a nouă ani de muncă ai tatălui.",
+          "Femeia refuză să dea copilul la registratură în zece zile, ca să-l scape de pact, iar soțul o amenință că fără acte copilul nu va putea moșteni casa și nu va fi crezut la judecată niciodată.",
+          "Un pact vechi cere astăzi un nume, iar registratorul trebuie să citească în fața sălii pline cine este ultimul născut; pe bancă stau două mame, fiecare cu certificatul în mână, iar unul dintre acte este fals."
+        ],
+        "en": [
+          "A young clerk discovers that the last line in the birth book was written in fresh ink over an older line, and the child marked that way is his own son, born six years ago.",
+          "A poor family wants to buy a reserved place for an unborn child, and the only place available belongs to a rich family that sells it for the price of nine years of the father's work.",
+          "The woman refuses to bring the child to the registry within ten days in order to save it from the pact, and her husband threatens that without papers the child will never inherit the house and will never be believed in court.",
+          "An old pact demands a name today, and the registrar must read out before the crowded hall which child is the last born; two mothers sit on the bench, each with a certificate in hand, and one of the papers is false."
+        ]
+      }
+    },
+    {
+      "id": "magic-labirint-vina",
+      "tags": [
+        "labirint",
+        "vină",
+        "judecată"
+      ],
+      "title": {
+        "ro": "Universul labirintului care își schimbă coridoarele după vina celui care merge, nu după hartă",
+        "en": "A universe of a labyrinth whose corridors shift by the walker's guilt, not by any map"
+      },
+      "law": {
+        "ro": "Labirintul nu are hartă, ci memorie: coridoarele se rearanjează după vina celui care merge, astfel încât ușile să se deschidă spre ce a făcut și niciodată spre ieșire. Un om fără vină iese repede, fiindcă pereții îi ies în cale ca niște vecini politicoși, iar unul vinovat ajunge în câteva ceasuri exact acolo unde nu vrea, adică la urma faptei lui. Labirintul socotește convingerea, nu legea: cine se crede nevinovat, fie și pe nedrept, rătăcește până moare de bătrânețe înăuntru, iar cine se învinuiește pentru ce nu a făcut iese repede, cu sufletul greu. De aceea vinovații își ascund faptele de ei înșiși, iar preoții labirintului umblă cu întrebări scurte, ca să nu trezească amintirea care ar schimba drumul. Cine intră cu lumină aprinsă vede pereții mișcându-se și înnebunește, fiindcă rânduiala labirintului se arată numai celui care merge pe pipăite.",
+        "en": "The labyrinth has no map but a memory: the corridors rearrange by the guilt of the one walking, so that doors open onto what he has done and never onto a way out. A person without guilt gets out quickly, because the walls step aside like polite neighbours, while a guilty one arrives within hours exactly where he does not want to be, that is, at the trace of his deed. The labyrinth counts conviction, not law: whoever believes himself innocent, even unjustly, wanders until he dies of old age inside, while whoever blames himself for what he never did gets out quickly, with a heavy soul. So the guilty hide their deeds from themselves, and the labyrinth's priests walk with short questions, so as not to wake the memory that would change the road. Whoever enters with a lit lamp sees the walls moving and goes mad, because the order of the labyrinth is shown only to those who walk by touch."
+      },
+      "openings": {
+        "ro": [
+          "Un om nevinovat de furt este trimis în labirint ca pedeapsă, iar preotul care îl însoțește până la poartă trebuie să-l convingă să se învinuiască pentru ceva ce nu a făcut, altfel bărbatul va muri bătrân printre pereți.",
+          "O femeie intră după fiul ei, care a fugit în labirint acum o lună, și descoperă că drumul ei se încurcă din ce în ce mai rău, fiindcă ea însăși crede că este vinovată de fuga băiatului.",
+          "Judecătorul are un singur martor credibil împotriva unui om puternic, iar martorul a fost deja aruncat în labirint; cineva trebuie să intre după el și să-l scoată înainte de a-și uita mărturia.",
+          "Un om care a ucis din milă intră în labirint cu tolba plină de provizii și cu o lanternă, iar paznicii îl avertizează că numai cei care merg pe pipăite ies întregi, dar el nu crede că a greșit."
+        ],
+        "en": [
+          "An innocent man is sent into the labyrinth as punishment, and the priest who walks him to the gate must persuade him to blame himself for something he never did, or the man will die of old age between the walls.",
+          "A woman goes in after her son, who fled into the labyrinth a month ago, and finds that her own path tangles worse and worse, because she herself believes she is guilty of the boy's flight.",
+          "A judge has a single credible witness against a powerful man, and the witness has already been thrown into the labyrinth; someone must go in after him and bring him out before he forgets his testimony.",
+          "A man who killed out of mercy enters the labyrinth with a full satchel and a lamp, and the guards warn him that only those who walk by touch come out whole, but he does not believe he has done wrong."
+        ]
+      }
+    },
+    {
+      "id": "magic-labirint-vina-marturie",
+      "tags": [
+        "labirint",
+        "acuzație",
+        "sarcini"
+      ],
+      "title": {
+        "ro": "Universul labirintului care își mută coridoarele după numărul de acuzatori, nu după fapte",
+        "en": "A universe of a labyrinth that shifts its corridors by the number of accusers, not by deeds"
+      },
+      "law": {
+        "ro": "Labirintul se rearanjează după vină, dar vina nu o măsoară faptele, ci numărul de acuzatori: cine are mai multe degete îndreptate spre el stă mai aproape de centru, iar centrul este locul din care nu se iese. Acuza se poate face oricând și de către oricine, spunându-se numele la intrare; nu se cere dovadă, doar curajul de a răspunde dacă acuzatul iese vreodată afară. Sarcina se mută ca un sac: dacă cineva primește asupra lui acuzația altuia, luând-o pe numele lui în fața martorilor, cel scăpat iese pe loc, iar cel nou intră până la mijlocul labirintului. De aceea la porți stau birje cu oameni plătiți să preia acuzații, iar un bogat poate cumpăra nouăsprezece sarcini într-o zi și rămâne totuși la margine. Cine acuză fără să poată plăti birja plătește cu picioarele: intră atât cât a acuzat, o zi pentru fiecare acuzare nedovedită.",
+        "en": "The labyrinth rearranges by guilt, but guilt is measured not by deeds but by the number of accusers: whoever has more fingers pointed at him stands nearer the centre, and the centre is the place from which there is no way out. An accusation may be made at any time by anyone, by speaking a name at the entrance; no proof is required, only the courage to answer if the accused ever comes out again. The burden shifts like a sack: if someone takes another's accusation upon himself, taking it in his own name before witnesses, the one released walks out at once and the new one goes in as far as the middle. So at the gates stand hired men paid to take on accusations, and a rich man can buy nineteen burdens in a day and still remain at the edge. Whoever accuses without being able to pay the hire pays with his feet: he goes in as deep as he accused, one day for every unproven charge."
+      },
+      "openings": {
+        "ro": [
+          "Un om sărac este acuzat de nouă vecini pentru o moarte pe care nu a văzut-o, iar sora lui are o singură zi să găsească nouă birjari care să preia acuzațiile, cu bani pe care nu-i are.",
+          "Un bogat intră în labirint ca să-și viziteze dușmanul, dar la intrare cineva strigă numele lui, iar acum are două sarcini: a lui, moștenită, și cea nouă, care îl trage spre centru.",
+          "Preotul labirintului refuză să primească o acuzare scrisă pe numele unui copil de șase ani, iar părinții copilului insistă că numele lor nu mai valorează nimic, fiindcă fiecare zi de așteptare mută centrul mai aproape.",
+          "La judecata de la poartă, doi frați se ceartă pe aceeași acuzație: fiecare susține că a strigat-o el, ca să intre în locul celuilalt, iar martorii trebuie să spună cine a fost primul."
+        ],
+        "en": [
+          "A poor man is accused by nine neighbours of a death he never saw, and his sister has one day to find nine hired men to take on the accusations, with money she does not have.",
+          "A rich man enters the labyrinth to visit his enemy, but at the entrance someone shouts his name, and now he carries two burdens: his own, inherited, and the new one, which drags him toward the centre.",
+          "The labyrinth's priest refuses to accept an accusation written in the name of a six-year-old child, while the child's parents insist that their own names are worth nothing now, since every day of waiting moves the centre closer.",
+          "At the trial at the gate two brothers quarrel over the same accusation: each claims he shouted it, so as to go in for the other, and the witnesses must say who was first."
+        ]
+      }
+    },
+    {
+      "id": "magic-umbre-negociaza",
+      "tags": [
+        "umbre",
+        "taine",
+        "contract"
+      ],
+      "title": {
+        "ro": "Universul în care umbrele trăiesc separat și își vând tăcerea pe ore din viața trupului",
+        "en": "A universe where shadows live apart and sell their silence for hours of the body's life"
+      },
+      "law": {
+        "ro": "Umbra fiecărui om este o ființă de sine stătătoare, care a văzut tot ce a făcut trupul și își ține amintirile separat, fără să poată minți vreodată. Umbra nu vorbește în timpul zilei, dar la amurg se ridică în picioare și intră în negociere: tăcerea ei se cumpără cu ore din viața trupului, iar prețul obișnuit este o zi de viață pentru fiecare taină păstrată. Trupul și umbra sunt legate printr-o rânduială zilnică: dacă stau despărțite mai mult de un ceas la răsărit ori la apus, amândouă se subțiază, iar după trei zile se șterg. Umbrele se sfătuiesc între ele la miezul nopții, când toate se întind pe același pământ, așa că prețul cerut crește în orașele unde mulți oameni au taine grele. Cine își vinde umbra altcuiva nu scapă de ea: umbra rămâne lipită de cumpărător, iar tainele vândute se strigă la următorul amurg, în piață, de gura noului stăpân.",
+        "en": "Every person's shadow is a being in its own right, which has seen everything the body did and keeps its memories separately, and which can never lie. A shadow does not speak during the day, but at dusk it stands up and enters into bargaining: its silence is bought with hours of the body's life, and the usual price is one day of life for every secret kept. Body and shadow are bound by a daily order: if they stay apart for more than an hour at sunrise or sunset, both thin out, and after three days they are erased. Shadows confer among themselves at midnight, when all of them lie stretched on the same ground, so the price they ask rises in towns where many people carry heavy secrets. Whoever sells his shadow to another does not get rid of it: the shadow stays attached to the buyer, and the secrets sold are shouted at the next dusk, in the square, by the mouth of its new master."
+      },
+      "openings": {
+        "ro": [
+          "Negustorul Ion a ascuns un omor, iar umbra lui cere, la fiecare amurg, câte o zi de viață pentru tăcere; după două luni, negustorul se târăște, iar umbra stă dreaptă și îi numără anii rămași.",
+          "Fiica află că tatăl ei a vândut umbra unui străin, ca să plătească o datorie, iar la amurgul următor casa lor se umple de oameni care ascultă ce strigă umbra cumpărată.",
+          "Un om fură umbra altuia cu o vrajă scurtă și o ascunde într-o pivniță, dar descoperă că furând umbra a luat asupra lui și toate tainele celui păgubit, pe care nu are de gând să le păzească.",
+          "La tribunalul din oraș, un martor jură că a văzut totul cu ochii lui, iar judecătorul îi cere să-și ridice umbra în amurg și să lase umbra să depună mărturie, fiindcă numai umbra nu poate minți."
+        ],
+        "en": [
+          "Merchant Ion has hidden a killing, and every dusk his shadow demands a day of life for its silence; after two months the merchant crawls while the shadow stands upright, counting the years he has left.",
+          "A daughter learns that her father sold his shadow to a stranger to pay a debt, and at the next dusk their house fills with people listening to what the bought shadow shouts.",
+          "A man steals another's shadow with a short spell and hides it in a cellar, but discovers that by stealing the shadow he has taken upon himself all the secrets of the man he robbed, which he has no intention of guarding.",
+          "At the town court a witness swears he saw everything with his own eyes, and the judge asks him to raise his shadow at dusk and let the shadow testify, because only a shadow cannot lie."
+        ]
+      }
+    },
+    {
+      "id": "magic-umbre-negociaza-sindicate",
+      "tags": [
+        "umbre",
+        "grevă",
+        "martori"
+      ],
+      "title": {
+        "ro": "Universul în care umbrele s-au unit în bresle și pot intra în grevă, lăsând oamenii fără martori",
+        "en": "A universe where shadows have joined guilds and may strike, leaving people without witnesses"
+      },
+      "law": {
+        "ro": "Umbrele s-au unit în bresle, iar de un veac pot intra în grevă: când se opresc, fiecare trup rămâne fără umbră până la înțelegere. Un om fără umbră nu poate fi martor: jurămintele lui nu se leagă, actele pe care le semnează nu se citesc în cancelarii, iar promisiunile lui se uită de toți cei care le aud. Breslele cer de obicei lucruri mărunte și greu de dat: o zi pe lună în care trupul nu se uită la nimeni, oprirea umbletului de noapte fără felinar și dreptul de a alege locul în care omul își îngroapă părinții. Un oraș în grevă se oprește în trei zile, fiindcă fără martori nu se fac târguri, judecăți ori căsătorii, iar stăpânii care calcă rânduiala rămân fără umbră pentru totdeauna și sunt alungați la marginea satului. Copiii umbrelor, dacă se nasc, nu au trup, ci numai întindere, și se închiriază ca martori de încredere celor care plătesc scump.",
+        "en": "The shadows have joined guilds, and for a century they have been able to strike: when they stop, every body stays without a shadow until a settlement is reached. A person without a shadow cannot be a witness: his oaths do not bind, the papers he signs are not read in the chanceries, and his promises are forgotten by everyone who hears them. The guilds usually demand small things that are hard to give: one day a month on which the body looks at nobody, an end to walking at night without a lantern, and the right to choose where a man buries his parents. A town on strike halts within three days, because without witnesses there are no fairs, trials or marriages, and masters who break the order stay shadowless forever and are driven to the edge of the village. The children of shadows, if they are born, have no body but only extent, and they are rented out as trustworthy witnesses to those who pay dearly."
+      },
+      "openings": {
+        "ro": [
+          "Bresla umbrelor a anunțat grevă pentru mâine, chiar în ziua în care Ionel trebuie să semneze actul casei; fără umbră, semnătura lui nu va fi citită în cancelarie, iar vânzătorul așteaptă în ușă.",
+          "O femeie vrea să-și îngroape mama într-un loc ales de ea, dar umbra ei cere în schimb trei zile pe lună în care stăpâna să nu se uite la nimeni, nici măcar la copilul ei bolnav.",
+          "Un stăpân furios a bătut un om fără umbră și a rămas la rândul lui fără umbră; acum umblă prin târg cu actele în mână și nimeni nu-i citește hârtiile, nici chiar judecătorul căruia îi cere dreptate.",
+          "Orașul e în a doua zi de grevă, iar primarul trebuie să aleagă între a ceda breslei și a ține târgul deschis, știind că fără martori orice învoială făcută azi se va uita mâine."
+        ],
+        "en": [
+          "The shadows' guild has announced a strike for tomorrow, on the very day Ionel must sign the deed for his house; without a shadow his signature will not be read in the chancery, and the seller is waiting at the door.",
+          "A woman wants to bury her mother in a place of her own choosing, but her shadow asks in return for three days a month on which she looks at nobody, not even her sick child.",
+          "An angry master beat a man who had no shadow and was left shadowless in turn; now he walks the fair with papers in his hand and nobody reads his documents, not even the judge he is asking for justice.",
+          "The town is in the second day of the strike, and the mayor must choose between giving in to the guild and keeping the fair open, knowing that without witnesses any bargain made today will be forgotten tomorrow."
+        ]
+      }
+    },
+    {
+      "id": "magic-limba-finita",
+      "tags": [
+        "limbă",
+        "cuvinte",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care limba magică are patru mii patru sute douăsprezece cuvinte, iar fiecare se cheltuiește o dată",
+        "en": "A universe where the magic language has four thousand four hundred and twelve words, each spent once"
+      },
+      "law": {
+        "ro": "Limba magică are un vocabular finit și numit: patru mii patru sute douăsprezece cuvinte, nici unul mai mult, iar numărul nu se poate mări niciodată. Fiecare cuvânt se poate rosti o singură dată în viața unui om și se cheltuiește la rostire: cine l-a folosit nu-l mai are, iar în cartea lui de cuvinte rămâne o linie tăiată. Copiii primesc la naștere un catastif cu toate cuvintele, iar familiile economisesc ani întregi un cuvânt greu, care se moștenește numai dacă moare cineva fără să-l fi rostit. Cuvintele nu se pot împrumuta, nu se pot vinde și nu se pot scrie ca să fie citite, fiindcă rostirea este parte din ele și un cuvânt scris nu lucrează. Cine rămâne fără toate cuvintele nu mai vorbește limba magică, dar aude tot ce se rostește în ea de la trei zile depărtare, și de aceea este căutat ca martor la târguri.",
+        "en": "The magic language has a finite and numbered vocabulary: four thousand four hundred and twelve words, not one more, and the count can never be increased. Each word may be spoken once in a person's life and is spent in the speaking: whoever has used it no longer has it, and a struck line remains in his book of words. Children receive at birth a ledger with all the words, and families save a heavy word for years, which is inherited only if someone dies without having spoken it. Words can be neither lent nor sold nor written down to be read, because the speaking is part of them and a written word does not work. Whoever is left without any words no longer speaks the magic language, but hears everything spoken in it from three days away, and is therefore sought as a witness at fairs."
+      },
+      "openings": {
+        "ro": [
+          "Fata are douăzeci de ani și i-au mai rămas nouă cuvinte, iar tatăl ei, bolnav, o roagă să rostească unul singur ca să-l țină în viață până la seceriș; ea trebuie să aleagă dacă își cheltuie zestrea pe o lună de viață a lui.",
+          "La târg, un om care nu mai are niciun cuvânt stă pe butuc și ascultă vrăjile altora, fiindcă aude tot ce se rostește în limba magică de la trei zile depărtare, iar negustorii plătesc bine ca să afle ce s-a jurat în alte sate.",
+          "Doi frați moștenesc cartea de cuvinte a bunicii, iar în catastif o linie este tăiată fără ca nimeni să-și amintească cine a rostit cuvântul acela; bătrânul familiei trebuie să spună ce s-a făcut cu el.",
+          "Un vrăjitor străin cere un cuvânt din cele nouă ale fetei ca plată pentru a scoate piatra din fântână, iar satul așteaptă apă, în timp ce ea socotește câți ani de viață valorează cuvântul."
+        ],
+        "en": [
+          "The girl is twenty and has nine words left, and her sick father begs her to speak just one to keep him alive until harvest; she must choose whether to spend her dowry on a month of his life.",
+          "At the fair a man who has no words left sits on a stump and listens to other people's spells, because he hears everything spoken in the magic language from three days away, and merchants pay well to learn what has been sworn in other villages.",
+          "Two brothers inherit their grandmother's book of words, and in the ledger one line is struck out with nobody remembering who spoke that word; the family elder must say what was done with it.",
+          "A foreign sorcerer asks for one of the girl's nine words as payment for lifting a stone out of the well, and the village waits for water while she reckons how many years of life the word is worth."
+        ]
+      }
+    },
+    {
+      "id": "magic-limba-finita-imprumut",
+      "tags": [
+        "limbă",
+        "cotă",
+        "rostire"
+      ],
+      "title": {
+        "ro": "Universul în care statul dă fiecărui cetățean trei cuvinte magice pe an, iar rostirea se poate cumpăra",
+        "en": "A universe where the state grants each citizen three magic words a year, and speaking can be bought"
+      },
+      "law": {
+        "ro": "Cuvintele limbii magice sunt proprietate obștească: fiecare cetățean primește de la cancelarie trei cuvinte pe an, însemnate în pașaport, iar restul stă în tezaurul statului. Cuvintele primite se pot închiria altuia pe un an, cu acte și cu martori, dar nu se pot vinde pentru totdeauna, iar cel care le închiriază rămâne răspunzător pentru ce se face cu ele. Cine vrea să rostească un cuvânt din gura altcuiva poate cumpăra rostirea: plătește un om să spună vorba, dar vraja ascultă de gura care a rostit-o, niciodată de cea care a plătit. Un funcționar al cancelariei poate opri două cuvinte pe an din cota oricui, ca rezervă pentru nevoi obștești, iar oprirea se publică în foiță, cu numele celui păgubit. Cine rostește un cuvânt nefolosit din cota altuia plătește un an de închisoare pentru fiecare silabă, iar datoria rămâne a celui înscris în pașaport.",
+        "en": "The words of the magic language are common property: every citizen receives three words a year from the chancery, recorded in his passport, and the rest stays in the state treasury. The words received may be rented to another for a year, with papers and witnesses, but never sold outright, and whoever rents them out remains answerable for what is done with them. Anyone who wants to speak a word through another's mouth can buy the speaking: he pays a man to say the word, but the spell obeys the mouth that spoke it, never the one that paid. A clerk of the chancery may withhold two words a year from anyone's quota as a reserve for common needs, and the withholding is published in a leaflet, with the name of the person deprived. Whoever speaks an unused word from another's quota pays a year in prison for every syllable, and the debt remains with the name written in the passport."
+      },
+      "openings": {
+        "ro": [
+          "Un țăran vrea să salveze recolta și are nevoie de cuvântul ploii, dar cota lui pe anul acesta s-a dus pe un leac pentru vacă; singura cale este să plătească un om să-l rostească, iar vraja va asculta de gura aceluia.",
+          "Funcționarul de la cancelarie i-a oprit femeii două cuvinte ca rezervă obștească, iar ea are trei zile să facă plângere, altfel fiul ei rănit nu mai poate fi vindecat până în primăvară.",
+          "Un om bogat închiriază pentru un an cuvintele a nouă săteni și le ține degeaba în pașaport, ca nimeni să nu poată stinge incendiul din pădure; primarul trebuie să decidă dacă încalcă legea și le ia cu sila.",
+          "La judecată, un vraci jură că nu el a rostit cuvântul, ci gura unui om plătit, iar judecătorul trebuie să spună pe cine pedepsește: pe cel care a plătit ori pe cel care a vorbit."
+        ],
+        "en": [
+          "A peasant wants to save his harvest and needs the word of rain, but his quota for this year went on a cure for his cow; the only way is to pay a man to speak it, and the spell will obey that man's mouth.",
+          "The chancery clerk has withheld two of the woman's words as a common reserve, and she has three days to lodge a complaint, or her wounded son cannot be healed before spring.",
+          "A rich man rents the words of nine villagers for a year and keeps them idle in his passport so that nobody can put out the forest fire; the mayor must decide whether to break the law and take them by force.",
+          "At the trial a sorcerer swears that he did not speak the word but the mouth of a paid man did, and the judge must say whom he punishes: the one who paid or the one who spoke."
+        ]
+      }
+    },
+    {
+      "id": "magic-popas-functionar",
+      "tags": [
+        "popas",
+        "funcționar",
+        "așteptare"
+      ],
+      "title": {
+        "ro": "Universul popasului dintre dimensiuni, ținut de un singur funcționar legat de ghișeul lui",
+        "en": "A universe of the waystation between dimensions, kept by a single clerk chained to his desk"
+      },
+      "law": {
+        "ro": "Popasul dintre dimensiuni are un singur funcționar, un singur ghișeu și un singur registru, iar funcționarul nu se poate îndepărta de ghișeu mai mult de doisprezece pași, fiindcă ghișeul este ancora popasului. Funcționarul nu are voie să refuze pe nimeni fără motiv scris, iar fiecare refuz se iscălește în registru cu numele celui refuzat și cu ziua în care se poate întoarce. Trecerea nu se plătește cu bani, ci cu așteptare: fiecare călător lasă la popas un număr de zile din viața lui, iar zilele se strâng în registru și țin popasul deschis. Popasul nu are noapte, fiindcă lumina arde cât timp există cereri nesoluționate, iar când registrul se golește popasul se închide și călătorii rămași îngheață în sala de așteptare. Funcționarul de acum slujește de patru sute șapte ani și pare de treizeci, fiindcă zilele lăsate de călători se adaugă la viața lui; oricine poate lua locul lui pentru o tură de o zi, dar tura nu se poate sfârși mai devreme.",
+        "en": "The waystation between dimensions has a single clerk, a single counter and a single register, and the clerk may not move more than twelve paces from the counter, because the counter is the anchor of the station. The clerk may refuse nobody without a written reason, and every refusal is signed in the register with the name of the person refused and the day on which he may return. Crossing is not paid in money but in waiting: each traveller leaves at the station a number of days of his life, and the days gather in the register and keep the station open. The station has no night, because the light burns as long as there are unsettled requests, and when the register empties the station closes and the travellers left behind freeze in the waiting hall. The present clerk has served for four hundred and seven years and looks thirty, because the days left by travellers are added to his life; anyone may take his place for a shift of one day, but the shift cannot end earlier."
+      },
+      "openings": {
+        "ro": [
+          "O femeie cu doi copii stă de nouă zile în sala de așteptare, iar funcționarul îi spune că mai are nevoie de un an din viața ei ca să-i deschidă trecerea; ea socotește dacă poate plăti din anii care i-au rămas ori trebuie să întrebe copiii.",
+          "Funcționarul primește ordin scris să refuze toți călătorii fără hârtii de la o anumită dimensiune, iar la rând stă chiar fratele lui, care nu poate dovedi de unde vine; refuzul trebuie iscălit, cu nume și dată.",
+          "Un tânăr cere să ia locul funcționarului pentru o tură de o zi, ca să-și caute sora în registru, iar funcționarul îl avertizează că tura nu se poate sfârși mai devreme, oricâte zile lasă călătorii la ghișeu.",
+          "Registrul s-a golit în noaptea aceea, iar popasul a început să se stingă; funcționarul are o singură oră să găsească un călător care să lase măcar o zi, altfel toți cei din sală îngheață până vine altcineva."
+        ],
+        "en": [
+          "A woman with two children has waited nine days in the hall, and the clerk tells her he needs one more year of her life to open the crossing; she reckons whether she can pay from the years left to her or must ask the children.",
+          "The clerk receives a written order to refuse all travellers lacking papers from a certain dimension, and waiting in line is his own brother, who cannot prove where he comes from; the refusal must be signed, with a name and a date.",
+          "A young man asks to take the clerk's place for a shift of one day so he can search the register for his sister, and the clerk warns him that the shift cannot end earlier, however many days the travellers leave at the counter.",
+          "The register emptied that night and the station began to dim; the clerk has one hour to find a traveller who will leave at least one day, or everyone in the hall freezes until someone else arrives."
+        ]
+      }
+    },
+    {
+      "id": "magic-vraji-imprumutate",
+      "tags": [
+        "vrăji",
+        "împrumut",
+        "termen"
+      ],
+      "title": {
+        "ro": "Universul în care vrăjile se împrumută pe termen, iar la scadență se întorc cu tot ce au făcut",
+        "en": "A universe where spells are lent on term, and at maturity they return with everything they have done"
+      },
+      "law": {
+        "ro": "O vrajă se poate împrumuta ca o unealtă: cine a rostit-o poate da dreptul de folosire altuia pe un termen scris, în fața unui grefier, cu preț și cu martori. Cât timp împrumutul ține, vraja ascultă de împrumutat, chiar și împotriva celui care a rostit-o, iar la termen ea se întoarce la stăpân împreună cu tot ce a făcut. Întoarcerea este partea grea: o vrajă care a omorât se întoarce aducând un omor, una care a vindecat aduce o vindecare, așa că împrumutătorii de vrăji ucigașe își sapă singuri mormântul. Cine nu restituie la termen nu plătește amendă, ci devine el însuși vrajă: se topește în ea și se rostește de atunci încolo numai la cererea stăpânului. Armatele împrumută vrăji grele pe treizeci de zile și le restituie rar, iar moștenitorii celor care au dat cu împrumut se judecă ani întregi pentru ceea ce aduce vraja înapoi.",
+        "en": "A spell may be lent like a tool: whoever spoke it may grant the right of use to another for a written term, before a clerk, with a price and witnesses. While the loan lasts, the spell obeys the borrower, even against the one who spoke it, and at maturity it returns to its owner together with everything it has done. The return is the hard part: a spell that killed comes back bringing a killing, one that healed brings a healing, so lenders of deadly spells dig their own graves. Whoever fails to return it at the term pays no fine but becomes a spell himself: he melts into it and is spoken from then on only at the owner's request. Armies borrow heavy spells for thirty days and rarely return them, and the heirs of those who lent them litigate for years over what the spell brings back."
+      },
+      "openings": {
+        "ro": [
+          "Un vraci bătrân a împrumutat o vrajă de vindecare unei femei, pe o lună, iar femeia a folosit-o în douăsprezece sate; la scadență, vraciul trebuie să primească înapoi toate cele douăsprezece vindecări deodată, într-un singur trup bătrân.",
+          "Comandantul cere un împrumut de treizeci de zile pentru o vrajă de foc, iar grefierul îi arată actul din care reiese că restituirea va aduce înapoi fiecare casă arsă, în ograda celui care a dat vraja.",
+          "Un om care a luat cu împrumut o vrajă de somn nu o mai poate restitui la termen, fiindcă a vândut dreptul mai departe; grefierul îi explică ce se întâmplă cu un om care devine vrajă, iar el are o zi să aleagă.",
+          "Moștenitorii unui vraci mort se ceartă pe o vrajă împrumutată de mult: cine o ține plătește pentru ce aduce înapoi, iar actul vechi nu spune cine este stăpânul de acum."
+        ],
+        "en": [
+          "An old sorcerer lent a healing spell to a woman for a month, and the woman used it in twelve villages; at maturity the sorcerer must receive all twelve healings at once, in one old body.",
+          "A commander asks for a thirty-day loan of a spell of fire, and the clerk shows him the deed stating that the return will bring back every burned house into the yard of the one who lent the spell.",
+          "A man who borrowed a spell of sleep cannot return it at the term, because he has sold the right on; the clerk explains to him what happens to a man who becomes a spell, and he has one day to choose.",
+          "The heirs of a dead sorcerer quarrel over a spell lent long ago: whoever holds it pays for what it brings back, and the old deed does not say who the owner is now."
+        ]
+      }
+    },
+    {
+      "id": "magic-nume-cont-bancar",
+      "tags": [
+        "nume",
+        "cont",
+        "datorii"
+      ],
+      "title": {
+        "ro": "Universul în care numele adevărat este un cont din care oricine îl cunoaște poate scoate",
+        "en": "A universe where the true name is an account anyone who knows it can draw on"
+      },
+      "law": {
+        "ro": "Numele adevărat al omului este un cont: în el stau puterea, sănătatea și norocul lui, care se pot depune, scoate și împrumuta ca la o bancă. Cine cunoaște numele adevărat al altuia poate scoate din el fără voia stăpânului, iar retragerile se văd abia după ce se întâmplă: boală, ghinion, slăbiciune. Numele se moștenește, se ipotechează și se pune gaj pe datorii, așa că un copil se poate naște cu numele deja îndatorat până la rădăcină și nu poate lua nimic din el până nu plătește. Băncile de nume țin evidența depunerilor, iar un nume se poate bloca printr-o hotărâre, iar omul blocat se mișcă greu, vorbește rar și nu poate semna nimic până nu se deblochează. Cei săraci își vând silabele numelui pe bucățele, iar un om fără silabe nu se poate căsători, nu poate fi judecat și nu poate fi îngropat cu nume, ci doar aruncat în groapa obștei.",
+        "en": "A person's true name is an account: his strength, health and luck rest in it, and they may be deposited, withdrawn and lent as at a bank. Whoever knows another's true name can draw on it without the owner's consent, and the withdrawals become visible only after they happen: illness, misfortune, weakness. Names are inherited, mortgaged and pledged against debts, so a child can be born with his name already indebted to the root and can draw nothing from it until he pays. Name banks keep the record of deposits, and a name can be blocked by a ruling, while a blocked person moves slowly, speaks rarely and can sign nothing until he is unblocked. The poor sell the syllables of their name piece by piece, and a man without syllables cannot marry, cannot be tried and cannot be buried with a name, only thrown into the common pit."
+      },
+      "openings": {
+        "ro": [
+          "Un funcționar de bancă îi spune femeii că numele ei a fost gajat de bunicul ei pentru o datorie de acum șaptezeci de ani, iar ea nu poate scoate nimic din el: nici putere pentru muncă, nici sănătate pentru copil.",
+          "Un hoț aflat la ananghie vinde două silabe din numele lui ca să plătească un leac, iar acum nu se mai poate căsători cu femeia pe care o iubește, fiindcă preotul nu are ce să rostească la nuntă.",
+          "Un om priceput la socoteli descoperă că cineva scoate din numele lui de trei luni, câte puțin, și își dă seama că singurul care știe numele întreg este fratele lui, care are o datorie la cârciumă.",
+          "Un judecător trebuie să hotărască dacă blochează numele unui negustor care fugărește un hoț; dacă blochează, orașul rămâne fără grâne luna asta, iar dacă nu, hoțul scapă cu numele întreg în buzunar."
+        ],
+        "en": [
+          "A bank clerk tells the woman that her name was pledged by her grandfather for a debt seventy years old, and she can draw nothing from it: not strength for work, not health for her child.",
+          "A thief in dire need sells two syllables of his name to pay for a cure, and now he cannot marry the woman he loves, because the priest has nothing to say at the wedding.",
+          "A man good with figures discovers that someone has been drawing on his name for three months, a little at a time, and realises that the only person who knows the whole name is his brother, who owes money at the tavern.",
+          "A judge must decide whether to block the name of a merchant chasing a thief; if he blocks it the town goes without grain this month, and if he does not, the thief escapes with a whole name in his pocket."
+        ]
+      }
+    },
+    {
+      "id": "magic-trecere-varsta",
+      "tags": [
+        "dimensiuni",
+        "vârstă",
+        "vamă"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare trecere între dimensiuni schimbă vârsta călătorului, fără putință de întoarcere",
+        "en": "A universe where every crossing between dimensions changes the traveller's age, with no way back"
+      },
+      "law": {
+        "ro": "Fiecare trecere între dimensiuni schimbă vârsta călătorului cu deosebirea dintre cele două lumi: cine petrece o lună într-o lume în care anii curg de două ori mai repede se întoarce cu două luni mai bătrân, iar întoarcerea nu dă nimic înapoi. Copiii trimiși la școli dincolo se întorc bărbați și femei, iar bătrânii care se mută într-o lume cu ani scurți trăiesc acolo foarte mult, dar se rup de casă, fiindcă nu mai suportă deosebirea de vârstă dintre ei și cei rămași. Nimeni nu are voie să treacă mai mult de trei ori în viață, fiindcă a patra trecere rupe omul: trupul rămâne de o parte, amintirile de alta. Curierii sunt plătiți cu ani, nu cu bani, iar cei mai buni ajung să aibă treizeci de ani la șaisprezece și să moară de bătrânețe înaintea părinților lor. Registrul vămii ține socoteala fiecărei treceri, iar cine își ascunde vârsta la întoarcere este oprit la graniță până când deosebirea se plătește din anii lui, uneori cu viața.",
+        "en": "Every crossing between dimensions changes the traveller's age by the difference between the two worlds: whoever spends a month in a world where years run twice as fast returns two months older, and returning gives nothing back. Children sent to schools beyond come home as men and women, and old people who move to a world of short years live there very long but break with home, because they can no longer bear the age gap between themselves and those left behind. Nobody may cross more than three times in a lifetime, because the fourth crossing tears a person apart: the body stays on one side, the memories on the other. Couriers are paid in years, not money, and the best of them reach thirty at sixteen and die of old age before their parents. The customs register keeps the account of every crossing, and whoever hides his age on return is held at the border until the difference is paid from his own years, sometimes with his life."
+      },
+      "openings": {
+        "ro": [
+          "Femeia își trimite fiul de nouă ani la școala de dincolo, unde anii curg de trei ori mai repede, iar vameșul o întreabă dacă înțelege că băiatul se va întoarce bărbat înainte ca ea să împlinească patruzeci de ani.",
+          "Un curier are două treceri făcute și i se cere a treia, pentru un leac care se află dincolo; la vamă i se spune că, după socoteala anilor, se va întoarce mai bătrân decât tatăl lui.",
+          "O bătrână vrea să treacă într-o lume cu ani scurți, ca să mai trăiască, dar fiica ei o roagă să rămână, fiindcă la întoarcere nu va mai recunoaște pe nimeni și nimeni nu va recunoaște în ea rudele.",
+          "Vameșul descoperă în registru un om care a trecut de patru ori sub trei nume, iar acum trupul lui stă în sala vămii și amintirile lui umblă prin oraș, cerând acte pe care nimeni nu le poate elibera."
+        ],
+        "en": [
+          "The woman is sending her nine-year-old son to the school beyond, where years run three times faster, and the customs officer asks whether she understands that the boy will come back a man before she turns forty.",
+          "A courier has made two crossings and is asked to make a third, for a cure that lies beyond; at customs he is told that, by the count of years, he will return older than his own father.",
+          "An old woman wants to cross into a world of short years so as to live longer, but her daughter begs her to stay, because on return she will recognise nobody and nobody will recognise her as kin.",
+          "The customs officer finds in the register a man who crossed four times under three names, and now his body stands in the customs hall while his memories walk the town, demanding papers that nobody can issue."
+        ]
+      }
+    },
+    {
+      "id": "magic-tribunal-magie",
+      "tags": [
+        "tribunal",
+        "urme",
+        "pedepse"
+      ],
+      "title": {
+        "ro": "Universul tribunalului care citește urma fiecărei vrăji și pedepsește folosirea fără rânduială",
+        "en": "A universe of the tribunal that reads the trace of every spell and punishes use without due order"
+      },
+      "law": {
+        "ro": "Orice vrajă lasă o urmă care se citește un an întreg, iar tribunalul magiei poate citi urma și hotărî ce s-a făcut, chiar dacă vrăjitorul tace. Tribunalul nu pedepsește vrăjile rele, ci vrăjile folosite fără rânduială: o vrajă de moarte rostită pe față, cu martori și cu preț plătit, este lăsată în pace, iar una de vindecare dată pe ascuns se pedepsește. Cea mai grea pedeapsă este a doua citire: vraja se rostește iar, la preț dublu, în sala tribunalului, ca să se vadă într-un ceas ce s-a făcut într-un an. Cine pârăște pe nedrept trebuie să rostească el vraja în fața sălii, iar dacă nu are puterea s-o țină, urma se întoarce asupra lui. Sigiliul pe gură se dă celor care mint la tribunal: li se astupă un cuvânt din limbă pentru fiecare minciună, iar după nouă minciuni omul nu mai poate rosti nimic.",
+        "en": "Every spell leaves a trace that can be read for a whole year, and the tribunal of magic can read the trace and rule on what was done even if the sorcerer stays silent. The tribunal punishes not wicked spells but spells used without due order: a death spell spoken openly, with witnesses and a paid price, is left in peace, while a healing given in secret is punished. The heaviest sentence is the second reading: the spell is spoken again, at double price, in the tribunal hall, so that in one hour may be seen what was done in a year. Whoever accuses unjustly must speak the spell himself before the hall, and if he lacks the strength to hold it, the trace turns upon him. The seal on the mouth is given to those who lie at the tribunal: one word of the language is stopped for every lie, and after nine lies a person can speak nothing at all."
+      },
+      "openings": {
+        "ro": [
+          "Un vraci este chemat să răspundă pentru o vrajă de vindecare dată în ascuns unei fete, iar el știe că a doua citire în sală, la preț dublu, îl va lăsa fără trei ani de vedere.",
+          "O femeie pârăște pe nedrept un vecin, iar judecătorul o avertizează că va trebui să rostească ea vraja în sală; la a doua silabă, femeia simte urma întorcându-se spre ea.",
+          "Un negustor bogat vrea să cumpere urma unei vrăji din catastiful tribunalului, ca să afle cine i-a blestemat corăbiile, iar grefierul îi spune că vânzarea urmelor este pedepsită cu sigiliul pe gură.",
+          "La tribunal se judecă un om care a rostit nouă minciuni și nu mai poate vorbi deloc; avocatul lui trebuie să afle dacă tăcerea se pune în socoteală drept vinovăție sau drept pedeapsă ispășită."
+        ],
+        "en": [
+          "A sorcerer is summoned to answer for a healing secretly given to a girl, and he knows that a second reading in the hall, at double price, will leave him without three years of sight.",
+          "A woman accuses a neighbour unjustly, and the judge warns her that she will have to speak the spell herself in the hall; at the second syllable she feels the trace turning back upon her.",
+          "A rich merchant wants to buy from the tribunal's ledger the trace of a spell, to learn who cursed his ships, and the clerk tells him that traffic in traces is punished with the seal on the mouth.",
+          "The tribunal tries a man who has spoken nine lies and can no longer speak at all; his advocate must find out whether silence counts as guilt or as punishment already served."
+        ]
+      }
+    },
+    {
+      "id": "magic-pact-sange-nou",
+      "tags": [
+        "pact",
+        "sânge",
+        "generații"
+      ],
+      "title": {
+        "ro": "Universul în care pactele se răscumpără numai cu sângele celui născut după semnare",
+        "en": "A universe where pacts are redeemed only with the blood of one born after the signing"
+      },
+      "law": {
+        "ro": "Un pact încheiat se răscumpără numai cu sânge nou: o picătură de la cineva care nu era născut în ziua semnării, dată de bună voie, în fața martorilor. Sângele nou șterge o singură clauză, nu pactul întreg, iar pactele cu multe clauze cer generații întregi de copii, așa că familiile fac copii ca să plătească, nu ca să-i crească. Cel care dă sânge nou pierde pentru totdeauna putința de a avea copii, iar rana din palmă rămâne deschisă până moare, ca semn că datoria a fost plătită o dată. Cine plătește cu sânge furat, smuls ori luat de la un copil care nu înțelege ce dă nu răscumpără nimic, iar pactul primește dreptul de a cere alt sânge din același neam. Pactele vechi au liste de clauze mai lungi decât viața unui om, iar moașele țin socoteala copiilor născuți după semnare, fiindcă numai ei pot plăti.",
+        "en": "A concluded pact is redeemed only with new blood: a drop from someone who was not born on the day of signing, given willingly, before witnesses. New blood cancels a single clause, not the whole pact, and pacts with many clauses demand whole generations of children, so families bear children to pay with rather than to raise. Whoever gives new blood loses forever the power to have children, and the wound in his palm stays open until he dies, as a sign that the debt has been paid once. Whoever pays with blood stolen, torn out or taken from a child who does not understand what he is giving redeems nothing, and the pact gains the right to demand other blood from the same lineage. Old pacts have lists of clauses longer than a human life, and midwives keep the count of children born after the signing, because only they can pay."
+      },
+      "openings": {
+        "ro": [
+          "Fiul cel mic al familiei are nouă ani și e singurul născut după semnarea pactului, iar tatăl trebuie să hotărască dacă îi cere sângele ca să șteargă o clauză și să salveze moara sau așteaptă alt copil.",
+          "O moașă e plătită să ascundă o naștere, fiindcă familia vrea să păstreze copilul pentru o clauză mai grea care urmează; ea socotește câte zile de viață valorează tăcerea ei.",
+          "Un bătrân cu palma deschisă de cincizeci de ani povestește nepotului ce a plătit și ce a pierdut, iar nepotul află că rana se va închide numai când cineva din neam va da sânge nou pentru ultima clauză.",
+          "Moștenitorii se ceartă pe socoteala moașelor: unele nume din listă nu au acte de naștere, iar pactul cere ca fiecare clauză să fie plătită de un copil dovedit născut după semnare, cu martori."
+        ],
+        "en": [
+          "The family's youngest son is nine and the only one born after the pact was signed, and the father must decide whether to ask for his blood to cancel one clause and save the mill, or wait for another child.",
+          "A midwife is paid to hide a birth, because the family wants to keep the child for a heavier clause still to come; she reckons how many days of her life her silence is worth.",
+          "An old man with a palm open for fifty years tells his grandson what he paid and what he lost, and the grandson learns that the wound will close only when someone of the blood gives new blood for the last clause.",
+          "The heirs quarrel over the midwives' accounts: some names on the list have no birth records, and the pact requires every clause to be paid by a child proven to be born after the signing, with witnesses."
+        ]
+      }
+    }
+  ]
+}

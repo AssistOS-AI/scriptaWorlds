@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › Architecture</p>
+      <p class="kicker">System</p>
+      <h1>Architecture</h1>
+
+      <p class="lead">scriptaWorlds is one Node.js process, one static browser interface and one agent process per turn. The server owns a durable <a href="wiki.html#definition-queue">queue</a> and the files that record what happened; the agent owns the narrative state inside a universe folder; the browser only reads the <a href="wiki.html#definition-reader-interface">interface</a> and the <a href="wiki.html#definition-event-stream">event stream</a>. This page explains how those parts fit together and which one writes which file.</p>
+
+      <section>
+        <h2>Components</h2>
+        <p>The runtime is eighteen modules under <code>src/</code>, and each one owns a single responsibility. Nothing in the runtime holds persistent state of its own: it reads and writes the universe folders and the data files of the repository, and those files are the state.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Component</th>
+              <th scope="col">Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/server.mjs</code></td>
+              <td>Process lifecycle and HTTP routing: takes the store lock, probes the agent, recovers turns from the previous run, resumes queued turns, refreshes the per-universe skill links, prints the addresses, serves static files, and dispatches every <code>/api</code> route, including <code>/api/table</code> and <code>/api/library</code>. It starts a listener only when it is the process entry point, so importing it has no side effect.</td>
+            </tr>
+            <tr>
+              <td><code>src/http.mjs</code></td>
+              <td>Request and response plumbing: JSON bodies with a size limit, the JSON error envelope, content types, static file serving with path containment, and the server-sent-events connection.</td>
+            </tr>
+            <tr>
+              <td><code>src/config.mjs</code></td>
+              <td>Environment configuration, the accepted language list with labels, the agent probe, and the timeouts and word band that bound a turn.</td>
+            </tr>
+            <tr>
+              <td><code>src/errors.mjs</code></td>
+              <td>The error type every layer throws: <code>UniverseError</code> carries the machine-readable code and the HTTP status together with the message, and <code>notFound</code> builds the common 404. Because the code and the status travel with the error, a handler in the router needs no translation table.</td>
+            </tr>
+            <tr>
+              <td><code>src/io.mjs</code></td>
+              <td>The small file and text helpers shared by the store and the turn pipeline: read a text or JSON file with a fallback instead of an exception, write JSON, format a timestamp and pad a number.</td>
+            </tr>
+            <tr>
+              <td><code>src/lock.mjs</code></td>
+              <td>The <a href="wiki.html#definition-store-lock">store lock</a>: <code>acquireStoreLock</code> creates <code>universes/<wbr>.server.lock</code> with the process identifier and the start time, refuses to start when the recorded process is still alive, and takes over a lock left behind by a process that is gone.</td>
+            </tr>
+            <tr>
+              <td><code>src/paths.mjs</code></td>
+              <td>Repository locations resolved from the module itself, the <a href="wiki.html#definition-universe-id">universe identifier</a> rules and slug derivation, the discovery of <a href="wiki.html#definition-project-skill">product skills</a>, and the <a href="wiki.html#definition-skill-symlink">symlink</a> refresh inside a universe.</td>
+            </tr>
+            <tr>
+              <td><code>src/periodic.mjs</code></td>
+              <td>The <a href="wiki.html#definition-periodic-table">Periodic Table of Speculative Ideas</a>, the <a href="wiki.html#definition-design-instrument">design instrument</a> of the project: it reads <code>data/<wbr>periodic-table.json</code>, prepares the grid the interface reads for <code>GET /api/table</code>, distils one cell — idea, prompt, ingredient sentence, family note, landmark and the nights that already use it — for <code>GET /<wbr>api/<wbr>table/<wbr>cells/<wbr>:<wbr>symbol</code>, resolves a reader's <a href="wiki.html#definition-ingredient">ingredients</a> against the table, composes the <a href="wiki.html#definition-fundamental-law">law</a> from them and writes the ingredient lines that every prompt carries.</td>
+            </tr>
+            <tr>
+              <td><code>src/library.mjs</code></td>
+              <td>The <a href="wiki.html#definition-library">library</a> of <a href="wiki.html#definition-start-template">start templates</a>: it reads the index for <code>GET /api/library</code>, reads one template for <code>GET /api/library/:slug</code>, answers which nights already work a cell from the <code>cellScenes</code> reverse index, audits the index against the folders, and turns a template into the fields a new universe needs.</td>
+            </tr>
+            <tr>
+              <td><code>src/templates.mjs</code></td>
+              <td>The older <a href="wiki.html#definition-template-catalog">catalog</a> of proposed universes, cached by file modification time and localized with a fixed fallback order. The reader interface no longer reads it.</td>
+            </tr>
+            <tr>
+              <td><code>src/universe.mjs</code></td>
+              <td>The store: creating a universe, adopting the <a href="wiki.html#definition-short-name">short name</a> the agent wrote, changing the language and the status, and the views the interface reads — the universe list, the universe detail, one chapter and the <a href="wiki.html#definition-continuation-ideas">continuation ideas</a>.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>universe-chapters.mjs</code></td>
+              <td>The files of one universe: the naming conventions of chapters, offers, turn records and exports, scanning them, archiving a <a href="wiki.html#definition-chapter-version">chapter version</a> before it is overwritten or dropped, and removing the partial files of a failed turn.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>universe-state.mjs</code></td>
+              <td>The <a href="wiki.html#definition-state-snapshot">state snapshots</a>: copying <code>canon.md</code>, <code>threads.json</code> and <code>atlas.json</code> into <code>turns/NNNN.prev/</code> before a turn, and restoring them when a rewrite or the recovery after a crash needs the world as it was.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>universe-prompts.mjs</code></td>
+              <td>The documents of a universe, composed as pure text: the charter, the first canon, the instructions in the <code>AGENTS.md</code> of the folder, and the structured request used when the client sent no text of its own.</td>
+            </tr>
+            <tr>
+              <td><code>src/prompts.mjs</code></td>
+              <td>The three prompt families of a turn — a new chapter, a rewrite of an existing one and a printed edition — including the naming duty and the ingredient lines.</td>
+            </tr>
+            <tr>
+              <td><code>src/turn.mjs</code></td>
+              <td>One turn apart from the queue: which prompt family it needs, what the agent must have produced before the turn counts as done, and the repair of the store when a turn fails.</td>
+            </tr>
+            <tr>
+              <td><code>src/jobs.mjs</code></td>
+              <td>The <a href="wiki.html#definition-job">job</a> registry, the per-universe FIFO <a href="wiki.html#definition-queue">queue</a>, the concurrency rule, the durable turn records, the event stream and the HTTP snapshots of a job.</td>
+            </tr>
+            <tr>
+              <td><code>src/omp.mjs</code></td>
+              <td>The agent process of one turn: spawning it, parsing the JSON event stream it writes, enforcing the deadline, and composing the log that goes into the turn record. It knows nothing about the queue or the store.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>The modules are grouped by what they may touch: <code>server.mjs</code> and <code>http.mjs</code> are the only ones that speak HTTP, <code>jobs.mjs</code>, <code>turn.mjs</code>, <code>prompts.mjs</code> and <code>omp.mjs</code> form the turn pipeline and never read the disk layout directly, and the three <code>universe*.mjs</code> modules own the folder of a universe, its snapshots and the text written inside it. <code>periodic.mjs</code> and <code>library.mjs</code> read the two data sources of the product — the table of ideas and the library of start templates — and nothing else. The browser interface is a separate module tree with no build step, described below, and both <a href="wiki.html#definition-project-skill">product skills</a> are self-contained command-line programs.</p>
+      </section>
+
+      <section>
+        <h2>Build and data steps</h2>
+        <p>The runtime has no build step: <code>node src/server.mjs</code> runs the modules as they lie on disk. Two data sources are generated from the printed book <code>vision/periodic_table.pdf</code>, and both are committed so that a checkout needs neither the book nor a toolchain to run.</p>
+        <div class="table-wrap"><table>
+          <thead>
+            <tr>
+              <th scope="col">Step</th>
+              <th scope="col">Command</th>
+              <th scope="col">Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>The <a href="wiki.html#definition-periodic-table">table of ideas</a></td>
+              <td><code>npm run table</code> (<code>node scripts/<wbr>build-table.mjs</code>)</td>
+              <td><code>data/<wbr>periodic-table.json</code>: twelve families with the cells that belong to them, fifteen operators and one hundred and eighty <a href="wiki.html#definition-cell">cells</a>, each with its identifier, symbol, name, gist, prompt line, <code>ingredient</code> sentence, landmark and the prose sections of the book. It requires <code>pdftotext</code> and refuses to write anything when the book does not parse cleanly, so the committed file is never a half-built table. <code>src/periodic.mjs</code> reads it and every composed universe depends on it.</td>
+            </tr>
+            <tr>
+              <td>The <a href="wiki.html#definition-library">library</a> of start templates</td>
+              <td><code>npm run library</code> (<code>node scripts/<wbr>build-library.mjs</code>)</td>
+              <td><code>library/index.json</code> — one line per template plus the <code>cellScenes</code> reverse index that says which nights work which cell — and the seventy-five folders under <code>library/</code>, rebuilt from the nights of the book and from the table. It requires the system tool <code>pdftotext</code>, fails with a clear message when that tool is missing, and never invents a template: it writes what the book contains.</td>
+            </tr>
+            <tr>
+              <td>Verification of the table</td>
+              <td><code>npm run table -- --check</code></td>
+              <td>A comparison between the committed data file and the book on the number of cells and on the name, operator, gist and prompt of each one, printed as problems with a nonzero exit status and without writing anything.</td>
+            </tr>
+            <tr>
+              <td>Verification of the library</td>
+              <td><code>npm run library -- --check</code></td>
+              <td>A comparison between the index, the folders on disk and the book, printed as problems with a nonzero exit status. It writes nothing, so it is safe to run on a working checkout; <code>npm run check</code> performs the same comparison through the store module.</td>
+            </tr>
+          </tbody>
+        </table></div>
+        <p>The empty template is the one exception in that pipeline: it is written by hand under <code>library/empty/</code>, and a rebuild only re-serializes it and keeps it first in the index.</p>
+      </section>
+
+      <section>
+        <h2>Module trees</h2>
+        <p>The browser interface and the print skill are each a small tree of focused files rather than a single program. Every file of both trees stays under 500 lines, which is what allows a surface or a document writer to be read on its own.</p>
+        <figure class="diagram">
+          <pre class="mermaid">flowchart TB
+    subgraph Interface["Reader interface (public/)"]
+        Boot["app.js — bootstrap and event wiring"]
+        Shell["index.html — shell, one markup block per dialog"]
+        Markdown["markdown.js — Markdown to DOM nodes"]
+        Core["ui/ — state, api, errors, universe, slides, overlays, actions, sse"]
+        Surfaces["ui/render/ — header, composer, menu, reader, explore, library, ingredients, tableinfo"]
+        Styles["styles/ — base, reader, live, explore, composer, overlays"]
+    end
+    subgraph Print["Print skill (skills/scripta-book-export)"]
+        Entry["scripts/build-book.mjs — CLI, JSON line, exit codes"]
+        Lib["scripts/lib/ — errors, truetype, fonts, markdown, book, layout, pdf, docx"]
+    end
+    Boot --> Core
+    Boot --> Shell
+    Boot --> Markdown
+    Core --> Surfaces
+    Markdown --> Surfaces
+    Surfaces --> Styles
+    Entry --> Lib
+    classDef ui fill:#ece7f4,stroke:#5b4a8a,color:#2b2340
+    classDef print fill:#dbe7f0,stroke:#245b78,color:#16283a
+    class Boot,Shell,Markdown,Core,Surfaces,Styles ui
+    class Entry,Lib print</pre>
+          <figcaption><em>The two module trees</em></figcaption>
+        </figure>
+        <p>The interface is served as it lies on disk, so a module that fails to load — typically because the interface was replaced while a tab stayed open — is reported by a reload banner instead of leaving a dead page. The print skill keeps its command-line contract in a small entry point: <code>scripts/build-book.mjs</code> parses the options, then delegates the font search, the layout and the two document writers to eight modules under <code>scripts/lib/</code>. The interface tree is documented on <a href="reader-interface.html">Reader interface</a> and the print skill on <a href="scripta-book-export-skill.html">scripta-book-export</a>.</p>
+      </section>
+
+      <section>
+        <h2>From a request to a chapter</h2>
+        <p>A chapter is produced by a pipeline in which the only expensive step, the agent run, is surrounded by cheap and durable bookkeeping. The diagram shows the participants and the direction of the work.</p>
+        <figure class="diagram">
+          <pre class="mermaid">flowchart TB
+    Reader["Reader or API client"]
+    subgraph Server["Server process"]
+        API["HTTP API, static reader, event stream"]
+        Queue["Turn record and per-universe FIFO queue"]
+        Verify["Result verification and state commit"]
+    end
+    subgraph Folder["Universe folder"]
+        Records["universe.json and turns/NNNN.json"]
+        Book["chapters/, canon.md, threads.json, atlas.json"]
+    end
+    subgraph Agent["Headless agent, one process per turn"]
+        Writer["Plans the episode, writes the chapter, the offer and the state"]
+    end
+    Reader -->|"request"| API
+    API -->|"202 with a job snapshot"| Reader
+    API --> Queue
+    Queue --> Records
+    Queue -->|"prompt on standard input"| Agent
+    Writer --> Book
+    Records --> Verify
+    Book --> Verify
+    Verify -->|"done, error, live text"| API
+    classDef client fill:#f3ece4,stroke:#8a5a2b,color:#3d2814
+    classDef server fill:#dbe7f0,stroke:#245b78,color:#16283a
+    classDef folder fill:#e4efe0,stroke:#3d6b3d,color:#1f3d1f
+    classDef agent fill:#ece7f4,stroke:#5b4a8a,color:#2b2340
+    class Reader client
+    class API,Queue,Verify server
+    class Records,Book folder
+    class Writer agent</pre>
+          <figcaption><em>Chapter turn lifecycle</em></figcaption>
+        </figure>
+        <p>The server first writes the <a href="wiki.html#definition-turn-record">turn record</a> with the status <code>queued</code> and appends the job to the queue of that universe, so the request survives a restart before any work starts. A request is never refused because the universe is busy; a busy universe simply has a longer queue, and different universes run in parallel. Before a chapter or export turn starts, the server copies <code>canon.md</code>, <code>threads.json</code> and <code>atlas.json</code> into a snapshot folder, which is what later allows a rewrite of that chapter to rewind the world; a rewrite turn takes no new snapshot, because it consumes the snapshot of the chapter it is rewriting.</p>
+        <p>The agent runs in the universe folder with automatic approval, without a session and without a title, and receives its prompt on standard input. Its JSON event stream is parsed line by line: assistant text becomes live text for the reader, tool events become the activity list, and the final message becomes the answer stored in the turn record. The prompt requires the chapter file, the offer file and the updated state; it carries the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and the <a href="wiki.html#definition-book-language">language of the book</a>, and it is documented in full in <a href="specsLoader.html?spec=DS002-model-and-agent-execution.md">DS002-model-and-agent-execution</a>.</p>
+        <p>The server then verifies the result instead of trusting the agent's report. A chapter turn must have produced <code>chapters/NNNN-&lt;slug&gt;.md</code>, an export turn must have produced a newer <code>.pdf</code> or <code>.docx</code> file, and a chapter outside the configured word band or without an offer is recorded as a warning rather than accepted silently. On success the turn record is completed, the universe timestamp is touched and a <code>done</code> event closes the stream for that job. On failure the state is restored from the snapshot, the partial chapter files are removed, the turn is stored with status <code>error</code>, and the reader is offered a <a href="wiki.html#definition-retry">retry</a>.</p>
+      </section>
+
+      <section>
+        <h2>Durability and recovery</h2>
+        <p>Durability comes from writing the intention before the work. A <a href="wiki.html#definition-turn">turn</a> is a file, a universe is a folder, and the in-memory job objects are only a live handle on work that is already recorded. Before it touches anything else, the process takes the <a href="wiki.html#definition-store-lock">store lock</a> on <code>universes/.server.lock</code>, because a second server on the same folder would treat the turns of the first one as its own work and mark them interrupted; the lock is released when the process stops, so a restart takes it again, and a lock left behind by a killed process is recognised as stale and taken over. That choice shows up at startup: the server scans every universe, re-enqueues the turns recorded as <code>queued</code> in turn order, and converts every turn recorded as <code>running</code> into an <code>interrupted</code> turn whose canon, thread and atlas state is rolled back and whose partial chapter is deleted. A <a href="wiki.html#definition-interrupted-turn">interrupted</a> or failed turn stays visible in the interface with its retry action, and retrying reuses the same turn number and the same request, so the book's history has no gaps.</p>
+        <p>The queue has no implicit global ceiling: each universe runs at most one turn at a time, and different universes run their turns in parallel. <code>MAX_CONCURRENT_JOBS</code> can bound the number of turns that run across the whole server, and its value is reported by <code>GET /api/config</code> and <code>GET /api/health</code>.</p>
+      </section>
+
+      <section>
+        <h2>Ownership of the universe folder</h2>
+        <p>Three writers share a universe folder, and each one owns a different set of paths. The server writes metadata and records, the agent writes narrative state, and the print renderer writes only edition files. This split is what makes an interrupted turn repairable and a chapter rewritable.</p>
+        <div class="table-wrap"><table>
+          <thead>
+            <tr>
+              <th scope="col">Path</th>
+              <th scope="col">Writer</th>
+              <th scope="col">Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>universe.json</code></td>
+              <td>Server</td>
+              <td>The law, the premise, the <a href="wiki.html#definition-ingredient">ingredients</a>, the summary, the status, the language, the model and the timestamps; the chapter count and the last chapter title are derived on every read.</td>
+            </tr>
+            <tr>
+              <td><code>turns/NNNN.json</code>, <code>turns/NNNN.prev/</code></td>
+              <td>Server</td>
+              <td>The durable record of every turn and the canon snapshot taken before it.</td>
+            </tr>
+            <tr>
+              <td><code>.agents/<wbr>skills/<wbr>&lt;name&gt;</code></td>
+              <td>Server</td>
+              <td>Links that make the product skills visible inside the universe folder.</td>
+            </tr>
+            <tr>
+              <td><code>universe-title.txt</code></td>
+              <td>Agent</td>
+              <td>The <a href="wiki.html#definition-short-name">short name</a> the agent writes while the title is still provisional; the server adopts it after the first successful chapter, keeps the earlier descriptive line as the summary and removes this hand-off file once the name is taken.</td>
+            </tr>
+            <tr>
+              <td><code>charter.md</code></td>
+              <td>Server at creation, editable afterwards</td>
+              <td>The permanent rules an agent must respect in this universe, with the law repeated at the top.</td>
+            </tr>
+            <tr>
+              <td><code>canon.md</code>, <code>threads.json</code>, <code>atlas.json</code></td>
+              <td>Agent</td>
+              <td>The world state, the open and closed threads with their promises, and the thematic axes touched so far.</td>
+            </tr>
+            <tr>
+              <td><code>chapters/</code>, <code>drafts/</code></td>
+              <td>Agent</td>
+              <td>The chapters, their offers and the episode plans.</td>
+            </tr>
+            <tr>
+              <td><code>chapters/.history/</code></td>
+              <td>Server</td>
+              <td>The archive of superseded chapter versions, written when the rewrite route archives a chapter before it is overwritten or dropped.</td>
+            </tr>
+            <tr>
+              <td><code>exports/<wbr>edition.json</code></td>
+              <td>Agent</td>
+              <td>Title, subtitle, dedication, preface and afterword of the printed edition.</td>
+            </tr>
+            <tr>
+              <td><code>exports/<wbr>&lt;slug&gt;-&lt;YYYYMMDD&gt;.pdf</code>, <code>.docx</code></td>
+              <td>Print renderer</td>
+              <td>The produced editions, written only by the skill's command.</td>
+            </tr>
+          </tbody>
+        </table></div>
+        <p>The file formats, the naming rules and the derived fields are specified in <a href="specsLoader.html?spec=DS004-universe-storage.md">DS004-universe-storage</a> and in the contract reference <code>docs/contracts.md</code>.</p>
+      </section>
+
+      <section>
+        <h2>Agent and model</h2>
+        <p>The server runs one configured model for every universe and records it in the universe and in each turn. The agent binary is resolved from <code>OMP_BIN</code> with <code>omp</code> as the fallback, and a failed probe stops the server before it listens, because a machine that cannot run the agent cannot continue a book. Each turn is one process with a bounded lifetime, a prompt on standard input, and the folder of its universe as the working directory, which is what allows the agent to read and write the book with its own file tools instead of through an API surface invented for it. The invocation, the prompt contract, the timeouts and the failure repair are specified in <a href="specsLoader.html?spec=DS002-model-and-agent-execution.md">DS002-model-and-agent-execution</a>.</p>
+      </section>
+
+      <section>
+        <h2>The interface in the system</h2>
+        <p>The reader is a static client of the same process. It reads the universe detail for the structure of a book, reads the <a href="wiki.html#definition-periodic-table">table of ideas</a> and the <a href="wiki.html#definition-library">library</a> when it has to offer a starting point, fetches chapter prose lazily, and subscribes to the universe <a href="wiki.html#definition-event-stream">event stream</a> while any turn of that universe is unfinished. When the stream cannot be kept open, the client falls back to one stream per job plus polling of the job route, so a buffering proxy costs live text but not correctness. The reading position lives in the URL and in <code>localStorage</code>, and a reload during a turn reconstructs the in-flight work from the job fields of the universe detail. The tree of modules behind it and the surfaces it draws are documented in <a href="reader-interface.html">Reader interface</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

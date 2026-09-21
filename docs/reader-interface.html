@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader interface - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › Reader interface</p>
+      <p class="kicker">System</p>
+      <h1>Reader interface</h1>
+
+      <p class="lead">The interface in <code>public/</code> is a static reader with no build step: one HTML document, a bootstrap module, the modules of <code>public/ui/</code>, one Markdown renderer and a stylesheet per surface. It presents a universe as a book, keeps the reader's own request one link away instead of inside the text, shows work in progress where the next chapter will appear, and opens every secondary surface as a <a href="wiki.html#definition-dialog">dialog</a> over the page. Interface text is English; the book keeps the language of its universe.</p>
+
+      <section>
+        <h2>Reading flow</h2>
+        <p>The header is sticky and has two rows. The first row carries the short universe title with a discreet line underneath — the <code>summary</code> of the universe, falling back to its premise, cut to one line — and on the right, in this order, the language selector, the <code>Universes</code> button and a compact <code>⋯</code> button. The language selector is filled from <code>GET /api/config</code>, decides the language of the next book, stays available while no universe is loaded and is remembered in the browser under <code>scriptaWorlds.language</code>. Both header buttons stay enabled in every state, because the <code>Edition</code> dialog behind the <code>⋯</code> is also the way back to <code>New universe</code>.</p>
+        <p>The second row is the book navigation: a <code>‹</code> control, one number per slice, a <code>›</code> control, the label of the current slice and a counter such as <code>3/7</code>. The numbers are the chapters of the book plus the turns that are running or queued, each carrying the number of the chapter it will write and marked as a live entry, so a queue of three turns reads as three numbered slices that are on their way. The two controls disable at the ends, and the current number is scrolled into view.</p>
+        <p>The reading area is a horizontal track in which each <a href="wiki.html#definition-chapter">chapter</a> is one slide, and a chapter slice contains the chapter and nothing else. Its head is <code>Chapter N · Title</code> followed, on the same row, by the short links <code>i</code>, <code>Rewrite</code> and <code>Console</code>; the request that produced the chapter is never rendered inside the slice, it is read in the dialog behind <code>i</code>, and the agent log unfolds inside the card as the <a href="wiki.html#definition-console">console</a>. Below the head comes the book page: the rendered prose, set in a serif face. Chapter Markdown is rendered into DOM nodes by <code>public/markdown.js</code>, which supports the headings, paragraphs, blockquotes, scene breaks and emphasis that the narrative contract allows and never injects markup from chapter text. Prose is fetched lazily through <code>GET /api/universes/:id/chapters/:number</code> and cached in the browser by size and creation time.</p>
+        <p>Work in progress is part of the same track, as numbered slices. A queued turn shows a waiting line with its one-based position in that universe's queue — <code>Waiting (1 in queue)</code> means nothing is ahead of it; a running turn shows <code>Writing chapter N…</code> with the current phase and the tail of the live text, while the tool calls of the agent stay out of the flow and are read in the console of the chapter once it exists. A turn that failed or was <a href="wiki.html#definition-interrupted-turn">interrupted</a> shows its message and a <a href="wiki.html#definition-retry">retry</a> action. When a new chapter arrives while the reader is not at the end of the book, a discreet <code>New chapter ready — read it</code> control offers to move there instead of pulling the reader away.</p>
+      </section>
+
+      <section>
+        <h2>Starting a book: Library and Ingredients</h2>
+        <p>When no universe is selected, the reading area becomes the <a href="wiki.html#definition-exploration">start screen</a>. It opens with one short paragraph under an information glyph that says what a template is and that nothing starts before <code>Send</code>, then two tabs, and it holds no form field at all. <strong>Library</strong> lists the <a href="wiki.html#definition-start-template">start templates</a> served by <code>GET /api/library</code> in a column on the left — title, sector, genealogy, the one-line summary of the problem at the centre of that world and the symbols of the cells it activates — and reads the chosen template through <code>GET /api/library/:slug</code> into a second column on the right: the <code>request</code> text the template sends to ALA, a <code>Use</code> control that puts that template in charge of the request field — it turns into <code>In use</code> and disables itself while the template holds the field — then every <a href="wiki.html#definition-indications">indication</a> the book gives for that night as a labelled list, then the night itself in a folded block. Opening a row only reads a template; the field is rewritten when the reader presses <code>Use</code>. <strong>Ingredients</strong> shows the <a href="wiki.html#definition-periodic-table">table of ideas</a> served by <code>GET /api/table</code>: twelve families as rows and fifteen operators as columns, with a search box, a legend of the operators, a counter of the form <code>N of 6 chosen</code>, one chip per chosen <a href="wiki.html#definition-ingredient">ingredient</a> with a control that removes it, a control that clears the selection, and a fold that adds an element the table does not contain, with a name and an optional family, operator and note. A cell, an operator name or a family name opens the <code>Details</code> dialog.</p>
+        <p>The <code>Details</code> dialog of a cell shows the idea in one line, the longer prompt when it differs, what that family changes, the work the cell is <code>Seen in</code> and up to three nights of the course that already use it — each with its title, sector, situation and problem, and a control that opens that night in the Library tab — and it offers <code>Insert in my new world</code> to put the cell into the compound, the control turning into <code>In your world</code> and disabling itself once the cell is chosen. Of an operator or a family it shows the mechanism or the family instead, with the cells that belong to it.</p>
+        <p>The two tabs compose one text instead of excluding each other: the field holds the <code>request</code> of the chosen template followed by an <code>Operations added by me:</code> block listing the chosen operations, and each of them is written with the ingredient sentence of its <a href="wiki.html#definition-cell">cell</a> — a sentence, never the two-letter address that identifies the cell in the table. A template therefore stays chosen while the reader browses the table, ingredients stay chosen while the reader browses the library, and every change in either tab writes the composed text back into the request field.</p>
+        <p>The request field is the only input of the interface, and it is sent with <code>Send</code>. Nothing is created while the reader browses the tabs: pressing Send sends one <code>POST /api/universes</code> carrying the reader's text as <code>prompt</code>, the language of the header, <code>start: true</code>, and both <code>library</code> and <code>elements</code> when a template and extra operations were chosen. The server composes one universe from them — the cells of the template first, the chosen ingredients added on top, deduplicated and cut at six — and queues its first chapter from the same text. A refusal is shown next to the field, which is where <code>BAD_LAW</code>, <code>BAD_TEMPLATE</code>, <code>UNKNOWN_TEMPLATE</code>, <code>BAD_ELEMENTS</code> (with the message <code>Six ingredients are the most a universe law can hold. Remove one first.</code>), <code>UNKNOWN_ELEMENT</code>, <code>BAD_ELEMENT_FAMILY</code> and <code>BAD_ELEMENT_OPERATOR</code> appear. Text alone composes nothing, so a request without a template and without an ingredient is refused with <code>BAD_LAW</code>.</p>
+      </section>
+
+      <section>
+        <h2>Composer and offers</h2>
+        <p>Below the book, one sticky card holds ALA's voice and the [composer](wiki.html#definition-composer) together. When the current chapter has an <a href="wiki.html#definition-offer">offer</a>, the card shows its teaser, clamped to two lines with an inline <code>more</code> and <code>less</code> control when it is longer, and up to three compact links with the decisions of that offer. Pressing one fills the field with the prompt it carries and focuses it; it does not send anything, so the reader edits the text before sending it. When a chapter has no offer, the card shows the first <a href="wiki.html#definition-continuation-ideas">continuation idea</a> derived from the universe's threads as a suggestion that fills the field instead of sending it.</p>
+        <p>The request field accepts anything, grows with its content up to seven lines — or a little under half of the window height on a short screen — and scrolls inside itself beyond that; the reader can also drag its lower edge to make it taller, and a height chosen that way is never shrunk back: the automatic growth only raises the lower bound. It sends on <code>Enter</code>, inserts a newline on <code>Shift+Enter</code>, and keeps its text when a request cannot be sent. With no universe loaded its placeholder invites the reader to pick a universe or start a new one and the typed text is preserved. Every request is submitted as a normal turn, so it joins the same durable <a href="wiki.html#definition-queue">queue</a> as every other request and is never refused because the universe is busy.</p>
+      </section>
+
+      <section>
+        <h2>Dialogs</h2>
+        <p>Nothing unfolds in the reading flow. Every secondary surface is a fixed overlay drawn above the page over a dimmed backdrop, with a visible <code>×</code>, centred on both axes, closed on <code>Esc</code>, on a click on the backdrop and through the <code>×</code>. There are five of them: the four large ones — <code>Universes</code>, <code>What you asked for</code>, <code>Rewrite chapter</code> and <code>Details</code> — are nearly full screen (<code>width: min(96vw, 1200px)</code>, <code>max-height: 92vh</code> with their own scrolling), and the <code>Edition</code> dialog is deliberately small. Reading is never a dialog: a chapter always occupies the page.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Dialog</th>
+              <th scope="col">Opened from</th>
+              <th scope="col">Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Universes</code></td>
+              <td>The header button</td>
+              <td>The universes on disk, most recently updated first, with closed ones grouped at the end under <code>Closed</code>; each row shows the title, the language label and the chapter count. Selecting a row loads that universe and closes the dialog, and the dialog never opens by itself.</td>
+            </tr>
+            <tr>
+              <td><code>Edition</code></td>
+              <td>The compact <code>⋯</code> button</td>
+              <td><code>Download PDF</code> and <code>Download DOCX</code>, shown as <code>not yet</code> and disabled until the file exists, then <code>Generate edition</code> with its queued or working state, a separator and <code>New universe</code>, which returns to the start screen. There is no close or reopen action in the interface.</td>
+            </tr>
+            <tr>
+              <td><code>What you asked for</code></td>
+              <td>The <code>i</code> link of a chapter</td>
+              <td>The request of the turn that wrote that chapter, read from the turn record when the universe detail does not already carry it, and the chapter it belongs to.</td>
+            </tr>
+            <tr>
+              <td><code>Details</code></td>
+              <td>A cell, an operator name or a family name in the Ingredients grid</td>
+              <td>What stands behind one entry of the table. For a cell it reads <code>GET /<wbr>api/<wbr>table/<wbr>cells/<wbr>:<wbr>symbol</code> and shows the idea in one line with the longer prompt under it, what that family changes, the work the cell is <code>Seen in</code>, and up to three nights of the course that already use it, each with its title, sector, situation, problem and a control that opens that night in the Library tab. The action is <code>Insert in my new world</code>, which becomes <code>In your world</code> and is disabled once the cell is chosen; a chosen cell is removed from the <code>×</code> of its chip in the selection, not from here. For an operator or a family it describes the mechanism or the family and lists the cells that work that way. It is opened from the start screen rather than from a chapter.</td>
+            </tr>
+            <tr>
+              <td><code>Rewrite chapter</code></td>
+              <td>The <code>Rewrite</code> link of a chapter</td>
+              <td>What is wrong and what should change, with the consequence of the rewrite stated before it is confirmed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Live updates</h2>
+        <p>The client keeps one state object and rebuilds the affected surfaces from it: the universe detail supplies the book structure, a chapter cache supplies prose, and a live map supplies the state of unfinished turns. Live updates come from the universe <a href="wiki.html#definition-event-stream">event stream</a>, which is the same mechanism a chapter uses to publish its progress to every open reader.</p>
+        <figure class="diagram">
+          <pre class="mermaid">flowchart TB
+    subgraph Browser["Browser (public/)"]
+        Detail["Universe detail and chapter cache"]
+        Live["Live turn state"]
+        View["Reading track, composer, dialogs"]
+    end
+    subgraph Server["Server (src/)"]
+        Api["HTTP API and static reader"]
+        Stream["Universe event stream"]
+        Jobs["Job route"]
+    end
+    Api -->|"table, library, detail and chapter reads"| Detail
+    Stream -->|"job, phase, delta, tool, done, error"| Live
+    Jobs -.->|"fallback polling when the stream fails"| Live
+    Detail --> View
+    Live --> View
+    View -->|"creation, turns, rewrites, editions"| Api
+    classDef browser fill:#ece7f4,stroke:#5b4a8a,color:#2b2340
+    classDef server fill:#dbe7f0,stroke:#245b78,color:#16283a
+    class Detail,Live,View browser
+    class Api,Stream,Jobs server</pre>
+          <figcaption><em>Reader state and live updates</em></figcaption>
+        </figure>
+        <p>A page reload during a turn loses nothing: the universe detail carries the running and waiting jobs, so the client reconstructs the live state and resubscribes. If the stream cannot be established, or keeps failing, the client opens one stream per job and polls the job route every 1.8 seconds, which turns live text into slower progress rather than into a broken page.</p>
+      </section>
+
+      <section>
+        <h2>Rewriting and editions</h2>
+        <p>The <code>Rewrite</code> link on a chapter opens the rewrite dialog, which asks what is wrong and what should change. A submission shorter than a sentence is rejected in the dialog. When the server answers <code>409 LATER_CHAPTERS</code>, the dialog states which chapters would be removed and turns its submit control into an explicit confirmation that resends with <code>dropLater: true</code>, which is the only way the interface ever asks to discard chapters; the superseded versions stay in the book's archive.</p>
+        <p>Editions stay out of the reading flow: they are reached only from the <code>Edition</code> dialog, they are never reading pages and they never appear as slices. While an export turn is queued or running the dialog shows that state instead of the generation action, and when the turn finishes the universe is reloaded and the download links appear. Downloads are plain links, so the browser handles the transfer.</p>
+        <p>Closing a universe is not offered by the interface: <code>POST /api/universes/:id/close</code> and <code>POST /api/universes/:id/open</code> stay available to API clients, and the reading interface only offers <code>New universe</code>, which returns to the start screen. A universe that was closed elsewhere keeps its last chapter readable, and a new chapter for it is refused by the server with <code>CLOSED</code>.</p>
+      </section>
+
+      <section>
+        <h2>Persisted state, keyboard and errors</h2>
+        <p>The current universe and the reading position are kept in <code>localStorage</code> under keys prefixed with <code>scriptaWorlds.</code> and mirrored into the URL query, so a link reopens the same chapter and a stored universe is used when the URL does not name one. A browser that refuses storage degrades to URL-only state instead of failing. Arrow keys move between slides unless focus is in a text field or a modifier key is held, <code>Escape</code> closes an open dialog, and a horizontal swipe over the reading area moves between slides with a threshold of roughly a seventh of the width, bounded between 44 and 90 pixels, so that vertical scrolling still works.</p>
+        <p>Visible errors are deduplicated, limited to a few, appended to the current slide with a dismiss control, and never replace the book. Error text is short and English, and the interface relies on the <a href="wiki.html#definition-error-code">error code</a> when a failure needs a specific reaction, as with a confirmed rewrite.</p>
+      </section>
+
+      <section>
+        <h2>Language rules</h2>
+        <p>Interface strings, button labels, placeholders and error messages are English, and the document declares <code>lang="en"</code>. The book is not translated: chapter prose is rendered inside an element whose <code>lang</code> attribute is the universe <a href="wiki.html#definition-book-language">language</a>, and the header selector shows the codes reported by the server. A chapter's <a href="wiki.html#definition-offer">offer</a> and its teaser come from the agent and are written in the language of the book, so the composer mixes English chrome with the voice of the universe on purpose. The interface has no surface for changing a book's language; it is chosen in the header before the book is created and can be changed through the API. The surfaces, rules and fallbacks are specified in <a href="specsLoader.html?spec=DS006-reader-interface.md">DS006-reader-interface</a>.</p>
+      </section>
+
+      <section>
+        <h2>Modules</h2>
+        <p>The interface is plain ES modules with no build step and no framework. <code>public/app.js</code> is the bootstrap: it binds the DOM, wires the events, loads the configuration and the universes, restores the reading position and starts the reader. Everything else lives in <code>public/ui/</code> — <code>state.js</code>, <code>api.js</code>, <code>errors.js</code>, <code>universe.js</code>, <code>slides.js</code>, <code>overlays.js</code>, <code>actions.js</code> and <code>sse.js</code> — with one module per surface under <code>public/ui/render/</code> (<code>header.js</code>, <code>composer.js</code>, <code>menu.js</code>, <code>reader.js</code>, <code>explore.js</code>, <code>library.js</code>, <code>ingredients.js</code>, <code>tableinfo.js</code>), and the stylesheets are split the same way under <code>public/styles/</code> (<code>base.css</code>, <code>reader.css</code>, <code>live.css</code>, <code>explore.css</code>, <code>composer.css</code>, <code>overlays.css</code>). Every one of those files stays under 500 lines. A module that fails to load — typically because the interface was replaced while a tab stayed open — is reported by a <code>Reload</code> banner instead of leaving a dead page; the banner is described on <a href="operations.html">Operations</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

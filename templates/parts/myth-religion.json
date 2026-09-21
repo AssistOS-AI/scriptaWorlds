@@ -1,0 +1,1025 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "myth-birou-dincolo",
+      "tags": [
+        "birocrație",
+        "moarte",
+        "dosare"
+      ],
+      "title": {
+        "ro": "Universul în care moartea se rezolvă la ghișeu, cu dosar și termen de depunere",
+        "en": "A universe where death is settled at a filing counter, with dossiers and deadlines"
+      },
+      "law": {
+        "ro": "Nimeni nu ajunge în lumea de dincolo fără dosar complet: fiecare faptă a vieții trebuie depusă ca martor, semnătură și dată la un ghișeu care nu se închide niciodată. Termenul de depunere e de treizeci de zile după moarte, iar cine întârzie rămâne suspendat între cele două lumi, vizibil dar intangibil, până își găsește un funcționar care să-i accepte actele. Funcționarii sunt morți și ei, promovați după vechime, și nu pot fi mituiți cu bani, ci doar cu fapte nedepuse ale altora. O adresă greșită se corectează numai prin recurs, iar recursul se judecă tot de cel care a greșit. Cine moare fără martori pentru propria viață nu are dosar și nu are loc: devine o pagină albă, folosită de alții ca să-și completeze dosarele.",
+        "en": "No one reaches the world beyond without a complete dossier: every deed of a life must be filed as witness, signature and date at a counter that never closes. Filing closes thirty days after death, and whoever is late hangs suspended between the two worlds, visible but untouchable, until a clerk accepts the paperwork. The clerks are dead as well, promoted by seniority, and can be bribed only with the unfiled deeds of others, never with money. A wrong address is fixed only by appeal, and the appeal is judged by the very clerk who erred. Whoever dies without witnesses to their own life has no dossier and no place: they become a blank page, used by others to complete their files."
+      },
+      "openings": {
+        "ro": [
+          "Un funcționar de la ghișeul șapte recunoaște în dosarul de dimineață numele fratelui său, iar termenul de depunere expiră la amiază; poate semna pentru el, dar semnătura unui funcționar îl trimite în rândul propriului recurs.",
+          "Mama ta moare la treizeci de kilometri de oraș, fără martori, iar singurul care poate depune dovada vieții ei ești tu, care mai ai doi ani de trăit și nu ai dreptul să treci ghișeul decât mort.",
+          "Afli că tatăl tău e suspendat între lumi de unsprezece ani din pricina unei adrese greșite și că singura cale e să corupi un funcționar cu o faptă de-a ta nedepusă, adică printr-o fărădelege pe care nu ai comis-o încă.",
+          "Ești angajat ca scrib la arhiva morților și primești ordin să arzi dosarele a o sută de oameni vii, ca să faci loc pe rafturi pentru cei care vor muri luna viitoare."
+        ],
+        "en": [
+          "A clerk at counter seven opens the morning file and finds his brother's name, with the filing deadline at noon; he may sign for him, but a clerk's signature sends the man straight to his own appeal queue.",
+          "Your mother dies thirty kilometres from the city with no witnesses, and the only person who can file proof of her life is you, with two years left to live and no right to pass the counter except dead.",
+          "You learn that your father has been suspended between worlds for eleven years because of a wrong address, and the sole remedy is to bribe a clerk with an unfiled deed of your own, meaning a crime you have not yet committed.",
+          "You are hired as a scribe in the archive of the dead and receive orders to burn the files of a hundred living people, to make shelf space for those who will die next month."
+        ]
+      }
+    },
+    {
+      "id": "myth-termen-prescris",
+      "tags": [
+        "dosare",
+        "termen",
+        "uitare"
+      ],
+      "title": {
+        "ro": "Universul în care dosarul mortului se prescrie dacă nimeni nu-l revendică la timp",
+        "en": "A universe where a death file lapses if nobody claims it in time"
+      },
+      "law": {
+        "ro": "Fiecare mort primește automat un dosar, dar dosarul se prescrie după trei generații dacă niciun urmaș nu vine să-l ceară și să plătească taxa de cercetare. Prescrierea nu aduce nici iertare, nici pedeapsă: mortul e topit și turnat în materialul din care se fac pragurile, stâlpii și clopotele templelor noi. Urmașii care vin prea târziu moștenesc datoria taxei, nu ruda, fiindcă numele din dosar a fost deja șters. Un singur martor viu, oricât de bătrân, oprește prescripția pentru toată linia, de aceea familiile își ascund bătrânii și îi hrănesc cu forța. Clopotele care sună pentru rugă sunt turnate din cei nerevendicați, iar cine le aude recunoaște uneori o voce din neamul lui.",
+        "en": "Every dead person is given a file automatically, but the file lapses after three generations if no descendant comes to claim it and pay the search fee. Lapsing brings neither pardon nor punishment: the dead are melted down and cast into the material of thresholds, pillars and bells for new temples. Descendants who arrive too late inherit the debt but not the relative, because the name inside the file has already been struck out. One living witness, however old, halts the lapse for an entire line, which is why families hide their elders and force-feed them. The bells that ring for prayer are cast from the unclaimed, and those who hear them sometimes recognise a voice from their own blood."
+      },
+      "openings": {
+        "ro": [
+          "Bunica ta are nouăzeci și șapte de ani, e ultimul martor viu din neamul mamei și a început să vorbească despre dosarul străbunicii, pe care nimeni nu l-a revendicat la timp.",
+          "La ușa ta bate un străin care susține că se trage din omul turnat în clopotul mare al catedralei și vrea să-l dea jos, bucată cu bucată, în piața orașului.",
+          "Ești notar de prescripții și primești dimineața lista celor care se topesc în noaptea următoare; pe listă se află și numele celui care te-a crescut.",
+          "Ai două luni să găsești un martor viu pentru dosarul fratelui tău, iar singurul martor rămas e un copil de trei ani care încă nu vorbește."
+        ],
+        "en": [
+          "Your grandmother is ninety-seven, the last living witness in your mother's line, and she has begun talking about the file of her own great-grandmother that nobody claimed in time.",
+          "A stranger knocks at your door claiming descent from the man cast into the great cathedral bell, and he wants it taken down piece by piece in the city square.",
+          "You are a notary of lapses and your morning list names everyone who will be melted tonight; among them stands the person who raised you.",
+          "You have two months to find a living witness for your brother's file, and the only witness left is a three-year-old child who does not speak yet."
+        ]
+      }
+    },
+    {
+      "id": "myth-karma-fizica",
+      "tags": [
+        "karma",
+        "consecințe",
+        "greutate"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare faptă se întoarce ca o forță fizică măsurabilă pe cântarul public",
+        "en": "A universe where every deed comes back as a measurable physical force"
+      },
+      "law": {
+        "ro": "Binele și răul nu sunt judecate de nimeni: se întorc ca forțe, iar o cruzime întoarsă adaugă trupului exact durerea celui lovit, măsurată în crestături pe un cântar public. Forța nu are memorie și nu ține seama de intenție, de aceea călăii ajung nemișcați, iar doctorii se ridică de la pământ. Cine nu-și mai poate ridica propria forță e legat cu funii de pământ, iar funiile se numără de vecini, care află astfel tot ce a făcut omul. Nu există iertare și nu există pedeapsă, există doar echilibrare, iar singura cale de a scăpa de o povară e să primești de bunăvoie exact ce ai dat. Copiii cară greutatea faptelor părinților până la șapte ani, după care trupul lor devine al lor.",
+        "en": "Good and evil are judged by no one: they return as forces, and a cruelty that comes back adds to the body exactly the pain it inflicted, measured in notches on a public scale. The force keeps no memory and ignores intent, so executioners end up motionless while doctors drift above the ground. Whoever can no longer lift their own force is staked to the earth with ropes, and the neighbours count the ropes, learning everything the person has done. There is no pardon and no punishment, only balancing, and the sole way to shed a weight is to accept willingly exactly what you gave. Children carry the weight of their parents' deeds until the age of seven, after which their body is their own."
+      },
+      "openings": {
+        "ro": [
+          "Fratele tău, care a bătut un câine până a murit, nu se mai poate da jos din pat, iar vecinii vin seara să-i numere funiile și să scrie socoteala pe poartă.",
+          "Ești cântăritor public și ți se cere să măsori o femeie care a scos trei copii din incendiu, ca satul să afle cât de sus va pluti și când se va coborî.",
+          "Ai prilejul să iei asupra ta povara omului care ți-a omorât tatăl, iar bătrânul satului spune că doar așa scapi de funiile tale.",
+          "Fiul tău împlinește mâine șapte ani, iar cântarul arată că pe umerii lui stau opt kilograme de fapte pe care le-ai făcut tu."
+        ],
+        "en": [
+          "Your brother, who beat a dog to death, can no longer rise from bed, and in the evening the neighbours come to count his ropes and chalk the tally on the gate.",
+          "You are a public weigher and are asked to measure a woman who pulled three children out of a fire, so the village may learn how high she will drift and when she will come down.",
+          "You have the chance to take on the weight of the man who killed your father, and the village elder says it is the only way to shed your own ropes.",
+          "Your son turns seven tomorrow and the scale shows eight kilos of your deeds riding on his shoulders."
+        ]
+      }
+    },
+    {
+      "id": "myth-karma-contagiu",
+      "tags": [
+        "karma",
+        "martori",
+        "vecinătate"
+      ],
+      "title": {
+        "ro": "Universul în care urmările unei fapte se plătesc de toți cei care au văzut-o",
+        "en": "A universe where the consequences of a deed are paid by everyone who saw it"
+      },
+      "law": {
+        "ro": "O faptă nu se leagă de făptuitor, ci de loc și de oamenii care au văzut-o: toți martorii poartă urmarea în părți egale, iar cel care a făcut-o poartă doar atât cât a fost văzut. De aceea crimele se săvârșesc în beciuri și minciunile în pădure, iar o piață plină e cel mai sigur loc din lume. Vecinii învață să nu privească: cine întoarce capul nu plătește, dar cine privește și tace plătește dublu, o dată pentru faptă și o dată pentru tăcere. Un oraș întreg poate moșteni foametea unui singur om ucis în fața lui, iar generațiile următoare numără partea fiecărei familii ca pe o datorie la bancă. Singura scăpare e mărturisirea făcută la fața locului, înainte ca victima să moară, fiindcă atunci partea vinovatului se dublează și părțile celorlalți se șterg.",
+        "en": "A deed attaches not to the doer but to the place and the people who saw it: every witness carries the consequence in equal shares, while the one who acted carries only as much as was seen. So murders happen in cellars and lies in the woods, and a crowded square is the safest place in the world. Neighbours learn not to look: whoever turns away pays nothing, but whoever watches and stays silent pays double, once for the deed and once for the silence. A whole city can inherit the famine of one man killed in front of it, and later generations count each family's share like a debt at a bank. The only escape is a confession made on the spot, before the victim dies, because then the guilty share doubles and the others are cleared."
+      },
+      "openings": {
+        "ro": [
+          "Ai văzut de la fereastră cum un negustor e împins în râu și n-ai spus nimic; dimineața câmpurile îți sunt pârlite, iar primarul te cheamă să-ți socotească partea.",
+          "Ești judecător de părți și trebuie să hotărăști cine plătește foametea unui sat, pornind de la lista celor care se aflau în piață în ziua uciderii.",
+          "Fiica ta se naște cu datoria unei crime la care a fost de față bunica ta la șaisprezece ani, iar tu ai trei zile să găsești un martor care a vorbit la timp.",
+          "Un om beat îți cere ajutorul ca să-și mărturisească crima în piață, la amiază, înainte ca victima să moară, iar tu ești singurul care poate duce vestea la judecătorie."
+        ],
+        "en": [
+          "From your window you watched a merchant being pushed into the river and said nothing; by morning your fields are scorched and the mayor summons you to have your share calculated.",
+          "You are a judge of shares and must decide who pays for a village famine, working from the list of those who stood in the square on the day of the killing.",
+          "Your daughter is born with the debt of a murder your grandmother witnessed at sixteen, and you have three days to find a witness who spoke up in time.",
+          "A drunk man begs you to help him confess his crime in the square at noon, before his victim dies, and you are the only one who can carry the word to the court."
+        ]
+      }
+    },
+    {
+      "id": "myth-panteon-pierdut",
+      "tags": [
+        "zei",
+        "competență",
+        "birou"
+      ],
+      "title": {
+        "ro": "Universul în care zeii pierd puterile pe care nu le mai cheamă nimeni",
+        "en": "A universe where gods lose every power that nobody still calls on"
+      },
+      "law": {
+        "ro": "Un zeu nu e veșnic: puterea lui e un serviciu cerut de oameni, iar dacă nimeni nu-l mai cheamă pentru un domeniu, zeul pierde competența pe acel domeniu și uită cum se face. Zeii nu pot inventa cereri și nu pot sili pe nimeni să-i cheme, de aceea se ceartă între ei pentru ultimii pescari, ultimii fierari, ultimele femei care nasc acasă. Când un zeu pierde tot, nu moare: rămâne un bătrân cu amintiri de putere, angajat la cei care mai au birouri. Oamenii pot salva un zeu doar chemându-l cu glas tare pentru ceva mărunt și adevărat, iar chemarea se consemnează și se plătește cu un dar. Puterea unui zeu e deci o statistică, iar calendarele templelor sunt liste de cereri pe care nimeni nu le mai adresează.",
+        "en": "A god is not eternal: their power is a service demanded by people, and if nobody calls on them for a domain any longer, the god loses competence over it and forgets how it is done. Gods cannot invent requests or force anyone to call, so they quarrel over the last fishermen, the last blacksmiths, the last women giving birth at home. When a god loses everything they do not die: they remain an elder with memories of power, hired by those who still keep an office. People can save a god only by calling aloud for something small and true, and the call is recorded and paid for with a gift. A god's power is therefore a statistic, and temple calendars are lists of requests nobody makes any more."
+      },
+      "openings": {
+        "ro": [
+          "Zeul ploii din orașul tău a fost retrogradat la împărțit hărți pentru turiști, iar seceta din vară i se pune în cârcă; templele vor să-l dea afară.",
+          "Ești funcționar la biroul cererilor și primești dosarul unui zeu care cere să fie chemat măcar o dată pentru un lucru mărunt, altfel își pierde ultima competență.",
+          "Bunica ta, ultima femeie care mai naște acasă în port, refuză să cheme zeița care a ajutat-o toată viața, iar tu vezi cum zeița îmbătrânește pe zi ce trece.",
+          "Un zeu fără memorie îți cere să-i recitești propriile legi, pe care le-a uitat, și îți oferă în schimb ceva ce nu are dreptul să dea."
+        ],
+        "en": [
+          "The rain god of your city has been demoted to handing out tourist maps, the summer drought is blamed on him, and the temples want him dismissed.",
+          "You clerk at the office of petitions and receive the file of a god asking to be called at least once for something small, or else his last competence lapses.",
+          "Your grandmother, the last woman in the harbour who gives birth at home, refuses to call the goddess who helped her all her life, and you watch the goddess age day by day.",
+          "A god with no memory asks you to recite his own laws back to him and offers in return something he has no right to give."
+        ]
+      }
+    },
+    {
+      "id": "myth-competente-amanetate",
+      "tags": [
+        "zei",
+        "amanet",
+        "contract"
+      ],
+      "title": {
+        "ro": "Universul în care zeii își amanetează competențele între ei, iar lumea se strică pe rând",
+        "en": "A universe where gods pawn their competences to one another and the world breaks by turns"
+      },
+      "law": {
+        "ro": "Fiecare domeniu al lumii e ținut de un zeu care îl poate împrumuta, amaneta sau vinde altui zeu, iar contractul se execută pe loc, fără să întrebe pe nimeni de jos. Când un zeu ia cu împrumut competența altuia, lumea crapă la cusătură: ploaia cade în pătrate, recoltele se coc noaptea, morții se trezesc cu amintirile altora. Dobânda se plătește în credință, adică în oameni care trec de la un altar la altul, așa că zeii se bat pe aceiași enoriași cum se bat negustorii pe aceeași piață. Nimeni nu poate desființa un contract divin, dar orice contract are o clauză ascunsă, scrisă mărunt, pe care o citesc doar copiii și bețivii. Un zeu falit nu dispare, ci devine slugă la creditorul lui, iar slujba lui e să semneze ce i se pune în față.",
+        "en": "Every domain of the world is held by a god who may lend, pawn or sell it to another god, and the contract executes at once, without asking anyone below. When a god borrows another's competence, the world cracks along the seam: rain falls in squares, crops ripen at night, the dead wake with other people's memories. Interest is paid in belief, meaning people who move from one altar to another, so gods fight over the same congregation the way merchants fight over one market. No divine contract can be cancelled, but every contract carries a hidden clause in small print that only children and drunks can read. A bankrupt god does not vanish; he becomes a servant to his creditor, and his job is to sign whatever is placed in front of him."
+      },
+      "openings": {
+        "ro": [
+          "Ai citit clauza ascunsă dintr-un contract divin și ai aflat că ploaia din vale a fost amanetată de zeul tău unui creditor care urăște păstorii.",
+          "Satul tău își schimbă zeul la fiecare seceriș, din pricina dobânzii, iar tu ești ales să duci jalba la tribunalul unde zeii se judecă între ei.",
+          "Tatăl tău, slugă a unui zeu falit, a semnat un contract care îți ia recolta de anul viitor, iar tu ai o singură noapte să găsești o clauză salvatoare.",
+          "Un zeu bătrân îți vinde competența morții pe o bucată de pâine, iar tu nu știi că e ultima lui putere neatinsă."
+        ],
+        "en": [
+          "You read the hidden clause in a divine contract and learned that the valley rain was pawned by your god to a creditor who despises shepherds.",
+          "Your village changes its god at every harvest because of the interest, and you are chosen to carry the complaint to the court where gods sue one another.",
+          "Your father, a servant of a bankrupt god, signed a contract that takes next year's harvest from you, and you have one night to find a clause that saves it.",
+          "An old god sells you the competence of death for a crust of bread, and you do not know it is the last of his powers still untouched."
+        ]
+      }
+    },
+    {
+      "id": "myth-pod-judecatori",
+      "tags": [
+        "pod",
+        "judecată",
+        "pricină"
+      ],
+      "title": {
+        "ro": "Universul în care un pod de piatră îi duce pe vii în fața judecătorilor morților",
+        "en": "A universe where a stone bridge carries the living before the judges of the dead"
+      },
+      "law": {
+        "ro": "Odată în viață, oricine poate trece un pod de piatră care duce în sala judecătorilor morți, dar numai cu o pricină pe care o poate susține singur, fără avocat. Podul se deschide la răsărit și se închide la apus, iar cine rămâne pe el peste noapte se întoarce bătrân cu douăzeci de ani. Judecătorii nu pedepsesc și nu răsplătesc: hotărăsc doar ce anume din viața ta rămâne în urmă ca faptă, iar restul se șterge din memoria neamului. Cine vine cu o pricină neadevărată e trimis înapoi fără umbră, iar fără umbră nu mai poate moșteni pământ. Cei care nu trec niciodată podul mor fără hotărâre, iar nepoții lor nu au voie să le rostească numele la înmormântări.",
+        "en": "Once in a lifetime, anyone may cross a stone bridge leading into the hall of the dead judges, but only with a case they can argue alone, without a lawyer. The bridge opens at sunrise and shuts at dusk, and whoever is left on it overnight returns twenty years older. The judges neither punish nor reward: they decide only which part of your life remains behind as a deed, while the rest is erased from your family's memory. Anyone who comes with a false case is sent back without a shadow, and without a shadow no land can be inherited. Those who never cross die without a ruling, and their grandchildren may not speak their names at funerals."
+      },
+      "openings": {
+        "ro": [
+          "Tatăl tău moare în noaptea de dinainte să treacă podul, iar tu poți lua locul lui dacă aduci dovezi pentru pricina pe care el n-a apucat s-o rostească.",
+          "Ai o singură zi, de la răsărit la apus, ca să-ți aperi viața în fața judecătorilor, iar martorul tău a murit ieri și nu poate fi chemat decât viu.",
+          "Te întorci de pe pod cu douăzeci de ani mai bătrân și cu o hotărâre care șterge din neam memoria celui care te-a crescut.",
+          "Un judecător mort îți propune să-i vinzi umbra pentru o pricină câștigată dinainte, iar soția ta e însărcinată și are nevoie de pământul moștenit."
+        ],
+        "en": [
+          "Your father dies the night before he was to cross the bridge, and you may take his place if you bring evidence for the case he never got to state.",
+          "You have one day, sunrise to dusk, to defend your life before the judges, and your witness died yesterday and can only be summoned alive.",
+          "You come back from the bridge twenty years older, with a ruling that erases from your family the memory of the person who raised you.",
+          "A dead judge offers to buy your shadow in exchange for a case won in advance, and your wife is pregnant and needs the inherited land."
+        ]
+      }
+    },
+    {
+      "id": "myth-pod-taxa-amintiri",
+      "tags": [
+        "pod",
+        "taxă",
+        "amintiri"
+      ],
+      "title": {
+        "ro": "Universul în care podul morților ia taxă în amintiri, nu în bani",
+        "en": "A universe where the bridge of the dead charges a toll in memories, not coins"
+      },
+      "law": {
+        "ro": "Podul care leagă țărmul viu de celălalt țărm are un singur vameș, orb, care nu poate primi bani, făină sau rugăciuni: primește amintiri rostite cu glas tare, una câte una, până când socoteala e dreaptă. Taxa e fixă pentru fiecare suflet și o plătesc cei care rămân în viață, nu cel care trece, așa că doliul devine o muncă de arhivă. Amintirea plătită iese din capul celui care o spune și intră în felinarul vameșului, care o ține aprins cât ține drumul. Dacă nu se strâng destule amintiri, mortul se întoarce a doua zi, fără să fi văzut ce e dincolo, și cere socoteală familiei. Vameșul nu poate refuza o amintire adevărată, fie ea și urâtă, și nu poate primi una scornită, oricât de frumoasă.",
+        "en": "The bridge between the living shore and the other shore has one toll keeper, blind, who cannot take coins, flour or prayers: he takes memories spoken aloud one by one until the count is right. The toll is fixed per soul and paid by those who stay alive, not by the one who crosses, so mourning becomes archival labour. A memory that has been paid leaves the head of the speaker and enters the toll keeper's lantern, which stays lit as long as the road lasts. If too few memories are gathered, the dead return the next day, having seen nothing beyond, and demand an accounting from the family. The keeper cannot refuse a true memory, even an ugly one, and cannot accept a made-up one, however lovely."
+      },
+      "openings": {
+        "ro": [
+          "Vameșul orb îți spune că pentru fratele tău lipsesc nouă amintiri, iar tu ai doar trei care sunt cu adevărat ale tale.",
+          "Mama ta refuză să plătească taxa pentru soțul ei, fiindcă singura amintire care s-ar socoti e cea în care l-a văzut lovind-o.",
+          "Ai o amintire pe care nimeni altcineva nu o știe, iar un om bogat din sat vrea s-o cumpere pentru drumul mamei lui.",
+          "Ești ucenic de vameș și înveți să cântărești amintiri, când un bătrân îți aduce una despre tine pe care tu nu ți-o amintești."
+        ],
+        "en": [
+          "The blind toll keeper tells you nine memories are missing for your brother, and you have only three that are truly your own.",
+          "Your mother refuses to pay the toll for her husband, because the only memory that would count is the one in which she watched him beat her.",
+          "You hold a memory nobody else knows, and a wealthy man in the village wants to buy it to pay for his mother's crossing.",
+          "You are an apprentice to the toll keeper, learning to weigh memories, when an old man brings one about you that you do not remember."
+        ]
+      }
+    },
+    {
+      "id": "myth-sacrificiu-vreme",
+      "tags": [
+        "sacrificiu",
+        "vreme",
+        "cântar"
+      ],
+      "title": {
+        "ro": "Universul în care vremea se schimbă doar prin sacrificii cântărite, niciodată prin rugăciune",
+        "en": "A universe where weather changes only through weighed sacrifice, never through prayer"
+      },
+      "law": {
+        "ro": "Vremea nu ascultă de cereri, ci de pierdere: ploaia vine exact în proporția a ceea ce cineva distruge de bunăvoie și nu mai recuperează niciodată. Cântarul din mijlocul pieței arată cât mai lipsește până la ploaie, iar sătenii se uită la el cum se uită alții la calendare. Ce se pierde trebuie să fie al celui care îl pierde, fiindcă jertfa luată de la altul nu se socotește și se întoarce ca secetă dublă. Se pot jertfi recolte, unelte, animale, case sau ani scurși din trupul celui care plătește, iar prețul unei singure furtuni poate ruina un neam. Nimeni nu e silit să plătească, dar seceta nu întreabă cine a plătit: plouă peste toți ori peste nimeni. Cine a plătit o dată primește drept de semnătură la cântărirea următoare, iar datoria de a alege cine plătește se moștenește ca o slujbă.",
+        "en": "Weather obeys loss, not requests: rain falls in exact proportion to something destroyed willingly and never recovered. A scale in the middle of the market shows how much is still missing before the rain, and the villagers watch it the way other people watch calendars. What is lost must belong to the one who loses it, because a victim taken from someone else does not count and returns as doubled drought. Grain, tools, animals, houses or years cut from the payer's own body may all be given, and the price of a single storm can ruin a family. Nobody is forced to pay, but drought never asks who paid: it rains on everyone or on no one. Whoever has paid once holds a signature at the next weighing, and the duty of choosing who pays is inherited like an office."
+      },
+      "openings": {
+        "ro": [
+          "Cântarul din piață arată treisprezece zile până la ploaie și numai holda ta mai poate acoperi diferența, iar fiul tău bolnav se hrănește din holda aceea.",
+          "Ai plătit odată o furtună cu trei ani din viață, iar acum ești chemat să hotărăști cine jertfește pentru anul următor al satului.",
+          "Un negustor îți oferă bani mulți ca să plătești seceta în locul lui, iar tu știi că jertfa cumpărată cu bani nu se socotește.",
+          "Ești preotul care ține cântarul, iar cineva îți cere să înregistrezi o jertfă pe numele lui, ca să capete drept de semnătură la alegerea următorului plătitor."
+        ],
+        "en": [
+          "The market scale shows thirteen days until rain and only your field can cover the difference, and your sick son is fed from that very field.",
+          "You once paid for a storm with three years of your life, and now you are called to decide who will sacrifice for the village's next year.",
+          "A merchant offers you a large sum to pay off the drought in his place, and you know that a sacrifice bought with money does not count.",
+          "You are the keeper of the scale, and someone asks you to register a sacrifice under another name in order to gain a signature at the next weighing."
+        ]
+      }
+    },
+    {
+      "id": "myth-jertfa-muta-vremea",
+      "tags": [
+        "jertfă",
+        "pământ",
+        "rodire"
+      ],
+      "title": {
+        "ro": "Universul în care vremea bună se mută pe locul unde cineva drag a fost jertfit de bunăvoie",
+        "en": "A universe where good weather moves to the ground where someone beloved was sacrificed willingly"
+      },
+      "law": {
+        "ro": "Vremea nu e o stare a cerului, ci o însușire a locului: se mută acolo unde cineva a fost dat de bunăvoie pentru altcineva și rămâne cât ține durerea locului. Un ogor care a băut sânge de fiu rodește nouă generații, dar toți care dorm pe el moștenesc visul acelui fiu. Comunitățile nu pot cere vremea, pot doar muta jertfa mai aproape de graniță, iar războaiele se duc pentru locuri unde jertfa e cu putință. Cine e jertfit fără consimțământ nu hrănește pământul, ci îl otrăvește, iar locul rămâne sterp până când cineva plătește cu propria viață pentru curățire. De aceea tribunalele cer dovezi de bunăvoie, iar cele mai aprige procese sunt pentru moștenirea unui loc roditor. Nimeni nu poate lua vremea cu el: locul rămâne sfânt pentru toți, chiar și pentru cei care urăsc jertfa.",
+        "en": "Weather is not a state of the sky but a property of ground: it moves to the place where someone was given willingly for someone else and stays as long as the grief of that place lasts. A field that has drunk the blood of a son yields for nine generations, but everyone who sleeps on it inherits that son's dream. Communities cannot ask for weather; they can only move a sacrifice closer to the border, and wars are fought over places where sacrifice is possible. Anyone sacrificed without consent does not feed the earth but poisons it, and the ground stays barren until somebody pays with their own life to cleanse it. That is why courts demand proof of willingness, and the bitterest lawsuits are over the inheritance of fertile ground. No one can carry weather away: the place remains holy to all, even to those who hate the sacrifice."
+      },
+      "openings": {
+        "ro": [
+          "Vecinul tău vinde un ogor roditor, iar cumpărătorul nu știe de ce dormitul pe el îți aduce visul unui băiat mort de o sută de ani.",
+          "Ești judecător într-un proces pentru moștenirea unui loc sfânt și trebuie să stabilești dacă jertfa de acum nouă generații a fost de bunăvoie.",
+          "Un sat de la graniță îți cere să muți jertfa pe pământul tău ca să aibă ploaie, iar fiica ta s-a oferit singură.",
+          "Pământul se otrăvește sub picioarele tale de când cineva a fost ucis aici fără voia lui, iar tu ai trei zile să afli cine plătește curățirea."
+        ],
+        "en": [
+          "Your neighbour is selling a fertile field, and the buyer does not know why sleeping on it gives you the dream of a boy dead a hundred years.",
+          "You are the judge in a lawsuit over a holy plot, and you must establish whether the sacrifice nine generations back was given willingly.",
+          "A border village asks you to move a sacrifice onto your land so that it may have rain, and your daughter has offered herself.",
+          "The ground has been poisoning under your feet ever since someone was killed here against their will, and you have three days to learn who pays for the cleansing."
+        ]
+      }
+    },
+    {
+      "id": "myth-ospitalitate-absoluta",
+      "tags": [
+        "oaspeți",
+        "prag",
+        "imunitate"
+      ],
+      "title": {
+        "ro": "Universul în care cine trece pragul casei devine oaspete și nu mai poate fi atins",
+        "en": "A universe where whoever crosses a threshold becomes a guest and can no longer be touched"
+      },
+      "law": {
+        "ro": "Pragul casei e o graniță juridică: cine îl trece, chiar cerând apă, devine oaspete și primește imunitate deplină pentru tot ce a făcut înainte. Gazda răspunde cu viața pentru oaspete, iar neamul gazdei plătește neamului oaspetelui vreme de nouă generații dacă oaspetele e rănit sub acoperișul acela. Nimeni nu poate refuza un oaspete, dar nimeni nu e obligat să-l lase să plece: un oaspete poate rămâne zeci de ani, iar gazda trebuie să-l hrănească. Răzbunarea se face afară, la drum, înainte de prag sau după plecare, iar vânătorii de sânge așteaptă uneori o viață întreagă la poarta unui om. Cine își ucide oaspetele în casă e scos din neam: casa i se dărâmă, iar numele nu se mai rostește decât ca blestem. Sărăcia nu scutește pe nimeni: cine nu poate hrăni un oaspete trebuie să ceară ajutorul vecinilor, iar vecinii sunt datori să dea.",
+        "en": "A house threshold is a legal border: whoever crosses it, even begging for water, becomes a guest and receives complete immunity for everything done before. The host answers with their life for the guest, and the host's family pays the guest's family for nine generations if the guest is harmed under that roof. No one may refuse a guest, yet no one is obliged to let a guest leave: a guest can stay for decades and the host must still feed them. Revenge happens outside, on the road, before the threshold or after departure, and blood hunters sometimes wait a whole lifetime at a man's gate. Whoever kills a guest inside the house is cut off from their kin: the house is pulled down and the name is spoken only as a curse. Poverty excuses nobody: whoever cannot feed a guest must ask the neighbours, and the neighbours are obliged to give."
+      },
+      "openings": {
+        "ro": [
+          "Omul care ți-a omorât fratele stă pe prispa ta, rănit, și îți cere apă; dacă intră, nu mai poți face nimic până nu pleacă singur.",
+          "Ești vânător de sânge și aștepți de nouă ani la poarta unui om care ține în casă, ca oaspete, ucigașul tatălui tău.",
+          "Fiul tău a rănit un oaspete sub acoperișul tău, iar acum neamul oaspetelui are drept de plată nouă generații, inclusiv nepoții tăi.",
+          "Un oaspete stă de doisprezece ani în casa ta, mănâncă din recolta ta și refuză să plece, iar satul spune că ai noroc, fiindcă nimeni nu-ți mai poate cere nimic."
+        ],
+        "en": [
+          "The man who killed your brother is on your porch, wounded, asking for water; if he steps inside you can do nothing until he leaves of his own will.",
+          "You are a blood hunter and you have waited nine years at the gate of a man who keeps your father's killer inside as a guest.",
+          "Your son wounded a guest under your roof, and now the guest's family holds a nine-generation claim, your grandchildren included.",
+          "A guest has lived twelve years in your house, eats your harvest and refuses to leave, and the village says you are lucky, since nobody can demand anything of you."
+        ]
+      }
+    },
+    {
+      "id": "myth-prag-refuzat",
+      "tags": [
+        "oaspeți",
+        "refuz",
+        "rezervă"
+      ],
+      "title": {
+        "ro": "Universul în care refuzul unui oaspete ia din trupul gazdei exact ce i-ar fi dat",
+        "en": "A universe where refusing a guest takes from the host's body exactly what would have been given"
+      },
+      "law": {
+        "ro": "Fiecare om are o rezervă de oaspeți, scrisă pe trup ca o linie de grăsime, de la naștere până la moarte, iar fiecare noapte de adăpost cheltuită din ea scade o zi din viața gazdei. Cine refuză un oaspete nu e pedepsit de nimeni, dar pierde pe loc, luat din propriul trup, exact ce ar fi dat: pâinea, apa, locul de dormit, căldura. De aceea, în satele de pe drumul mare, oamenii sunt slabi, iar în orașele cu ziduri sunt grași și urâți. Refuzul poate fi amânat prin cumpărare: cine plătește un vecin să găzduiască în locul lui pierde doar jumătate, fiindcă jumătate din cinste rămâne la plătitor. Copiii născuți în case de oaspeți sunt grei și leneși, iar copiii născuți în casele zgârcite sunt ușori, dar nu trăiesc mult. Nimeni nu știe câte zile mai are, fiindcă rezerva e socotită de un inspector orb care nu-ți spune niciodată socoteala.",
+        "en": "Every person carries a reserve for guests, written on the body as a line of fat, from birth to death, and every night of shelter consumed from it cuts one day off the host's life. Whoever turns away a guest is punished by nobody, yet instantly loses from their own body exactly what they would have given: bread, water, a bed, warmth. So people in villages along the high road are thin, while people in walled cities are fat and ugly. A refusal can be deferred by purchase: whoever pays a neighbour to host in their place loses only half, because half the honour stays with the payer. Children born in houses of guests are heavy and lazy, while children born in miserly houses are light but do not live long. Nobody knows how many days remain to them, because the reserve is kept by a blind inspector who never reads the reckoning aloud."
+      },
+      "openings": {
+        "ro": [
+          "Ai o linie subțire pe braț, îți numeri zilele împreună cu vecinii și desfaci un om rănit care cere culcuș; dacă refuzi, pierzi ce nu ai.",
+          "Ești inspector orb al rezervei și mergi din casă în casă să socotești, iar la sora ta socoteala nu se mai închide.",
+          "Un cămătar îți oferă să plătească el găzduirea unei familii de refugiați, iar tu afli că jumătate din refuz rămâne al tău.",
+          "Fiul tău se naște gras ca un copil de han, iar moașa îți spune că nimeni din neamul tău n-a avut atâta rezervă, ceea ce înseamnă că cineva din casă moare curând."
+        ],
+        "en": [
+          "You have a thin line on your arm, you count your days with the neighbours and you are unbandaging a wounded man asking for a bed; refuse him and you lose what you do not have.",
+          "You are the blind inspector of reserves, walking from house to house to reckon, and at your sister's home the accounts will not close.",
+          "A moneylender offers to pay for a refugee family to be hosted in your place, and you learn that half the refusal stays with you.",
+          "Your son is born as fat as an innkeeper's child, and the midwife tells you that no one in your line ever had such a reserve, which means someone in the house will die soon."
+        ]
+      }
+    },
+    {
+      "id": "myth-zei-tacuti",
+      "tags": [
+        "zei",
+        "tăcere",
+        "preoți"
+      ],
+      "title": {
+        "ro": "Universul în care zeii tac de o mie de ani și preoții le țin locurile",
+        "en": "A universe where the gods have been silent for a thousand years and priests hold their seats"
+      },
+      "law": {
+        "ro": "Nimeni n-a auzit un semn de la zei de o mie de ani, nici în vis, nici în boală, nici la moarte, iar templele sunt totuși datoare să funcționeze ca niște birouri. Slujbele se țin fără răspuns, taxele se strâng fără binecuvântare, iar hirotonisirea se face de preoți pentru preoți, într-o slujbă care se moștenește. Oamenii păzesc legile, fiindcă rânduielile morale din cărțile sfinte lucrează și fără autori, iar cine le încalcă e scos din obște de vecini, nu de cer. E oprit cu desăvârșire să se declare o tăcere asemănătoare cu a zeilor, fiindcă o astfel de declarație ar arăta că lumea merge înainte oricum. Preoții tineri trec o probă: țin o slujbă de douăsprezece ore fără să aștepte nimic în timpul ei. Cine susține că a auzit un răspuns e caterisit, chiar și atunci când aude.",
+        "en": "Nobody has heard a sign from the gods in a thousand years, not in dreams, not in sickness, not at death, and the temples are still obliged to run like offices. Services are held with no answer, dues are collected with no blessing, and ordination is performed by priests for priests, in an office inherited like land. People keep the rules, because the moral order of the holy books works even without authors, and whoever breaks it is cast out by neighbours, not by heaven. It is absolutely forbidden to declare a silence resembling that of the gods, since such a declaration would show the world carries on regardless. Young priests face a test: they must hold a twelve-hour service and expect nothing during it. Anyone claiming to have heard an answer is defrocked, even when they do hear one."
+      },
+      "openings": {
+        "ro": [
+          "Ești preot tânăr și în a noua oră a slujbei de probă auzi o voce care îți spune un lucru adevărat, iar ușile sunt zăvorâte.",
+          "Un sat îți cere să confirmi că seceta e pedeapsă cerească, iar tu știi că nimic nu a vorbit de o mie de ani.",
+          "Tatăl tău, episcop, moare și îți lasă un testament cu o singură poruncă: să nu spui niciodată ce a auzit el în tinerețe.",
+          "O femeie vine la spovedanie și refuză să-și mărturisească păcatul până nu-i spui dacă zeii aud, iar tu nu poți minți fără să-ți pierzi parohia."
+        ],
+        "en": [
+          "You are a young priest and in the ninth hour of your trial service you hear a voice telling you something true, while the doors are bolted.",
+          "A village asks you to confirm that the drought is heavenly punishment, and you know nothing has spoken in a thousand years.",
+          "Your father, a bishop, is dying and leaves you a testament with one command: never say aloud what he heard in his youth.",
+          "A woman comes to confession and refuses to name her sin until you tell her whether the gods hear, and you cannot lie without losing your parish."
+        ]
+      }
+    },
+    {
+      "id": "myth-ultimul-semn",
+      "tags": [
+        "zei",
+        "registru",
+        "așteptare"
+      ],
+      "title": {
+        "ro": "Universul în care ultimul semn al zeilor e consemnat, iar toți așteaptă următorul",
+        "en": "A universe where the gods' last sign was recorded and everyone waits for the next one"
+      },
+      "law": {
+        "ro": "Ultimul semn ceresc cunoscut a fost notat într-un registru cu dată, oră și martori, iar de atunci fiecare zi e o zi obișnuită: toate calendarele numără de la acea zi. Așteptarea e o meserie legală, cu funcționari plătiți să stea într-un turn și să declare zilnic că nu s-a întâmplat nimic, iar declarația lor se afișează la ușa templului. Cine vestește un semn nou fără trei martori vrednici de crezare își pierde averea în folosul celui care îl contrazice, de aceea nimeni nu raportează nimic. Zeii nu sunt declarați morți sau lipsă, ci necongruenți, o formulă care ține lumea întreagă în așteptare și oprește orice prefacere. Copiii învață pe de rost registrul ultimelor o sută de semne ca pe o listă de domni, iar cei care îl știu mai bine ajung judecători. Din douăzeci în douăzeci de ani câte un semn se înregistrează totuși, de obicei prin grija unui om sărac care nu are ce pierde.",
+        "en": "The last known heavenly sign was entered in a register with date, hour and witnesses, and every day since has been an ordinary day; all calendars count from it. Waiting is a lawful trade, with officials paid to sit in a tower and declare each day that nothing has happened, and their statement is posted at the temple door. Anyone announcing a new sign without three credible witnesses forfeits their property to whoever contradicts them, which is why nobody reports anything. The gods are not declared dead or absent but incongruent, a formula that keeps the whole world waiting and blocks every reform. Children memorise the register of the last hundred signs like a list of kings, and those who know it best become judges. Once every twenty years a sign is nonetheless recorded, usually thanks to a poor man who has nothing to lose."
+      },
+      "openings": {
+        "ro": [
+          "Ești funcționarul din turn și în noaptea ta de gardă se aprinde ceva pe cer; declarația de dimineață trebuie depusă înainte de răsărit.",
+          "Un sărac susține că a văzut un semn și îți cere ajutorul să găsească trei martori vrednici de crezare, altfel pierde tot ce are.",
+          "Fiul tău învață registrul semnelor pentru slujba de judecător, iar tu ai acasă o copie a registrului care nu se potrivește cu cea oficială.",
+          "Un om bogat te plătește să contrazici un semn și să-i iei averea celui care l-a vestit, iar semnul s-a arătat tocmai peste casa ta."
+        ],
+        "en": [
+          "You are the clerk in the tower and on your night watch something lights up in the sky; the morning statement must be filed before sunrise.",
+          "A poor man claims he saw a sign and asks your help to find three credible witnesses, or else he loses everything he owns.",
+          "Your son is memorising the sign register for a judge's post, and at home you keep a copy of the register that does not match the official one.",
+          "A rich man pays you to contradict a sign and take the property of the man who reported it, and the sign appeared over your own house."
+        ]
+      }
+    },
+    {
+      "id": "myth-purgatoriu-tarife",
+      "tags": [
+        "purgatoriu",
+        "tarife",
+        "coadă"
+      ],
+      "title": {
+        "ro": "Universul în care purgatoriul e o sală de așteptare cu tarife, iar locul se cumpără",
+        "en": "A universe where purgatory is a waiting room with rates and seats are bought"
+      },
+      "law": {
+        "ro": "Între moarte și hotărâre se află o sală de așteptare administrată de o companie care nu lămurește niciodată cine i-a dat concesiunea. Locurile sunt numerotate: la fereastră, cu scaun, cu apă și cu tăcere costă, iar pe hol, în picioare, se stă gratis până când cineva plătește pentru tine. Plata se face de vii, în fapte și în bani, iar mortul nu poate munci ca să-și cumpere locul: singurul lui avocat e cineva care încă respiră. Cine a stat prea mult în sală uită ce a făcut în viață și ajunge la judecată fără memorie, ceea ce trece drept cel mai bun rezultat cu putință. Funcționarii nu mint, dar au voie să tacă, iar lista de așteptare se schimbă de fiecare dată când cineva de pe hol plătește deodată. Bogații trec repede, iar săracii sunt înfiați simbolic de familii care au nevoie de un nume în arbore.",
+        "en": "Between death and a ruling lies a waiting room run by a company that never explains who granted it the concession. Seats are numbered: by the window, with a chair, with water and with silence, all cost money, while standing in the corridor is free until somebody pays for you. Payment comes from the living, in money and in deeds, and the dead cannot work to buy their own chair: their only advocate is someone still breathing. Whoever waits too long forgets what they did in life and comes to judgement without memory, which passes for the best possible outcome. Clerks never lie, but they may stay silent, and the waiting list shifts whenever someone in the corridor suddenly pays. The rich pass quickly; the poor are symbolically adopted by families in need of a name on the tree."
+      },
+      "openings": {
+        "ro": [
+          "Tatăl tău stă de unsprezece ani pe holul purgatoriului și primești o ofertă: un loc la fereastră în schimbul numelui tău pe un contract funerar.",
+          "Lucrezi la ghișeul sălii și trebuie să-i lămurești unei fetițe că părinții ei n-au plătit, fără să-i spui cine a plătit pentru fiul unui om bogat.",
+          "Ești avocatul unui mort fără memorie și ai trei zile să-i reclădești faptele din martori vii, plătiți cu bani pe care nu-i ai.",
+          "Mama ta refuză să plătească pentru soțul ei și îți cere să semnezi tu, iar semnătura unui fiu te pune pe listă la moartea ta."
+        ],
+        "en": [
+          "Your father has been standing in the corridor of purgatory for eleven years, and you are offered a seat by the window in exchange for your name on a funeral contract.",
+          "You work the counter of the hall and must explain to a little girl that her parents have not paid, without telling her who paid for a rich man's son.",
+          "You are the advocate for a dead man with no memory, with three days to rebuild his deeds from living witnesses you must pay with money you do not have.",
+          "Your mother refuses to pay for her husband and asks you to sign instead, and a son's signature puts you on the list at your own death."
+        ]
+      }
+    },
+    {
+      "id": "myth-mostenirea-randului",
+      "tags": [
+        "purgatoriu",
+        "rang",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care locul din rândul purgatoriului se moștenește ca un titlu de proprietate",
+        "en": "A universe where a place in the purgatory queue is inherited like a title deed"
+      },
+      "law": {
+        "ro": "Rândul la judecată nu se ține de fiecare mort, ci de neam: fiecare familie are un loc anume în coadă, agonisit de strămoși și lăsat urmașilor ca o moșie, cu acte. Cine moare intră în rândul familiei la poziția pe care neamul a strâns-o prin răbdare, fapte și plăți, iar o poziție bună poate fi irosită de un urmaș în treizeci de ani. Poziția se poate vinde, dar numai unui neam întreg viu și numai cu iscălitura tuturor celor care poartă numele, inclusiv a pruncilor nenăscuți, reprezentați de moașă. Sărăcia înseamnă un loc foarte în spate, unde se poate aștepta șaisprezece generații, iar acolo morții învață răbdarea ca meserie și ajung păstrători de registre. Funcționarii opresc orice încercare de a sări rândul prin fapte bune târzii, fiindcă una din cele mai vechi rânduieli spune că mila de pe patul de moarte nu e plată, ci văicăreală.",
+        "en": "The queue for judgement is held not by individuals but by bloodlines: each family owns a fixed place in the line, earned by ancestors and left to descendants like an estate, with deeds. The newly dead enter their family line at whatever rank the kin has accumulated through patience, deeds and payments, and a good rank can be squandered by one descendant in thirty years. A rank may be sold, but only to a whole living line and only with the signature of everyone bearing the name, including unborn children represented by the midwife. Poverty means a place far back, where a wait of sixteen generations is possible, and there the dead learn patience as a trade and become keepers of registers. Clerks forbid any attempt to jump the line with late good deeds, because one of the oldest rules states that mercy on a deathbed is not payment but whining."
+      },
+      "openings": {
+        "ro": [
+          "Moașa ta a vândut locul familiei din rând ca să plătească datoriile bunicului, iar acum tu ești cel care va aștepta șaisprezece generații la coadă.",
+          "Ești moașă și trebuie să iscălești pentru un prunc nenăscut într-o vânzare de rang; neamul mamei te amenință, iar cel al tatălui te plătește.",
+          "Un străin îți cere iscălitura ca să cumpere rândul neamului tău și îți arată un act care dovedește că tu nu faci parte din neam.",
+          "Bunicul tău, mort de douăzeci de ani, îți apare în vis și îți spune că a urcat două locuri, dar numai dacă tu nu te căsătorești niciodată."
+        ],
+        "en": [
+          "Your grandmother sold the family's place in the queue to pay your grandfather's debts, and now you are the one who will wait sixteen generations in line.",
+          "You are a midwife and must sign for an unborn child in a sale of rank; the mother's family threatens you and the father's family pays you.",
+          "A stranger asks for your signature to buy your line's queue position and shows you a deed proving you are not part of the line.",
+          "Your grandfather, dead twenty years, appears in a dream and tells you he has risen two places, but only if you never marry."
+        ]
+      }
+    },
+    {
+      "id": "myth-soarta-corectata",
+      "tags": [
+        "soartă",
+        "registru",
+        "corectură"
+      ],
+      "title": {
+        "ro": "Universul în care soarta e scrisă într-un registru și se îndreaptă contra cost",
+        "en": "A universe where fate is written in a register and can be corrected for a fee"
+      },
+      "law": {
+        "ro": "Fiecare om are o filă scrisă dinainte în registrul sorții, iar fila nu poate fi citită decât de scribi, niciodată de cel în cauză. Îndreptările sunt îngăduite: o boală, un accident, o iubire pot fi mutate în alt an, dar fiecare mutare se plătește cu durata unei alte vieți apropiate. Scribii nu aleg ce scriu, ci copiază hotărârile unei comisii care nu se întrunește niciodată, iar hotărârile se trag la sorți din două urne. Cine își plătește îndreptarea cu ani luați de la copiii lui nu e pedepsit de nimeni, dar copiii cresc bolnăvicioși și nu moștenesc fila. Registrul are file lipsă din vremuri vechi, iar oamenii din satele acelea trăiesc fără soartă: li se poate întâmpla orice, inclusiv nimic. Orice cerere de îndreptare se depune cu martor viu, iar martorul cară jumătate din soarta cea nouă, fără să știe ce iscălește.",
+        "en": "Every person has a page written in advance in the register of fate, and the page may be read only by scribes, never by the person concerned. Corrections are allowed: an illness, an accident, a love may be moved to another year, but every move is paid with the duration of another life close to you. Scribes do not choose what they write; they copy the decisions of a committee that never convenes, and those decisions are drawn by lot from two urns. Anyone paying for a correction with years taken from their children is punished by no one, but the children grow sickly and inherit no page. The register has pages missing from long ago, and the people of those villages live without fate: anything can happen to them, including nothing. Every correction request is filed with a living witness, and the witness carries half of the new fate without knowing what they sign."
+      },
+      "openings": {
+        "ro": [
+          "Scribul îți citește fila din registru și îți spune că vei muri la treizeci și șapte de ani, dar că anul se poate muta dacă dai doi ani din viața fiicei tale.",
+          "Trăiești într-un sat cu file lipsă și ai aflat că nimeni de acolo nu moare la timp, iar un scrib vrea să vă scrie filele din nou, contra cost.",
+          "Ai fost martor la o îndreptare și de atunci jumătate din soarta altcuiva ți se întâmplă, boala acelei persoane cuprinsă.",
+          "Comisia care nu se întrunește se întrunește totuși o dată, iar tu ești ales să tragi la sorți hotărârea pentru orașul tău."
+        ],
+        "en": [
+          "A scrib reads your page from the register and tells you that you will die at thirty-seven, but the year can be moved if you give two years of your daughter's life.",
+          "You live in a village of missing pages and you have learned that nobody there dies on time, and a scribe now wants to write your pages anew, for a fee.",
+          "You witnessed a correction, and ever since half of someone else's fate happens to you, that person's illness included.",
+          "The committee that never convenes convenes once after all, and you are chosen to draw by lot the ruling for your city."
+        ]
+      }
+    },
+    {
+      "id": "myth-fila-furata",
+      "tags": [
+        "soartă",
+        "furt",
+        "arhivă"
+      ],
+      "title": {
+        "ro": "Universul în care fila sorții poate fi furată, iar hoțul trăiește viața altuia",
+        "en": "A universe where a fate page can be stolen and the thief lives another person's life"
+      },
+      "law": {
+        "ro": "Fila sorții e un lucru, nu un gând: o foaie de piele păstrată într-o arhivă cu paznici, care poate fi furată, pierdută sau mâncată de șobolani. Cine fură o filă trăiește de atunci viața scrisă pe ea, iar cel de la care a luat-o trăiește ce rămâne: întâmplări fără legătură, boală fără moarte, iubire fără nuntă. Furtul nu se judecă de oameni, fiindcă arhiva nu are instanță, iar singura dovadă e că trăiești prea bine pentru cine ești. Filele se cer la înmormântare, iar cele lipsă lasă mortul nedefinit: preotul nu-l poate numi, familia nu-l poate plânge, numele nu se sapă pe piatră. S-a înjghebat un negoț negru cu file slabe, între cei care vor să trăiască puțin dar liniștit și cei care vor mult și urât. Cine își pierde fila poate primi una nouă, nescrisă, însă nescrisă înseamnă și nesfârșită.",
+        "en": "The fate page is a thing, not a thought: a sheet of leather kept in an archive with guards, which can be stolen, lost or eaten by rats. Whoever steals a page lives from then on the life written on it, while the person it was taken from lives what remains: events with no connection, illness without death, love without a wedding. Theft is judged by no human court because the archive has no tribunal, and the only evidence is that you live too well for who you are. Pages are required at funerals, and a missing page leaves the dead undefined: the priest cannot name them, the family cannot mourn them, the name is never cut in stone. A black trade in weak pages has grown between those who want to live briefly but quietly and those who want much and badly. Whoever loses a page may be given a new one, unwritten, but unwritten also means endless."
+      },
+      "openings": {
+        "ro": [
+          "La înmormântarea tatălui tău lipsește fila, iar preotul refuză să-l numească; singurul indiciu e un negustor care ți-a oferit bani pentru hârtiile familiei.",
+          "Trăiești de trei ani o viață care nu ți se potrivește și ai descoperit că un om din arhivă ți-a luat fila.",
+          "Ești paznic la arhivă și ți se cere să lași o filă să dispară, în schimbul uneia nescrise pentru fiul tău bolnav.",
+          "Ai furat o filă slabă ca să scapi de o boală grea, iar acum omul de la care ai luat-o trăiește boala ta și te caută."
+        ],
+        "en": [
+          "At your father's funeral the page is missing and the priest refuses to name him; your only lead is a trader who offered you money for the family papers.",
+          "For three years you have been living a life that does not fit you, and you have discovered that a man in the archive took your page.",
+          "You guard the archive and are asked to let a page disappear in exchange for an unwritten one for your sick son.",
+          "You stole a weak page to escape a grave illness, and now the man you took it from lives your illness and is looking for you."
+        ]
+      }
+    },
+    {
+      "id": "myth-orase-pelerinaj",
+      "tags": [
+        "pelerinaj",
+        "oraș",
+        "fum"
+      ],
+      "title": {
+        "ro": "Universul în care orașele sfinte umblă pe picioare de piatră, iar pelerinii le găsesc după fum",
+        "en": "A universe where holy cities walk on stone legs and pilgrims track them by smoke"
+      },
+      "law": {
+        "ro": "Orașele sfinte nu stau pe loc: se ridică o dată la câțiva ani pe picioare de piatră și umblă, iar hărțile sunt bune cel mult o generație. Pelerinii le găsesc după fum, după cântecul clopotelor purtat de vânt și după păsările care le ocolesc, iar cine ajunge la un oraș părăsit găsește case goale și oameni născuți acolo care n-au plecat niciodată. Locuitorii nu pot alege direcția: mersul e hotărât de un sfat de bătrâni care citesc semnele din oasele arse ale pelerinilor morți pe drum. Un oraș care se oprește prea mult într-un loc își pierde sfințenia și ajunge sat de rând, cu oameni care învață să are și să tacă despre trecut. Cine se naște pe drum, în timpul umbletului, nu are cetățenie nicăieri și nu poate fi îngropat în cimitirul sfânt, dar poate ajunge călăuză. Fiecare drum lasă în urmă o șosea de piatră netezită, folosită apoi de negustori, hoți și oști.",
+        "en": "Holy cities do not stay put: every few years they rise on stone legs and walk, and maps are good for a single generation at most. Pilgrims find them by smoke, by the sound of bells carried on the wind and by the birds that avoid them, and anyone reaching an abandoned city finds empty houses and people born there who never left. The inhabitants cannot choose the direction: the walk is decided by a council of elders who read signs in the burnt bones of pilgrims who died on the road. A city that halts too long in one place loses its holiness and becomes an ordinary village, its people learning to plough and to stay quiet about the past. Anyone born on the road, during the walk, holds citizenship nowhere and cannot be buried in the holy cemetery, but may become a guide. Every journey leaves behind a smoothed stone highway, later used by traders, thieves and armies."
+      },
+      "openings": {
+        "ro": [
+          "Ai nouă zile ca să ajungi la orașul care a plecat acum o lună, iar sora ta bolnavă are nevoie de apa lui tămăduitoare.",
+          "Te-ai născut pe drum și nu ai cetățenie; sfatul bătrânilor îți propune să te facă călăuză dacă juri că nu vei intra niciodată în cetate.",
+          "Ești trimis să numeri oasele arse ale pelerinilor morți pe drum, iar cifrele nu se potrivesc cu semnele din scripturi.",
+          "Un oraș sfânt a zăbovit prea mult lângă satul tău și începe să-și piardă sfințenia, iar negustorii tăi vor să-l țină pe loc."
+        ],
+        "en": [
+          "You have nine days to reach the city that set off a month ago, and your sick sister needs its healing water.",
+          "You were born on the road and hold no citizenship; the council of elders offers to make you a guide if you swear never to enter the city itself.",
+          "You are sent to count the burnt bones of pilgrims who died along the way, and the numbers do not match the signs in the scriptures.",
+          "A holy city has lingered beside your village too long and is beginning to lose its holiness, and your traders want to keep it there."
+        ]
+      }
+    },
+    {
+      "id": "myth-drum-sfant",
+      "tags": [
+        "pelerinaj",
+        "drum",
+        "vamă"
+      ],
+      "title": {
+        "ro": "Universul în care sfânt e drumul, nu ținta, iar pelerinajul se plătește cu pași",
+        "en": "A universe where the road is holy, not the destination, and pilgrimage is paid for in steps"
+      },
+      "law": {
+        "ro": "Sfânt nu e locul, ci poteca: un drum se sfințește prin trecerea pelerinilor și rămâne sfânt atâta vreme cât cineva îl calcă în fiecare an. Pelerinajul nu are țintă obligatorie, dar are tarif: fiecare mie de pași se plătește cu o amintire de acasă, iar cine nu plătește e întors la vama de la capătul drumului. Vămile sunt sfinte și nu iau bani, iau dovezi: o scrisoare, un nume, un lucru care arată că ai ceva de lăsat în urmă. Drumul se ramifică singur când pelerinii se ceartă, iar o ramură nefolosită moare în trei ani și se umple de buruieni. Cine umblă un an întreg fără să se oprească nu mai poate vorbi, fiindcă vorbele i s-au dus în pietre, dar e ascultat de toți. Femeile însărcinate sunt sfătuite să facă drumul în ultima lună, fiindcă drumul știe să aleagă pentru prunc ce anume să uite.",
+        "en": "What is holy is not the destination but the path: a road is sanctified by the passing of pilgrims and stays holy as long as someone walks it every year. The pilgrimage has no mandatory goal, but it has a rate: every thousand steps costs one memory from home, and anyone who does not pay is turned back at the toll at the end of the road. The tollhouses are holy and take no money, only proof: a letter, a name, an object showing that you have something to leave behind. The road forks by itself when pilgrims quarrel, and an unused fork dies within three years and fills with weeds. Those who walk a full year without stopping can no longer speak, because their words have gone into the stones, yet everyone listens to them. Pregnant women are advised to walk in their last month, since the road knows how to choose for the child what to forget."
+      },
+      "openings": {
+        "ro": [
+          "Ești vameș pe drumul sfânt și trebuie să iei o amintire de la o femeie care nu mai are niciuna, dar stăruie să treacă.",
+          "Ai umblat un an fără să te oprești și ai pierdut vorba; acum te caută un sat întreg ca să-i spui unde le-a fost îngropat grâul.",
+          "O ramură nouă a drumului trece peste ogorul tău, iar pelerinii încep să calce recolta: dacă o folosești ai venit, dacă o lași moare în trei ani.",
+          "Soția ta vrea să nască pe drum, iar moașa spune că drumul alege ce uită pruncul, numele tatălui cuprins."
+        ],
+        "en": [
+          "You are a toll keeper on the holy road and must take a memory from a woman who has none left, yet insists on passing.",
+          "You walked a year without stopping and lost your speech; now a whole village seeks you out to learn where their grain was buried.",
+          "A new fork of the road crosses your field and pilgrims are trampling the harvest: use it and you earn income, ignore it and it dies within three years.",
+          "Your wife wants to give birth on the road, and the midwife says the road chooses what the child forgets, the father's name included."
+        ]
+      }
+    },
+    {
+      "id": "myth-demon-martor",
+      "tags": [
+        "demoni",
+        "contract",
+        "adevăr"
+      ],
+      "title": {
+        "ro": "Universul în care demonii sunt ținuți prin contract să spună adevărul",
+        "en": "A universe where demons are contractually bound to tell the truth"
+      },
+      "law": {
+        "ro": "Un demon nu poate minți când e chemat în forma statornicită: contractul de chemare îl leagă să răspundă cu adevăr la orice întrebare pusă limpede, iar minciuna îl arde pe loc. De aceea demonii sunt cei mai buni martori din lume, iar instanțele îi cheamă pentru pricini pe care nimeni nu vrea să le piardă. Nu pot refuza să răspundă, dar pot răspunde la întrebarea pusă, nu la cea dorită, așa că avocații învață să întrebe exact ce vor să afle. Chemarea costă un lucru pe care demonul îl alege din lista scrisă la capătul contractului, de obicei ceva ce martorul nu știe că are. Un demon care a spus adevărul nu-și mai poate lua cuvântul înapoi, de aceea unii oameni îl fac să rostească numele celor dragi, ca să-i țină legați pentru totdeauna. Cine cheamă un demon fără contract scris capătă un martor care spune tot adevărul, fără margini, până nu mai rămâne nimic de ascuns.",
+        "en": "A demon cannot lie when summoned in the established form: the summoning contract binds it to answer truthfully any clearly put question, and a lie burns it on the spot. This makes demons the best witnesses alive, and courts summon them for cases nobody wants to lose. They cannot refuse to answer, but they may answer the question asked rather than the one intended, so lawyers learn to ask exactly what they need to know. The summoning costs one thing the demon picks from a list written at the end of the contract, usually something the witness does not know they own. A demon that has spoken truth cannot take the word back, so some people make them state the names of loved ones, keeping them bound forever. Whoever summons a demon without a written contract gains a witness that tells all truth without limit, until nothing is left hidden."
+      },
+      "openings": {
+        "ro": [
+          "Ai un proces mâine și ai nevoie de un demon martor; prețul din contract e un lucru pe care nu-l recunoști, deși îl ai.",
+          "Ai făcut un demon să rostească numele fiicei tale ca s-o țină legată, iar acum fiica ta e chemată la fiecare proces din oraș.",
+          "Ești avocat și trebuie să alcătuiești o singură întrebare care să scoată adevărul, știind că demonul răspunde la literă.",
+          "Un prieten a chemat un demon fără contract, iar acum demonul spune tot ce știe despre tine, la cerere, oricui plătește o monedă."
+        ],
+        "en": [
+          "You have a trial tomorrow and need a demon witness; the price in the contract is an object you do not recognise, though you own it.",
+          "You made a demon speak your daughter's name to keep her bound, and now your daughter is summoned to every trial in the city.",
+          "You are a lawyer and must frame a single question that will pull out the truth, knowing the demon answers literally.",
+          "A friend summoned a demon without a contract, and it now recites everything it knows about you, on request, to anyone who pays a coin."
+        ]
+      }
+    },
+    {
+      "id": "myth-demon-notar",
+      "tags": [
+        "demoni",
+        "registru",
+        "fapte"
+      ],
+      "title": {
+        "ro": "Universul în care fiecare om are un demon notar care nu poate să nu scrie ce vede",
+        "en": "A universe where every person has a demon notary who cannot fail to write what he sees"
+      },
+      "law": {
+        "ro": "Fiecare om are un demon notar care îl urmează din naștere, nevăzut de ceilalți, și însemnează tot ce face, fără să poată omite sau adăuga. Demonul nu-i poate vorbi omului și nu-l poate îndemna, dar scrie cu o cerneală care se vede în apă, așa că oamenii își spală mâinile în râuri ca să-și citească partea. Registrul se predă la moarte, iar cine a aflat din vreme ce i s-a scris poate cere o îndreptare: contra unei fapte mari, o filă se scoate. Demonul nu poate scrie ce n-a văzut și nu poate scrie altfel decât a văzut, de aceea cine face binele în întuneric rămâne neacoperit, iar cine face răul în public e osândit dinainte. Demonul are mai-mari și termene de predare, iar întârzierea se pedepsește prin mărirea registrului: filele în plus sunt faptele pe care omul le-ar fi putut face. Cine își ucide demonul notar rămâne fără registru, adică fără dovadă că a existat.",
+        "en": "Every person has a demon notary who follows from birth, invisible to everyone else, recording all they do and unable to omit or add anything. The demon cannot speak to the person or urge them on, but writes with ink visible in water, so people wash their hands in rivers to read their own portion. The register is handed in at death, and whoever learns early what was written may request a correction: for one great deed, a page is cut out. The demon may not write what it did not see, nor write otherwise than it saw, so whoever does good in darkness stays unrecorded, while whoever does evil in public is condemned in advance. The demon has superiors and deadlines, and lateness is punished by enlarging the register: extra pages are the deeds the person might have done. Whoever kills their demon notary is left without a register, meaning without proof of ever having existed."
+      },
+      "openings": {
+        "ro": [
+          "Te speli în râu în fiecare seară și citești ce s-a scris despre tine; azi ai găsit propoziția pe care o tot scrii de un an.",
+          "Ai o singură faptă mare la îndemână ca să scoți o filă din registrul tău, iar fiica ta bolnavă are nevoie tocmai de acea faptă.",
+          "Ești demon notar la primul tău om și ai primit un termen mai scurt decât viața lui; mai-marii tăi cer filele înainte de căderea orașului.",
+          "Un om din sat și-a ucis demonul și te roagă să-i scrii tu un registru nou, ca să aibă dovezi pentru moștenire."
+        ],
+        "en": [
+          "You wash in the river each evening and read what has been written about you; today you found the sentence you have been writing daily for a year.",
+          "You have one great deed at hand to cut a page from your register, and your sick daughter needs exactly that deed.",
+          "You are a demon notary assigned your first human and given a deadline shorter than his life; your superiors demand the pages before the city falls.",
+          "A man in the village has killed his demon and begs you to write him a new register, so he can have proof for his inheritance."
+        ]
+      }
+    },
+    {
+      "id": "myth-ingeri-intentii",
+      "tags": [
+        "îngeri",
+        "intenții",
+        "curieri"
+      ],
+      "title": {
+        "ro": "Universul în care îngerii pot căra doar intenții, nu fapte și nu lucruri",
+        "en": "A universe where angels can carry only intentions, not deeds and not things"
+      },
+      "law": {
+        "ro": "Îngerii sunt curieri ai intențiilor: pot lua din om ce voia să facă și duce mai departe, dar nu pot atinge nici fapta, nici lucrul, nici trupul. O intenție trimisă se împlinește în alt om, într-un loc oarecare, ceea ce înseamnă că binele și răul umblă ca mărfuri fără destinatar cunoscut. Nimeni nu poate trimite o intenție cu nume, dar poate plăti ca ea să fie luată curând, iar coada de la poșta îngerească se măsoară în ani. Cei cu intenții puternice sunt urmăriți de îngeri ca hoții de câini, fiindcă o intenție frumoasă neîmplinită e cea mai scumpă marfă din lume. Îngerii nu pot minți despre țintă, dar nu au voie s-o spună: pot doar să arate, iar arătarea e o lumină pe care prea puțini o văd. O intenție trimisă de două ori se întoarce o dată la trimițător, prefăcută în trup, așa că răul trimis fără socoteală se naște în casa celui care l-a trimis.",
+        "en": "Angels are couriers of intentions: they can take what a person meant to do and carry it onward, but cannot touch the deed, the object or the body. A transmitted intention is fulfilled in another person, in some unknown place, which means good and evil circulate as goods with no known recipient. Nobody can send an intention with a name attached, but anyone may pay to have one collected soon, and the queue at the angelic post is measured in years. People with strong intentions are trailed by angels like dog thieves, because an unfulfilled good intention is the most expensive commodity in the world. Angels cannot lie about the destination, but are not permitted to say it: they may only point, and the pointing is a light very few can see. An intention sent twice returns once to the sender, turned into flesh, so evil sent carelessly is born in the sender's house."
+      },
+      "openings": {
+        "ro": [
+          "Ai plătit ca o intenție să-ți fie luată curând, iar dimineața găsești în casă un prunc care seamănă cu tine și nu e al tău.",
+          "Ești funcționar la poșta îngerească și trebuie să respingi o intenție care ar mântui un oraș, fiindcă nu are cine o plăti.",
+          "Un înger îți arată o lumină spre un loc pe care nu-l cunoști, iar tu trebuie să hotărăști dacă mergi ori trimiți pe altcineva în locul tău.",
+          "Fratele tău a trimis de două ori aceeași intenție rea, iar acum urmele ei se nasc în curtea voastră."
+        ],
+        "en": [
+          "You paid to have an intention collected soon, and in the morning you find in your house a child who resembles you and is not yours.",
+          "You clerk at the angelic post and must refuse an intention that would save a city, because no one can pay for it.",
+          "An angel points out a light toward a place you do not know, and you must decide whether to go or send someone in your place.",
+          "Your brother sent the same evil intention twice, and now its traces are being born in your yard."
+        ]
+      }
+    },
+    {
+      "id": "myth-rugaciune-masurabila",
+      "tags": [
+        "rugăciune",
+        "resursă",
+        "piață"
+      ],
+      "title": {
+        "ro": "Universul în care rugăciunea e o resursă măsurabilă, depozitată și vândută",
+        "en": "A universe where prayer is a measurable resource, stored and traded"
+      },
+      "law": {
+        "ro": "Rugăciunea se măsoară în unități citite pe un instrument de sticlă, iar omul care se roagă dă atâta energie câtă luare-aminte pune, nu cât timp stă în genunchi. Energia se strânge în rezervoarele templelor, se cară în butoaie pecetluite și se vinde la preț de piață, la licitații săptămânale. Rugăciunea rostită pentru bani se măsoară pe jumătate, fiindcă instrumentul citește intenția, nu vorbele, de aceea satele sunt pline de oameni care se roagă gratis pentru vecini. Cine nu dă destul plătește o taxă de existență, iar cine nu poate plăti e mutat în cartierele tăcerii, unde se stă fără drept de rugă. Rânduiala se apără singură: cine fură rugăciune străină din rezervor adoarme pe loc și se trezește vorbind limbi pe care nu le știe. Copiii sunt măsurați la șapte ani și rânduiți la școli după randament, iar cei cu randament mare sunt luați din familii și aduși la catedrale.",
+        "en": "Prayer is measured in units read off a glass instrument, and a praying person yields as much energy as the attention they give, not as long as they kneel. The energy is gathered in temple reservoirs, shipped in sealed barrels and sold at market price in weekly auctions. Prayer spoken for money measures at half, because the instrument reads intention rather than words, which is why villages are full of people praying free of charge for their neighbours. Anyone yielding too little pays an existence tax, and anyone who cannot pay is moved to the silence districts, where residence carries no right to pray. The order defends itself: anyone stealing another's prayer from a reservoir falls asleep on the spot and wakes speaking languages they do not know. Children are measured at seven and assigned to schools by yield, and high-yield children are taken from their families to live in cathedrals."
+      },
+      "openings": {
+        "ro": [
+          "Fiul tău are randament mare la șapte ani și vin după el mâine; dacă îl ascunzi, plătești taxa de existență pentru toată casa.",
+          "Ești măsurător de rugăciune și ți se cere să umfli cifrele unei femei bătrâne, ca tribunalul s-o lase în casă și s-o scape de cartierul tăcerii.",
+          "Ai furat jumătate de butoi de rugăciune ca să treci iarna, iar acum te trezești vorbind o limbă pe care n-ai învățat-o.",
+          "Un negustor vrea să cumpere la licitație rugăciunile satului, iar singurul care mai dă ceva ești tu, care nu crezi."
+        ],
+        "en": [
+          "Your son shows a high yield at seven and they are coming for him tomorrow; hide him and you owe the existence tax for the whole household.",
+          "You are a prayer measurer and are asked to inflate an old woman's numbers so the tribunal lets her stay home instead of the silence district.",
+          "You stole half a barrel of prayer to survive the winter, and now you wake speaking a language you never learned.",
+          "A merchant wants to buy the village's prayers at auction, and the only one still yielding anything is you, who does not believe."
+        ]
+      }
+    },
+    {
+      "id": "myth-datorie-rugaciune",
+      "tags": [
+        "rugăciune",
+        "datorie",
+        "urmași"
+      ],
+      "title": {
+        "ro": "Universul în care rugăciunile se lasă moștenire ca datorie, iar nepoții le plătesc",
+        "en": "A universe where prayers are inherited as debt and grandchildren pay them off"
+      },
+      "law": {
+        "ro": "Rugăciunile necheltuite nu se pierd: se strâng în seama neamului și rămân acolo ca datorie pentru urmași, cu dobândă de luare-aminte. Un om cucernic care se roagă toată viața lasă nepoților un credit uriaș, iar unul care nu se roagă niciodată lasă o povară pe care copiii o simt ca pe o apăsare în piept. Datoria se plătește prin post, prin priveghi și prin slujbe ținute de urmași, fie că aceștia cred, fie că nu, fiindcă instrumentul nu citește credința, ci orele. Băncile de rugăciune cumpără datorii de la familiile sărace și le vând familiilor bogate care vor să scape de altceva, iar trecerea se face în fața unui notar bisericesc. Cine moare cu datorie neplătită nu e pedepsit, dar nu poate fi pomenit la slujbe, ceea ce rupe familia în două: o parte plătește, o parte se leapădă. Copiii învață de mici cât datoresc și își aleg soții după portofoliul de rugăciuni, nu după avere.",
+        "en": "Unused prayers are not lost: they accumulate in the household account and remain there as debt for descendants, with interest paid in attention. A devout person who prays all their life leaves an enormous credit to grandchildren, while someone who never prays leaves a burden the children feel as a weight on the chest. The debt is settled through fasting, vigils and services performed by descendants, whether or not they believe, because the instrument reads hours, not faith. Prayer banks buy debts from poor families and sell them to rich families seeking relief from something else, the transfer signed before an ecclesiastical notary. Anyone dying with an unpaid debt is not punished, but cannot be named in services, which splits the family: one part pays, the other renounces. Children learn young what they owe and choose spouses by prayer portfolio rather than wealth."
+      },
+      "openings": {
+        "ro": [
+          "Moștenești de la bunica un credit de rugăciuni și de la bunicul o datorie, iar cele două se anulează exact în anul în care fiul tău vrea să se însoare.",
+          "Ești notar bisericesc și trebuie să treci datoria unei familii sărace la una bogată, iar actele arată că ești rudă cu cea săracă.",
+          "Fratele tău s-a lepădat de datorie și nu mai poate fi pomenit, iar mama vă cere să plătiți voi; tu ai doar două mâini și o viață.",
+          "Logodnica ta îți cere portofoliul de rugăciuni înainte de nuntă, iar cifrele arată o datorie despre care nu știai nimic."
+        ],
+        "en": [
+          "You inherit a credit of prayers from your grandmother and a debt from your grandfather, and the two cancel out in the very year your son wants to marry.",
+          "You are an ecclesiastical notary and must transfer a poor family's debt to a rich one, and the papers show you are kin to the poor.",
+          "Your brother has renounced the debt and can no longer be named in services, and your mother asks you to pay for him; you have two hands and one life.",
+          "Your fiancee asks for your prayer portfolio before the wedding, and the figures show a debt you knew nothing about."
+        ]
+      }
+    },
+    {
+      "id": "myth-zei-flamanzi",
+      "tags": [
+        "zei",
+        "foame",
+        "hrănire"
+      ],
+      "title": {
+        "ro": "Universul în care zeii mănâncă, iar foametea lor se simte ca un vis urât peste oraș",
+        "en": "A universe where gods eat, and their hunger is felt as a bad dream across the city"
+      },
+      "law": {
+        "ro": "Zeii au trup și foame: mănâncă din bucatele arse pe altare, din aburul jertfelor și din tăcerea oamenilor care se abțin. Când un zeu nu e hrănit, nu moare, ci slăbește, iar slăbiciunea lui se simte în oraș ca o osteneală dimineața, ca o ceartă fără pricină, ca un somn plin de urmărire. Hrănirea nu se poate face cu bani: trebuie mâncare care putea fi mâncată și n-a fost, deci cine hrănește un zeu flămând lasă pe cineva din casă nemâncat. Templele țin registre de hrănire, iar orașele măsoară foamea zeului după numărul de sinucideri și de prunci părăsiți, care cresc în anii slabi. Un zeu prea slăbit adoarme, iar cât doarme rânduielile lui nu mai lucrează, așa că hoții se roagă pentru foamete, iar preoții se roagă împotriva ei. Cine hrănește un zeu cu propria foame ajunge preot, iar preoții sunt mereu cei mai slabi oameni din piață.",
+        "en": "Gods have bodies and appetites: they eat the food burned on altars, the steam of offerings and the silence of people who abstain. An unfed god does not die but grows thin, and that thinness is felt in the city as morning weariness, as quarrels without cause, as sleep full of being chased. Feeding cannot be done with money: it requires food that could have been eaten and was not, so whoever feeds a hungry god leaves somebody in the household starving. Temples keep feeding registers, and cities measure a god's hunger by the number of suicides and abandoned children, which rise in lean years. A god grown too thin falls asleep, and while sleeping their rules no longer run, so thieves pray for famine and priests pray against it. Whoever feeds a god with their own hunger becomes a priest, and priests are always the thinnest people in the market."
+      },
+      "openings": {
+        "ro": [
+          "Zeul orașului nu a mai fost hrănit de două luni, iar fiul tău s-a apucat să se trezească țipând că e urmărit de ceva fără chip.",
+          "Ești preot hrănitor și trebuie să alegi care prunc din casa de copii nu mănâncă astăzi, ca jertfa orașului să fie primită.",
+          "Hoții au început să se roage pentru foametea zeului, iar tu trebuie să hrănești cu ceva ce nu ai, înainte să cadă rânduielile.",
+          "O vecină îți cere mâncare pentru altar, iar tu știi că, dacă dai, copilul tău slăbește până la iarnă."
+        ],
+        "en": [
+          "The city's god has not been fed for two months, and your son has begun waking up screaming that something shapeless is chasing him.",
+          "You are a feeding priest and must choose which child in the orphanage will not eat today so that the city's offering is accepted.",
+          "Thieves have begun praying for the god's famine, and you must feed it with something you do not have before the rules collapse.",
+          "A neighbour asks you for food for the altar, and you know that if you give it, your child will grow thin before winter."
+        ]
+      }
+    },
+    {
+      "id": "myth-cantaruirea-zeilor",
+      "tags": [
+        "zei",
+        "cântar",
+        "rang"
+      ],
+      "title": {
+        "ro": "Universul în care zeii sunt cântăriți în piață, iar un zeu slab își pierde rangul",
+        "en": "A universe where gods are weighed in the square and a thin god loses rank"
+      },
+      "law": {
+        "ro": "Odată pe an zeii sunt aduși în piață și cântăriți în fața tuturor: greutatea lor hotărăște rangul, iar rangul hotărăște ce rânduieli mai țin. Un zeu care slăbește pierde mai întâi stăpânirea roadelor, apoi a vremii, apoi a morții, urcând spre ceea ce e mai de seamă. Greutatea vine numai din mâncarea dată cu post adevărat: cine jertfește mâncând el mai mult nu hrănește zeul, ci se îngrașă pe sine. Orașele bogate au zei grași și rânduieli bune, iar satele flămânde au zei slabi care nu pot ține pe loc nici ploaia. Un zeu poate fi mântuit de un singur credincios care postește un an întreg, de aceea templele țin oameni închiși în post ca pe vitele de tăiere. Zeii nu pot mânca unul de la altul și nu pot fura hrana aproapelui: cântarul simte îndată și scade pe hoț, iar scăderea se vede pe chipul lui de piatră.",
+        "en": "Once a year the gods are brought to the square and weighed before everyone: their mass decides rank, and rank decides which rules still hold. A god who loses weight first loses command over harvests, then over weather, then over death, moving upward toward what matters most. Weight comes only from food offered with genuine fasting: whoever offers while eating more themselves does not feed the god but fattens himself. Rich cities have fat gods and good rules, while starving villages have thin gods who cannot hold even the rain in place. A god can be saved by a single believer fasting a full year, which is why temples keep people locked in fasting like livestock for slaughter. Gods cannot eat each other's food or steal a neighbour's: the scale senses it at once and deducts from the thief, and the loss shows on their stone face."
+      },
+      "openings": {
+        "ro": [
+          "Cântărirea de anul acesta arată că zeul ploii a slăbit patru măsuri, iar satul tău trebuie să dea un postitor pe un an întreg.",
+          "Ești cântăritor al zeilor și ai descoperit că o măsură din greutatea zeului tău vine din hrană furată altui zeu.",
+          "Mama ta s-a închis de bunăvoie în post ca să mântuie zeul, iar preoții te întreabă dacă primești ca, la moarte, să fie numită sfântă.",
+          "Un zeu slab îți vorbește în somn și te roagă să mănânci tu pentru el, ceea ce nimeni n-a mai încercat vreodată."
+        ],
+        "en": [
+          "This year's weighing shows the rain god has lost four measures, and your village must give up one faster for a whole year.",
+          "You are a weigher of gods and have discovered that one measure of your god's weight comes from food stolen from another god.",
+          "Your mother has locked herself into fasting to save the god, and the priests ask whether you agree that she be named holy when she dies.",
+          "A thin god speaks to you in a dream and asks you to eat in his stead, which nobody has ever attempted."
+        ]
+      }
+    },
+    {
+      "id": "myth-iad-eficient",
+      "tags": [
+        "iad",
+        "eficiență",
+        "normă"
+      ],
+      "title": {
+        "ro": "Universul în care iadul e o fabrică eficientă cu norme, iar păcatul e materia primă",
+        "en": "A universe where hell is an efficient factory with quotas and sin is the raw material"
+      },
+      "law": {
+        "ro": "Iadul nu pedepsește de plăcere: prelucrează păcatul ca materie primă, iar pedeapsa e doar energia ieșită din el, folosită la întreținerea instalațiilor. Fiecare suflet are o normă, socotită din faptele vieții, și e slobozit când și-a dat randamentul; cei care nu dau destul sunt trimiși înapoi în viață, cu o povară în plus. Cârmuirea iadului e un sfat de ingineri care nu cred în bine și în rău, ci în cifre, iar cea mai mare grijă a lor e ca păcătoșii să nu se căiască prea repede, căci atunci se pierde materialul. Sfinții sunt o belea de logistică: nu pot fi prelucrați și înfundă fluxul, de aceea sunt ținuți în depozite anume, luminate și plictisitoare. Slobozirea se face pe temei de chitanță, iscălită de un funcționar care nu are voie s-o iscălească înainte de împlinirea normei, și de aceea cozile sunt lungi. Păcatul nou, scornit pe pământ, se încearcă mai întâi în instalații-pilot, iar urmările lui se arată în viața oamenilor ca vise urâte.",
+        "en": "Hell does not punish for pleasure: it processes sin as raw material, and the punishment is merely the energy produced, used to maintain the machinery. Every soul has a quota computed from the deeds of its life and is released once it has yielded; those who produce too little are sent back into life with an added burden. Hell's management is a council of engineers who believe in figures rather than good and evil, and their greatest worry is that sinners might repent too quickly, losing material. Saints are a logistics nuisance: they cannot be processed and they choke the flow, so they are kept in special warehouses, well lit and boring. Release requires a receipt signed by a clerk forbidden to sign before the quota is met, and that is why the queues are long. New sins invented on earth are first tested in pilot installations, and their results appear in people's lives as bad dreams."
+      },
+      "openings": {
+        "ro": [
+          "Ești inginer stagiar în iad și ți se cere să scurtezi prelucrarea cu o zi, ceea ce înseamnă să tai din norma unui om pe care l-ai cunoscut viu.",
+          "Tatăl tău a fost slobozit cu chitanță, dar cifrele arată că norma nu fusese împlinită și cineva va plăti diferența.",
+          "Un sfânt din depozitul anume îți cere să-l lași să sufere, ca să poată fi prelucrat și să nu mai fie o belea de logistică.",
+          "Ai scornit un păcat nou, iar sfatul vrea să-l încerce mai întâi pe fiica ta, făgăduindu-ți că urmarea va fi doar un vis urât."
+        ],
+        "en": [
+          "You are an apprentice engineer in hell and are asked to cut processing time by a day, which means trimming the quota of a person you knew while alive.",
+          "Your father was released with a receipt, but the figures show the quota was not met and someone will have to pay the difference.",
+          "A saint in the special warehouse asks you to let him suffer, so he can be processed and stop being a logistics nuisance.",
+          "You invented a new sin, and the council wants to test it first on your daughter, promising the result will only be a bad dream."
+        ]
+      }
+    },
+    {
+      "id": "myth-moartea-bolnava",
+      "tags": [
+        "moarte",
+        "boală",
+        "amânare"
+      ],
+      "title": {
+        "ro": "Universul în care Moartea s-a îmbolnăvit și nimeni nu mai poate muri la timp",
+        "en": "A universe where Death has fallen ill and no one can die on time"
+      },
+      "law": {
+        "ro": "Moartea e o ființă bolnavă care nu mai poate ridica nici secera, nici mâna, iar urmarea e că lumea se umple de oameni care ar fi trebuit să fie duși. Cei morți deja nu se pot odihni, fiindcă nu are cine să-i treacă hotarul: stau în casele lor, vorbesc cu cei vii și mănâncă ce li se pune pe masă. Doctorii ajung cea mai puternică breaslă, căci ei hotărăsc pe cine lasă să moară, iar spitalele împart certificate de trecere ca pe niște pașapoarte. Boala Morții se prinde: cine o îngrijește ia asupra lui simptomele, iar îngrijitorii sunt aleși prin tragere la sorți și ținuți în carantină. Pruncii născuți în vremea asta nu se nasc cu moarte proprie, așa că îmbătrânesc fără să slăbească, iar peste două sute de ani vor fi o belea pe care nimeni nu o poate hotărî. Boala Morții se speculează ca o marfă: cine are un leac vinde locuri în rândul pentru trecere, iar leacurile nu lucrează.",
+        "en": "Death is now an ailing being unable to lift either the scythe or a hand, and the effect is a world filling with people who should have been taken. Those already dead cannot rest, because nobody is left to move them across the border: they stay in their houses, talk with the living and eat what is put before them. Doctors become the strongest guild, since they decide who is allowed to die, and hospitals hand out crossing certificates like passports. Death's illness is contagious: whoever nurses it takes on the symptoms, and the nurses are chosen by lot and kept in quarantine. Children born in this period are born without a death of their own, so they age without weakening, and in two hundred years they will be a nuisance nobody can settle. Death's sickness is speculated on as merchandise: whoever owns a cure sells places in the crossing queue, and none of the cures work."
+      },
+      "openings": {
+        "ro": [
+          "Bunica ta e moartă de doi ani, stă în fotoliul ei și îți cere să-i citești scrisorile, iar preotul spune că nu poate fi pomenită până nu trece hotarul.",
+          "Ești medic și trebuie să iscălești un certificat de trecere pentru un om sănătos, ca să faci loc în spital bolnavilor care nu mai pot muri.",
+          "Ai fost tras la sorți ca îngrijitor al Morții și ai început să tușești, iar familia ta trebuie să hotărască dacă te mai cercetează.",
+          "Un negustor vinde locuri în rândul pentru trecere, iar tu descoperi că rândul a fost scornit de el și că leacul lui e apă cu miere."
+        ],
+        "en": [
+          "Your grandmother has been dead for two years, sits in her chair and asks you to read her letters, and the priest says she cannot be named until she crosses.",
+          "You are a doctor and must sign a crossing certificate for a healthy man, to free a bed for patients who can no longer die.",
+          "You were chosen by lot as a nurse to Death and have started coughing, and your family must decide whether to visit you again.",
+          "A trader sells places in the crossing queue, and you discover the queue was invented by him and his cure is water with honey."
+        ]
+      }
+    },
+    {
+      "id": "myth-visul-bolnavului",
+      "tags": [
+        "vis",
+        "boală",
+        "trezire"
+      ],
+      "title": {
+        "ro": "Universul în care lumea e visul unui bolnav, iar cine se trezește piere din ea",
+        "en": "A universe where the world is a sick person's dream and whoever wakes vanishes from it"
+      },
+      "law": {
+        "ro": "Lumea e o stare din visul unui bolnav care nu se poate trezi, iar tot ce se află aici ține cât ține boala lui. Nu se poate cere nimic visătorului: nu aude, nu răspunde, nu poate fi înduplecat, iar cine încearcă să-i vorbească adoarme și se face parte din vis. Cei care se trezesc în vis, o clipă, pier din lumea asta fără urmă, iar cei care i-au cunoscut uită că au fost, ca și cum visul ar drege singur gaura. Rămân însă lucruri: un obiect atins de un trezit nu mai poate fi visat, se face o pată oarbă în lume, iar pe acolo nimeni nu poate trece. Bolile de aici sunt simptomele visătorului, așa că vindecarea unui bolnav de rând îl înrăutățește pe visător și aduce un cutremur. Cei care vor să scape lumea încearcă să-l țină pe visător în durere, iar cei care vor s-o sfârșească îl caută ca să-l trezească: proorocii sunt oameni care au fost treji o clipă și au apucat să vadă camera de spital.",
+        "en": "The world is a state inside the dream of a sick dreamer who cannot wake, and everything here lasts as long as his illness does. Nothing can be asked of the dreamer: he does not hear, answer or change his mind, and whoever tries to speak to him falls asleep and becomes part of the dream. Those who wake inside the dream, for a moment, vanish from this world without trace, and everyone who knew them forgets they existed, as if the dream mended the hole by itself. Some objects remain, though: anything touched by someone who woke can no longer be dreamed, becomes a blind spot in the world, and nobody can pass through that place. Illnesses here are the dreamer's symptoms, so curing any ordinary sick person worsens the dreamer and brings an earthquake. Those who want the world saved try to keep the dreamer in pain; those who want it over search for him to wake him: prophets are people who were awake for a moment and glimpsed the hospital room."
+      },
+      "openings": {
+        "ro": [
+          "Fratele tău s-a trezit o clipă în timpul mesei și a pierit, iar scaunul lui a rămas un loc prin care nimeni nu mai poate trece.",
+          "Ești medic într-un oraș care te roagă să nu vindeci un copil bolnav, fiindcă orice vindecare aduce un cutremur.",
+          "Ai găsit o cameră de spital în visul lumii și ai văzut un chip care seamănă cu al tău, iar acum toți te caută ca să-l trezești.",
+          "Un prooroc îți cere să-l omori ca să curmi durerea visătorului, iar fiica lui te roagă să-l ții în viață."
+        ],
+        "en": [
+          "Your brother woke for a moment during dinner and vanished, and his chair remains a place nobody can cross.",
+          "You are a doctor in a city that begs you not to cure a sick child, because every cure brings an earthquake.",
+          "You found a hospital room inside the world's dream and saw a face resembling your own, and now everyone seeks you to wake him.",
+          "A prophet asks you to kill him and end the dreamer's pain, while his daughter begs you to keep him alive."
+        ]
+      }
+    },
+    {
+      "id": "myth-judecata-amanata",
+      "tags": [
+        "judecată",
+        "martori",
+        "amânare"
+      ],
+      "title": {
+        "ro": "Universul în care Judecata de Apoi e amânată din lipsă de martori vii",
+        "en": "A universe where the Last Judgement is postponed for lack of living witnesses"
+      },
+      "law": {
+        "ro": "Judecata nu poate începe, fiindcă rânduiala cere câte doi martori vii pentru fiecare om, iar morții nu pot mărturisi în numele altora. Toți morții stau într-o anticameră, în rândul morții lor, iar cei vii pot fi citați oricând ca martori, ceea ce face din bătrâni cea mai prețioasă avuție a lumii. Un martor citat nu poate refuza, dar mărturia lui poate amâna judecata cu un an, așa că familiile care vor să-și țină mortul pe loc își țin martorii în viață cu orice preț. S-au scornit tertipuri: un martor pentru douăzeci de oameni, mărturii cumpărate, oameni hrăniți prin tuburi ca să rămână de folos, copii învățați să spună pe de rost vieți care nu sunt ale lor. Cine moare fără să fi dat mărturia pentru care fusese citat lasă o amânare de cincizeci de ani asupra întregii sale generații. S-a așteptat atât de mult încât unii cred că judecata nu va veni niciodată, iar tribunalul a ajuns o așezare ca oricare alta, cu buget, concedii și funcționari care n-au văzut niciodată un judecător.",
+        "en": "The judgement cannot begin because procedure requires two living witnesses for every person, and the dead may not testify on anyone else's behalf. All the dead wait in an antechamber in the order they died, and the living can be cited as witnesses at any time, which makes the old the most precious asset in the world. A cited witness cannot refuse, but their testimony can delay the judgement by a year, so families who want to hold a dead relative in place keep their witnesses alive at any cost. Tricks have been invented: one witness for twenty people, purchased testimonies, people fed through tubes to stay useful, children taught to recite lives that are not theirs. Whoever dies before giving the testimony they were cited for leaves a fifty-year delay on their whole generation. The wait has lasted so long that some believe the judgement will never come, and the tribunal has become a settlement like any other, with a budget, holidays and clerks who have never seen a judge."
+      },
+      "openings": {
+        "ro": [
+          "Ești citat martor pentru un om mort de treizeci de ani, iar mărturia ta poate amâna judecata cu un an; familia lui te roagă să minți.",
+          "Bunica ta e ținută în viață prin tuburi de cincizeci de ani, fiindcă e martor pentru nouă morți, iar tu trebuie să hotărăști dacă o lași să moară.",
+          "Lucrezi la tribunal și primești cererea de concediu a unui funcționar care așteaptă de două vieți să vadă un judecător.",
+          "Ai învățat pe de rost viața altcuiva ca să mărturisești la doisprezece ani, iar acum omul acela îți apare în somn și îți cere socoteală."
+        ],
+        "en": [
+          "You are cited as a witness for a man dead thirty years, your testimony can delay the judgement a year, and his family begs you to lie.",
+          "Your grandmother has been kept alive through tubes for fifty years because she is a witness for nine dead people, and you must decide whether to let her die.",
+          "You work at the tribunal and receive the holiday request of a clerk who has waited two lifetimes to see a judge.",
+          "You memorised someone else's life to testify at twelve, and now that person appears in your sleep and demands an accounting."
+        ]
+      }
+    },
+    {
+      "id": "myth-cantec-mostenire",
+      "tags": [
+        "înmormântare",
+        "cântec",
+        "moștenire"
+      ],
+      "title": {
+        "ro": "Universul în care cântecul de înmormântare hotărăște cine moștenește averea",
+        "en": "A universe where the funeral song decides who inherits the estate"
+      },
+      "law": {
+        "ro": "Moștenirea nu se lasă prin testament, ci se cântă: la înmormântare, neamul cântă un cântec pe care mortul l-a ales în tinerețe, iar cel pe care cântecul îl numește primește tot. Mortul își alcătuiește cântecul o dată în viață, în fața martorilor, și nu-l mai poate schimba, dar poate strecura în el amănunte pe care numai unul dintre urmași le recunoaște. Cântecul nu minte și nu poate fi cântat greșit: cine încearcă să-l strice are glasul frânt, iar neamul aude doar vânt. Cei care n-au cântec mor nedrept: averea se împarte de sat, iar casa se dărâmă, fiindcă nimeni nu are drept să locuiască acolo unde nu s-a cântat. Cântecele se fură câteodată, dar un cântec furat nu lucrează decât dacă e cântat de cine îl știe întreg, așa că oamenii își ascund cântecele ca pe un titlu de proprietate. Copiii sunt învățați să asculte cântecele altor neamuri, ca să poată recunoaște mai târziu un furt.",
+        "en": "Inheritance is not left by will but sung: at the funeral the family sings a song the dead person chose in youth, and whoever the song names receives everything. A person composes their song once in life, before witnesses, and cannot change it afterwards, but may slip into it details that only one descendant will recognise. The song never lies and cannot be sung wrongly: anyone trying to spoil it has their voice broken, and the family hears only wind. Those who have no song die unjustly: the estate is divided by the village and the house is pulled down, since nobody has the right to live where no song was sung. Songs are sometimes stolen, but a stolen song only works if sung by someone who knows it whole, so people hide their songs like title deeds. Children are taught to listen to other families' songs, so they can recognise a theft later."
+      },
+      "openings": {
+        "ro": [
+          "Tatăl tău moare fără cântec, iar satul se apucă să împartă averea; tu ai o singură zi să găsești un martor care a auzit cântecul.",
+          "Cântecul neamului numește un nepot pe care nu l-a văzut nimeni de douăzeci de ani, iar tu ești cel care trebuie să-l caute.",
+          "La înmormântare glasul unchiului tău se frânge la al doilea vers și neamul aude vântul; cineva din casă știe cântecul întreg.",
+          "Ai învățat în ascuns cântecul altui neam și ți se cere să-l cânți la o înmormântare, ca averea să treacă la cel care te plătește."
+        ],
+        "en": [
+          "Your father dies without a song and the village begins dividing his estate; you have one day to find a witness who heard the song.",
+          "The family song names a grandson nobody has seen for twenty years, and you are the one who must find him.",
+          "At the funeral your uncle's voice breaks on the second verse and the family hears only wind; someone in the house knows the song entire.",
+          "You secretly learned another family's song and are asked to sing it at a funeral, so the estate passes to whoever pays you."
+        ]
+      }
+    },
+    {
+      "id": "myth-ciclu-blocat",
+      "tags": [
+        "ciclu",
+        "blocaj",
+        "cosmologie"
+      ],
+      "title": {
+        "ro": "Universul în care ciclul de creare și de topire s-a înțepenit la jumătate",
+        "en": "A universe where the cycle of creation and melting has jammed halfway"
+      },
+      "law": {
+        "ro": "Lumea se naște și se topește la fiecare patruzeci de mii de ani, dar de trei sute de ani ciclul s-a oprit la mijloc: topirea nu s-a sfârșit, iar crearea a pornit peste rămășițe. De aceea există locuri neterminate: munți tăiați în două, oameni cu două umbre, râuri care curg în două părți în același timp. Nimeni nu poate drege ciclul dinăuntru, dar fiecare ființă vie poartă o bucată din lucrarea neisprăvită, iar dacă moare între două hotare bucata ei se pierde și înțepenirea crește. Proorocii au socotit că mai sunt nouă generații până când lumea se umple de rămășițe și nu mai poate fi nimic nou. S-au făcut bresle de surpători, plătiți să topească ce n-a apucat să fie topit, și bresle de ziditori, care ridică ce n-a apucat să fie creat, iar cele două se urăsc. Orice lucru isprăvit, dus la capăt cu mâna ta, micșorează înțepenirea exact cât ai muncit, de aceea oamenii sunt măsurați după lucruri sfârșite, nu după ani.",
+        "en": "The world is born and melted every forty thousand years, but for three centuries the cycle has jammed halfway: the melting never finished, and creation began again on top of the remains. Hence the unfinished places: mountains cut in two, people with two shadows, rivers running in two directions at once. Nobody inside can mend the cycle, yet every living being carries a piece of the unfinished work, and dying between two borders loses that piece and widens the jam. Prophets have reckoned nine generations remain before the world fills with remains and nothing new can exist. Guilds of wreckers have formed, paid to melt what never got melted, and guilds of builders raising what never got created, and the two hate each other. Any finished thing, carried to its end by your own hand, reduces the jam by exactly as much as you worked, which is why people are measured by completed things, not by years."
+      },
+      "openings": {
+        "ro": [
+          "Ești ziditor și ai isprăvit un pod peste un râu care curge în două părți; breasla surpătorilor susține că podul e o înțepenire nouă.",
+          "Sora ta are două umbre și preoții spun că e o rămășiță a topirii neîncheiate; ea vrea să trăiască, iar tu vrei s-o scapi de a doua umbră.",
+          "Proorocii dau lumii nouă generații, iar un meșter din oraș vrea să cumpere toate lucrurile neterminate ca să le topească el singur.",
+          "Un om cu două umbre îți cere să-l ucizi între hotare, ca bucata lui de lucrare să nu se piardă, iar tu ești cel care îngroapă morții."
+        ],
+        "en": [
+          "You are a builder and finished a bridge over a river running two ways; the wreckers' guild claims the bridge is a new jam.",
+          "Your sister has two shadows and priests say she is a remnant of the unfinished melting; she wants to live, you want to rid her of the second shadow.",
+          "Prophets give the world nine generations, and a craftsman in the city wants to buy every unfinished thing so he can melt it himself.",
+          "A man with two shadows asks you to kill him between borders so his piece of work is not lost, and you are the one who buries the dead."
+        ]
+      }
+    },
+    {
+      "id": "myth-distrugatorul-refuza",
+      "tags": [
+        "ciclu",
+        "refuz",
+        "creștere"
+      ],
+      "title": {
+        "ro": "Universul în care Topitorul a refuzat să mai topească lumea și totul se adaugă la nesfârșit",
+        "en": "A universe where the Melter has refused to melt the world and everything keeps piling up"
+      },
+      "law": {
+        "ro": "La capătul fiecărui ciclu, o ființă are datoria să topească lumea și să nu păstreze nimic; acum ea a refuzat, iar refuzul nu se poate întoarce, fiindcă nimeni nu o poate sili și nimic nu o poate înlocui. Lumea nu se oprește din crescut: se adaugă zile, oameni, cetăți, iar locul rămas se subțiază ca o pânză întinsă peste prea multe lucruri. Bătrânii uită tot mai greu, fiindcă memoria lumii nu mai are unde să se șteargă, iar copiii se nasc cu amintiri care nu sunt ale lor. Unii îl cinstesc pe Topitor ca pe un mântuitor, alții îl blestemă, iar el șade într-un oraș fără nume și nu vorbește cu nimeni. Există o singură cale de a-i schimba hotărârea: cineva trebuie să-i ceară lucrul acela, fără să știe ce este, iar toți care au îndrăznit au fost găsiți împietriți. Cărturarii socotesc că peste o mie de ani nu va mai încăpea nicio naștere nouă, fiindcă toți copiii vor fi prefaceri ale celor dinainte.",
+        "en": "At the end of each cycle, one being is obliged to melt the world and keep nothing; now that being has refused, and the refusal cannot be reversed, because no one can compel it and nothing can replace it. The world does not stop growing: days, people and cities keep being added, and the remaining space thins like cloth stretched over too many things. The old forget more and more slowly, because the world's memory has nowhere left to be erased, and children are born with recollections that are not theirs. Some honour the Melter as a saviour, others curse him, and he sits in a nameless city and speaks to no one. There is only one way to change his mind: someone must ask him for that thing, without knowing what it is, and everyone who dared was found turned to stone. Scholars reckon that in a thousand years no new birth will fit, because all children will be remakes of those before."
+      },
+      "openings": {
+        "ro": [
+          "Ești trimis ca sol al orașului tău să-i ceri Topitorului lucrul acela pe care nu-l cunoști, iar toți solii dinaintea ta sunt statui în curtea lui.",
+          "Fiul tău se naște cu amintirile unui om mort de două sute de ani și îți vorbește despre un oraș fără nume.",
+          "Ai descoperit că pământul se subțiază sub ogoarele tale, iar cărturarii vor cu orice preț să afle ce anume i s-ar putea cere Topitorului.",
+          "O sectă îl cinstește pe Topitor și îți cere să-l aperi de cei care vor să-l silească, iar tu ești singurul care a vorbit vreodată cu el."
+        ],
+        "en": [
+          "You are sent as your city's envoy to ask the Melter for that thing you do not know, and every envoy before you is a statue in his courtyard.",
+          "Your son is born with the memories of a man dead two hundred years and tells you about a city with no name.",
+          "You have discovered that the ground is thinning under your fields, and scholars desperately want to learn what could be asked of the Melter.",
+          "A sect honours the Melter and asks you to defend him from those who would compel him, and you are the only one who ever spoke with him."
+        ]
+      }
+    }
+  ]
+}

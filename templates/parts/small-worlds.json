@@ -1,0 +1,889 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "small-cetatea-fara-poarta",
+      "tags": ["cetate", "platou", "zid"],
+      "title": {
+        "ro": "Universul cu o singură cetate pe un platou din care nimeni nu poate coborî sau pleca",
+        "en": "A universe where a single fortress stands on a plateau no one can leave or reach"
+      },
+      "law": {
+        "ro": "Un singur oraș stă pe un platou pe care nu urcă și de pe care nu coboară niciun drum: ceața de dedesubt mistuie orice trup care încearcă panta, iar merindea sosește o dată pe an, aruncată de vânturi în coșuri de funie. Cetatea se hrănește din terasele de grâu, din cele patru izvoare și din peștele lacului sărat, iar tot ce lipsește se cere cetății de jos, care nu aude niciodată răspunsul. Cine rămâne în afara zidurilor mai mult de o zi nu mai poate intra: piatra simte străinul, iar poarta se lipește de prag, așa că fiecare locuitor își măsoară ziua cu un semn de var pe mână. Locurile de casă nu se cumpără și nu se moștenesc; când cineva moare, lespedea lui se scoate și se așază în terasa unde crește grâul, iar familia se mută în locul care se eliberează. Nimeni nu are voie să părăsească platoul, fiindcă un om pierdut nu se mai poate număra la recensământul de seară, iar numărul cetății trebuie să rămână același.",
+        "en": "A single city stands on a plateau that no road climbs and none descends: the mist below devours any body that tries the slope, and supplies arrive once a year, thrown by the winds into rope baskets. The fortress lives on its wheat terraces, four springs and the fish of the salt lake, and anything missing must be asked of the city below, which never hears an answer. Anyone who stays outside the walls longer than a day can never re-enter: the stone feels the stranger and the gate welds itself to the threshold, so every dweller measures the day with a chalk mark on the hand. House plots are neither bought nor inherited; when someone dies the slab is lifted and laid in the wheat terrace, and the family moves into the plot that frees up. No one may leave the plateau, because a lost person cannot be counted at the evening roll, and the number of the city must stay the same."
+      },
+      "openings": {
+        "ro": [
+          "Ilie a coborât două sute de pași pe pantă după un coș de merinde rupt de vânt și a stat prea mult; la întoarcere, poarta cetății s-a lipit de prag, iar nevastă-sa îi vorbește de partea cealaltă a zidului.",
+          "Lespedea casei lui Neacșu a crăpat peste noapte, iar familia are trei zile să se mute într-un loc care nu există, fiindcă platoul nu are o palmă de pământ liber.",
+          "Anul acesta coșurile de merinde n-au venit deloc, iar sfatul bătrânilor se ceartă dacă să taie grâul de pe a doua terasă, care hrănește toată iarna.",
+          "Fata Măriuței a spart semnul de var de pe mână și a întârziat o zi pe pantă; acum stă sub poarta închisă și nu poate nici intra, nici coborî."
+        ],
+        "en": [
+          "Ilie climbed two hundred steps down the slope for a supply basket torn loose by the wind and stayed too long; coming back he found the gate welded to its threshold, and his wife talking to him from the other side of the wall.",
+          "Neacsu's house slab cracked in the night, and his family has three days to move into a plot that does not exist, because the plateau has not one handspan of free ground.",
+          "This year the supply baskets did not come at all, and the council of elders is split over cutting the wheat of the second terrace, which feeds the whole winter.",
+          "Mariuta's daughter rubbed the chalk mark off her hand and lingered a day on the slope; now she sits under the shut gate, unable to enter and unable to climb down."
+        ]
+      }
+    },
+    {
+      "id": "small-platoul-care-se-stramta",
+      "tags": ["platou", "măsură", "mutare"],
+      "title": {
+        "ro": "Universul cu o cetate pe un platou care se strâmtează cu un pas în fiecare an",
+        "en": "A universe where one fortress stands on a plateau that narrows by one pace every year"
+      },
+      "law": {
+        "ro": "Platoul pe care stă singura cetate a lumii se strâmtează cu un pas pe an, măsurat cu funia de piatră a regelui, iar pământul pierdut se scufundă în ceață fără vuiet. Fiecare familie trebuie să-și mute casa spre mijloc înainte de sărbătoarea măsurătorii, cărând lemnul și lespezile pe umeri, fiindcă o casă atinsă de margine se topește cu tot cu cei dinăuntru. Grâul se seamănă pe inele, iar inelul cel mai apropiat de ceață se cosește ultima dată în anul acela și niciodată mai mult de o singură dată. Cei care nu pot căra, bătrânii și bolnavii, sunt lăsați în urmă cu merinde pentru șapte zile; nimeni nu are voie să-i aducă înapoi, fiindcă fiecare trup salvat ia locul a doi oameni de pe inelul următor. Măsurătoarea o face un singur om, orbul cetății, care numără pașii pe piatră și spune cât pământ a mai rămas; minciuna lui ar fi sfârșitul tuturor.",
+        "en": "The plateau under the world's only fortress narrows by one pace each year, measured with the king's stone rope, and the ground that is lost sinks into the mist without a sound. Every family must move its house toward the middle before the feast of measuring, carrying timber and slabs on their shoulders, because a house the edge touches melts away with everyone inside. Wheat is sown in rings, and the ring nearest the mist is harvested for the last time that year and never more than once. Those who cannot carry, the old and the sick, are left behind with seven days of food; no one may bring them back, because every saved body takes the place of two people on the next ring. The measuring is done by one person, the blind man of the fortress, who counts paces on the stone and says how much ground is left; a lie from him would be the end of everyone."
+      },
+      "openings": {
+        "ro": [
+          "Funia de piatră a arătat treizeci de pași mai puțin decât anul trecut, iar familia Ilincăi are o săptămână să-și care casa cu două inele mai spre mijloc.",
+          "Bătrânul Pricop a refuzat să-și părăsească prispă, iar fata lui se ceartă cu straja dacă să-l lege pe un leagăn de scânduri și să-l târască până la inelul al doilea.",
+          "Orbul care măsoară platoul a fost găsit mort, iar cetatea are nouă zile până la sărbătoare și nimeni nu știe să citească funia.",
+          "Grâul de pe inelul dintâi s-a copt cu o lună mai devreme, iar oamenii se întreabă dacă mai pot aștepta sărbătoarea sau trebuie să cosească sub pedeapsa morții."
+        ],
+        "en": [
+          "The stone rope showed thirty paces less than last year, and Ilinca's family has one week to carry their house two rings closer to the middle.",
+          "Old Pricop refused to leave his doorstep, and his daughter is arguing with the watch over whether to strap him to a plank litter and drag him to the second ring.",
+          "The blind man who measures the plateau has been found dead, and the fortress has nine days until the feast and no one who can read the rope.",
+          "The wheat on the first ring ripened a month early, and people are asking whether they can wait for the feast or must harvest under penalty of death."
+        ]
+      }
+    },
+    {
+      "id": "small-asediu-de-80-de-ani",
+      "tags": ["asediu", "uitare", "zid"],
+      "title": {
+        "ro": "Universul cu o cetate asediată de optzeci de ani care și-a uitat dușmanul",
+        "en": "A universe where a fortress besieged for eighty years has forgotten its enemy"
+      },
+      "law": {
+        "ro": "Cetatea stă închisă în spatele porților de optzeci de ani, iar nimeni viu nu l-a văzut pe cel care o înconjoară: armata de dincolo a fost descrisă doar în cântece, iar cântecele s-au tocit. Asediul nu se ridică și nu se strânge; fiecare familie dă două mâini de strajă pe zid și cinci măsuri de grâu pe lună, iar cine nu dă pierde dreptul la apărarea zidului și doarme în afara lui. Trimiterea de soli a devenit un obicei orb: un tânăr iese la poarta mică, spune vorbele de pace scrise pe o lespede veche și se întoarce fără să audă nimic, fiindcă nimeni nu răspunde vreodată. Orice locuitor care urcă pe zid și nu recunoaște dușmanul este socotit nebun și i se iau armele, așa că oamenii învață să vadă dușmani în linii de iarbă, în ciori și în vântul de răsărit. Când un copil întreabă cine stă dincolo, dascălul răspunde că întrebarea e trădare, iar copilul învață să tacă mai repede decât să scrie.",
+        "en": "The fortress has been shut behind its gates for eighty years, and no one alive has seen the one who surrounds it: the army outside was described only in songs, and the songs have worn thin. The siege is neither lifted nor pressed; every household gives two hands of watch on the wall and five measures of wheat a month, and whoever gives nothing loses the right to the wall's protection and sleeps outside it. Sending envoys has become a blind habit: a young person walks out the small gate, recites the words of peace carved on an old slab and comes back hearing nothing, because no one ever answers. Any dweller who climbs the wall and fails to recognize the enemy is judged mad and disarmed, so people learn to see enemies in lines of grass, in crows and in the east wind. When a child asks who stands beyond, the teacher answers that the question is treason, and the child learns to keep silent faster than to write."
+      },
+      "openings": {
+        "ro": [
+          "La straja de dimineață, Radu a privit câmpia și n-a văzut pe nimeni, iar sergentul i-a luat arcul și l-a trimis la casa nebunilor.",
+          "Copilul Veta a întrebat la școală cine e dușmanul, iar învățătorul a închis cartea și a chemat garda.",
+          "Solia de pace a fost citită azi pe lespede, iar solul a auzit în sfârșit un glas dincolo de zid: rostea aceleași vorbe, cu același glas, în aceeași ordine.",
+          "Rezerva de grâu ajunge doar până la Crăciun, iar sfatul se ceartă dacă să scoată oameni în afara zidului sau să taie rația străjii."
+        ],
+        "en": [
+          "On the morning watch Radu looked at the plain and saw no one, and the sergeant took his bow and sent him to the house of the mad.",
+          "The child Veta asked in school who the enemy is, and the teacher closed the book and called the guard.",
+          "The peace envoy read the slab again today, and the envoy finally heard a voice beyond the wall: it spoke the same words, in the same voice, in the same order.",
+          "The wheat store lasts only until midwinter, and the council is split over sending people outside the wall or cutting the watch ration."
+        ]
+      }
+    },
+    {
+      "id": "small-asediu-fara-dusman",
+      "tags": ["asediu", "ritual", "târg"],
+      "title": {
+        "ro": "Universul cu două cetăți care țin de trei generații un asediu pe care amândouă l-au uitat",
+        "en": "A universe where two fortresses keep up a siege both sides have forgotten"
+      },
+      "law": {
+        "ro": "Două cetăți se asediază de trei generații, dar nimeni nu mai știe cine a început războiul, iar porțile stau închise din obișnuință. Odată pe lună, asediații aruncă peste zid un butoi de vin, iar asediatorii răspund cu un porc și cu scrisoarea de capitulare, pe care asediații o ard fără să o citească. Cine tulbură rânduiala plătește cu mâna dreaptă: santinelele au voie să tragă în orice om care trece hotarul în afara zilei de schimb, fie că vrea să fugă, fie că vrea să cumpere pâine. Copiii învață de la șapte ani să urască un dușman pe care nu l-au văzut, iar când ajung la douăzeci de ani sunt trimiși la rândul de asalt, unde nimeni nu trage, fiindcă ambele părți au uitat de ce. Cei care întreabă ce s-ar întâmpla dacă s-ar deschide porțile sunt scoși din cetate și nu se mai întorc, iar locul lor se ia la numărătoarea de iarnă.",
+        "en": "Two fortresses have besieged each other for three generations, though no one remembers who started the war, and the gates stay shut out of habit. Once a month the besieged throw a barrel of wine over the wall, and the besiegers answer with a pig and a letter of surrender, which the besieged burn unread. Anyone who disturbs the order pays with his right hand: sentries may shoot any person who crosses the boundary outside the day of exchange, whether fleeing or buying bread. Children learn from the age of seven to hate an enemy they have never seen, and at twenty they are sent to the assault line, where no one fires, because both sides have forgotten why. Those who ask what would happen if the gates opened are put outside the fortress and never return, and their place is filled at the winter count."
+      },
+      "openings": {
+        "ro": [
+          "Ziua de schimb a căzut în postul mare, iar preoții celor două cetăți se ceartă dacă vinul și porcul mai pot trece hotarul.",
+          "Un copil din cetatea de sus a strigat peste zid că vrea să vadă fața dușmanului, iar santinelele au pus mâna pe arme.",
+          "Butoiul de vin s-a spart la piciorul zidului, iar înăuntru, în loc de vin, era o listă de nume pe care nimeni nu le recunoaște.",
+          "Sora lui Ionuț a fost prinsă trecând hotarul noaptea ca să cumpere sare, iar sfatul trebuie să hotărască dacă îi taie mâna dreaptă."
+        ],
+        "en": [
+          "The day of exchange fell in the middle of Lent, and the priests of both fortresses are arguing over whether wine and pig may still cross the boundary.",
+          "A child from the upper fortress shouted across the wall that he wanted to see the enemy's face, and the sentries reached for their weapons.",
+          "The wine barrel broke at the foot of the wall, and inside, instead of wine, was a list of names no one recognizes.",
+          "Ionut's sister was caught crossing the boundary at night to buy salt, and the council must decide whether to take her right hand."
+        ]
+      }
+    },
+    {
+      "id": "small-luminivorii-fara-atingere",
+      "tags": ["lumină", "atingere", "specie"],
+      "title": {
+        "ro": "Universul cu o specie care se hrănește numai cu lumină și nu poate atinge materia",
+        "en": "A universe where a species feeds only on light and cannot touch matter"
+      },
+      "law": {
+        "ro": "Trupul acestei specii se hrănește cu lumina pe care o primește în piele și nu poate atinge nimic solid: dacă atinge ceva material, mâna i se scurge în abur și se naște din nou abia după o lună. De aceea totul se face cu unelte lungi, cu cârlige de lemn și cu suflul, iar mâncarea nu se taie, ci se lasă la soare până se desface singură. Lumina se măsoară în măsuri de zi, iar cine stă la umbră prea mult slăbește și își pierde culoarea, așa că orașele au oglinzi uriașe care aruncă soarele pe străzi înguste. Orice atingere între doi oameni ai speciei este o nuntă: pieile li se lipesc, se amestecă și se despart după un an, iar cine se atinge din greșeală rămâne legat până când unul dintre ei se topește. Copiii se fac din lumina împreunată a doi părinți, dar numai în zilele în care soarele trece prin piatra de foc a cetății; în rest, iubirea se ține la distanță de un pas.",
+        "en": "This species' body feeds on the light it takes in through the skin and can touch nothing solid: on contact with anything material the hand runs off as vapour and grows back only after a month. So everything is done with long tools, wooden hooks and breath, and food is never cut but left in the sun until it comes apart by itself. Light is measured in day-measures, and anyone who stands in shade too long grows thin and loses colour, so the towns have huge mirrors that throw sunlight into narrow streets. Any touch between two people of the species is a marriage: their skins stick, mingle and part after a year, and whoever touches by mistake stays bound until one of them melts. Children are made from the mingled light of two parents, but only on days when the sun passes through the fire-stone of the town; otherwise love is kept at a distance of one step."
+      },
+      "openings": {
+        "ro": [
+          "Vera a prins copilul căzut din leagăn cu brațul gol, iar acum mâna i se scurge în abur și soțul ei trebuie să hotărască dacă o leagă de un perete sau o lasă să se topească.",
+          "Oglinda cea mare a cetății s-a spart în noaptea de furtună, iar cartierul de jos are nouă zile de umbră până se toarnă alta.",
+          "Doi tineri s-au atins din joacă la târg și legătura nu s-a desfăcut la un an, iar acum familiile lor se ceartă cine să se topească.",
+          "Recolta de lumină a anului e prea mică, iar sfatul vrea să taie o zi din rația bătrânilor, care nu mai pot sta la soare."
+        ],
+        "en": [
+          "Vera caught the child falling from its cradle with her bare arm, and now the hand is running off as vapour and her husband must decide whether to tie her to a wall or let her melt.",
+          "The great mirror of the town shattered in the storm night, and the lower quarter now has nine days of shadow before another is cast.",
+          "Two young people touched in play at the fair and the bond did not come apart at the year's end, and now their families are arguing over who must melt.",
+          "This year's light harvest is too small, and the council wants to cut one day from the ration of the old, who can no longer sit in the sun."
+        ]
+      }
+    },
+    {
+      "id": "small-sticla-si-lumina",
+      "tags": ["sticlă", "lumină", "specie"],
+      "title": {
+        "ro": "Universul cu oameni de sticlă care mănâncă lumină frântă prin prisme și nu pot ieși din cochilii",
+        "en": "A universe of glass people who eat light broken through prisms and cannot leave their shells"
+      },
+      "law": {
+        "ro": "Fiecare om al acestei lumi trăiește într-o cochilie de sticlă care îi ține trupul și îi aduce hrana: lumina care intră prin fațetele cioplite se frânge în culori, iar culorile sunt mâncarea. Cine își sparge cochilia moare în câteva ceasuri, fiindcă pielea goală nu poate opri lumina și se usucă; de aceea ciobitorii sunt meșterii cei mai bogați și cei mai temuți. Cochiliile se moștenesc cu tot cu zgârieturile lor, iar o fațetă nouă se cioplește doar la nunți și la judecăți, când un meșter primește dreptul să taie sticla altuia. Cu cât sticla e mai groasă, cu atât mâncarea e mai fină, așa că familiile bogate cară cochilii cât o casă și merg târâș, iar săracii se mulțumesc cu cioburi legate cu sârmă. Copiii se nasc în cochilii mici de nisip topit și se mută în cea a familiei abia când li se strâmtează umerii; un copil crescut prea mult într-o cochilie mică rămâne strâmb toată viața.",
+        "en": "Every person in this world lives in a glass shell that holds the body and brings the food: light entering through cut facets breaks into colours, and the colours are the meal. Anyone who shatters his shell dies within hours, because bare skin cannot stop the light and dries out; that is why the cutters are the richest and most feared craftsmen. Shells are inherited with all their scratches, and a new facet is cut only at weddings and at trials, when one craftsman is given the right to cut another's glass. The thicker the glass, the finer the meal, so rich families haul shells as big as a house and walk bent, while the poor settle for shards bound with wire. Children are born in small shells of melted sand and move into the family shell only when their shoulders grow too wide; a child kept too long in a small shell stays crooked for life."
+      },
+      "openings": {
+        "ro": [
+          "Ciobitorul Marcu a fost chemat să taie o fațetă nouă pe cochilia fetei boierului, iar unghia i-a alunecat și sticla a crăpat.",
+          "Cochilia bătrânului Sava s-a spart în timpul nopții, iar vecinii aud cum se usucă încet și se ceartă cine îi ia cioburile.",
+          "O fetiță s-a născut fără cochilie, iar meșterii spun că are nouă zile să intre într-un ciob de nisip topit sau va muri la răsărit.",
+          "Caravana care aducea nisip topit a fost oprită la hotar, iar orașul are sticla veche numai de reparat, cu rășină și sârmă."
+        ],
+        "en": [
+          "The cutter Marcu was called to cut a new facet on the shell of the lord's daughter, and his fingernail slipped and the glass cracked.",
+          "Old Sava's shell broke in the night, and the neighbours can hear him slowly drying out and are arguing over who takes the shards.",
+          "A girl was born without a shell, and the craftsmen say she has nine days to enter a shard of melted sand or die at sunrise.",
+          "The caravan bringing melted sand was stopped at the border, and the town has only old glass to repair, with resin and wire."
+        ]
+      }
+    },
+    {
+      "id": "small-pretul-atingerii",
+      "tags": ["atingere", "preț", "viață"],
+      "title": {
+        "ro": "Universul în care fiecare atingere a unui lucru costă un an din viața celui care o face",
+        "en": "A universe where every touch of matter costs the toucher one year of life"
+      },
+      "law": {
+        "ro": "Lumea se hrănește din lumină, iar atingerea materiei se plătește cu ani din viață: un deget pe lemn ia o lună, o mână întreagă pe piatră ia un an, iar cine ridică un trup de om plătește cinci. De aceea tot ce e greu se cară cu frânghii, cu pârghii și cu animale, iar oamenii merg desculți pe nisip, care e socotit cel mai ieftin lucru de atins. Fiecare om își ține anii într-un inel de os pe care îl poartă la gât: luna se adaugă sau se scade de la sine, iar inelul se înnegrește pe măsură ce viața scade. Cei bogați își cumpără ani de la cei săraci, care își vând câte un deget de viață pentru grâu, și ajung să moară la treizeci de ani cu inelul plin. Vindecătorii sunt singurii care ating fără să plătească, fiindcă ating prin mănuși de lumină țesută; cine fură o astfel de mănușă este omorât pe loc, fără judecată.",
+        "en": "The world feeds on light, and touching matter is paid for with years of life: one finger on wood takes a month, a whole hand on stone takes a year, and lifting a human body costs five. So everything heavy is moved with ropes, levers and animals, and people walk barefoot on sand, which is counted the cheapest thing to touch. Each person keeps his years in a bone ring worn at the throat: the month is added or subtracted by itself, and the ring blackens as life dwindles. The rich buy years from the poor, who sell a finger's worth of life for wheat and end up dying at thirty with a full ring. Healers are the only ones who touch without paying, because they touch through gloves of woven light; anyone who steals such a glove is killed on the spot, without trial."
+      },
+      "openings": {
+        "ro": [
+          "Copilul a căzut în fântână, iar mama lui a stat o clipă cu mâna deasupra apei, socotind câți ani costă să-l scoată.",
+          "Inelul de os al lui Toma s-a înnegrit cu trei ani într-o lună, iar el jură că n-a atins nimic greu și bănuiește mănușa furată.",
+          "Un negustor de ani a venit în sat și oferă grâu de iarnă pentru câte un an din tineri, iar părinții își ceartă copiii să nu semneze.",
+          "Vindecătorul bătrân a murit, iar satul are o singură mănușă de lumină și două femei care nasc în aceeași noapte."
+        ],
+        "en": [
+          "The child fell into the well, and his mother stood a moment with her hand above the water, reckoning how many years it would cost to pull him out.",
+          "Toma's bone ring blackened by three years in one month, and he swears he touched nothing heavy and suspects the stolen glove.",
+          "A dealer in years has come to the village offering winter wheat for a year from each young person, and parents are quarrelling with their children not to sign.",
+          "The old healer has died, and the village has one glove of light and two women in labour on the same night."
+        ]
+      }
+    },
+    {
+      "id": "small-inventarul-de-seara",
+      "tags": ["numărare", "proprietate", "ordine"],
+      "title": {
+        "ro": "Universul cu o colonie în care tot ce posedă cineva trebuie numărat cu voce tare în fiecare seară",
+        "en": "A universe where a colony must count every possession aloud each evening"
+      },
+      "law": {
+        "ro": "Colonia numără tot ce posedă, fără greșeală: la asfințit, fiecare locuitor stă în ușa casei și citește cu voce tare lista lucrurilor lui, de la unghii până la cuie. Ce nu e rostit nu există: un lucru nerostit de trei seri la rând se preface în praf, chiar dacă omul îl ține în mână. Cine greșește numărul plătește cu lucrul cel mai scump de pe listă, iar cine minte o cifră pierde tot ce a numit în seara aceea și doarme gol până la iarnă. Listele se scriu pe pereți cu cretă, iar casele sunt pline de rânduri mărunte, semne de numere care se șterg și se refac în fiecare seară. Coloniștii socotesc bogăția după lungimea listei, nu după valoarea ei, așa că oamenii adună pietricele și fire de ață ca să aibă ce număra, iar cine rămâne fără nimic numără până la o mie și doarme liniștit.",
+        "en": "The colony counts everything it owns, without error: at sunset each dweller stands in the doorway and reads his list aloud, from fingernails to nails. What is not spoken does not exist: an object left uncounted for three evenings turns to dust, even if the person is holding it. Whoever miscounts pays with the most valuable item on the list, and whoever lies about a number loses everything named that evening and sleeps bare until winter. Lists are written on walls in chalk, and the houses are covered in small lines, signs of numbers rubbed out and remade every evening. Colonists reckon wealth by the length of the list, not its worth, so people collect pebbles and threads to have something to count, and anyone left with nothing counts to a thousand and sleeps untroubled."
+      },
+      "openings": {
+        "ro": [
+          "Ieri seară, Marta a uitat să numere cutia de nasturi a mamei, iar azi dimineață cutia era praf pe masă.",
+          "Un copil a numărat cu două pietricele mai mult, iar acum jumătate din sat stă în curtea lui să vadă ce i se ia.",
+          "Vântul a șters creta de pe peretele casei lui Simion, iar omul are o seară să-și rescrie toată lista din memorie.",
+          "Un corăbier a adus o oglindă, iar oglinda nu poate fi numărată, fiindcă arată tot ce ai, înmulțit; sfatul coloniei se ceartă dacă o lasă în port."
+        ],
+        "en": [
+          "Last evening Marta forgot to count her mother's box of buttons, and this morning the box was dust on the table.",
+          "A child counted two pebbles too many, and now half the village stands in his yard to see what is taken from him.",
+          "The wind erased the chalk from Simon's wall, and the man has one evening to rewrite his whole list from memory.",
+          "A ship's captain brought a mirror, and the mirror cannot be counted because it shows everything you have, multiplied; the colony council is arguing over whether to let it stay in the port."
+        ]
+      }
+    },
+    {
+      "id": "small-numarul-de-sine",
+      "tags": ["număr", "rang", "registru"],
+      "title": {
+        "ro": "Universul cu o colonie în care fiecare om este un număr și posedă exact atâtea lucruri cât arată el",
+        "en": "A colony where each person is a number and owns exactly as many things as that number"
+      },
+      "law": {
+        "ro": "În colonie nu există nume, ci numere: fiecare om este înscris la Registru cu o cifră, iar cifra hotărăște câte lucruri are voie să posede, așa că un om cu numărul doisprezece are doisprezece lucruri, niciunul mai mult. Al treisprezecelea lucru al cuiva se naște de la sine ca un câine fără stăpân, umblă pe străzi și mușcă; de aceea oamenii își golesc casele la vânzările de numere și se ceartă ani întregi pentru o singură cifră mai sus. Numerele se moștenesc, se câștigă la judecăți și se pierd prin datorii, iar cifra cea mai mare, o mie, este a coloniei întregi și nu aparține nimănui. Copiii primesc un număr la botez, de la unu la zece, după numărul de frați vii, iar cei care rămân fără număr, născuți în an de foamete, sunt dați la case mai mari și numiți cu numele casei. Cine își rostește numărul greșit este socotit mort și i se ia tot, fiindcă Registrul nu se înșală niciodată.",
+        "en": "There are no names in the colony, only numbers: every person is entered in the Registry with a number, and the number decides how many things he may own, so a person numbered twelve has twelve belongings, not one more. Anyone's thirteenth belonging is born by itself as a stray dog, roams the streets and bites; so people empty their houses at number sales and quarrel for years over a single step up. Numbers are inherited, won in trials and lost to debt, and the highest number, one thousand, belongs to the whole colony and to no one. Children receive a number at naming, from one to ten, according to how many siblings are alive, and those who end up numberless, born in famine years, are given to larger houses and called by the house name. Anyone who says his number wrong is counted dead and stripped of everything, because the Registry is never wrong."
+      },
+      "openings": {
+        "ro": [
+          "Croitorul cu numărul nouă a primit de la un muribund un ciocan și acum are zece lucruri, iar al unsprezecelea i s-a născut azi ca un câine negru în curte.",
+          "O femeie a pierdut procesul de numere și a coborât de la douăzeci și unu la șaisprezece, iar cinci lucruri au plecat singure pe uliță.",
+          "Un copil s-a născut pe drumul dintre case și nimeni nu vrea să-i dea cifră, fiindcă anul e de foamete.",
+          "Registrul a ars în incendiu, iar colonia are o săptămână să-și spună numerele din memorie, unul câte unul, în fața zidului gol."
+        ],
+        "en": [
+          "The tailor numbered nine received a hammer from a dying man, so now he owns ten things, and his eleventh was born today as a black dog in the yard.",
+          "A woman lost her number trial and dropped from twenty-one to sixteen, and five belongings walked off down the lane on their own.",
+          "A child was born on the path between houses and no one wants to give it a number, because this is a famine year.",
+          "The Registry burned in the fire, and the colony has one week to recite its numbers from memory, one by one, before the empty wall."
+        ]
+      }
+    },
+    {
+      "id": "small-lucrul-numarat-intai",
+      "tags": ["numărare", "proprietate", "jaf"],
+      "title": {
+        "ro": "Universul în care lucrul numărat primul de dimineață aparține celui care l-a numărat",
+        "en": "A universe where the first person to count a thing each morning owns it"
+      },
+      "law": {
+        "ro": "Proprietatea nu se moștenește și nu se cumpără: la răsărit, fiecare lucru al coloniei aparține celui care îl numește primul cu voce tare, de la un cal până la o lingură. Numărătoarea ține până la prânz, iar după-amiază toate lucrurile se strâng în piață și se împart din nou a doua zi, la fel. Cine doarme până târziu rămâne fără nimic și trebuie să numere lucrurile altuia pentru o bucată de pâine, fiindcă număratul pentru altul e singura muncă plătită. Cei care aleargă dimineața poartă clopoței la brâu ca să audă vecinii ce a fost numărat deja, iar oamenii își fac liste de nume scurte, ușor de rostit, ca să apuce mai multe. Numai pământul și casele nu se numără, fiindcă le numără colonia întreagă o dată pe an, în ziua când toți tac și un singur om citește tot: satul, podul, râul, morile și morții.",
+        "en": "Property is neither inherited nor bought: at sunrise, every thing in the colony belongs to whoever names it first aloud, from a horse down to a spoon. The counting lasts until noon, and after midday all things are gathered in the square and dealt out again the next day, in the same way. Anyone who sleeps late is left with nothing and must count another person's things for a piece of bread, because counting for another is the only paid work. The early runners wear little bells at the waist so neighbours can hear what has already been claimed, and people keep lists of short names, easy to say, to grab more. Only land and houses are not counted, because the whole colony counts them once a year, on the day when everyone falls silent and one person reads it all: the village, the bridge, the river, the mills and the dead."
+      },
+      "openings": {
+        "ro": [
+          "Bătrânul Luca a numărat calul vecinului la răsărit, iar vecinul îl numără acum pe Luca, ca să aibă cu ce ara.",
+          "O fată a învățat să rostească douăzeci de nume într-o suflare, iar satul vrea să o oprească de la numărătoare.",
+          "Cineva a numărat moara în timpul nopții, iar dimineața satul întreg a găsit-o pe numele unui om care nu o poate porni.",
+          "Ziua numărării mari a venit, iar omul care citește tot a ajuns la râul care anul trecut a luat două case și nu știe ce să spună."
+        ],
+        "en": [
+          "Old Luca counted his neighbour's horse at sunrise, and the neighbour is now counting Luca, so that he has something to plough with.",
+          "A girl has learned to say twenty names in one breath, and the village wants to bar her from the count.",
+          "Someone counted the mill during the night, and in the morning the whole village found it in the name of a man who cannot start it.",
+          "The day of the great count has come, and the reader has reached the river that took two houses last year and does not know what to say."
+        ]
+      }
+    },
+    {
+      "id": "small-manastirea-care-copiaza-lumi",
+      "tags": ["mănăstire", "copiere", "memorie"],
+      "title": {
+        "ro": "Universul cu o mănăstire cosmică în care călugării copiază în trupul lor lumi care se sting",
+        "en": "A universe where a cosmic monastery copies dying worlds into the bodies of monks"
+      },
+      "law": {
+        "ro": "Mănăstirea plutește între lumi care se sting, iar călugării au o singură datorie: să copieze fiecare lume înainte să se șteargă. Copierea nu se face cu scrisul, ci cu trupul: un călugăr învață pe de rost o viață întreagă a lumii, cu ulița, cu numele și cu gustul pâinii, și apoi o trăiește din nou, an de an, până când lumea moare și el rămâne singurul loc unde ea mai există. Cine strică o copie, o singură dată, pierde lumea aceea și jumătate din a lui; călugării bătrâni tremură la fiecare lecție și cer ucenicilor să le spună înapoi tot ce au auzit. Lumile copiate în două inimi se ceartă și se contrazic, iar mănăstirea le ține despărțite în aripi diferite, ca să nu se amestece gusturile și morții. Când un călugăr moare, lumea din el se așază în scris, dar scrisul nu ține la fel de bine ca trupul: o lume scrisă trăiește încă o sută de ani și se face praf de cărți.",
+        "en": "The monastery floats among worlds as they go out, and the monks have a single duty: to copy each world before it is erased. Copying is not done in writing but with the body: a monk learns by heart an entire life of the world, its lane, its names and the taste of its bread, and then lives it again, year after year, until the world dies and he is the only place where it still exists. Anyone who spoils a copy, once, loses that world and half of his own; the old monks shake at every lesson and make the novices repeat everything they heard. Worlds copied in two hearts argue and contradict each other, and the monastery keeps them apart in different wings, so their tastes and deaths do not mix. When a monk dies, the world learned in him is set down in writing, but writing does not hold the way a body does: a written world lives another hundred years and crumbles into book dust."
+      },
+      "openings": {
+        "ro": [
+          "Fratele Anania trebuie să învețe pe de rost viața unei lumi care se stinge în nouă zile, iar el a uitat deja numele râului.",
+          "Doi călugări au copiat aceeași cetate și își spun unul altuia amintiri care nu se potrivesc; starețul trebuie să hotărască ce lume se șterge.",
+          "Un novice a visat o uliță care nu e în nicio lecție și jură că o lume s-a strecurat în el fără să fie chemată.",
+          "Mănăstirea a primit vestea că o lume mare, de un miliard de trupuri, se aprinde în flăcări, iar călugării au doar patru inimi libere."
+        ],
+        "en": [
+          "Brother Anania must learn by heart the life of a world going out in nine days, and he has already forgotten the river's name.",
+          "Two monks have copied the same city and keep telling each other memories that do not match; the abbot must decide which world is erased.",
+          "A novice dreamed a lane that is in no lesson, and swears a world slipped into him without being called.",
+          "The monastery has word that a great world of a billion bodies is catching fire, and the monks have only four free hearts."
+        ]
+      }
+    },
+    {
+      "id": "small-cantorii-de-lumi",
+      "tags": ["muzică", "copiere", "memorie"],
+      "title": {
+        "ro": "Universul cu o mănăstire care păstrează lumile moarte în cântece cântate fără oprire",
+        "en": "A universe where a monastery keeps dead worlds only as songs sung without pause"
+      },
+      "law": {
+        "ro": "Lumile nu se scriu și nu se pictează în această lume: se cântă. Când o lume se stinge, călugării culeg ce au mai apucat și fac din ea un cântec cu trei glasuri, pe care îl cântă fără oprire, zi și noapte, în biserica mare. Un cântec întrerupt se pierde pe loc, iar lumea care era în el moare a doua oară, de data asta pentru totdeauna; de aceea corurile se schimbă la fiecare ceas, și nimeni nu are voie să tușească în timpul cântării. Călugării nu pot vorbi între ei în afara slujbei, ca să nu obosească glasul, și își fac semne cu degetele; cine rămâne fără glas este dat la bucătărie și nu mai are dreptul să asculte. Fiecare cântec are un singur ascultător numit martor, care are datoria să nu moară niciodată fără să predea cântecul mai departe, așa că martorii sunt aleși dintre copii și hrăniți cu miere și lapte. Cine ascultă un cântec până la capăt fără să-l fi învățat nu are voie să doarmă o săptămână, fiindcă somnul varsă glasul din om.",
+        "en": "Worlds are neither written nor painted in this world: they are sung. When a world goes out, the monks gather what they can and make of it a song for three voices, which they sing without stopping, day and night, in the great church. A song interrupted is lost at once, and the world inside it dies a second time, this time forever; so the choirs change every hour, and no one may cough during the singing. The monks may not speak to one another outside the service, lest the voice tire, and they sign with their fingers; anyone who loses his voice is sent to the kitchen and loses the right to listen. Each song has one listener called the witness, whose duty is never to die without handing the song on, so witnesses are chosen from among the children and fed on honey and milk. Anyone who hears a song to its end without having learned it may not sleep for a week, because sleep spills the voice out of a person."
+      },
+      "openings": {
+        "ro": [
+          "Martora cea mică a răcit și tușește în timpul cântecului, iar corul se ceartă cine o scoate din biserică înainte să se rupă glasul.",
+          "Un cântec s-a oprit o clipă la schimbul de ceas, iar călugării simt cum lumea din el se subțiază și vrea să spună ceva ce nu mai are cuvinte.",
+          "Bucătarul, care și-a pierdut glasul acum douăzeci de ani, a fost prins ascultând la ușă și trebuie judecat.",
+          "A sosit vestea unei lumi noi, care vrea să fie cântată de la început, iar mănăstirea nu are niciun glas liber până în primăvară."
+        ],
+        "en": [
+          "The little witness has caught cold and coughs during the song, and the choir is arguing over who takes her out of the church before her voice breaks.",
+          "A song stopped for a moment at the change of the hour, and the monks can feel the world inside it thinning and trying to say something that has no words left.",
+          "The cook, who lost his voice twenty years ago, was caught listening at the door and must be judged.",
+          "Word has come of a new world that wants to be sung from the beginning, and the monastery has no free voice until spring."
+        ]
+      }
+    },
+    {
+      "id": "small-legile-de-eclipsa",
+      "tags": ["eclipsă", "legi", "obicei"],
+      "title": {
+        "ro": "Universul cu un sat care își schimbă toate legile la fiecare eclipsă",
+        "en": "A universe where a village changes all its laws at every eclipse"
+      },
+      "law": {
+        "ro": "Satul trăiește după legi care se schimbă la fiecare eclipsă: când luna mușcă soarele, legile vechi cad toate odată, iar cele noi se scriu în aceeași noapte de doisprezece bătrâni adunați în beciul bisericii. Nimeni nu are voie să știe legile dinainte, nici măcar cei care le scriu: ce iese din beci la răsăritul soarelui se citește o dată pe an, cu voce tare, în piață, și atât. Cine încalcă o lege pe care nu a auzit-o plătește totuși, așa că oamenii trăiesc luna dinaintea eclipsei cu grijă mare și fac tot ce făceau mai înainte, ca să nu se înșele. Judecătorul satului nu știe legile, doar numără zilele până la eclipsa următoare și ține socoteala tuturor certurilor nerezolvate, pe care le lămurește pe toate într-o singură noapte. Cei care vor să afle mai devreme ce se pregătește în beci plătesc cu ani de muncă la cei doisprezece, iar unii au aflat că legile lor se scriu de trei generații de aceiași bătrâni, fără să se schimbe nimic.",
+        "en": "The village lives by laws that change at every eclipse: when the moon bites the sun, all the old laws fall at once, and the new ones are written the same night by twelve elders gathered in the church cellar. No one may know the laws beforehand, not even those who write them: what comes out of the cellar at sunrise is read once a year, aloud, in the square, and that is all. Anyone who breaks a law he never heard still pays, so people live the month before an eclipse in great care and do what they always did, to avoid mistakes. The village judge does not know the laws, he only counts the days to the next eclipse and keeps a tally of every unsettled quarrel, all of which he settles in one night. Those who want to learn early what is being prepared in the cellar pay with years of labour to the twelve, and some have found that their laws have been written for three generations by the same elders, with nothing ever changing."
+      },
+      "openings": {
+        "ro": [
+          "Eclipsa cade peste nouă zile, iar fata morarului a fost prinsă furând grâu; judecătorul trebuie să hotărască dacă o ține până atunci sau o lasă să fugă.",
+          "Unul dintre cei doisprezece a vorbit în somn, iar satul a aflat că legile de mâine sunt aceleași ca acum treizeci de ani.",
+          "Cineva a vândut o listă cu legile viitoare, iar piața satului s-a împărțit între cei care au dat ani de muncă și cei care nu aveau ce da.",
+          "Soarele a fost acoperit de un fum gros, fără lună, iar bătrânii se ceartă dacă e eclipsă sau altceva, fiindcă legile atârnă de cuvântul eclipsă."
+        ],
+        "en": [
+          "The eclipse falls in nine days, and the miller's daughter has been caught stealing wheat; the judge must decide whether to hold her until then or let her go.",
+          "One of the twelve talked in his sleep, and the village learned that tomorrow's laws are the same as thirty years ago.",
+          "Someone sold a list of the coming laws, and the village square split between those who paid years of labour and those who had nothing to pay.",
+          "The sun was covered by thick smoke, with no moon, and the elders are arguing over whether that is an eclipse, because the laws hang on the word eclipse."
+        ]
+      }
+    },
+    {
+      "id": "small-satul-cu-doua-coduri",
+      "tags": ["legi", "hotar", "eclipsă"],
+      "title": {
+        "ro": "Universul cu un sat așezat pe hotarul dintre două coduri de legi care se schimbă la eclipse",
+        "en": "A village standing on the border between two codes of law that swap at every eclipse"
+      },
+      "law": {
+        "ro": "Satul stă pe linia dintre două ținuturi, iar linia e o râpă mică: de o parte se trăiește după cartea albastră, de cealaltă după cartea roșie, iar cărțile se schimbă între ele la fiecare eclipsă. Omul aparține cărții pe al cărei pământ doarme, așa că în noaptea de eclipsă nimeni nu doarme, iar cei care adorm se trezesc cu altă lege, alt stăpân și altă limbă de acte. Cine trece râpa în afara eclipsei nu-și schimbă cartea, dar plătește vamă în muncă: trei zile de trudă la hotar pentru fiecare trecere cu carul. Copiii născuți în noaptea eclipsei nu aparțin niciunei cărți și pot alege, la șaisprezece ani, în ce parte vor să fie înscriși; până atunci muncesc pentru amândouă și nu moștenesc nimic. Preoții celor două ținuturi se întâlnesc o dată pe an pe pod și citesc cu voce tare ce e nou în fiecare carte, iar oamenii ascultă de pe maluri și își fac semne.",
+        "en": "The village stands on the line between two realms, and the line is a small gully: on one side people live by the blue book, on the other by the red book, and the books trade places at every eclipse. A person belongs to the book on whose land he sleeps, so no one sleeps on the night of an eclipse, and those who doze off wake to another law, another master and another language of papers. Anyone who crosses the gully outside an eclipse does not change his book, but pays a toll in labour: three days of work at the boundary for every cart crossing. Children born on the night of an eclipse belong to neither book and may choose at sixteen which side to be entered on; until then they work for both and inherit nothing. The priests of the two realms meet once a year on the bridge and read aloud what is new in each book, while people listen from the banks and signal to one another."
+      },
+      "openings": {
+        "ro": [
+          "Eclipsa vine în două ceasuri, moașa are o femeie în travaliu chiar pe malul râpei, iar copilul va trebui să-și aleagă cartea la șaisprezece ani.",
+          "Un car cu sare a trecut râpa la amiază, iar vameșul cere trei zile de muncă, pe care negustorul nu le poate plăti.",
+          "Cărțile s-au schimbat noaptea trecută, iar casa lui Pavel a rămas cu ușa în ținutul albastru și cu grădina în cel roșu.",
+          "Un copil al eclipsei a împlinit șaisprezece ani și trebuie să-și aleagă cartea, iar ambele ținuturi îi fac daruri și-l amenință în același ceas."
+        ],
+        "en": [
+          "The eclipse comes in two hours, the midwife has a woman in labour right on the bank of the gully, and the child will have to choose its book at sixteen.",
+          "A cart of salt crossed the gully at noon, and the toll keeper demands three days of work, which the trader cannot pay.",
+          "The books changed last night, and Pavel's house is left with its door in the blue realm and its garden in the red one.",
+          "A child of the eclipse has turned sixteen and must choose its book, and both realms send it gifts and threats in the same hour."
+        ]
+      }
+    },
+    {
+      "id": "small-mina-de-metal-viu",
+      "tags": ["mină", "metal", "viață"],
+      "title": {
+        "ro": "Universul cu o mină care sapă după un metal viu, ce crește și se hrănește ca un animal",
+        "en": "A universe where a mine digs for a living metal that grows and feeds like an animal"
+      },
+      "law": {
+        "ro": "Metalul din această lume e viu: crește în vine sub piatră, se mișcă noaptea și se hrănește cu ce i se dă, iar minerii nu îl scot, ci îl cheamă. O vână bună se hrănește trei luni cu sânge de vită turnat în crăpături, iar apoi crește spre locul unde a fost hrănită, așa că minerii își mută hrănitoarele înaintea ei, la o mână depărtare. Dacă vâna e lovită cu târnăcopul fără să fie hrănită, ea se retrage și ia cu ea toată apa din galerii; de aceea târnăcopul se ridică o singură dată, la sfârșit, după ce vâna a fost adormită cu lapte cald și cu cântece. Metalul scos se păstrează viu în butoaie de sare și continuă să crească acolo, încet, așa că un inel de metal viu își schimbă mărimea pe deget și nu poate fi scos fără să fie omorât cu oțet. Cine omoară o vână întreagă, fără să lase un nod de viță nevătămat, este dat afară din mină și nu mai are voie să intre în nicio galerie a lumii.",
+        "en": "The metal of this world is alive: it grows in veins under the stone, moves at night and feeds on what it is given, and the miners do not dig it out, they call it. A good vein feeds for three months on cattle blood poured into cracks, and then it grows toward the place where it was fed, so the miners move their feeding troughs ahead of it, a hand's width away. If a vein is struck with a pick while unfed, it withdraws and takes all the water in the galleries with it; so the pick is raised only once, at the end, after the vein has been put to sleep with warm milk and singing. The metal taken out is kept alive in barrels of salt and goes on growing there, slowly, so a ring of living metal changes size on the finger and cannot be removed without killing it with vinegar. Anyone who kills a whole vein, leaving not one knot of growth unharmed, is driven from the mine and may never enter any gallery in the world again."
+      },
+      "openings": {
+        "ro": [
+          "Vâna cea mare s-a oprit în noaptea asta și a luat apa din galeria a treia, iar minerii au trei zile să o hrănească sau toată mina se închide.",
+          "Un inel de metal viu s-a strâns pe degetul fetei lui Bogdan și nu poate fi scos fără oțet, iar oțetul din sat s-a terminat.",
+          "Cineva a lovit vâna cu târnăcopul înainte de vreme, iar cei șapte oameni din galerie nu mai răspund la strigăt.",
+          "Un negustor cere metal viu pentru o coroană, iar minerii se ceartă dacă e voie să vinzi o bucată care încă mai crește."
+        ],
+        "en": [
+          "The great vein stopped tonight and took the water from the third gallery, and the miners have three days to feed it or the whole mine shuts.",
+          "A ring of living metal has tightened on Bogdan's daughter's finger and cannot be removed without vinegar, and the village vinegar is finished.",
+          "Someone struck the vein with a pick too early, and the seven men in the gallery no longer answer a shout.",
+          "A trader asks for living metal for a crown, and the miners are quarrelling over whether it is lawful to sell a piece that still grows."
+        ]
+      }
+    },
+    {
+      "id": "small-filul-care-fuge",
+      "tags": ["mină", "urmărire", "vână"],
+      "title": {
+        "ro": "Universul cu un oraș-mină care se mută întreg, an de an, după vâna de metal care fuge",
+        "en": "A universe where a whole mining town moves each year, following a fleeing vein of metal"
+      },
+      "law": {
+        "ro": "Vâna de metal fuge prin piatră cu un pas pe zi, iar orașul o urmărește: casele sunt clădite pe role de lemn, iar la porunca iscoadei toată așezarea se mută cu o zi mai aproape de vână. Cine rămâne în urmă o singură noapte, cu casa lui, nu mai găsește drumul: galeriile vechi se umplu cu apă și cu metal tânăr, care mușcă. Vâna se hrănește cu piatră bună și lasă în urmă zgură neagră, așa că orașul se hrănește cu grâu adus din văi, pe care le lasă repede în urmă, iar oamenii învață de la copilărie să doarmă în casă care se clatină. Iscoada e un om care simte vâna prin talpă și e ținut legat în turnul de lemn, hrănit cu miere și întrebat în fiecare dimineață despre direcție. Când vâna se oprește, orașul se oprește cu ea și își pune rădăcini: atunci se naște piață, se fac nunți și se scrie o carte a așezării, care se arde dacă vâna pleacă iar.",
+        "en": "The metal vein flees through the stone at a pace a day, and the town follows it: the houses are built on wooden rollers, and at the scout's order the whole settlement moves a day closer to the vein. Anyone left behind for a single night, house and all, never finds the way back: the old galleries fill with water and young metal, which bites. The vein feeds on good stone and leaves black slag behind, so the town feeds on wheat brought from valleys it quickly leaves behind, and people learn from childhood to sleep in a swaying house. The scout is a man who feels the vein through his sole, and he is kept chained in the wooden tower, fed on honey and questioned each morning about direction. When the vein stops, the town stops with it and puts down roots: then a market is born, weddings are held and a book of the settlement is written, which is burned if the vein leaves again."
+      },
+      "openings": {
+        "ro": [
+          "Iscoada a spus la răsărit că vâna a cotit spre nord, iar orașul are o zi să-și mute casele peste pârâu, unde nu e drum.",
+          "O casă a rămas în urmă cu o babă bolnavă înăuntru, iar fiul ei vrea să se întoarcă singur după ea.",
+          "Vâna s-a oprit pentru prima dată în nouă ani, iar oamenii se ceartă dacă să ridice piață și biserică sau să rămână cu casele pe role.",
+          "Un copil s-a născut în timpul mutării, iar cartea așezării trebuie să spună unde e locul lui, fiindcă nu are niciun sat, nici altul."
+        ],
+        "en": [
+          "At sunrise the scout said the vein has turned north, and the town has one day to move its houses across the stream, where there is no road.",
+          "One house was left behind with a sick old woman inside, and her son wants to go back for her alone.",
+          "The vein has stopped for the first time in nine years, and people are arguing over whether to raise a market and a church or keep the houses on rollers.",
+          "A child was born during the move, and the book of the settlement must say where his place is, because he has neither one village nor another."
+        ]
+      }
+    },
+    {
+      "id": "small-topitoria-care-omoara",
+      "tags": ["topitorie", "metal", "moarte"],
+      "title": {
+        "ro": "Universul cu o topitorie unde metalul viu trebuie omorât prin cântec înainte de a fi turnat",
+        "en": "A universe where living metal must be killed by singing before it can be cast"
+      },
+      "law": {
+        "ro": "Metalul viu nu poate fi turnat cât e treaz: se răsucește, se apără și mușcă mâna care îl toarnă, așa că înainte de fiecare turnare trebuie omorât, iar omorârea se face prin cântec. Topitorii sunt cantori: cântă nouă ceasuri lângă vatră, până când metalul adoarme și își uită forma, iar cine greșește un glas se alege cu o limbă de metal topit peste mâini. Metalul mort rămâne mort o singură zi, după care se trezește în forma în care a fost turnat; de aceea toate uneltele, țevile și clopotele sunt vii, iar dacă le lași nemângâiate o lună se strâmbă și încep să scârțâie singure. Orice lucru turnat trebuie mângâiat o dată pe zi de stăpânul lui, iar uneltele fără stăpân se strâng în curtea topitoriei și se topesc între ele, făcând noduri de metal care umblă noaptea. Cei care vor metal care să rămână mort plătesc cu un deget din mână, tăiat la turnare și aruncat în vatră, iar meșterii cu mâinile ciunte sunt cei mai respectați.",
+        "en": "Living metal cannot be cast while awake: it twists, defends itself and bites the hand that pours it, so before every casting it must be killed, and the killing is done by singing. The smelters are singers: they sing nine hours by the hearth until the metal falls asleep and forgets its shape, and whoever misses a note ends up with a tongue of molten metal over his hands. Dead metal stays dead for a single day, after which it wakes in the shape it was cast; so all tools, pipes and bells are alive, and if left untouched for a month they warp and begin to creak on their own. Every cast thing must be stroked once a day by its owner, and ownerless tools gather in the smeltery yard and melt into one another, making knots of metal that walk at night. Those who want metal that stays dead pay with a finger from the hand, cut off at the casting and thrown into the hearth, and craftsmen with maimed hands are the most respected."
+      },
+      "openings": {
+        "ro": [
+          "Cantorul cel bătrân a răgușit la mijlocul turnării clopotului, iar clopotul s-a răsucit pe vatră și a mușcat doi ucenici.",
+          "Fierarul Vasile vrea un plug care să rămână mort trei ani, iar pentru asta trebuie să-și taie un deget la turnare.",
+          "Uneltele fără stăpân s-au adunat în curtea topitoriei și s-au unit într-un nod care se apropie noaptea de grajduri.",
+          "Un meșter a turnat nouă săbii în aceeași zi și nu mai are glas să le mângâie pe toate; fiica lui se ceartă cu el să-i lase și ei două."
+        ],
+        "en": [
+          "The old singer went hoarse in the middle of casting the bell, and the bell twisted on the hearth and bit two apprentices.",
+          "The smith Vasile wants a plough that stays dead for three years, and for that he must cut off a finger at the casting.",
+          "Ownerless tools have gathered in the smeltery yard and joined into a knot that comes near the stables at night.",
+          "A craftsman cast nine swords in one day and has no voice left to stroke them all; his daughter is arguing with him to leave her two."
+        ]
+      }
+    },
+    {
+      "id": "small-insula-somnului-platit",
+      "tags": ["somn", "muncă", "vise"],
+      "title": {
+        "ro": "Universul cu o insulă în care somnul este munca plătită, iar visele sunt recolta",
+        "en": "A universe where sleep is the paid work and dreams are the harvest"
+      },
+      "law": {
+        "ro": "Pe insulă, somnul nu e odihnă, ci slujbă: fiecare locuitor doarme opt ceasuri pe zi în sala mare, pe un pat de piatră, cu un inel de cupru pe frunte, iar visele care ies din el se scurg în butoaie. Visele se vând: un vis frumos face cât o săptămână de mâncare, un coșmar face cât un an, iar cine nu visează nimic e plătit cu apă și cu sare. Cine stă treaz când îi vine rândul la pat plătește dublu și își pierde locul la coadă, așa că oamenii învață să adoarmă la numărare și se ceartă seara cine are vise mai lungi. Inelele de cupru înregistrează ce visezi, iar furtul de vis se pedepsește cu trei luni de trezvie: omul e ținut treaz cu apă rece și cu bătăi, până când visele i se strică. Copiii visează fără plată până la doisprezece ani, iar visele lor, socotite cele mai curate, se păstrează în pivniță de sticlă și se vând la preț de aur.",
+        "en": "On the island sleep is not rest but a job: every dweller sleeps eight hours a day in the great hall, on a stone bed, with a copper ring on the forehead, and the dreams that come out of him drain into barrels. Dreams are sold: a beautiful dream is worth a week of food, a nightmare a year, and whoever dreams nothing is paid in water and salt. Anyone who stays awake when his turn at the bed comes pays double and loses his place in the queue, so people learn to fall asleep on the count and argue in the evening over who has longer dreams. The copper rings record what you dream, and stolen dreams are punished with three months of wakefulness: the person is kept awake with cold water and blows until his dreams spoil. Children dream without pay until twelve, and their dreams, counted the purest, are stored in a glass cellar and sold at the price of gold."
+      },
+      "openings": {
+        "ro": [
+          "Maria a visat pentru prima dată o casă cu grădină, iar visele frumoase se vând scump, dar ea vrea să-l țină pentru ea.",
+          "O femeie a fost prinsă furând visul vecinului din butoi, iar judecata cere trei luni de trezvie, pe care inima ei nu le mai suportă.",
+          "Visele insulei s-au stricat trei nopți la rând, toate urâte și fără chip, iar negustorii cer socoteală.",
+          "Copilul Elenei a împlinit doisprezece ani și trebuie să-și vândă visele în pivniță, iar ea vrea să-l ascundă în munți."
+        ],
+        "en": [
+          "Maria dreamed a house with a garden for the first time, and beautiful dreams sell high, but she wants to keep it for herself.",
+          "A woman was caught stealing her neighbour's dream from a barrel, and the court demands three months of wakefulness, which her heart can no longer bear.",
+          "The island's dreams have soured three nights running, all ugly and featureless, and the traders are demanding an account.",
+          "Elena's child has turned twelve and must sell her dreams to the cellar, and she wants to hide her in the hills."
+        ]
+      }
+    },
+    {
+      "id": "small-greva-insomnilor",
+      "tags": ["somn", "grevă", "trezvie"],
+      "title": {
+        "ro": "Universul cu o insulă care vinde somn altor lumi și în care trezvia e singura grevă",
+        "en": "A universe where an island sells sleep to other worlds and staying awake is the only strike"
+      },
+      "law": {
+        "ro": "Insula vinde somn orașelor de piatră: locuitorii dorm în locul altora, iar cei care cumpără somn se trezesc odihniți la mii de kilometri depărtare. Plata se face în ore de veghe: pentru fiecare ceas dormit pentru altul primești un ceas de veghe plătit, iar veghea îți aparține și o poți mânca, o poți bea sau o poți vinde mai departe. Singura grevă cu putere pe insulă este trezvia: când toți refuză să doarmă, orașele de piatră nu se mai odihnesc, iar guvernatorul pierde contractele; de aceea trezvia e socotită răzvrătire și pedepsită cu moartea prin somn. Cine e condamnat la somn este legat în patul mare și ținut acolo până adoarme pentru totdeauna, adică nouă zile, iar în acele zile visele lui sunt vândute la licitație dinainte. Tinerii sunt învățați să doarmă cu regularitate ca niște ceasornice, iar cei care nu pot fi treziți la ora cerută sunt lăsați în pat și uitați, ca niște unelte defecte.",
+        "en": "The island sells sleep to the cities of stone: its people sleep in place of others, and those who buy sleep wake up rested thousands of miles away. Payment is made in waking hours: for every hour slept for another you get one hour of paid wakefulness, and that waking belongs to you, to eat, to drink or to sell on. The only strike with power on the island is staying awake: when everyone refuses to sleep, the stone cities lose their rest, and the governor loses contracts; so wakefulness is counted as rebellion and punished with death by sleep. Anyone sentenced to sleep is strapped in the great bed and held there until he falls asleep forever, which is nine days, and during those days his dreams are auctioned in advance. The young are taught to sleep with the regularity of clocks, and those who cannot be woken at the required hour are left in bed and forgotten, like faulty tools."
+      },
+      "openings": {
+        "ro": [
+          "Optzeci de dormitori s-au culcat seara și nu s-au mai trezit, iar insula bănuiește otrăvire, nu boală.",
+          "Nora lui Toader a fost dusă la patul cel mare pentru că a stat trează trei nopți, iar familia îi caută cumpărător pentru visele de dinainte.",
+          "Orașul de piatră a trimis un inspector să vadă de ce somnul vândut are gust de fum, iar insula are o noapte să ascundă cauza.",
+          "Un grup de tineri vrea să țină trezvia o săptămână întreagă, iar părinții lor se ceartă dacă îi denunță sau le duc apă și cântece ca să reziste."
+        ],
+        "en": [
+          "Eighty sleepers lay down in the evening and did not wake, and the island suspects poison, not disease.",
+          "Toader's daughter-in-law was taken to the great bed for staying awake three nights, and the family is looking for a buyer for her earlier dreams.",
+          "The stone city has sent an inspector to see why the sleep it buys tastes of smoke, and the island has one night to hide the cause.",
+          "A group of young people wants to keep awake for a whole week, and their parents are arguing over whether to denounce them or bring water and songs so they last."
+        ]
+      }
+    },
+    {
+      "id": "small-orasul-cu-ecou",
+      "tags": ["sunet", "orb", "orientare"],
+      "title": {
+        "ro": "Universul cu un oraș de orbi care se orientează numai după ecoul pașilor",
+        "en": "A universe where a blind city navigates only by the echo of footsteps"
+      },
+      "law": {
+        "ro": "În oraș toți sunt orbi din naștere, iar drumul se găsește prin sunet: fiecare zid are un ecou al lui, iar cine nu-l aude pe al străzii sale se oprește și așteaptă până când cineva bate din palme. Liniștea neobișnuită este crimă: cine face un sunet nou, un fluierat, un strigăt sau o lovitură într-un perete, mută ecoul străzii și poate rătăci un om pe vecie, așa că se pedepsește cu tăierea limbii. Casele se construiesc după sunet, nu după formă: fiecare ușă are un clopoțel, fiecare curte un ciob de sticlă care cântă în vânt, iar o casă mutată fără să se schimbe sunetul ei e socotită părăsită. Negustorii umblă cu bețe de lemn în care sunt crestate numere, iar prețul se tocmește bătând în piatră, fiindcă sunetul nu se poate minți. Oamenii își spun noaptea povești despre culori, iar cei care se ceartă spun că albastrul e mai gros decât roșul, fără să fi văzut vreodată ceva.",
+        "en": "In the city everyone is blind from birth, and the way is found by sound: every wall has its own echo, and whoever cannot hear the echo of his street stops and waits until someone claps. Unusual silence is a crime: anyone who makes a new sound, a whistle, a shout or a blow against a wall, shifts the echo of the street and may lose a person forever, so it is punished by cutting out the tongue. Houses are built by sound, not by shape: every door has a little bell, every yard a shard of glass that sings in the wind, and a house moved without changing its sound is counted abandoned. Traders walk with wooden staffs carved with numbers, and prices are bargained by striking stone, because sound cannot lie. People tell each other stories about colours at night, and those who quarrel say blue is thicker than red, having never seen anything at all."
+      },
+      "openings": {
+        "ro": [
+          "Un copil a fluierat într-o stradă de piatră, iar ecoul a luat-o razna și doi vecini nu mai găsesc drumul spre casă.",
+          "O casă a fost mutată noaptea, cu tot cu uși, iar sunetul ei s-a schimbat; stăpânul jură că nu el a poruncit.",
+          "Negustorul de mirodenii a adus o cutie cu un clopoțel nou, iar cartierul vrea să-l judece înainte să intre în oraș.",
+          "Un tânăr a învățat să imite ecoul fântânii și poate duce pe cineva oriunde; sfatul orbilor trebuie să hotărască ce e talent și ce e crimă."
+        ],
+        "en": [
+          "A child whistled in a stone street, and the echo went wild and two neighbours can no longer find their way home.",
+          "A house was moved in the night, doors and all, and its sound has changed; the owner swears he did not order it.",
+          "The spice trader has brought a box with a new little bell, and the quarter wants to judge it before it enters the city.",
+          "A young man has learned to mimic the echo of the well and can lead anyone anywhere; the council of the blind must decide what is a talent and what is a crime."
+        ]
+      }
+    },
+    {
+      "id": "small-clopotele-cartierelor",
+      "tags": ["clopot", "cartier", "sunet"],
+      "title": {
+        "ro": "Universul în care fiecare cartier al orașului-corb există cât timp clopotul lui se aude",
+        "en": "A universe where each quarter of the blind city exists only while its bell is heard"
+      },
+      "law": {
+        "ro": "Orașul e împărțit în cartiere, iar fiecare cartier are un clopot care îl ține în ființă: cât timp clopotul se aude, străzile există, iar când tace o zi întreagă, cartierul se șterge cu tot cu case și cu oamenii care nu au plecat la vreme. Clopotele bat la fiecare ceas, iar schimbul clopotarilor este o meserie de sânge: cine greșește o bătaie își pierde cartierul într-o singură seară și se alege cu casa în afara lumii. Locuitorii învață sunetul clopotului lor ca pe numele lor și nu pot locui în alt cartier decât dacă învață clopotul aceluia, ceea ce ia ani; de aceea nunțile între cartiere sunt rare și se fac după o noapte de ascultare. Negustorii își poartă marfa prin oraș pe ruta clopotelor, oprindu-se la fiecare bătaie, iar un car prins între două clopote se pierde cu tot ce e în el. Dacă două clopote bat în același ceas, cartierele se amestecă pentru o vreme, străzile se suprapun, iar oamenii ajung în case străine și nu mai știu să iasă.",
+        "en": "The city is divided into quarters, and each quarter has a bell that keeps it in being: as long as the bell is heard the streets exist, and when it falls silent for a whole day the quarter is erased, houses and all, along with the people who did not leave in time. The bells strike every hour, and the changing of bell-ringers is a trade of blood: anyone who misses a stroke loses his quarter in a single evening and ends up with his house outside the world. Dwellers learn the sound of their own bell as they learn their names, and cannot live in another quarter unless they learn its bell, which takes years; so marriages between quarters are rare and come after a night of listening. Traders carry their goods through the city on the bell route, stopping at every stroke, and a cart caught between two bells is lost with everything in it. If two bells strike in the same hour, the quarters mingle for a while, streets overlap, and people end up in strange houses and cannot find their way out."
+      },
+      "openings": {
+        "ro": [
+          "Clopotarul cartierului de sud a adormit la miezul nopții, iar dimineața locuitorii lui nu mai găsesc strada unde era piața.",
+          "Două clopote au bătut în același ceas, iar o fată a ajuns într-o casă în care o cheamă alt nume.",
+          "O nuntă între cartiere se pregătește, iar mirele are nouă zile să învețe clopotul miresei sau rămâne în cartierul lui.",
+          "Clopotul cel mare a fost turnat din nou, cu alt sunet, iar cartierul întreg stă în piață și ascultă dacă mai există."
+        ],
+        "en": [
+          "The bell-ringer of the south quarter fell asleep at midnight, and in the morning its people can no longer find the street where the market was.",
+          "Two bells struck in the same hour, and a girl ended up in a house where she is called by another name.",
+          "A wedding between quarters is being prepared, and the groom has nine days to learn the bride's bell or stay in his own quarter.",
+          "The great bell has been recast with a different sound, and the whole quarter stands in the square listening to find out whether it still exists."
+        ]
+      }
+    },
+    {
+      "id": "small-vederea-oprita",
+      "tags": ["orb", "vedere", "secret"],
+      "title": {
+        "ro": "Universul cu un oraș de orbi în care vederea este cea mai grea crimă",
+        "en": "A universe where, in a city of the blind, sight is the gravest crime"
+      },
+      "law": {
+        "ro": "Orașul e orb de douăzeci de generații, iar vederea e socotită crimă: cine vede ceva trebuie să spună îndată ce a văzut, iar dacă tace, pământul i se usucă sub tălpi și nu mai poate dormi în niciun pat. Ochii care se deschid sunt arși la naștere cu o picătură de var de către moașă, iar o moașă care cruță un copil este îngropată împreună cu el. Cum nimeni nu vede, orașul se ține după miros și după sunet: meseriile se învață după miros, brutarul miroase făina, argintarul simte aurul, iar oamenii se recunosc după pași. Cei care visează culori sunt aduși la judecată, fiindcă visele colorate arată un chip al lumii care nu are voie să existe, și se spune că pruncii orbi nu au auzit niciodată cuvântul verde. Un copil care vede, dar nu spune, poate trăi ani întregi, fiindcă nimeni nu-l poate prinde decât după obiceiurile lui: se ferește de gropi fără să le lovească cu bățul și se uită prea mult la aceeași parte a cerului.",
+        "en": "The city has been blind for twenty generations, and sight is counted a crime: anyone who sees something must say at once what he saw, and if he keeps silent the ground dries under his soles and he can sleep in no bed. Eyes that open are burned at birth with a drop of lime by the midwife, and a midwife who spares a child is buried with it. Since no one sees, the city goes by smell and sound: trades are learned by smell, the baker smells the flour, the silversmith feels the gold, and people know each other by their steps. Those who dream in colours are brought to trial, because coloured dreams show an image of the world that must not exist, and it is said that blind infants have never heard the word green. A child who sees but does not speak may live for years, because no one can catch him except by his habits: he avoids pits without striking them with his stick and looks too long at the same part of the sky."
+      },
+      "openings": {
+        "ro": [
+          "Moașa a ascuns un prunc cu ochii deschiși într-o pivniță de lână, iar acum copilul are nouă ani și întreabă ce e culoarea.",
+          "Un bătrân a visat o pădure verde și a spus-o la judecată, iar sfatul trebuie să hotărască dacă e boală sau crimă.",
+          "Un om a fost prins în piață ferindu-se de o groapă fără să-și bată bățul, iar mulțimea îl înconjoară cu furci.",
+          "Un negustor străin a adus o oglindă și jură că arată oameni; orașul vrea să o spargă, dar orbul care cântărește mărfuri spune că e prea frumoasă ca să fie distrusă."
+        ],
+        "en": [
+          "The midwife hid a child with open eyes in a wool cellar, and now the child is nine and asks what colour is.",
+          "An old man dreamed a green forest and told it at the trial, and the council must decide whether it is a sickness or a crime.",
+          "A man was caught in the square avoiding a pit without striking his stick, and the crowd surrounds him with pitchforks.",
+          "A foreign trader has brought a mirror and swears it shows people; the city wants to smash it, but the blind man who weighs goods says it is too beautiful to destroy."
+        ]
+      }
+    },
+    {
+      "id": "small-mia-fara-foc",
+      "tags": ["foc", "uitare", "așezare"],
+      "title": {
+        "ro": "Universul cu o așezare de o mie de oameni care a uitat cum se face focul",
+        "en": "A universe where a settlement of a thousand people has forgotten how to make fire"
+      },
+      "law": {
+        "ro": "Așezarea numără o mie de oameni, niciunul mai mult, și nu mai știe să facă foc: flacăra din vatra comună arde de nouă generații, hrănită cu lemn uscat și păzită zi și noapte de două femei. Focul nu se aprinde, se împarte: fiecare casă are o oală de lut cu jăratic luat din vatra mare la răsărit, iar cine își lasă oala să moară poartă o lună de rușine și mănâncă mâncare crudă. Cine încearcă să aprindă foc cu altceva, cu cremene, cu oglindă sau cu scăpărătoare veche, e socotit vrăjitor și alungat, fiindcă doar vatra mare ține focul curat, iar focul făcut de om arde așezarea. Iarna, oamenii dorm cu oalele de jăratic în pat, iar copiii mici au fiecare câte o lingură de jar sub pernă, pentru frig. Vatra mare nu are voie să se stingă niciodată; dacă se stinge, spun bătrânii, cei o mie vor uita și cum se scoate apa din fântână și vor muri întinși pe pământ, cu mâinile pe lemn.",
+        "en": "The settlement numbers one thousand people, not one more, and no longer knows how to make fire: the flame in the common hearth has burned for nine generations, fed on dry wood and guarded day and night by two women. Fire is not lit, it is shared: each house has a clay pot with embers taken from the great hearth at sunrise, and anyone who lets his pot die bears a month of shame and eats raw food. Anyone who tries to light fire another way, with flint, with a mirror or with an old fire-steel, is counted a sorcerer and driven out, because only the great hearth keeps fire clean, and fire made by human hands burns the settlement. In winter people sleep with their ember pots in bed, and small children each have a spoonful of embers under the pillow against the cold. The great hearth may never go out; if it goes out, the elders say, the thousand will forget even how to draw water from the well and will die flat on the ground with their hands on wood."
+      },
+      "openings": {
+        "ro": [
+          "Oala de jăratic a casei lui Iacob s-a stins în viscol, iar omul are o zi să ceară jar de la vecini, care îl privesc ca pe un lepros.",
+          "Un ucenic a lovit cremene lângă grajd și a făcut o scânteie; bătrânii s-au adunat să hotărască dacă îl alungă sau îl îngroapă.",
+          "Vatra mare a scăzut azi-dimineață, iar cele două păzitoare se ceartă cine a adormit la rând.",
+          "Populația a ajuns la o mie și o femeie e însărcinată; sfatul se ceartă cine pleacă, fiindcă numărul nu are voie să crească."
+        ],
+        "en": [
+          "The ember pot of Jacob's house went out in the blizzard, and the man has one day to ask for embers from neighbours, who look at him like a leper.",
+          "An apprentice struck flint near the stable and made a spark; the elders have gathered to decide whether to drive him out or bury him.",
+          "The great hearth sank low this morning, and the two guardians are quarrelling over who fell asleep at her post.",
+          "The population has reached one thousand and a woman is with child; the council is arguing over who must leave, because the number may not grow."
+        ]
+      }
+    },
+    {
+      "id": "small-focul-oprit",
+      "tags": ["foc", "interdicție", "credință"],
+      "title": {
+        "ro": "Universul în care focul există, dar aprinderea lui este păcatul cel mai greu",
+        "en": "A universe where fire is known but lighting it is the gravest sin"
+      },
+      "law": {
+        "ro": "Focul există în lume, dar nimeni nu are voie să-l aprindă: flacăra se naște doar din trăsnet, din piatră căzută din cer sau din scânteia primită la sărbătoarea mare, iar restul anului fiecare casă păzește jarul primit. Un om care aprinde foc cu mâinile lui este dat afară din obște și i se arde casa, fiindcă focul luat în stăpânire se răzbună pe tot satul și arde numai casele oamenilor, niciodată iarba și niciodată animalele. De aceea jăraticul se împarte cu o lingură de lemn, se cară în oale legate cu funii și nu are voie să atingă pământul gol; cine scapă jar pe drum plătește cu un an de muncă și cu un deget. Vara, satul ține jarul în pivnițe răcoroase și nu gătește nimic fiert, ci usucă și afumă; iarna, focul se face doar în vatra bisericii, iar casele se încălzesc cu pietre încinse acolo. Copiii învață să spună „foc dat” și „foc luat”, iar cel care rostește „foc făcut” este pus în genunchi și mustrat, chiar dacă nu a făcut nimic.",
+        "en": "Fire exists in the world, but no one may light it: flame is born only from lightning, from stone fallen out of the sky or from the spark received at the great feast, and for the rest of the year each house guards the embers it was given. A person who lights fire with his own hands is cast out of the community and his house is burned, because fire taken into possession avenges itself on the whole village and burns only people's houses, never the grass and never the animals. So embers are shared with a wooden spoon, carried in pots tied with ropes, and may never touch bare ground; anyone who spills embers on the road pays with a year of labour and with a finger. In summer the village keeps embers in cool cellars and cooks nothing boiled, only dried and smoked; in winter fire is made only in the church hearth, and houses are warmed with stones heated there. Children learn to say fire given and fire taken, and whoever says fire made is made to kneel and scolded, even if he has done nothing."
+      },
+      "openings": {
+        "ro": [
+          "Un cioban a aprins un foc mic cu cremene ca să-și încălzească mâinile, iar azi-noapte i-a ars casa, deși nimeni nu l-a văzut.",
+          "Jarul dus la casa de pe deal s-a vărsat pe drum, iar satul trebuie să hotărască pedeapsa pentru femeia care l-a scăpat.",
+          "Trăsnetul a aprins un stejar la marginea satului, iar oamenii se ceartă cine are dreptul să ia jar din el.",
+          "Iarna a venit târziu, vatra bisericii e prea mică pentru toate casele, iar preotul propune să se facă foc în două locuri, ceea ce nimeni n-a mai făcut."
+        ],
+        "en": [
+          "A shepherd lit a small fire with flint to warm his hands, and last night his house burned, though no one saw him do it.",
+          "Embers being carried to the house on the hill spilled on the road, and the village must decide the punishment for the woman who dropped them.",
+          "Lightning set an oak alight at the edge of the village, and people are arguing over who has the right to take embers from it.",
+          "Winter came late, the church hearth is too small for all the houses, and the priest proposes making fire in two places, which no one has ever done."
+        ]
+      }
+    },
+    {
+      "id": "small-mia-care-nu-creste",
+      "tags": ["așezare", "naștere", "exil"],
+      "title": {
+        "ro": "Universul cu o așezare de exact o mie de oameni în care fiecare naștere trimite un om în exil",
+        "en": "A universe where a settlement of exactly one thousand people exiles one person for every birth"
+      },
+      "law": {
+        "ro": "Așezarea are exact o mie de locuitori, iar numărul e lege: la fiecare naștere vie, un om ales prin tragere la sorți pleacă în pustiul din afara zidului și nu se mai întoarce. Tragerea se face în piață, cu o mie de pietre albe și una neagră, iar cine scoate piatra neagră are o zi să-și ia merinde și să iasă pe poarta de răsărit. Copiii nu se nasc în case, ci în sala de numărare, ca martori să fie toți cei care pot veni, fiindcă fiecare nou venit trebuie plătit cu un nume rostit tare. Cei izgoniți trăiesc în pustiu în cete mici, hrănindu-se din vânat și din ce fură noaptea de la ziduri, iar unii se întorc după ani și cer locul lor înapoi; de fiecare dată când se întorc, cineva dinăuntru trebuie să iasă. Femeile așezării știu să amâne nașterea cu ierburi până la primăvară, când pustiul e blând, iar bărbații care vor copii se ceartă pentru fiecare piatră albă scoasă din piață.",
+        "en": "The settlement holds exactly one thousand inhabitants, and the number is law: for every living birth, one person chosen by lot leaves for the waste outside the wall and never returns. The draw is held in the square, with a thousand white stones and one black, and whoever draws the black stone has one day to take provisions and go out through the east gate. Children are not born in houses but in the counting hall, so that as many witnesses as can come may attend, because every newcomer must be paid for with a name spoken aloud. The expelled live in the waste in small bands, feeding on game and on what they steal from the walls at night, and some come back after years to ask for their place; each time they return, someone inside must leave. The women of the settlement know how to delay birth with herbs until spring, when the waste is gentle, and men who want children quarrel over every white stone drawn in the square."
+      },
+      "openings": {
+        "ro": [
+          "Nora lui Vlad a născut în sala de numărare, iar piatra neagră a ieșit la a treia tragere, pe numele unui om care are doi copii mici.",
+          "Trei izgoniți s-au apropiat de poarta de răsărit și cer apă și un loc, iar sfatul trebuie să decidă cine iese în schimbul lor.",
+          "O femeie vrea să ascundă un prunc născut mort și să-l înlocuiască mai târziu cu unul adevărat, ca prietena ei să nu plece în pustiu.",
+          "Un bărbat întors din pustiu cunoaște drumurile cetelor și vinde sătenilor hărți; sfatul se ceartă dacă merită să-l lase să rămână."
+        ],
+        "en": [
+          "Vlad's daughter-in-law gave birth in the counting hall, and the black stone came out on the third draw, in the name of a man with two small children.",
+          "Three exiles have come near the east gate asking for water and a place, and the council must decide who leaves in exchange for them.",
+          "A woman wants to hide a stillborn child and replace it later with a live one, so that her friend need not go into the waste.",
+          "A man returned from the waste knows the paths of the bands and sells maps to the villagers; the council is arguing over whether it is worth letting him stay."
+        ]
+      }
+    },
+    {
+      "id": "small-ferma-cu-o-singura-planta",
+      "tags": ["fermă", "plantă", "orbită"],
+      "title": {
+        "ro": "Universul cu o fermă orbitală care cultivă o singură plantă, din sămânță în sămânță",
+        "en": "A universe where an orbital farm grows a single plant, from seed to seed"
+      },
+      "law": {
+        "ro": "Ferma plutește în jurul unei planete moarte și crește o singură plantă, aleasă în urmă cu trei sute de ani: toate celelalte semințe au fost arse la pornire, ca să nu se amestece soiurile. Planta dă tot ce le trebuie oamenilor — pâine, ulei, fibră, hârtie, otravă pentru șobolani — dar numai dacă e hrănită cu rămășițele oamenilor, cântărite la gram, așa că fiecare locuitor își măsoară trupul o dată pe lună. Cine aduce o altă sămânță pe fermă este spânzurat de brațe deasupra grădinii, ca hrană, iar cine ascunde o sămânță în buzunar o simte crescând sub piele în nouă zile. Recolta se face în trei schimburi, iar greșeala de un ceas usucă un rând întreg; de aceea ceasurile fermei sunt socotite sfinte, iar cine le strică rămâne fără rație o lună. Copiii învață planta mai bine decât alfabetul: știu din miros ce boală are frunza și pot spune câtă apă bea un rând într-o zi, fără să măsoare nimic.",
+        "en": "The farm drifts around a dead planet and grows a single plant, chosen three hundred years ago: every other seed was burned at the start, so the varieties would not mix. The plant gives people everything they need — bread, oil, fibre, paper, rat poison — but only if it is fed with people's waste, weighed to the gram, so every inhabitant measures his body once a month. Anyone who brings another seed onto the farm is hung by the arms above the garden as food, and anyone who hides a seed in his pocket feels it growing under his skin within nine days. The harvest runs in three shifts, and a mistake of one hour dries out a whole row; so the farm clocks are held sacred, and anyone who breaks one loses his ration for a month. Children learn the plant better than the alphabet: they know by smell what ails a leaf and can say how much water a row drinks in a day, without measuring anything."
+      },
+      "openings": {
+        "ro": [
+          "Un copil a găsit o sămânță într-o cutie veche de metal și o ține ascunsă în mănușă; peste nouă zile îi va crește sub piele.",
+          "Cântarul de rămășițe arată cu două sute de grame mai puțin decât rația, iar căpitanul vrea să oprească mâncarea la jumătate din echipaj.",
+          "Un rând de plante s-a îmbolnăvit de pata neagră, iar singurul care știe leacul e bătrânul care nu mai vorbește de trei ani.",
+          "Ferma a primit un semnal de pe planeta moartă, iar echipajul se ceartă dacă e vreun supraviețuitor sau doar vântul în antene."
+        ],
+        "en": [
+          "A child found a seed in an old metal box and keeps it hidden in her glove; in nine days it will grow under her skin.",
+          "The waste scale reads two hundred grams below the ration, and the captain wants to halve food for the crew.",
+          "A row of plants has caught black spot, and the only one who knows the cure is the old man who has not spoken in three years.",
+          "The farm has picked up a signal from the dead planet, and the crew is arguing over whether it is a survivor or only wind in the antennas."
+        ]
+      }
+    },
+    {
+      "id": "small-planta-care-cere",
+      "tags": ["plantă", "cerere", "orbită"],
+      "title": {
+        "ro": "Universul cu o fermă orbitală în care singura plantă cere lucruri și trebuie ascultată",
+        "en": "A universe where the only plant on an orbital farm makes demands and must be obeyed"
+      },
+      "law": {
+        "ro": "Planta fermei vorbește: nu cu glas, ci prin frunze, care se răsucesc în semne pe care copiii le citesc mai bine decât bătrânii. Ce cere planta se împlinește: dacă vrea apă mai caldă, toată ferma se încălzește; dacă vrea sânge, cineva se taie la mână peste rădăcini și nu i se pune bandaj până nu se oprește planta din scuturat. Cererile se scriu în jurnalul verde, iar cine nu le împlinește în trei zile se trezește fără un dinte, apoi fără un deget, apoi fără un ochi; nimeni nu a ajuns vreodată la a patra zi. Planta nu are voie să știe de alte plante, așa că poveștile despre păduri și ogoare sunt oprite, iar cei care le spun sunt puși să muncească în tăcere la rădăcini. Odată la nouă ani planta înflorește și atunci cere un nume nou: echipajul îi dă numele unui copil mort, iar copilul acela nu mai e pomenit niciodată în fermă, ca să nu se supere floarea.",
+        "en": "The farm's plant speaks: not with a voice, but through leaves, which twist into signs that children read better than old people. Whatever the plant asks is granted: if it wants warmer water the whole farm warms; if it wants blood, someone cuts his hand over the roots and is not bandaged until the plant stops shaking. Requests are written in the green journal, and anyone who fails them within three days wakes without a tooth, then without a finger, then without an eye; no one has ever reached the fourth day. The plant may not know about other plants, so stories of forests and fields are forbidden, and those who tell them are set to work in silence at the roots. Once every nine years the plant flowers and then asks for a new name: the crew gives it the name of a dead child, and that child is never mentioned again on the farm, so as not to offend the flower."
+      },
+      "openings": {
+        "ro": [
+          "Planta a scris azi o cerere nouă, un semn pe care nimeni nu-l recunoaște, iar jurnalul verde are doar trei zile până la pedeapsă.",
+          "Un mecanic a spus o poveste cu păduri la masa de seară, iar planta a răsucit toate frunzele spre el și a refuzat să mai dea recolta.",
+          "Echipajul trebuie să dea un nume nou florii, iar singurul copil mort din fermă era fiul căpitanului.",
+          "Planta cere sânge pentru a treia zi la rând, iar medicul se ceartă cu ofițerul cine se taie, fiindcă brațele echipajului sunt pline de cicatrici."
+        ],
+        "en": [
+          "The plant wrote a new request today, a sign no one recognizes, and the green journal has only three days until punishment.",
+          "A mechanic told a story about forests at supper, and the plant turned all its leaves toward him and refused to give the harvest.",
+          "The crew must give the flower a new name, and the only dead child on the farm was the captain's son.",
+          "The plant asks for blood for the third day running, and the doctor is arguing with the officer over who cuts, because the crew's arms are covered in scars."
+        ]
+      }
+    },
+    {
+      "id": "small-tribul-fara-viitor",
+      "tags": ["limbaj", "timp", "trib"],
+      "title": {
+        "ro": "Universul cu un trib care nu are niciun cuvânt pentru ce va veni",
+        "en": "A universe where a tribe has no word for what is to come"
+      },
+      "law": {
+        "ro": "Tribul vorbește doar despre ce este și ce a fost: nu are cuvânt pentru ce va veni, nici pentru ziua de după, iar cine încearcă să le spună se bâlbâie și uită ce voia să zică. De aceea nimic nu se pregătește: hrana se adună în ziua în care se mănâncă, iar iarna îi prinde pe cei mai mulți slabi și fără lemne, fiindcă lemnele se taie doar când e frig. Copiii învață limba fără vremuri, iar cei care o învață pe a negustorilor din vale, unde se vorbește despre ce încă nu s-a întâmplat, sunt socotiți bolnavi și li se leagă limba cu o ață de lână o lună, ca să nu strice vorba obștii. Călătorii care vin cu planuri sunt ascultați ca niște povestitori de basme, iar un om care spune că se întoarce peste două zile este lăsat să plece fără să i se pregătească nimic, fiindcă vorbele despre ce nu e încă nu se pot ține minte. Bătrânii știu totuși că tribul piere încet, și de aceea țin copiii lângă foc și le spun povești despre ce s-a întâmplat, nădăjduind că cineva va pricepe singur ce urmează.",
+        "en": "The tribe speaks only of what is and what has been: it has no word for what is to come, nor for the day after, and whoever tries to say it stumbles and forgets what he meant. So nothing is prepared: food is gathered on the day it is eaten, and winter catches most of them thin and without wood, because wood is cut only when it is cold. Children learn the tongue without tenses, and those who learn the traders' speech from the valley, where people talk about what has not yet happened, are counted sick and have their tongues tied with a wool thread for a month, so as not to spoil the community's speech. Travellers who arrive with plans are listened to as tellers of tales, and a man who says he will return in two days is let go with nothing prepared for him, because words about what is not yet cannot be remembered. The elders know, all the same, that the tribe is slowly dying, and so they keep the children by the fire and tell them stories of what happened, hoping that someone will grasp by himself what comes next."
+      },
+      "openings": {
+        "ro": [
+          "Vânătorul a spus că pleacă la râu în ziua de după, iar tribul a tăcut; acum bătrânii se ceartă dacă să-i lege limba sau să-l alunge.",
+          "Negustorul din vale a venit cu o haină de schimb pentru grâu și a plecat supărat, fiindcă nimeni nu a vrut să făgăduiască nimic.",
+          "Iarna a venit cu o lună mai devreme, lemnele sunt verzi, iar copiii tremură în corturi, fiindcă nimeni nu le-a pregătit nimic.",
+          "O fată a învățat singură să spună ce va să vină și ține ascuns un caiet cu semne; mama ei trebuie să hotărască dacă o predă sau o ascunde."
+        ],
+        "en": [
+          "The hunter said he would go to the river the day after, and the tribe fell silent; now the elders are arguing over whether to tie his tongue or drive him out.",
+          "The trader from the valley came with a cloak to trade for wheat and left angry, because no one would promise anything.",
+          "Winter came a month early, the wood is green, and the children shiver in the tents, because no one prepared anything for them.",
+          "A girl has taught herself to say what is to come and keeps a notebook of signs hidden; her mother must decide whether to hand her over or hide her."
+        ]
+      }
+    },
+    {
+      "id": "small-maine-e-un-loc",
+      "tags": ["timp", "călătorie", "loc"],
+      "title": {
+        "ro": "Universul în care ziua de mâine este un loc de dincolo de deal, la care se ajunge pe jos",
+        "en": "A universe where tomorrow is a place beyond the hill, reached on foot"
+      },
+      "law": {
+        "ro": "Ziua de mâine nu vine cu timpul, ci se află undeva: e o vale dincolo de dealurile de răsărit, iar cine vrea să ajungă în ea trebuie să meargă nouă zile pe jos. Cei care rămân în sat trăiesc mereu în ziua de azi, iar cei care pleacă spre vale se întorc îmbătrâniți cu nouă zile și cu povești despre oameni care încă nu s-au născut. Nu poți trimite nimic în ziua de mâine decât ducându-l cu spatele: solii cară scrisori, semințe și copii, iar unui copil dus prea devreme i se schimbă fața și nu mai recunoaște părinții când se întoarce. De aceea hotărârile grele se amână cu o călătorie: sfatul trimite doi bătrâni în vale să vadă dacă anul care vine e bun, iar dacă se întorc vii, hotărârea se ia după cum au văzut. Nimeni nu a ajuns vreodată mai departe de a doua vale, unde drumul se îngustează și se spune că oamenii de acolo nu mai au cuvinte pentru cei de acasă.",
+        "en": "Tomorrow does not come with time, it is somewhere: a valley beyond the eastern hills, and anyone who wants to reach it must walk nine days. Those who stay in the village live always in today, and those who leave for the valley come back nine days older, with stories about people not yet born. Nothing can be sent into tomorrow except by carrying it on your back: envoys haul letters, seeds and children, and a child taken too early has his face changed and no longer knows his parents when he returns. So hard decisions are postponed with a journey: the council sends two elders to the valley to see whether the coming year is good, and if they come back alive the decision is taken according to what they saw. No one has ever gone beyond the second valley, where the road narrows and people there are said to have no words left for those at home."
+      },
+      "openings": {
+        "ro": [
+          "Sfatul a trimis doi bătrâni în vale să vadă dacă anul care vine e bun pentru semănat, iar aceștia ar trebui să se întoarcă azi și nu se vede nimeni pe drum.",
+          "Un tată vrea să-și ducă fiul bolnav în ziua de mâine, la doctorii de dincolo de deal, deși copilul are doar patru ani.",
+          "Un sol s-a întors după nouă zile și povestește despre oameni care seamănă cu sătenii, dar au alte nume și nu știu de sat.",
+          "Un om a încercat să ajungă în ziua de mâine ocolind dealurile, prin mlaștină, și s-a întors vorbind pe dos și numărând zilele invers."
+        ],
+        "en": [
+          "The council sent two elders to the valley to see whether the coming year is good for sowing, and they were due back today and no one is on the road.",
+          "A father wants to carry his sick son into tomorrow, to the doctors beyond the hill, though the boy is only four.",
+          "An envoy has returned after nine days and tells of people who look like the villagers but have other names and know nothing of the village.",
+          "A man tried to reach tomorrow by going around the hills, through the marsh, and came back speaking backwards and counting the days in reverse."
+        ]
+      }
+    },
+    {
+      "id": "small-statia-cu-12-legi",
+      "tags": ["stație", "legi", "doisprezece"],
+      "title": {
+        "ro": "Universul cu o stație de doisprezece locuitori în care fiecare zi are o singură lege",
+        "en": "A universe where a station of twelve inhabitants has one law per day"
+      },
+      "law": {
+        "ro": "Stația are doisprezece locuitori și o singură lege în vigoare, schimbată la răsărit: legea zilei se scoate dintr-o cutie de metal, se citește tare în sala comună și se respectă până a doua zi. Legile sunt scurte și proaste, precum nimeni nu atinge peretele dinspre apus sau toți mănâncă la aceeași oră, dar cine le încalcă pierde o zi de oxigen, iar aerul din stație se măsoară cu un ceas pe care nimeni nu îl poate opri. Cei doisprezece nu pot ieși din stație: ușa de afară s-a sudat acum două sute de ani, iar înăuntru totul se repară din piese refolosite, așa că fiecare lege nouă strică ceva ce cineva reparase ieri. Copiii născuți în stație se numără la fel ca legile, doisprezece, iar dacă unul moare, cutia scoate o lege de doliu care ține nouă zile și oprește toate celelalte legi. La fiecare sută de zile, unul dintre locuitori scrie o lege din capul lui, iar cutia o primește doar dacă nimeni nu vorbește împotriva ei; așa s-a strecurat, acum patruzeci de ani, legea că nimeni nu are voie să scrie legi.",
+        "en": "The station holds twelve inhabitants and a single law in force, changed at sunrise: the law of the day is taken from a metal box, read aloud in the common room and kept until the next morning. The laws are short and foolish, such as no one touches the western wall or everyone eats at the same hour, but whoever breaks one loses a day of oxygen, and the air in the station is measured by a clock no one can stop. The twelve cannot leave the station: the outer door was welded shut two hundred years ago, and inside everything is repaired from reused parts, so every new law breaks something someone mended yesterday. Children born in the station are counted like the laws, twelve, and if one dies the box issues a mourning law that lasts nine days and suspends all other laws. Every hundred days one of the dwellers writes a law of his own, and the box accepts it only if no one speaks against it; that is how, forty years ago, the law crept in that no one may write laws."
+      },
+      "openings": {
+        "ro": [
+          "Legea de azi spune că nimeni nu are voie să doarmă, iar al doisprezecelea locuitor are un copil mic care urlă de oboseală.",
+          "Cutia de metal s-a înțepenit și nu mai scoate nicio lege, iar stația are nouă ore de aer până când cineva trebuie să hotărască.",
+          "Unul dintre cei doisprezece a încălcat legea peretelui de apus și a pierdut o zi de oxigen, iar acum ceilalți se ceartă cine îi dă din rezervă.",
+          "La a suta zi, un tânăr vrea să scrie o lege care desființează toate legile, iar cutia așteaptă să vadă dacă cineva vorbește împotriva ei."
+        ],
+        "en": [
+          "Today's law says that no one may sleep, and the twelfth dweller has a small child screaming with tiredness.",
+          "The metal box has jammed and issues no law, and the station has nine hours of air before someone must decide.",
+          "One of the twelve broke the western wall law and lost a day of oxygen, and now the others are arguing over who gives him from the reserve.",
+          "On the hundredth day a young man wants to write a law abolishing all laws, and the box waits to see whether anyone speaks against it."
+        ]
+      }
+    },
+    {
+      "id": "small-legea-de-pe-piele",
+      "tags": ["lege", "piele", "scriere"],
+      "title": {
+        "ro": "Universul cu o stație mică în care legea zilei se scrie cu acul pe pielea celui mai tânăr",
+        "en": "A universe where the day's law is written with a needle on the skin of the youngest dweller"
+      },
+      "law": {
+        "ro": "Legea nu se scrie pe hârtie în această stație, ci pe piele: la răsărit, cel mai tânăr locuitor întinde brațul, iar ceilalți îi taie pe el, cu un ac și cu cerneală, regula zilei, hotărâtă cu o seară înainte. Pielea tânărului e singurul loc unde legea poate fi citită, fiindcă hârtia se tocește și se uită, iar cine nu poate arăta legea nu poate cere nimic de la nimeni. Brațele bătrânilor sunt pline de rânduri albe, citite de copii ca pe o hartă; un om cu brațul gol e socotit fără trecut și nu are voie să vorbească la sfat. Când cel mai tânăr moare, legea rămasă pe brațul lui se șterge cu tot cu el, iar stația trăiește nouă zile fără nicio regulă, vreme în care se fac toate lucrurile pe care legea le oprește. Fiecare își scrie pe burtă legile pe care le-a încălcat, iar cine are burta plină de semne este legat de perete în timpul nopții, ca să nu încalce și somnul.",
+        "en": "The law is not written on paper in this station but on skin: at sunrise the youngest dweller holds out an arm, and the others cut the day's rule into it with a needle and ink, decided the evening before. The young person's skin is the only place the law can be read, because paper blunts and is forgotten, and anyone who cannot show the law can demand nothing from anyone. The old people's arms are covered with white lines, read by children like a map; a person with a bare arm is counted as having no past and may not speak at the council. When the youngest dies, the law left on his arm is erased with him, and the station lives nine days without any rule, a time when everything the law forbids is done. Each person writes on his belly the laws he has broken, and anyone with a full belly of marks is tied to the wall during the night, so that he does not break sleep too."
+      },
+      "openings": {
+        "ro": [
+          "Cel mai tânăr locuitor s-a îmbolnăvit, iar brațul lui nu mai poate primi legea de mâine; stația trebuie să hotărască dacă scrie pe un copil de șapte ani.",
+          "O femeie a încălcat legea de ieri, iar acum trebuie să-și scrie singură semnul pe burtă, dar nu poate ajunge cu acul acolo.",
+          "Bătrânul cu cele mai multe rânduri pe braț a murit, iar copiii citesc legea de acum treizeci de ani ca pe o poveste.",
+          "Cineva a spălat cerneala de pe brațul tânărului în timpul nopții, iar dimineața stația nu mai știe ce e voie și ce nu."
+        ],
+        "en": [
+          "The youngest dweller has fallen ill, and his arm can take no more law tomorrow; the station must decide whether to write on a seven-year-old.",
+          "A woman broke yesterday's law, and now she must write the mark on her own belly, but cannot reach there with the needle.",
+          "The old man with the most lines on his arm has died, and the children read the law of thirty years ago like a story.",
+          "Someone washed the ink off the young man's arm during the night, and in the morning the station no longer knows what is allowed and what is not."
+        ]
+      }
+    },
+    {
+      "id": "small-al-treisprezecelea",
+      "tags": ["stație", "număr", "străin"],
+      "title": {
+        "ro": "Universul cu o stație de doisprezece locuitori în care a apărut un al treisprezecelea",
+        "en": "A universe where a station of twelve dwellers has gained a thirteenth"
+      },
+      "law": {
+        "ro": "Stația a fost construită pentru doisprezece oameni: douăsprezece paturi, douăsprezece rații, douăsprezece scaune la masă, iar orice al treisprezecelea trup strică socoteala aerului și a apei. Când cineva moare, locul lui rămâne gol nouă zile, iar în acest răstimp ușa interioară se deschide singură și cine intră pe ea devine al doisprezecelea, fără să i se ceară nimic. Cei doisprezece nu au voie să facă alt trup: dragostea se face prin vorbe și prin scrisori, iar cine rămâne însărcinată este lăsată să nască numai dacă unul dintre ceilalți pleacă înainte de a șaptea lună. Al treisprezecelea om nu poate fi numărat la recensământul de seară, nu primește rație și nu are pat; de aceea cei care apar stau ascunși în tuburile de aerisire, mănâncă resturi și vorbesc doar șoptit, ca să nu li se audă numărul. Sfatul stației știe de ei și tace, fiindcă orice om în plus ține sistemele în viață cu mâinile lui; dar când unul dintre cei doisprezece moare și locul se eliberează, toți cei ascunși se ceartă cine intră.",
+        "en": "The station was built for twelve people: twelve beds, twelve rations, twelve chairs at the table, and any thirteenth body ruins the reckoning of air and water. When someone dies, his place stays empty nine days, and in that time the inner door opens by itself and whoever walks through it becomes the twelfth, with nothing asked of him. The twelve may not make another body: love is made in words and letters, and anyone who becomes pregnant may give birth only if one of the others leaves before the seventh month. The thirteenth person cannot be counted at the evening roll, receives no ration and has no bed; so those who appear stay hidden in the ventilation tubes, eat scraps and speak only in whispers, so that their number is not heard. The station council knows about them and says nothing, because every extra person keeps the systems alive with his hands; but when one of the twelve dies and a place frees up, all the hidden ones quarrel over who gets in."
+      },
+      "openings": {
+        "ro": [
+          "Un tub s-a spart, iar al treisprezecelea om a tușit în sala mare la ora recensământului, iar acum toți doisprezece se prefac că nu aud.",
+          "Unul dintre cei doisprezece a murit, iar locul lui e liber nouă zile: patru oameni ascunși în tuburi se ceartă cine intră primul.",
+          "Soția căpitanului a rămas însărcinată în a doua lună, iar sfatul trebuie să aleagă cine părăsește stația înainte de a șaptea lună.",
+          "Un străin a intrat pe ușa interioară, care s-a deschis singură, și nu știe unde se află; cei doisprezece votează dacă îl primesc sau îl ascund."
+        ],
+        "en": [
+          "A tube burst, and the thirteenth person coughed in the common room at the hour of roll call, and now all twelve pretend not to hear.",
+          "One of the twelve has died, and his place is free for nine days: four people hidden in the tubes are arguing over who gets in first.",
+          "The captain's wife is pregnant in the second month, and the council must choose who leaves the station before the seventh month.",
+          "A stranger walked in through the inner door, which opened by itself, and does not know where he is; the twelve vote on whether to accept him or hide him."
+        ]
+      }
+    },
+    {
+      "id": "small-biblioteca-plutitoare",
+      "tags": ["bibliotecă", "cititor", "plutire"],
+      "title": {
+        "ro": "Universul cu o bibliotecă plutitoare care are un singur cititor viu",
+        "en": "A universe where a floating library has a single living reader"
+      },
+      "law": {
+        "ro": "Biblioteca plutește deasupra norilor și are o singură cititoare vie: fără cititor, cărțile își pierd literele și se prefac în cenușă, așa că fata care citește are nouă vieți la socoteală, iar fiecare carte citită până la capăt îi ia una. Fiecare raft cere o citire la nouă zile, altfel se stinge; de aceea fata citește cu voce tare și noaptea, iar cei din bibliotecă, bibliotecarul fără trup și pisicile cu picioare lungi, se ceartă cine merită următoarea. Cărțile nu se pot citi de două ori: o carte citită se tocește și se face scrum, iar cenușa se strânge în urne cu numele autorului, la rădăcina raftului. Cine urcă în bibliotecă trebuie să rămână până moare, fiindcă pragul arde urmele; de aceea fata a fost aleasă la un an, din treizeci de copii, și nu știe cum arată pământul. Stăpânul bibliotecii, un om care nu a citit niciodată o carte întreagă, vinde citiri la orașele de sub nori și socotește câte vieți mai are fata până la sfârșitul lunii.",
+        "en": "The library floats above the clouds and has a single living reader: without a reader the books lose their letters and turn to ash, so the girl who reads has nine lives to her account, and every book read to the end takes one from her. Every shelf demands a reading every nine days, otherwise it goes out; so the girl reads aloud at night too, and those in the library, the bodiless librarian and the long-legged cats, argue over who deserves the next one. Books cannot be read twice: a book once read dulls and turns to ash, and the ash is gathered into urns bearing the author's name at the root of the shelf. Anyone who climbs into the library must stay until death, because the threshold burns footprints away; so the girl was chosen at one year old, out of thirty children, and does not know what the ground looks like. The library's owner, a man who has never read a whole book, sells readings to the cities under the clouds and reckons how many lives the girl has left before the month's end."
+      },
+      "openings": {
+        "ro": [
+          "Fata a citit azi două cărți și simte că i s-au luat două vieți; se întreabă dacă mai are destule pentru săptămâna aceasta.",
+          "Un raft întreg s-a stins peste noapte, iar bibliotecarul fără trup îi cere fetei să citească fără somn până îl scoate din cenușă.",
+          "Stăpânul a vândut trei citiri unui oraș de sub nori, iar fata trebuie să aleagă ce cărți arde ca să ajungă la toate.",
+          "Cenușa din urnă a vorbit în timpul nopții și a cerut să fie citită din nou, ceea ce nu s-a mai întâmplat niciodată."
+        ],
+        "en": [
+          "The girl read two books today and feels two lives taken from her; she wonders whether she has enough left for this week.",
+          "A whole shelf went out in the night, and the bodiless librarian demands that the girl read without sleep until she pulls it out of the ash.",
+          "The owner has sold three readings to a city under the clouds, and the girl must choose which books to burn to get through them all.",
+          "The ash in an urn spoke in the night and asked to be read again, which has never happened before."
+        ]
+      }
+    },
+    {
+      "id": "small-cartile-care-cer-cititor",
+      "tags": ["cărți", "cititor", "vârstă"],
+      "title": {
+        "ro": "Universul cu o bibliotecă în care fiecare carte citită ia un an din viața cititorului",
+        "en": "A universe where every book read takes a year from the reader's life"
+      },
+      "law": {
+        "ro": "În bibliotecă, cititul costă ani: fiecare carte citită până la capăt ia un an din viața cititorului, iar cărțile știu asta și cer să fie citite cu voce tare. Cine citește o carte și o lasă la mijloc plătește jumătate de an și nu învață nimic; de aceea cititorii învață să citească repede și să nu se întoarcă niciodată la o pagină. Cărțile necitite se supără: se strâng pe rafturi una lângă alta și încep să șoptească noaptea, iar dacă nimeni nu vine nouă zile, își schimbă literele între ele și mint. Biblioteca nu are ușă, doar o scară care coboară când cineva vrea să plece, iar scara se ține de bătrânețea cititorului: cine a citit treizeci de cărți coboară treizeci de trepte mai încet. Oamenii vin din sate ca să citească pentru alții: un tânăr vinde ani din viață pentru grâu, citește trei cărți într-o iarnă și se întoarce acasă cu părul alb și cu blândețea unui bătrân.",
+        "en": "In the library, reading costs years: every book read to the end takes one year from the reader's life, and the books know this and demand to be read aloud. Anyone who reads a book and leaves it half-way pays half a year and learns nothing; so readers learn to read fast and never to turn back a page. Books left unread grow angry: they crowd together on the shelves and begin to whisper at night, and if no one comes for nine days they swap letters among themselves and lie. The library has no door, only a stair that descends when someone wants to leave, and the stair holds to the reader's age: anyone who has read thirty books climbs down thirty steps more slowly. People come from the villages to read for others: a young man sells years of his life for wheat, reads three books in one winter and goes home with white hair and the gentleness of an old man."
+      },
+      "openings": {
+        "ro": [
+          "Un tânăr s-a tocmit să citească trei cărți pentru un negustor, iar la a doua a simțit cum i se albește părul pe tâmple.",
+          "O carte a fost lăsată la mijloc de un cititor grăbit, iar acum îl strigă pe nume din raft în fiecare noapte.",
+          "Cărțile necitite au început să-și schimbe literele, iar cei care citesc acum învață lucruri care nu sunt adevărate.",
+          "Fata bibliotecarului are doisprezece ani și vrea să citească o carte mare, iar tatăl ei știe că prețul e un an din viața ei."
+        ],
+        "en": [
+          "A young man hired himself to read three books for a merchant, and at the second he felt the hair at his temples turn white.",
+          "A book was left half-way by a hurried reader, and now it calls him by name from the shelf every night.",
+          "The unread books have begun swapping their letters, and those who read now learn things that are not true.",
+          "The librarian's daughter is twelve and wants to read a big book, and her father knows the price is a year of her life."
+        ]
+      }
+    }
+  ]
+}

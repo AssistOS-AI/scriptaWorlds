@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTTP API - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › HTTP API</p>
+      <p class="kicker">System</p>
+      <h1>HTTP API</h1>
+
+      <p class="lead">The server exposes JSON routes under <code>/api</code> and serves the static reader on every other path. The browser interface uses this API, and a second client can use it without any change to the server: create a <a href="wiki.html#definition-universe">universe</a>, queue a <a href="wiki.html#definition-turn">turn</a>, follow its progress over the <a href="wiki.html#definition-event-stream">event stream</a>, read <a href="wiki.html#definition-chapter">chapters</a> and download <a href="wiki.html#definition-edition">editions</a>.</p>
+
+      <section>
+        <h2>Conventions</h2>
+        <p>Requests and responses are UTF-8 JSON. Request bodies carry <code>content-type: application/json</code> and are limited to 512 KiB. Every failure is a body of the shape <code>{"error":{"code":"…","message":"…"}}</code> with a matching status: <code>400</code> for invalid input, <code>404</code> for a missing universe, chapter, turn, job or route, <code>405</code> for a wrong method, <code>409</code> for a refused state transition, <code>413</code> for an oversized body, <code>500</code> for an internal failure and <code>502</code> for a failed agent run. The <code>code</code> is the stable part of an <a href="wiki.html#definition-error-code">error</a> and the message may be reworded; an error can additionally carry <code>laterChapters</code> or <code>details</code> when a client needs structured data to proceed.</p>
+        <p>Universe identifiers follow the pattern <code>[a-z0-9][a-z0-9-]{2,63}</code>. A chapter or turn number in a path is read by taking the leading digits of the segment, so <code>/chapters/1.5</code> addresses chapter 1 and <code>/chapters/2abc</code> addresses chapter 2; a segment with no leading digits, or a negative one, is rejected with <code>400 BAD_NUMBER</code>. There is no authentication and no session: every route is available to every client that can reach the address, which is why the operator controls reachability through <code>HOST</code> or a reverse proxy.</p>
+      </section>
+
+      <section>
+        <h2>Server state and data</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Method and path</th>
+              <th scope="col">Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>GET /api/health</code></td>
+              <td><code>ok</code>, the agent command and version, the configured model, the effective concurrency limit as <code>null</code> when unlimited, and the uptime in milliseconds. It reads no universe and is the cheapest liveness probe.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/config</code></td>
+              <td>The model, the accepted languages as <code>code</code> and <code>label</code>, the accepted edition formats, the concurrency limit and the chapter <a href="wiki.html#definition-word-band">word band</a>. A client builds its language selector from this response instead of hardcoding a list.</td>
+            </tr>
+            <tr>
+              <td><code>GET /<wbr>api/<wbr>templates?language=&lt;code&gt;</code></td>
+              <td>The <a href="wiki.html#definition-template-catalog">catalog</a> of proposed universes with <code>id</code>, <code>tags</code>, a descriptive <code>title</code>, <code>law</code> and <code>openings</code>, plus a <code>count</code>. Each opening is a concrete first move for the story, and the catalog is assembled from a main file plus optional part files merged by identifier. The query is truncated to two characters and lowercased, the default is <code>ro</code>, and a value falls back to English and then to Romanian.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/table</code></td>
+              <td>The <a href="wiki.html#definition-periodic-table">Periodic Table of Speculative Ideas</a> as the interface reads it, small enough to load in one request: <code>families</code> (the twelve families as objects with the family <code>name</code>, its <code>label</code>, the <code>letter</code> used in a systematic symbol, the one-sentence <code>note</code> saying what that family changes, and the <code>cells</code> that belong to it), <code>operators</code> (the fifteen names with their letter and one sentence saying what the operator does) and <code>elements</code> (the one hundred and eighty <a href="wiki.html#definition-cell">cells</a>, each with <code>id</code>, the systematic <code>symbol</code>, the mnemonic <code>bookSymbol</code>, <code>name</code>, <code>family</code>, <code>operator</code>, a one-line <code>gist</code>, the <code>prompt</code> line the interface can drop into the request field unchanged, the <code>ingredient</code> sentence written for a reader — for example <code>Neutron Life: a universe where organisms live in degenerate matter (life and evolution, extension).</code> — and a <code>landmark</code>). The six prose sections the book devotes to a cell are not in this payload; they are read one cell at a time through the cell route. The data file is missing → <code>500 NO_TABLE</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /<wbr>api/<wbr>table/<wbr>cells/<wbr>:<wbr>symbol</code></td>
+              <td>What one cell offers a reader, read only when the dialog opens it: <code>id</code>, <code>symbol</code>, <code>bookSymbol</code>, <code>name</code>, <code>family</code>, <code>familyLabel</code>, the <code>familyNote</code> saying what that family changes, <code>operator</code>, the sentence <code>operatorDoes</code>, the <code>essence</code> of the idea in one line, the <code>prompt</code>, the <code>ingredient</code> sentence, <code>seenIn</code> with the literary landmark, and <code>scenes</code> — up to three nights of the course that already work this cell, each with its <code>slug</code>, <code>title</code>, <code>sector</code>, <code>situation</code> and <code>story</code>. The raw prose sections of the book are deliberately absent: they repeat a skeleton for all one hundred and eighty cells, so the payload carries the distilled fields instead and the dialog shows the idea, the family note, the landmark and the nights that use the cell. A symbol the table does not contain answers <code>404 UNKNOWN_ELEMENT</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/library</code></td>
+              <td>The index of the <a href="wiki.html#definition-library">library</a> of start templates: <code>source</code>, <code>note</code>, <code>count</code>, <code>templates</code> and <code>cellScenes</code>. Each template entry carries <code>slug</code>, <code>kind</code>, <code>number</code>, <code>title</code>, <code>sector</code>, <code>genealogy</code>, the <code>cells</code> it activates and a one-line <code>summary</code>. <code>cellScenes</code> is the reverse index the cell dialog needs — for every symbol, up to three nights that work it, with the <code>slug</code>, <code>title</code>, <code>sector</code>, <code>situation</code> and <code>story</code> of each — so a reader can jump from one operation of the table to the nights that already use it without reading the seventy-five folders. The <a href="wiki.html#definition-empty-template">empty template</a> comes first and the seventy-four nights follow, seventy-five entries in all, and an entry whose slug is not usable is dropped. The library folder is missing → <code>500 NO_LIBRARY</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/library/:slug</code></td>
+              <td>One <a href="wiki.html#definition-start-template">start template</a> with everything a universe needs before its first chapter: <code>slug</code>, <code>kind</code>, <code>number</code>, <code>title</code>, <code>sector</code>, <code>genealogy</code>, <code>cells</code>, <code>operator</code>, <code>references</code>, <code>prohibition</code>, <code>situation</code>, <code>story</code>, <code>summary</code>, <code>request</code>, <code>indications</code> and <code>sourceText</code>. Each cell of the template carries the same fields as a cell of the table, including the <code>ingredient</code> sentence, and <code>indications</code> names the active operations as the book does, never by their two-letter address. <code>request</code> is the text that lands in the reader's field and it adds nothing generic to what the book says; <code>indications</code> is the same material as a labelled list — Sector, Genealogy, Prohibition when the night states one, Active cells, Situation, Central tension and Seen in — which the Library tab shows next to the request; and <code>sourceText</code> is the night as the book writes it, up to six thousand characters, shown in a fold. The hand-written <a href="wiki.html#definition-empty-template">empty template</a> carries no <code>indications</code>, because there is no night behind it. A slug the library does not contain answers <code>404 UNKNOWN_TEMPLATE</code> and a malformed one <code>400 BAD_TEMPLATE</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/jobs/:jobId</code></td>
+              <td>One <a href="wiki.html#definition-job">job</a> snapshot. Jobs exist only while the server process runs, so an identifier from an earlier process answers <code>NOT_FOUND</code>; the durable record of that work is the universe detail.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Universes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Method and path</th>
+              <th scope="col">Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>GET /api/universes</code></td>
+              <td>Every universe on disk, sorted by <code>updatedAt</code> descending, with the law, the premise, the status, the language, the model, the chapter count, the last chapter title and the <code>autoTitle</code> flag that says whether the title is still provisional.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/universes</code></td>
+              <td>Creates a universe from a <code>library</code> slug, a list of <code>elements</code>, a <code>templateId</code>, an optional <code>title</code>, <code>law</code>, <code>premise</code> (or its older name <code>opening</code>), <code>prompt</code>, <code>language</code> and <code>start</code>. With <code>library</code> the universe is built from that start template, and <code>elements</code> sent next to it are added on top of the template's own cells, deduplicated and cut at six; with <code>elements</code> alone the law is composed only from the chosen cells and from any element the reader proposed. A value the client sent always wins over the named template, which fills only the gaps. Answers <code>201</code> with the universe and a job that is <code>null</code> unless <code>start</code> is true. An overlong title is <code>BAD_TITLE</code>, an unsupported language is <code>BAD_LANGUAGE</code>, and an identifier that cannot be made free is <code>ID_TAKEN</code>. A universe created without a title starts with a provisional name, is named by its first chapter and keeps the earlier descriptive line as its <code>summary</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/universes/:id</code></td>
+              <td>The reading view: <code>universe</code>, <code>chapters</code>, <code>turns</code>, <code>threads</code>, a bounded <code>canon</code> summary, <code>exports</code>, <code>activeJob</code> and <code>queuedJobs</code>. A chapter entry carries its number, slug, title, word count, byte size, its producing <code>turnNumber</code> and its <a href="wiki.html#definition-offer">offer</a>. The <code>rewritten</code> flag and the archived version count are added only by the single-chapter route, so a client that needs them reads that chapter.</td>
+            </tr>
+            <tr>
+              <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>settings</code></td>
+              <td>Changes the <a href="wiki.html#definition-book-language">language of the book</a> when the body carries <code>language</code>, and answers the universe. An empty body returns the current record.</td>
+            </tr>
+            <tr>
+              <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>close</code> and <code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>open</code></td>
+              <td>Set the status and answer the universe. Closing does not cancel work that is already queued, but a chapter turn for a closed universe answers <code>CLOSED</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>ideas</code></td>
+              <td>Up to four <a href="wiki.html#definition-continuation-ideas">continuation ideas</a> derived from the universe's own state, each with a label, a prompt and a source of <code>promise</code>, <code>thread</code>, <code>deferred</code>, <code>latest</code> or <code>timejump</code>. It performs no agent work.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Creation is one body with three ways of saying where the world comes from, and every way can be combined with a law, a premise and a first request of the client's own. <code>library</code> names a start template and brings its law, its premise, its cells and a provisional title with it; <code>elements</code> is the compound of at most six ingredients, each written as a symbol of the table, as an object with a <code>symbol</code>, or as a proposed element carrying <code>custom: true</code> and a name; <code>templateId</code> names an entry of the older proposed-universe catalog. The two are not alternatives: when a body carries <code>library</code> and <code>elements</code> together, the cells of the template come first, the ingredients the reader chose follow, an ingredient already present is dropped — a table cell by its symbol, a proposed element by its name — and the compound is cut at six, so a template built from two cells accepts four more. A list of more than six entries sent on its own is refused with <code>BAD_ELEMENTS</code> and the message <code>Six ingredients are the most a universe law can hold. Remove one first.</code> The starting situation is read from <code>premise</code> first and from <code>opening</code> second, so an older client that still sends <code>opening</code> keeps working while the reader interface sends <code>premise</code>. The composed law must be at least one sentence, otherwise the answer is <code>BAD_LAW</code>; a symbol the table does not contain is <code>UNKNOWN_ELEMENT</code>; a list that is not an array, that holds something other than a symbol or an object, or that carries more than six entries is <code>BAD_ELEMENTS</code>; a proposed element with a family or an operator the table does not have is <code>BAD_ELEMENT_FAMILY</code> or <code>BAD_ELEMENT_OPERATOR</code>, and one whose name is unusable is <code>BAD_ELEMENT_NAME</code>; and a <code>library</code> slug that is unknown is <code>UNKNOWN_TEMPLATE</code> while a malformed one is <code>BAD_TEMPLATE</code>. The first chapter request is the reader's own <code>prompt</code>, then the <code>request</code> text of the chosen template, and only when both are empty a structured request built by the server from the law, the premise and the ingredients.</p>
+        <p>The ingredients travel with the book. They are resolved before anything is written, stored in <code>universe.json</code> as <code>elements</code>, listed in <code>canon.md</code> under <code>Ingredients</code>, named in the <code>AGENTS.md</code> of the universe and repeated in every chapter and rewrite prompt, so the recipe defines what the world can do rather than a summary of it. The stored entry keeps the two-letter <code>symbol</code> of its cell, and that symbol is only an address: it identifies the cell inside the table and inside the structured data, and the prose that describes a world never carries it. The composed law, the ingredient list of <code>canon.md</code>, the <code>AGENTS.md</code> of the universe folder, the first-chapter request and the chapter and rewrite prompts use the <code>ingredient</code> sentence, and <code>npm run check</code> asserts that neither the ingredient lines nor the composed law nor that <code>AGENTS.md</code> carries a two-letter code. The symbol itself lives on in the structured data — <code>universe.json</code> and the table routes — where it is the key that names a cell, and in the grid and the library list, which show it as the address of the operations a world is built from.</p>
+      </section>
+
+      <section>
+        <h2>Chapters, turns and rewrites</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Method and path</th>
+              <th scope="col">Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>GET /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>chapters/<wbr>:<wbr>number</code></td>
+              <td>One chapter with its Markdown, its normalized offer, the producing turn, its <code>rewritten</code> flag and its archived version count. Chapter files are not served as static files; this route is the only way to read one.</td>
+            </tr>
+            <tr>
+              <td><code>GET /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>turns/<wbr>:<wbr>number</code></td>
+              <td>The full <a href="wiki.html#definition-turn-record">turn record</a>, including the agent's answer and the composed log of what it did. The number is a turn number, not a chapter number; the mapping is the <code>turnNumber</code> field of a chapter.</td>
+            </tr>
+            <tr>
+              <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>turns</code></td>
+              <td>Queues a chapter or export turn from <code>message</code>, <code>kind</code> and, for an edition, <code>format</code> of <code>docx</code>, <code>pdf</code> or <code>both</code>. Always answers <code>202</code> with a job, including when the universe is already busy, because requests wait in that universe's queue instead of being refused.</td>
+            </tr>
+            <tr>
+              <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>turns/<wbr>:<wbr>number/<wbr>retry</code></td>
+              <td>Restarts an <a href="wiki.html#definition-interrupted-turn">interrupted</a> or failed turn with the same request and the same turn number. Any other status is <code>NOT_RETRYABLE</code>, and an unknown turn is <code>NOT_FOUND</code>.</td>
+            </tr>
+            <tr>
+              <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>chapters/<wbr>:<wbr>number/<wbr>rewrite</code></td>
+              <td>Starts a rewrite from <code>instructions</code> of at least ten characters and an optional <code>dropLater</code>. The current version is archived, the canon is rewound to the state before that chapter, and the answer is <code>202</code> with the job and the dropped chapter numbers. Without <code>dropLater</code>, a rewrite that would discard later chapters answers <code>409</code> with the code <code>LATER_CHAPTERS</code> and a <code>laterChapters</code> array inside the error object, which is what a client uses to confirm the loss.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Instructions shorter than one sentence are rejected with <code>BAD_INSTRUCTIONS</code>, an unknown chapter with <code>NOT_FOUND</code>, and a closed universe with <code>CLOSED</code>. Once confirmed, <code>dropLater</code> removes and archives the later chapters, and the rewrite runs as a new turn so the discussion log of the book stays complete.</p>
+      </section>
+
+      <section>
+        <h2>Editions and files</h2>
+        <p>An edition is produced by the same pipeline as a chapter: the agent writes <code>exports/edition.json</code>, runs the print renderer, and the server fails the turn with <code>NO_EXPORT</code> when no edition file appeared. The universe detail then lists each file with its format, size, creation time and URL, and <code>GET /api/files/:id/:name</code> serves it as an attachment. The name must match a <code>.pdf</code> or <code>.docx</code> file inside that universe's <code>exports/</code> folder, otherwise the answer is <code>BAD_NAME</code>, so the route cannot be used to read any other file.</p>
+      </section>
+
+      <section>
+        <h2>Live events</h2>
+        <p><code>GET /api/universes/:id/events</code> answers <code>text/event-stream</code>. Without a <code>job</code> query it covers the whole universe: it replays the buffered events of the running turn and then forwards the events of every turn of that universe, including turns queued later, and every payload carries its <code>jobId</code>. With <code>?job=&lt;jobId&gt;</code> it covers that job only and validates that the job belongs to the universe.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Event type</th>
+              <th scope="col">Payload</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>job</code></td>
+              <td>A job snapshot, emitted when a turn is enqueued and when it starts running.</td>
+            </tr>
+            <tr>
+              <td><code>phase</code></td>
+              <td>A short progress line, for example that the agent is writing or rewriting a chapter, or that the result is being verified.</td>
+            </tr>
+            <tr>
+              <td><code>delta</code></td>
+              <td>A fragment of the agent's live text, which a reader sees as the chapter being written.</td>
+            </tr>
+            <tr>
+              <td><code>tool</code></td>
+              <td>A tool call with <code>state</code> of <code>start</code> or <code>end</code>, the tool name, a short detail and, on the end event, whether it succeeded.</td>
+            </tr>
+            <tr>
+              <td><code>done</code></td>
+              <td>The final job snapshot, including the chapter title, the produced exports, the warnings and the offer.</td>
+            </tr>
+            <tr>
+              <td><code>error</code></td>
+              <td>The failure message and the job, after the state has already been rolled back.</td>
+            </tr>
+            <tr>
+              <td><code>refresh</code></td>
+              <td>Emitted on the universe stream after a turn finished, so a client can reload the universe without deciding which events matter.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>At most 800 events are buffered per job, so a client that connects in the middle of a run receives a recent history rather than the whole run. The stream is the live path and never the only path: the universe detail carries <code>activeJob</code> and <code>queuedJobs</code> precisely so that a reloaded page can reconstruct work in progress, and a client behind a buffering proxy can poll the job route instead. The route table and the exact payload fields are specified in <a href="specsLoader.html?spec=DS005-http-api.md">DS005-http-api</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

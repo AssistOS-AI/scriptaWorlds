@@ -1,0 +1,8 @@
+{
+  "teaser": "Three days of blood turned out to be three days of rust: the leaves were asking for iron in the water, and only a seven-year-old could see the dash that said so. Hesper has a new rule, no one opens a hand on an adult's reading again, and a new problem: the shape Bea copied at dusk is the flowering sign, the one that came nine years ago and cost a dead child her name. The plant is about to ask for a name, and no one on the farm is allowed to remember the last one.",
+  "options": [
+    { "label": "Name the flower", "prompt": "Continue the story: gather the crew at the root wall and show how they choose the dead child whose name they will give the plant, and who has to say it out loud." },
+    { "label": "Test the new rule", "prompt": "Continue the story: have Officer Rusk fight the new rule and write an adult wording into the green journal again, and show what the plant does with it." },
+    { "label": "Follow Bea's training", "prompt": "Continue the story: follow Bea as Meren and the old Reader teach her to read the new signs before the flowering, and show what the old Reader refuses to explain." }
+  ]
+}

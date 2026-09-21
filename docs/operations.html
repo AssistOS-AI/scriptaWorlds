@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operations - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › Operations</p>
+      <p class="kicker">System</p>
+      <h1>Operations</h1>
+
+      <p class="lead">This page is for the person who runs scriptaWorlds: what has to be installed, how the server is started and configured, how the environment is verified before spending any model budget, what a restart does to work in progress, and how to read the failures an operator is likely to see.</p>
+
+      <section>
+        <h2>Requirements</h2>
+        <p>Two runtime requirements and one optional one are recorded in <code>dependencies.md</code>. <strong>Node.js 20 or later</strong> runs the server, the check script and both skill scripts; the repository was developed and verified on Node.js 24. <strong>The <code>omp</code> command</strong> (Oh My Pi, 18.2 or later) is the coding agent that writes every chapter and every edition; the server probes it with <code>--version</code> at startup and refuses to listen when the probe fails. A <strong>system serif TrueType font</strong> is required by the print renderer for any edition format, because the renderer resolves the font before it decides what to write, and the renderer reports the missing font instead of producing a broken file. One further tool is needed by the maintenance steps and by nothing else: <strong><code>pdftotext</code></strong> (from Poppler) reads the printed book when the data files are rebuilt from it — <code>npm run library</code> for the <a href="wiki.html#definition-library">library</a> of start templates and <code>npm run table</code> for the <a href="wiki.html#definition-periodic-table">table of ideas</a>. Both stop with a clear message when the tool is absent. The server, the check script and both skill scripts never call it, and the generated data files are committed, so a checkout runs without it.</p>
+        <p>The authentication and model access of the agent belong to the agent itself. The server does not read credentials, does not call a model API, and does not pass any token to the child process beyond the environment it inherits.</p>
+      </section>
+
+      <section>
+        <h2>Starting the server</h2>
+        <pre><code>npm run check      # verify the environment and the whole technology chain without using the agent
+npm run server     # start the API and the reader interface</code></pre>
+        <p>The server listens on <code>HOST</code> and <code>PORT</code>, creates the <code>universes/</code> folder when it does not exist, recovers the turns of every universe, refreshes the links to the <a href="wiki.html#definition-project-skill">product skills</a> inside each universe, and prints the loopback address, every reachable IPv4 address of the machine, the agent it found and the effective concurrency limit. Network addresses are printed so that a reader can open the book on a phone on the same network. <code>SIGINT</code> and <code>SIGTERM</code> close the listener and end the process, with a forced exit if it does not stop within a few seconds.</p>
+        <p>Because the runtime has no npm dependencies, there is no install step and no build step. Starting the server is running one Node.js file; the browser interface is served from <code>public/</code> as it lies on disk, and the <a href="wiki.html#definition-periodic-table">table of ideas</a> and the <a href="wiki.html#definition-library">library</a> are read from <code>data/</code> and <code>library/</code> as they are committed.</p>
+        <p>Before it touches the store, the process takes the <a href="wiki.html#definition-store-lock">store lock</a> in <code>universes/.server.lock</code>, so only one server owns a store. A second instance on the same folder prints one line on standard error and exits with status <code>1</code> without listening:</p>
+        <pre><code>[start] another scriptaWorlds server is already running (pid 4812, since 2026-09-21T19:04:11.000Z) and owns /srv/scriptaWorlds/universes; stop it before starting a second one</code></pre>
+        <p>The message names the process that holds the store and the moment it started, so the owner can be stopped deliberately. A lock left behind by a process that is gone — a killed server or a machine that was shut down — is recognised as stale as soon as the recorded process identifier is no longer alive, and the new instance takes it over; the lock is removed when the server stops with <code>SIGINT</code> or <code>SIGTERM</code>. Starting two servers is not a way to serve one store twice: each of them would treat the turns of the other as interrupted, which is exactly what the lock prevents. Two independent books on one machine are two checkouts with two <code>universes/</code> folders.</p>
+      </section>
+
+      <section>
+        <h2>Configuration</h2>
+        <p>Configuration is entirely through the environment. Values are read once at startup, so a change requires a restart.</p>
+        <div class="table-wrap"><table>
+          <thead>
+            <tr>
+              <th scope="col">Variable</th>
+              <th scope="col">Default</th>
+              <th scope="col">Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>HOST</code></td>
+              <td><code>0.0.0.0</code></td>
+              <td>The address the server binds. The default accepts connections from the local network; set a loopback address to keep an instance private.</td>
+            </tr>
+            <tr>
+              <td><code>PORT</code></td>
+              <td><code>8787</code></td>
+              <td>The listening port. A non-positive or non-numeric value falls back to the default.</td>
+            </tr>
+            <tr>
+              <td><code>OMP_BIN</code></td>
+              <td><code>omp</code></td>
+              <td>The agent binary. Use it when the agent is installed outside <code>PATH</code>; the value is what the startup probe and every turn use.</td>
+            </tr>
+            <tr>
+              <td><code>SCRIPTAS_MODEL</code></td>
+              <td><code>deepseek/<wbr>deepseek-v4-flash</code></td>
+              <td>The <a href="wiki.html#definition-model-configuration">model</a> used for every turn and recorded in each universe and turn.</td>
+            </tr>
+            <tr>
+              <td><code>MAX_CONCURRENT_JOBS</code></td>
+              <td><code>0</code></td>
+              <td>The <a href="wiki.html#definition-concurrency-limit">global limit</a> on turns running at the same time. <code>0</code> or an unset value means unlimited; each universe still runs at most one turn at a time.</td>
+            </tr>
+            <tr>
+              <td><code>CHAPTER_TIMEOUT_MS</code></td>
+              <td><code>1200000</code></td>
+              <td>The deadline of a chapter or rewrite turn, in milliseconds. It is also passed to the agent as its own maximum run time.</td>
+            </tr>
+            <tr>
+              <td><code>EXPORT_TIMEOUT_MS</code></td>
+              <td><code>1200000</code></td>
+              <td>The deadline of an export turn, in milliseconds.</td>
+            </tr>
+            <tr>
+              <td><code>CHAPTER_MIN_WORDS</code></td>
+              <td><code>900</code></td>
+              <td>The lower bound of the <a href="wiki.html#definition-word-band">word band</a> stated in the prompt and used to warn about a short chapter.</td>
+            </tr>
+            <tr>
+              <td><code>CHAPTER_MAX_WORDS</code></td>
+              <td><code>2400</code></td>
+              <td>The upper bound of the word band stated in the prompt and used to warn about a long chapter.</td>
+            </tr>
+          </tbody>
+        </table></div>
+        <p>The word band and the concurrency limit are reported by <code>GET /api/config</code>, so a client can present them without being configured itself.</p>
+      </section>
+
+      <section>
+        <h2>The environment check</h2>
+        <p><code>npm run check</code> runs <code>scripts/check.mjs</code>, which proves the whole technology chain without spending model budget. It verifies the Node.js version, probes the agent binary, asserts that both skill manifests exist, creates temporary universes, checks the default language and the language change, exercises the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and language validation paths, asserts that skill links are installed inside a universe, writes a chapter with diacritics and reads it back through the store, closes and reopens a universe, runs the narrative <a href="wiki.html#definition-validator">validator</a> and parses its JSON report, runs the print renderer and requires a positive page count, lists universes, and finally reproduces a restart: a queued turn stays on disk, a running turn becomes interrupted, the canon is rolled back and the partial chapter disappears. It also asserts the data and the paths this release depends on: the one hundred and eighty <a href="wiki.html#definition-cell">cells</a> of the <a href="wiki.html#definition-periodic-table">table of ideas</a> with the systematic symbol of every cell and the page of the book behind each of them, the resolution of <a href="wiki.html#definition-ingredient">ingredients</a> and the composition of the law, together with the assertion that neither the law nor the ingredient lines nor the <code>AGENTS.md</code> of a universe carries a two-letter symbol instead of the sentence, the mapping of the creation request body in which <code>premise</code> wins over <code>opening</code>, the fact that a template keeps its own cells while the reader may add ingredients on top, the <a href="wiki.html#definition-library">library</a> index against the folders on disk — with the indications and the source text of a night template — and the universe composed from a template, the <a href="wiki.html#definition-short-name">short name</a> adopted from the hand-off file and the long line that is refused, the <a href="wiki.html#definition-store-lock">store lock</a> refusing a live owner and taking over a stale one, and the fact that importing the server module starts no server and takes no lock. It exits with status 0 only when every check passed, and it always removes the universes it created.</p>
+        <p>Run it before starting a server on a new machine, after installing or upgrading the agent, and after changing anything that touches the universe file contract. It is the fastest way to distinguish an environment problem from a story problem.</p>
+      </section>
+
+      <section>
+        <h2>Rebuilding the library and the table</h2>
+        <p>The two data sources a reader explores are generated from the printed book, and the generated files are committed, so nothing has to be rebuilt to run the product. The steps exist for the case where the book changes or where the generation itself is being worked on:</p>
+        <pre><code>npm run library              # rebuild library/index.json and every library/&lt;slug&gt;/
+npm run table                # rebuild data/periodic-table.json from the book
+npm run library -- --check   # compare the library with the index, the folders and the book; write nothing
+npm run table -- --check     # compare the table with the book; write nothing</code></pre>
+        <p>All four commands read <code>vision/periodic_table.pdf</code> with the system tool <code>pdftotext</code>, which is why a machine that only runs the server does not need it. <code>npm run table</code> writes <code>data/periodic-table.json</code> — the twelve families with the cells that belong to them, the fifteen operators and the one hundred and eighty cells, each with its name, mechanism, prompt line, ingredient sentence, landmark and prose sections — and it refuses to write anything when the book does not parse cleanly, printing the problems it found instead of a half-built table; its <code>--check</code> mode compares the committed file with the book on the cell count and on the name, operator, gist and prompt of every cell. <code>npm run library</code> writes <code>library/index.json</code> plus one folder per template with a <code>template.json</code>, spends no agent budget, and fails the same way when <code>pdftotext</code> is missing or the book cannot be read; its <code>--check</code> mode prints one line per problem and exits with a nonzero status. The <a href="wiki.html#definition-empty-template">empty template</a> is not generated: it is written by hand under <code>library/empty/</code>, and a rebuild re-serializes it and keeps it first in the index.</p>
+        <p>A rebuild is a content change rather than a runtime change, and the process keeps what it read: <code>src/library.mjs</code> caches the index and every template it has opened for the life of the server, and <code>src/periodic.mjs</code> does the same with the <a href="wiki.html#definition-periodic-table">table of ideas</a>. A rebuilt library is therefore visible after a server restart, not in a running one, and a page reload alone does not change it. The index and the folders have to stay consistent, which is what <code>--check</code> is for; an index entry whose folder is gone answers <code>404 UNKNOWN_TEMPLATE</code> when that template is opened, and the check reports it before a reader meets it.</p>
+      </section>
+
+      <section>
+        <h2>Updating the interface while it is open</h2>
+        <p>The reader interface is served from <code>public/</code> as it lies on disk, with <code>Cache-Control: no-cache</code>, so a reload revalidates every module and picks up the files as they are now; no restart, build or cache invalidation step is needed after editing a file of the interface. A tab that was already open, however, holds the modules it loaded; when the interface is replaced under it — an updated build, or a file renamed or removed while the tab stayed open — the next dynamic import fails and the page would otherwise sit there dead.</p>
+        <p>That case is handled inside the page itself. The shell of <code>public/index.html</code> installs a small error listener before the application module loads, and it answers with one line and a reload control instead of an empty screen:</p>
+        <pre><code>The interface was updated while this page was open.   [ Reload ]</code></pre>
+        <p>The same banner reports <code>The interface could not start.</code> when the bootstrap fails for another reason, and the <code>Reload</code> control performs a plain reload, which fetches the current files. The banner never replaces the book content that is already rendered: it is a line at the bottom of the page, and the reader can keep reading until they reload.</p>
+      </section>
+
+      <section>
+        <h2>Restarts, interruptions and recovery</h2>
+        <p>A restart is safe by design. Turns recorded as <code>queued</code> are resumed automatically in turn order with their original requests, and turns recorded as <code>running</code> become <a href="wiki.html#definition-interrupted-turn">interrupted</a>: the canon, thread and atlas files are restored from the <a href="wiki.html#definition-state-snapshot">snapshot</a> taken before that turn, the partial chapter and offer files are removed, and the turn stays visible with a <a href="wiki.html#definition-retry">retry</a> action in the interface or through the retry route. Nothing else is lost; the reading position is in the browser, and the rest is on disk.</p>
+        <p>An interrupted or failed turn is the operator's cue, not the reader's problem: check the agent log recorded with the turn for the tools it used and the tail of its raw output, verify that the agent still works with <code>npm run check</code>, and retry. Because the canon snapshot of every chapter is kept on disk, an interrupted turn never leaves a half-written chapter in the book, and because a retry reuses the same turn number, the numbering of the book has no holes.</p>
+      </section>
+
+      <section>
+        <h2>Access and exposure</h2>
+        <p>The API has no accounts. Anyone who can reach the address can read every universe, create one, close it, rewrite a chapter and generate editions, and the server has no CORS configuration to relax. An operator who needs a private instance sets <code>HOST</code> to a loopback address or places a reverse proxy in front of the server. Two proxy behaviours matter: buffering delays or breaks the live text of the <a href="wiki.html#definition-event-stream">event stream</a>, and an idle connection timeout can close a stream during a long chapter. In both cases the reader interface degrades to slower progress instead of failing, because it falls back to polling the job route.</p>
+      </section>
+
+      <section>
+        <h2>Editions and fonts</h2>
+        <p>An export turn asks the agent to write the editorial metadata and then run the print renderer. The renderer looks for a serif TrueType font in a fixed order of system locations, requires that the chosen family covers every character of the book, and fails with <code>MISSING_FONT</code> when no family covers at least the Latin set plus the Romanian diacritics. Install a serif font package for the platform, or point the renderer at a folder of <code>.ttf</code> files with its own font option; OpenType CFF fonts and font collections are ignored by the search.</p>
+      </section>
+
+      <section>
+        <h2>Failure reference</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Code</th>
+              <th scope="col">Meaning and remedy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>OMP_MISSING</code></td>
+              <td>The agent binary could not be started. Install the agent, ensure it is in <code>PATH</code>, or set <code>OMP_BIN</code>. The server exits at startup with this code and does not serve a universe it cannot continue.</td>
+            </tr>
+            <tr>
+              <td><code>AGENT_FAILED</code></td>
+              <td>The agent did not start, exited with a nonzero status, or exceeded its deadline. The canon has already been rolled back; inspect the turn's agent log, fix the cause and retry the turn.</td>
+            </tr>
+            <tr>
+              <td><code>NO_CHAPTER</code></td>
+              <td>The agent finished without writing the expected chapter file. Retry, and check the skills are present in the universe folder.</td>
+            </tr>
+            <tr>
+              <td><code>NO_EXPORT</code></td>
+              <td>An export turn produced no <code>.pdf</code> or <code>.docx</code> file. Usually <code>MISSING_FONT</code> or a renderer usage error; read the agent log for the renderer's JSON line.</td>
+            </tr>
+            <tr>
+              <td><code>NO_TABLE</code></td>
+              <td><code>data/<wbr>periodic-table.json</code> is missing or unreadable, so no universe can be composed and <code>GET /api/table</code> cannot answer. Restore the file from the repository; the table is a committed data contract, not a generated artifact of the running server.</td>
+            </tr>
+            <tr>
+              <td><code>NO_LIBRARY</code></td>
+              <td><code>library/index.json</code> is missing or unreadable, so the Library tab cannot list a starting point while the rest of the product still works. Restore <code>library/</code> from the repository, or regenerate it with <code>npm run library</code> on a machine that has <code>pdftotext</code>.</td>
+            </tr>
+            <tr>
+              <td><code>CLOSED</code></td>
+              <td>A chapter turn or a rewrite was requested for a closed universe. Reopen the universe first; editions are still allowed while it is closed.</td>
+            </tr>
+            <tr>
+              <td><code>NOT_RETRYABLE</code></td>
+              <td>The turn is not interrupted or failed, so retrying it would duplicate work. Read the universe detail instead.</td>
+            </tr>
+            <tr>
+              <td><code>NOT_FOUND</code> on a job route</td>
+              <td>The job belonged to an earlier server process. Jobs are in-memory handles; the durable record of that work is in the universe's turn list.</td>
+            </tr>
+            <tr>
+              <td><code>TOO_LARGE</code> or <code>BAD_JSON</code></td>
+              <td>The request body exceeded 512 KiB or was not a JSON object. Check the client that produced it.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>The full route list, the error envelope and the durable queue rules are specified in <a href="specsLoader.html?spec=DS005-http-api.md">DS005-http-api</a> and <a href="specsLoader.html?spec=DS003-main-behavior.md">DS003-main-behavior</a>. The exact file formats an operator may need to inspect by hand are in <a href="specsLoader.html?spec=DS004-universe-storage.md">DS004-universe-storage</a> and <code>docs/contracts.md</code>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

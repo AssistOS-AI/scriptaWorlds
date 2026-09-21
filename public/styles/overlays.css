@@ -1,0 +1,251 @@
+/*
+ * scriptaWorlds — the dialogs: Universes, Edition menu, i and Rewrite.
+ */
+
+/* ---------------- overlays: dialogs (centred) ----------------
+   Nothing here is in the flow: overlays float above the page and never push it. */
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 3vh 2vw;
+  background: rgba(20, 18, 15, 0.28);
+}
+
+.popup__panel {
+  position: relative;
+  width: min(96vw, 1200px);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 18px 20px;
+  border: 1px solid #e7e3da;
+  border-radius: 10px;
+  background: #fffdf8;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+/* The Edition menu stays a small card: it holds four short rows. */
+#more .popup__panel {
+  width: min(92vw, 320px);
+  max-height: 70vh;
+  padding: 14px 16px;
+}
+
+.popup__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px;
+}
+
+.popup__title {
+  margin: 0; font-size: 15px; font-weight: 650;
+}
+
+.popup__close {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.popup__close:hover {
+  color: var(--ink);
+}
+
+.popup__actions {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+}
+
+/* The ⋯ menu is a dialog like the others: centred on the screen, floating above the page. */
+.menu__items {
+  display: grid; gap: 2px;
+}
+
+.menu__sep {
+  margin: 6px 4px; border: 0; border-top: 1px solid var(--line);
+}
+
+.menuitem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menuitem > span:first-child {
+  flex: 1 1 auto;
+}
+
+.menuitem:hover {
+  background: var(--accent-tint);
+}
+
+.menuitem--off {
+  color: var(--muted); cursor: default;
+}
+
+.menuitem--off:hover {
+  background: transparent;
+}
+
+.menuitem__note {
+  flex: 0 0 auto; font-size: 12.5px; color: var(--muted);
+}
+
+.reqlist {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 8px;
+}
+
+.req__part {
+  font-size: 12.5px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted);
+}
+
+.req__text {
+  font-family: var(--book-font); font-size: 16px; line-height: 1.5; color: var(--ink);
+}
+
+.rewrite__error {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--danger);
+}
+
+/* ---------------- the table of ideas (ingredients) ---------------- */
+
+.ing__scroll { overflow-x: auto; min-width: 0; max-width: 100%; }
+
+.ing__table {
+  display: grid;
+  grid-template-columns: max-content;
+  min-width: 0;
+  font-size: 12.5px;
+}
+
+.ing__head-row,
+.ing__row {
+  display: grid;
+  grid-template-columns: 8.5rem repeat(15, minmax(46px, 1fr));
+  gap: 3px;
+  align-items: stretch;
+}
+
+.ing__corner { display: block; }
+
+.ing__col-head {
+  display: grid;
+  gap: 0;
+  padding: 3px 2px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+.ing__col-letter { font-weight: 700; color: var(--accent-strong); }
+.ing__col-name {
+  font-size: 9.5px;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ing__row-head {
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.ing__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 2px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.ing__cell:hover { border-color: var(--accent-line); color: var(--accent-strong); }
+
+.ing__cell--on {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+}
+
+.ing__cell--dim { opacity: 0.25; }
+.ing__cell--empty { border-color: transparent; background: transparent; cursor: default; }
+
+.ing__chosen {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.ing__chosen-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px 5px 10px;
+  border: 1px solid var(--accent-line);
+  border-radius: 8px;
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+  font-size: 13px;
+}
+
+.ing__chosen-text { flex: 1 1 auto; min-width: 0; }
+
+.ing__chip-remove {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ing__chip-remove:hover { background: rgba(15, 118, 110, 0.15); }
+
+.ing__error { margin: 0; font-size: 13.5px; color: var(--danger); }
+
+
+@media (max-width: 700px) {
+  .ing__head-row,
+  .ing__row { grid-template-columns: 5.5rem repeat(15, minmax(42px, 1fr)); }
+  .ing__col-name { display: none; }
+}
+
+

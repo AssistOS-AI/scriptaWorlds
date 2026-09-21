@@ -1,0 +1,68 @@
+---
+title: DS007-scripta-ala-skill
+summary: Defines the narrative skill that writes one episode: its mandatory working order, its narrative invariants, the plan, chapter and offer files it requires, the ingredients and the naming duty it works under, the validator it must pass, and its dependencies and boundaries.
+---
+
+## Introduction
+
+`skills/scripta-ala/` is the [product skill](wiki.html#definition-project-skill) that turns a queued [turn](wiki.html#definition-turn) into a chapter. The agent that runs inside a universe folder reads it before writing, and the server's prompt points at it as `skill://scripta-ala`. This specification states what the skill requires, what it produces, and how its result is checked. The folder contract it writes into is in `DS004-universe-storage`, the turn that invokes it in `DS002-model-and-agent-execution`, and the offer it writes in `DS003-main-behavior`.
+
+## Core Content
+
+### Purpose and scope
+
+The skill exists so that every chapter of every universe follows the same narrative rules, keeps a single dramatic core, and leaves the world state consistent. It defines ALA's working order, the invariants of an episode, the plan that precedes the prose, the reader offer that follows it, and the validation that runs before the agent answers. One episode is a reading unit of 800 to 2,500 words with one dramatic question, at least one closed promise, and at most one major hook at the end.
+
+The skill is an instruction set plus one read-only script. It contains `SKILL.md` with the rules, `references/universe-files.md` with the exact schemas of the files it reads and writes, `references/atlas.md` as a creative palette of axes, hooks, skeletons and seeds, `skill.json` as the catalog manifest, `dependencies.md` as the local dependency record, and `scripts/validate-chapter.mjs` as the validator. It writes no file except the ones the agent itself writes, and it never invokes the print skill; the two skills share a file contract and no code.
+
+### When it is used
+
+The skill is used when a chapter turn runs, when a reader request has to be answered inside the story, and when the canon of a universe has to be brought up to date. The server states that requirement in the prompt of every chapter and rewrite turn, and the skill's own instruction forbids the agent from asking for context outside the universe folder or from reading `turns/`, because everything needed to continue the book is `universe.json`, `charter.md`, `canon.md`, `threads.json`, `atlas.json` and the last two chapter files.
+
+The prompt carries two things the skill itself does not state, and the skill's rules are what make them stick. The first is the [ingredients](wiki.html#definition-ingredient) of the world: every chapter and every rewrite prompt repeats the ingredient lines of the universe under a heading that says the world is a [compound](wiki.html#definition-compound), not a single idea, and that a chapter may develop one of those operations or the friction between two of them but never invents a new fundamental operation without recording it in `canon.md` first. A universe created from a template or from the ingredients tab has those operations stored in `universe.json` (`elements`), and the agent receives them as the recipe itself rather than as a summary of it.
+
+The second is the naming duty. While `universe.json` still says `autoTitle: true`, or while the displayed title is still a whole sentence, the chapter prompt asks for a [short name](wiki.html#definition-short-name): the agent writes it to `universe-title.txt` in the language of the fiction, as a name and not a sentence, with no colon, no final period and no description of the law. The server accepts a name of two to seven words and at most 60 characters; a long descriptive line is refused, `autoTitle` stays true and the duty returns at the next chapter. A universe that already had a descriptive title keeps that line as `summary`, which is the discreet text the reader interface shows under the short name.
+
+### Canon, ingredients and the naming file
+
+`canon.md` is the memory of the book, and the skill requires the agent to write it on its existing sections (`## Fundamental laws`, `## World`, `## Recurring characters`, `## Timeline`, `## Stable facts`, `## Mysteries with a fixed cause`), to add facts rather than rewrite history, and to keep the universe law and its established consequences inside `## Fundamental laws`. The server seeds that file when the universe is created and adds one section of its own, `## Ingredients (from the Periodic Table of Ideas)`, which holds the ingredient lines of the universe or a line saying that no ingredient was chosen yet. The skill does not name that section, and the validator does not require it; it survives because the rule of working on the existing sections forbids dropping a section the book already carries, and because the prompt repeats the same lines on every turn.
+
+The naming file is written outside the skill's own file list. `universe-title.txt` is produced only while the naming duty is active, it is read by the server after a successful turn, and once the short name has been adopted the server removes it, because it is a hand-off that exists only while the book has no name. It is never part of the canon. A chapter turn that changes `canon.md`, `threads.json`, `atlas.json` and the chapter files and also writes that file is doing exactly what the prompt asked for.
+
+### Mandatory working order
+
+The agent reads the context first, in the order the skill fixes. It then classifies the reader request into one of seven answer shapes: a fact already established is answered directly inside a scene, a motivation gets a short answer with one relevant scene, a question about the future may be simulated or answered with a time jump, a revelation that supports the main thread gets a partial answer plus a deferred answer with a due chapter, a hypothetical intervention is proposed together with exactly what becomes canon, a moral question is answered by showing a concrete situation where values collide, and a request for tone, a different point of view or a pause is honoured without forcing a crisis. The classification matters because it decides how much of an episode is answer and how much is story.
+
+The plan is written before the prose, into `drafts/NNNN-plan.md`, with the exact keys `dramatic_question`, `anchor_character`, `character_want`, `primary_idea`, `human_need`, `opening_hook`, `beats`, `decision`, `local_consequence`, `long_horizon`, `payoff`, `return_hook`, `new_entities` and `deferred_answers`. The skill requires the plan to be checked before writing: one question only, at most two important new characters, at most two new speculative mechanisms, a payoff, and at most one hook. A plan that fails a check is fixed in the plan, not in the prose.
+
+The chapter is written to `chapters/NNNN-<slug>.md` with the title on the first line as `# Title` and with narrative text only, in the language of the book, inside the Markdown subset the renderer supports. The agent then reviews it against four questions about who wants what, what changed, what the reader has to care about, and what the reader's request actually changed, and rewrites it when the answer is weak.
+
+After the chapter, the skill requires the reader offer in `chapters/NNNN-offer.json`: a teaser of two or three sentences addressed to the reader that says what changed and leaves a question open, and two or three concrete decisions specific to this episode, each with a short label and the exact prompt that can be sent as a request. At least one option continues the main open thread, and the whole offer is written in the language of the book. The agent then updates `canon.md`, `threads.json` and `atlas.json`, with text values in the fiction language and keys, section names and state values in English, and it runs the validator until it reports no errors. It finishes with a short English report naming the chapter title and file, what changed in the canon, which promise was closed and which thread stays open.
+
+The prohibitions are part of the contract: the agent does not modify `universe.json`, `charter.md`, `turns/` or `.agents/`, and it does not run `git`. Those files belong to the server, and a chapter turn that changed them would corrupt the record the queue depends on.
+
+### Narrative invariants
+
+The skill states thirteen invariants as product rules rather than as style advice. R1 fixes one dramatic core per episode. R2 limits the episode to at most two important new characters and at most five new proper nouns in total. R3 limits it to at most two new speculative mechanisms the reader must understand to follow the story. R4 anchors every cosmological idea in a character with a concrete want. R5 requires honest answers and forbids dodging a question only to create suspense. R6 requires a deferred revelation to be recorded in `threads.json` with its question, its reason and a due chapter. R7 requires a reader intervention to change the canon or the probable trajectory, not only the text. R8 requires every dilemma to have at least two defensible options. R9 requires every episode after the first to close at least one promise or thread. R10 allows at most one major return hook at the end. R11 requires a surprise to stay compatible with what has already been established. R12 requires short paragraphs and concrete scenes instead of encyclopaedia blocks. R13 makes the fundamental law inviolable: every episode is a consequence of it, and an exception needs a cause already established in the canon.
+
+Two further rules shape the tone. Consequences are shown as benefits, costs and unforeseen effects without a moral verdict, and the agent does not retro-fit convenient solutions into regions the canon already described without a causal explanation. If the episode summary becomes complicated, the episode is simplified rather than the rules relaxed.
+
+### Validator
+
+`scripts/validate-chapter.mjs` is a dependency-free Node.js script that reads the universe folder and reports what is wrong with a chapter before the agent commits it to its answer. It runs as:
+
+```sh
+node .agents/skills/scripta-ala/scripts/validate-chapter.mjs --universe . --chapter NNNN
+```
+
+`--universe` defaults to the current directory, `--chapter` defaults to the highest chapter number present and then to `1`, and `--min` and `--max` default to 800 and 2500 words. The script writes one JSON line to standard output with `ok`, a `chapter` object carrying `number`, `file`, `title`, `words` and `offer`, and the `warnings` and `errors` arrays, and it prints each error and warning on standard error. It exits with status 1 when at least one error was found and 0 otherwise.
+
+Errors cover the shape of the result rather than its quality: a missing `chapters` folder, a missing or ambiguous chapter file, a first line that is not a heading, Markdown constructs the renderers do not accept such as code fences, tables, images and links, planning keys leaking into the prose, a missing plan file or a missing plan key, an unusable offer with a too-short teaser or the wrong number of options, a `threads.json` or `atlas.json` that is missing, malformed, or carries an unknown state, more than one new deferred answer in the same chapter, and missing canon sections. Warnings cover the signals a reader would notice: a chapter outside the configured word band, a missing offer, an option whose label is too long or whose prompt is too short, a thread without a status or with a due chapter too far ahead, an overdue thread, no atlas node touched by this chapter, and a suspiciously short canon.
+
+The validator is the mechanism that keeps the agent's own report honest. A turn's acceptance does not depend on it, because the server verifies the chapter file and the offer directly, but the skill instructs the agent to fix every reported error and rerun the validator until it reports `ok: true`, and `npm run check` runs the validator against a temporary universe to prove that the script still works with the current file contract.
+
+### Dependencies and boundary
+
+The skill needs Node.js 20 or later for its validator and nothing else: it uses only `node:fs/promises` and `node:path`, has no npm package, no vendored code, no external command and no download, and its `dependencies.md` records that fact together with the rule that a newly installed global tool requires explicit authorization. The validator has no startup probe of its own; its first precondition is the chapter directory it is asked to read.
+
+The boundary is that the skill owns narrative rules and the reading contract of a chapter, not the book as a whole. It does not print editions, does not manage the queue, does not write the universe record or the turn records, and does not read the turn history. Printing is `DS008-scripta-book-export-skill`, and the files it may write are exactly `chapters/NNNN-<slug>.md`, `chapters/NNNN-offer.json`, `drafts/NNNN-plan.md`, `canon.md`, `threads.json` and `atlas.json`, plus `universe-title.txt` while the naming duty is active, because the server's prompt adds that duty to a chapter turn in that case; the value it writes must be a short name, because the server refuses anything longer.
