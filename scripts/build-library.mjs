@@ -183,8 +183,9 @@ function buildTemplate(night, table) {
     // The text that lands in the request field: every indication the book gives for this world, in
     // the order ALA reads it, with nothing generic added — the reader edits it and sends it.
     request: [
-      `Open the story of "${night.title}" — night ${night.number} of the course`
-        + `${sector ? `, in the ${sector} sector` : ''}${genealogy.length ? `, after ${genealogy.join('; ')}` : ''}.`,
+      // The opening positions the world, the way the library does: a sector and the authors it is
+      // kept after. No course, no night numbers — these are worlds a reader continues.
+      `A world in the ${sector || 'unnamed'} sector${genealogy.length ? `, kept after ${genealogy.slice(0, 3).join('; ')}` : ''}.`,
       prohibition ? `Prohibition: ${prohibition}.` : '',
       cells.length
         ? `The operations this world is built from:\n${cells.map((cell) => `- ${cell.ingredient || `${cell.name}: a universe where ${cell.gist} (${String(cell.family ?? '').toLowerCase()}, ${String(cell.operator ?? '').toLowerCase()}).`}`).join('\n')}`

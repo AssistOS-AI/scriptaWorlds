@@ -1,0 +1,416 @@
+{
+  "version": 1,
+  "axes": [
+    {
+      "id": "alien-alterity",
+      "name": "Alien & otherness",
+      "nodes": [
+        {
+          "id": "plant-demands",
+          "label": "The plant's requests are literal and unmet until it stops shaking, and it answers only what is done to it",
+          "state": "recontextualized",
+          "chapters": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "id": "writing-unheard",
+          "label": "The plant does not perceive writing: the open green journal held up at the wall moves no leaf, while a hand lamp turns the whole crown, and it moves nothing even when the page is held over the exact place its flower is aimed or when the page carries the farm's own name",
+          "state": "recontextualized",
+          "chapters": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "id": "turns-to-the-body",
+          "label": "The plant turns toward whatever a body brings it: crown and open flower follow a cut hand down to the wet soil the way they followed a lamp along the wall, and a quarter turn of the wheel at the root line brings them back up together",
+          "state": "dramatized",
+          "chapters": [
+            5,
+            7,
+            8
+          ]
+        },
+        {
+          "id": "aim-without-hearing",
+          "label": "The plant attends to what reaches it and not to what is said to it: the open flower was found aimed past the blood at the seat where the root line enters the soil, the farm read that aim with a wheel and a gauge, and the aim was right",
+          "state": "decision",
+          "chapters": [
+            6,
+            7
+          ]
+        },
+        {
+          "id": "asking-has-an-end",
+          "label": "The plant's asking ends with its own body and never with a farm's answer: the flower closed and the sign with the three hooks came apart leaf by leaf on a morning when no line had been read, and the wall has stood flat and unturned since",
+          "state": "decision",
+          "chapters": [
+            8,
+            9
+          ]
+        },
+        {
+          "id": "attends-and-does-not-ask",
+          "label": "A quiet wall is not a request: the small shape at the root line stands turned at the water every morning, the closed flower lies on the seat, and the farm's answer to a plant that has stopped asking is a wheel, a number and clean water \u2014 and chapter 10 found that this same shape is the oldest sign on Hesper: it came up in those leaves nine years ago too, went into no chart, and the farm has now walked past it twice",
+          "state": "recontextualized",
+          "chapters": [
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "knowledge-truth",
+      "name": "Knowledge & truth",
+      "nodes": [
+        {
+          "id": "ambiguous-signs",
+          "label": "One leaf sign, two meanings: blood and iron in the water differ by a single stroke, and the chart's repeat mark turned light into blood \u2014 in chapter 10 the old Reader drew both shapes side by side for the child on the back of that same chart, with no word under either of them",
+          "state": "recontextualized",
+          "chapters": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            10
+          ]
+        },
+        {
+          "id": "child-readers",
+          "label": "Children read whole leaf shapes; adults read the letters they were taught, and a child can also read an aim the adults measure afterwards",
+          "state": "recontextualized",
+          "chapters": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "reading-by-experiment",
+          "label": "A shape can be read by testing it against the plant's own body: the crown leaves follow a hand lamp and ignore a page, and the farm's first measurement of an answer came from a wheel",
+          "state": "decision",
+          "chapters": [
+            2,
+            3,
+            4,
+            5,
+            7,
+            8
+          ]
+        },
+        {
+          "id": "shape-says-no",
+          "label": "A reader who has no word for a shape can still refuse a wrong word, and can say out loud in front of the crew that she does not know \u2014 in chapter 10 she kept the old Reader's term, drew no word out of him about the shape on the pipe, and said only that she does not know it",
+          "state": "decision",
+          "chapters": [
+            4,
+            5,
+            6,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "page-closes-body-answers",
+          "label": "A page closes a count and never answers a plant: through three days of writing the wall moved nothing, and the only record of an answer on Hesper is the doctor's gauge, which moved for a quarter turn of a wheel",
+          "state": "decision",
+          "chapters": [
+            7,
+            8
+          ]
+        },
+        {
+          "id": "number-is-the-farms",
+          "label": "The number in a sign belongs to the hand that reads it: the hooks are the blood sign's turned-back tip repeated, and the three days are the farm's own law",
+          "state": "decision",
+          "chapters": [
+            6
+          ]
+        },
+        {
+          "id": "reading-overruled",
+          "label": "The crew keeps the officer's word over the child's: the same morning Bea said out loud that the plant turns for a lamp as it turns for a hand, four hands were cut over the soil",
+          "state": "decision",
+          "chapters": [
+            5
+          ]
+        },
+        {
+          "id": "quiet-wall-read-twice",
+          "label": "One quiet morning, two honest readings: the ring takes the closed flower and the flat wall for the pen's answer, while the doctor counts two gauge movements that both came off a wheel and the child says out loud that the plant did not answer and stopped asking",
+          "state": "dramatized",
+          "chapters": [
+            8,
+            9
+          ]
+        },
+        {
+          "id": "name-heard-not-held",
+          "label": "A name read off a register page is not a name a hand is holding: the ring read the surviving pages out and could put no face to one of them, and a mouth trained onto a page can say the sounds and never give the child",
+          "state": "decision",
+          "chapters": [
+            9
+          ]
+        },
+        {
+          "id": "chart-without-words",
+          "label": "A drawing is not a line: a sheet that carries every shape of a flowering with no word under any of them can hold the farm's memory and charge no hand, which is the first page on the shelf that costs nobody anything",
+          "state": "decision",
+          "chapters": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "life-death",
+      "name": "Life & death",
+      "nodes": [
+        {
+          "id": "body-price",
+          "label": "The price of an unmet line is taken from the writer's body in order tooth, finger, eye, with no pain and no blood, and the count restarts after each price \u2014 and in chapter 10 the old Reader's own tooth turned out to have come out whole on the stores crate, kept folded under his chart for nine years",
+          "state": "recontextualized",
+          "chapters": [
+            2,
+            3,
+            4,
+            5,
+            7,
+            8,
+            10
+          ]
+        },
+        {
+          "id": "ladder-has-a-top",
+          "label": "The ladder of prices ends at an eye, and the farm stepped off it before the top could be reached: the officer's seventh line closed the count in one sentence, no fourth price was ever charged, and what stands above an eye is still unknown on Hesper",
+          "state": "dramatized",
+          "chapters": [
+            7,
+            8
+          ]
+        },
+        {
+          "id": "signed-debt",
+          "label": "The debt follows the name under the line: nine years ago the Reader wrote his own reading in the green journal and paid a tooth for it, the officer's signature carried the debt of a reading, and a line that asks for nothing costs nothing even when it breaks a rule of the farm \u2014 and from chapter 10 the farm says the arithmetic out loud: the writing rule it made to protect the child is what has been charging the officer's body for every reading the child gives, and the ring kept the pen because a child writing would pay instead",
+          "state": "recontextualized",
+          "chapters": [
+            4,
+            6,
+            7,
+            8,
+            10
+          ]
+        },
+        {
+          "id": "line-that-cannot-fail",
+          "label": "A line the farm can always keep ends the count without the plant hearing it: blood until the plant is still, written on a plant that has been still for days, and the officer who knew that trick refused it once to save a record and used it once to save the name",
+          "state": "decision",
+          "chapters": [
+            5,
+            7,
+            8
+          ]
+        },
+        {
+          "id": "name-spent-not-taken",
+          "label": "A name given to the flowering is a debt of memory rather than a price taken from a body: only a hand that remembers the child may give it, out loud at the roots, once, and the register pays with a whole year \u2014 until the officer's pen wrote it into the book and bought the farm nine more years off one page",
+          "state": "recontextualized",
+          "chapters": [
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "id": "price-follows-lines-not-rules",
+          "label": "The law collects on lines and never on rules: the officer broke the crew's rule of choosing in front of the whole ring, wrote another person's memory into the page, and the count charged him nothing",
+          "state": "decision",
+          "chapters": [
+            8,
+            9
+          ]
+        },
+        {
+          "id": "keeper-of-the-name",
+          "label": "Hesper's rule of the choosing, made at the root wall on the twenty-second day: the choosing is done in the open, a hand may offer a child it knew alive, no hand is ever asked for one, any hand may refuse an offering, and the hand that offers it says the name at the roots once",
+          "state": "decision",
+          "chapters": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "culture-meaning",
+      "name": "Culture & meaning",
+      "nodes": [
+        {
+          "id": "green-journal",
+          "label": "The green journal is the farm's instrument and not a channel to the plant: it records every request and binds the person who writes the line, and it carried the farm's seventh name in the officer's hand \u2014 until the twenty-third day, when the ring closed it to names so that it carries the farm's days, its water, its numbers and the count of what the farm has spent, and no name of a child again",
+          "state": "recontextualized",
+          "chapters": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "paper-law",
+          "label": "The officer's wording decides what the sign says: an adult reading written over the child's half reading became the farm's reading the same morning, and the same pen that made a record of a choosing also took the charge off the officer's own head in one sentence \u2014 and in chapter 10 that pen was kept in the officer's hand and shut to names, while the farm's signs went out of the book and onto a sheet with no words on it",
+          "state": "decision",
+          "chapters": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "record-over-body",
+          "label": "Hesper has an officer who chose a body price over a clean page, and then found the wording that keeps the record and pays nothing: on the nineteenth day he wrote the name over the same sign and both lines stand on the page",
+          "state": "decision",
+          "chapters": [
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "id": "name-given-aloud",
+          "label": "Hesper's first rule of choosing, made at the root wall: a name may be given to the plant only by the hand that remembers the child, said once at the roots, never written \u2014 a rule the officer's pen broke on the nineteenth day of the flowering, in front of the crew, with nothing charged for it",
+          "state": "recontextualized",
+          "chapters": [
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "id": "blood-ritual",
+          "label": "Cutting a hand over the roots and staying unbandaged until the shaking ends",
+          "state": "recontextualized",
+          "chapters": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "id": "unspeakable-name",
+          "label": "A name given to the plant may not be said again: the farm gave it the daughter of the woman from the second shift and took that name off every wall, the slate and the register, and since chapter 8 the seventh name is written in the book and unsaid by every mouth on Hesper \u2014 and in chapter 10 the farm said out loud that this silence is its own choice and not a price, and refused to say that child's name at the keeping",
+          "state": "recontextualized",
+          "chapters": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "id": "register-holes",
+          "label": "Hesper keeps its dead on the page of the year in the low ring, and every flowering costs it a whole page: six stubs before this one, counted aloud at the wall for the first time and written into the green journal",
+          "state": "decision",
+          "chapters": [
+            6,
+            9
+          ]
+        },
+        {
+          "id": "erased-name",
+          "label": "The crew lives beside the person whose dead child gave the plant its name, and the farm has now written a name into its own book for the first time while the woman who watched a name taken off a page stood at the rail and said so",
+          "state": "recontextualized",
+          "chapters": [
+            4,
+            5,
+            6,
+            8,
+            10
+          ]
+        },
+        {
+          "id": "the-keeping",
+          "label": "One day a year at the wall for the farm's own dead, said from mouths and never read off a page, whose first year stood empty because every child Hesper can still name is already the plant's \u2014 and in chapter 10 the farm kept the plant's name out of it and gave the mother of that name the reason instead",
+          "state": "decision",
+          "chapters": [
+            9,
+            10
+          ]
+        },
+        {
+          "id": "rule-no-line-carries",
+          "label": "The ring made its rule of choosing at the wall and left it out of the green journal on purpose, so the law can charge nothing for breaking it and no page keeps it, and the officer who once bought the farm nine years with a page closed the book and wrote nothing",
+          "state": "decision",
+          "chapters": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abundance-scarcity",
+      "name": "Abundance & scarcity",
+      "nodes": [
+        {
+          "id": "power-margin",
+          "label": "Light for the crown or heat, pumps and the infirmary lamp for the rings: one power budget, signed by the officer",
+          "state": "decision",
+          "chapters": [
+            2,
+            5
+          ]
+        },
+        {
+          "id": "root-line-attention",
+          "label": "The plant's water is a resource with a seat and a wheel: the farm spent nine days writing, naming and bleeding over it and moved the plant only when it opened the root line a quarter turn, and a second quarter turn put a second tenth into the doctor's column \u2014 and in chapter 10 the old Reader drew the plant's oldest sign where it has always stood: in the leaves along the pipe at the seat, reading the water and not the wall",
+          "state": "dramatized",
+          "chapters": [
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ]
+    }
+  ]
+}
