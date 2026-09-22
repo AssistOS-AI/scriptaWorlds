@@ -24,7 +24,7 @@
       <section>
         <h2>What the skill covers</h2>
         <p>The skill exists so that a book written as Markdown chapters can be produced as a printed edition without an external toolchain. The renderer contains its own font parser and subsetter, its own page layout engine, its own PDF writer and its own DOCX writer built on the compression and hashing modules of Node.js, and it depends on no npm package, no Python and no other command. It reads the book, it writes only edition files inside the <code>exports/</code> folder, and its whole result is reported as a single JSON line on standard output, which is what makes it usable both by an agent and by the project check.</p>
-        <p>An export turn works in two steps: the agent writes the editorial metadata, then it runs the command and reads the JSON line back. The server then verifies that at least one edition file appeared, and fails the turn with <code>NO_EXPORT</code> when it did not, so a reported successful edition always corresponds to a file on disk.</p>
+        <p>An export turn works in three steps: the agent writes the editorial metadata, then it runs the renderer and reads the JSON line back, and then the server runs the skill's second command, the read-only verifier, which checks the produced files as documents and against the record that binds them to the content they were rendered from. A file name, a <code>%PDF-</code> header or a <code>PK</code> signature is never enough: the turn fails with <code>NO_EXPORT</code> when a requested format was not produced and with <code>INVALID_EXPORT</code> when what was produced is not a readable document, so a reported successful edition always corresponds to an edition on disk.</p>
       </section>
 
       <section>
@@ -46,8 +46,16 @@
               <td>The command-line entry point: it parses the options, loads the book, paginates it, calls the two writers and prints the single JSON line.</td>
             </tr>
             <tr>
+              <td><code>scripts/verify-edition.mjs</code></td>
+              <td>The acceptance step the server runs: it reads the universe, the produced files and the edition record, and prints one JSON line. It writes nothing.</td>
+            </tr>
+            <tr>
               <td><code>scripts/lib/*.mjs</code></td>
-              <td>The engines, as ES modules: <code>errors.mjs</code> (exit codes, errors, text and byte helpers), <code>truetype.mjs</code> (the font parser and subsetter), <code>fonts.mjs</code> (the font search and <code>BookFace</code>), <code>markdown.mjs</code> (the accepted Markdown subset), <code>book.mjs</code> (language, labels and the book model), <code>layout.mjs</code> (pagination and the table of contents), <code>pdf.mjs</code> (the PDF writer) and <code>docx.mjs</code> (the ZIP and OOXML writer).</td>
+              <td>The engines, as ES modules: <code>errors.mjs</code> (exit codes, errors, text and byte helpers), <code>truetype.mjs</code> (the font parser and subsetter), <code>fonts.mjs</code> (the font search, <code>BookFace</code> and the per-face coverage rule), <code>markdown.mjs</code> (the accepted Markdown subset), <code>book.mjs</code> (language, labels, the book model and the accepted-version identity), <code>layout.mjs</code> (pagination and the table of contents), <code>pdf.mjs</code> (the PDF writer), <code>docx.mjs</code> (the ZIP and OOXML writer), <code>verify.mjs</code> (the structural verification of a produced PDF or DOCX) and <code>manifest.mjs</code> (the edition record).</td>
+            </tr>
+            <tr>
+              <td><code>tests/*.test.mjs</code></td>
+              <td>Focused <code>node --test</code> suites: the real renderer and the real verifier on temporary universes, the structural rejection paths, the edition record and the per-face glyph coverage.</td>
             </tr>
             <tr>
               <td><code>DS.md</code></td>
@@ -100,6 +108,53 @@
       </section>
 
       <section>
+        <h2>The edition record and server acceptance</h2>
+        <p>Before it writes anything the renderer recomputes the identity of the accepted version over the role files it is bound to — the chapters, their offers, the canon, the threads and the atlas — and a chapter that changes in between is refused with <code>EDITION_CHANGED</code> rather than recorded as if it had been rendered. When every document has been written and read back, the run writes <code>exports/edition-manifest.json</code> (schema <code>edition-manifest.v1</code>) beside them: the requested format, the language of the edition, the <code>source_version</code> it was rendered from, and one entry per produced document with its file name, size, sha256 and page count. The document paths are relative to the folder that holds the record, the record is written in one step, and a failed run leaves no record claiming documents it does not have.</p>
+        <pre><code>node skills/scripta-book-export/scripts/verify-edition.mjs \
+  --universe &lt;universe-folder&gt; [--format both|docx|pdf] [--since &lt;epoch-ms&gt;] [--fonts &lt;folder&gt;] [--language &lt;code&gt;]</code></pre>
+        <p><code>--since</code> is the start of the run in epoch milliseconds: only files written at or after it count as this run's products, so an older edition cannot pass for the product of a run that produced nothing. <code>--fonts</code> and <code>--language</code> repeat the font resolution over the accepted text, so a document whose text a face cannot render is refused with <code>MISSING_FONT</code>. The verifier reads each requested document as a document — a PDF with a cross-reference table, a trailer and a page tree, a DOCX whose ZIP members inflate and whose required Word parts parse as XML — and as a record, comparing size, hash and page count with the manifest. A document whose recorded version is no longer the accepted one is reported with <code>historical: true</code> and a <code>HISTORICAL_EDITION</code> warning instead of passing as the current book.</p>
+        <p>The result is one JSON line, <code>{"schema_version":"edition-verification.v1","ok":true|false,"errors":[…],"warnings":[…],"documents":[{"format","path","bytes","sha256","pages","source_version","historical"}]}</code>; the exit status is 0 when <code>ok</code> is true and 2 in every other case, including invalid arguments, and the command writes nothing anywhere.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Code</th>
+              <th scope="col">Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>USAGE</code>, <code>MISSING_UNIVERSE</code></td>
+              <td>The arguments are invalid, or <code>--universe</code> is not a folder.</td>
+            </tr>
+            <tr>
+              <td><code>DUPLICATE_CHAPTER</code></td>
+              <td>Two chapter files carry the same number, so there is no single chapter set to bind the edition to.</td>
+            </tr>
+            <tr>
+              <td><code>NO_EXPORT</code></td>
+              <td>A requested format has no document from this run.</td>
+            </tr>
+            <tr>
+              <td><code>MISSING_MANIFEST</code>, <code>INVALID_MANIFEST</code></td>
+              <td>A document exists with no record binding it to a source version, or the record is unreadable, malformed or disagrees with the requested run.</td>
+            </tr>
+            <tr>
+              <td><code>INVALID_EXPORT</code></td>
+              <td>The file is not a readable document for its format, or its size, hash or page count disagrees with its record.</td>
+            </tr>
+            <tr>
+              <td><code>MISSING_FONT</code></td>
+              <td>With <code>--fonts</code>: a face cannot render a character the edition text needs.</td>
+            </tr>
+            <tr>
+              <td><code>HISTORICAL_EDITION</code></td>
+              <td>A warning, not a failure: the edition was rendered from a version the universe has left.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
         <h2>Editorial metadata and language</h2>
         <p>Before running the command the agent writes the [editorial metadata](wiki.html#definition-edition-metadata) to <code>exports/edition.json</code> with a title and, optionally, a subtitle, an author, a year, a dedication, a preface, an afterword and a language. Only the title is required; a missing value is completed from the universe metadata, and the renderer itself reads the title, the identifier and the language of the universe and uses the folder name when no identifier is present. The preface and the afterword are Markdown and their section heading becomes their title; the dedication is set on its own page, and both the preface and the afterword appear in the table of contents.</p>
         <p>The resolved edition language localizes labels only: the table of contents heading, the default preface and afterword headings, the chapter label, the fallback title of an untitled chapter and the language metadata written into the files. Romanian and English are required; any other code uses the English labels. The prose written by the agent is never translated, so a book in one language can be produced with labels in another.</p>
@@ -107,26 +162,27 @@
 
       <section>
         <h2>Produced files</h2>
-        <p>An edition file is named <code>&lt;slug&gt;-&lt;YYYYMMDD&gt;.pdf</code> or <code>.docx</code>, where the slug is the title normalized to lowercase letters, digits and hyphens with diacritics transliterated and the date is the build date. The output folder is created when it does not exist, and nothing else in the universe is touched: chapters, metadata, the editorial file and the turn records are read-only for the renderer.</p>
+        <p>An edition file is named <code>&lt;slug&gt;-&lt;YYYYMMDD&gt;.pdf</code> or <code>.docx</code>, where the slug is the title normalized to lowercase letters, digits and hyphens with diacritics transliterated and the date is the build date. The output folder is created when it does not exist, and it receives the documents of this run together with <code>edition-manifest.json</code>; nothing else in the universe is touched, because chapters, metadata, the editorial file and the turn records are read-only for the renderer.</p>
         <p>The PDF has a separate title page, the optional dedication, a table of contents whose titles and page numbers are computed by the layout engine, chapters that start on a new page under the localized chapter label, footer page numbering that omits the title page, bookmarks for titles, and a subsetted serif font with a Unicode mapping, which is what makes the text selectable and the diacritics correct. The DOCX has the same structure expressed through standard styles, page breaks between chapters, footer page numbering, and a real table-of-contents field whose cached result was computed by the same layout engine, so the page numbers are correct before a word processor refreshes the field.</p>
       </section>
 
       <section>
         <h2>Input requirements and fonts</h2>
         <p>The renderer reads the chapter files of the universe sorted by chapter number and requires at least one; without a chapter it fails with <code>NO_CHAPTERS</code>. A chapter title is its first heading, with a fallback built from the file name and then a localized untitled label. The accepted Markdown subset is the one the narrative skill writes: level one and level two headings, with deeper levels treated as level two, paragraphs separated by a blank line, blockquotes, scene separators and bold or italic emphasis. Tables, images, code, raw HTML and links are not accepted.</p>
-        <p>For the PDF the renderer searches system font locations in a fixed order and accepts a family only when its regular face covers, through its character map, every character of the book. Missing styles fall back to the regular face, and when no family covers at least the Latin set plus the Romanian diacritics the command fails with <code>MISSING_FONT</code> and exit status 1. The remedy is to install a serif TrueType font package or to point the renderer at a folder of <code>.ttf</code> files with <code>--fonts</code>; OpenType CFF fonts and font collections are ignored, and no font is bundled or redistributed with the repository.</p>
+        <p>The renderer searches system font locations in a fixed order, and it accepts a family only when every face the layout renders with covers, through its character map, the characters that face is asked for: the bold face the headings and the emphasised runs, the italic face the quotes, the bold-italic face both, and the regular face the essential baseline of printable Latin, Romanian diacritics and the typographic punctuation the labels and page numbers are built from. A style with no file of its own falls back to the regular face, and that is accepted only when the fallback face covers the characters that style renders.</p>
+        <p>There is no partial-font success: a character with no glyph is never replaced by <code>?</code> or by a dropped run, and when no family covers the edition the command fails with <code>MISSING_FONT</code>, exit status 1, naming the family, the face and the missing characters. The remedy is to install a serif TrueType font package or to point the renderer at a folder of <code>.ttf</code> files with <code>--fonts</code>; OpenType CFF fonts and font collections are ignored, and no font is downloaded, bundled or redistributed with the repository.</p>
       </section>
 
       <section>
         <h2>Result and exit codes</h2>
-        <p>On success the single JSON line carries <code>ok</code>, the edition title, the chapter count, the word count and an outputs array whose entries carry the format, an absolute path, the byte size and the page count, where the page count is an integer for a PDF and <code>null</code> for a DOCX. On failure it carries <code>ok: false</code> with a message and a code such as <code>USAGE</code>, <code>MISSING_UNIVERSE</code>, <code>NO_CHAPTERS</code>, <code>MISSING_FONT</code>, <code>BAD_JSON</code>, <code>IO_ERROR</code> or <code>INTERNAL</code>.</p>
+        <p>On success the single JSON line carries <code>ok</code>, the edition title, the chapter count, the word count, the chapter inventory it was rendered from, the <code>source_version</code> it is bound to, the file name of the edition record, and an outputs array whose entries carry the format, an absolute path, the byte size, the sha256 and the page count, where the page count is an integer for a PDF and <code>null</code> for a DOCX. On failure it carries <code>ok: false</code> with a message and a code such as <code>USAGE</code>, <code>MISSING_UNIVERSE</code>, <code>NO_CHAPTERS</code>, <code>MISSING_FONT</code>, <code>BAD_JSON</code>, <code>BAD_PDF</code>, <code>BAD_DOCX</code>, <code>EDITION_CHANGED</code>, <code>IO_ERROR</code> or <code>INTERNAL</code>.</p>
         <p>Exit statuses are part of the contract: 0 for success, 2 for a usage failure and 1 for a processing failure. A caller must treat any nonzero status as a failed edition, surface the code, and never infer success from partial output or from the existence of the process. The agent is required to report only what it read from that JSON line.</p>
       </section>
 
       <section>
         <h2>Dependencies and boundaries</h2>
         <p>The folder requires Node.js 20 or later, uses only built-in modules, and needs no installation step, no build step and no network access at runtime. A system serif TrueType font is an optional requirement that becomes mandatory the moment a PDF is requested, and its absence is reported rather than worked around. The inspection tools used during development to verify produced files are listed in the dependency record as verification tools, not as dependencies of the command.</p>
-        <p>The skill is a producer, not an editor: it never modifies the book, never writes the editorial metadata itself and never decides when an edition should exist. The complete contract, including the exit codes and the language order, is specified in <a href="specsLoader.html?spec=DS008-scripta-book-export-skill.md">DS008-scripta-book-export-skill</a>; the narrative side is <a href="scripta-ala-skill.html">scripta-ala</a>.</p>
+        <p>The skill is a producer, not an editor, and its second command is a judge, not a repairer: the renderer never modifies the book, never writes the editorial metadata itself and never decides when an edition should exist, and the verifier reads the artifacts, the universe and the record, reports what it found and writes nothing — it never repairs a document, never rewrites the record and never adds a chapter. The complete contract, including the exit codes and the language order, is specified in <a href="specsLoader.html?spec=DS008-scripta-book-export-skill.md">DS008-scripta-book-export-skill</a>; the narrative side is <a href="scripta-ala-skill.html">scripta-ala</a>.</p>
       </section>
     </div>
   </main>

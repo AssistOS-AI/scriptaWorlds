@@ -8,14 +8,18 @@ import { patchActivity } from './render/reader.js';
 import { LIVE_STATUSES, state } from './state.js';
 import { refreshDetail, upsertLive } from './universe.js';
 
+/**
+ * The aggregate stream of the open universe stays connected even when this client watches nothing: the
+ * reader has to see a turn another client started, and a reconnect has to reconcile what happened while
+ * the page was away. It is closed when the reader leaves the universe, not when the client is idle.
+ */
 export function syncEvents() {
-  if (state.watched.size === 0) {
+  if (!state.universeId) {
     stopEvents();
     return;
   }
   if (state.events) return;
   state.events = { mode: 'aggregate', source: null, gotMessage: false, retry: 0, streams: new Map(), poll: null };
-  if (!state.universeId) return;
   openAggregate();
 }
 

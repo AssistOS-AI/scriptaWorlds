@@ -1,8 +1,0 @@
-{
-  "teaser": "Rusk wrote the farm's seventh name into the green journal out of one hearing and took the count off his own head with the same line, and the law charged him nothing for it. The morning after, the flower closed and the wall took its sign apart leaf by leaf, and the ring read the quiet wall as the pen's answer, while the doctor's column had moved twice for a wheel and never once for a page. There is a name in the book now that no living hand can confirm, and at the root line a small new shape has come up that the Reader does not know.",
-  "options": [
-    { "label": "Write the new shape", "prompt": "Continue the story: have the crew bring the child up to read the small new shape at the root line and let the officer write it into the green journal within the three days, and show what happens when the first request of the quiet wall is answered with a pen." },
-    { "label": "Make Verrin read it", "prompt": "Continue the story: have the ring carry the green journal to Verrin and make her read the line the officer wrote from his own hearing, and show what the farm does when the only hand that remembers says the name in the book is wrong." },
-    { "label": "Jump nine years", "prompt": "Let nine years pass and show the next flowering, when the name comes off the page in the officer's writing and nobody in the ring has ever heard the child it belongs to." }
-  ]
-}

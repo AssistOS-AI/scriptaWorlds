@@ -82,7 +82,10 @@ has a `law`: it is the metaphysical contract of the book.
 
 `kind` ∈ `promise` | `mystery` | `decision` | `question`.
 `status` ∈ `open` | `deferred` | `closed` | `abandoned`.
-At most one new entry in `deferred_answers` per episode, with `due_chapter` ≤ current chapter + 3.
+At most one new entry in `deferred_answers` per episode, with `due_chapter` > the chapter that asks it and
+≤ current chapter + 3. An identifier is `<prefix>-NNNN` and unique across all four lists; `kind` and `status`
+come from the sets above; `created_chapter`, `asked_chapter` and `closed_chapter` reference accepted chapters
+(never a later one), while `due_chapter` may point forward.
 Every episode: move what has been paid into `closed` and honour entries whose due date has arrived.
 
 ## `atlas.json`
@@ -145,14 +148,19 @@ question) and proposes **concrete decisions** specific to this episode, in the f
 }
 ```
 
-Rules: 2–3 options; `label` short (at most ~6 words); `prompt` = the exact request that can be sent as it is;
-at least one option follows the main open thread. A missing file is tolerated (the interface hides the
-suggestion area), but the skill validator reports it.
+Rules: 2–3 options (a fourth is refused); `teaser` of 2–3 sentences, where a single short sentence is
+refused; `label` short — at most 6 words, 7 or 8 are tolerated with a warning and more is refused;
+`prompt` = the exact request that can be sent as it is; at least one option follows the main open thread.
+The file is required: a chapter without a usable offer is refused by the validator, so the turn fails with
+`INVALID_CHAPTER`. A chapter written before this rule still renders, with the interface showing a
+continuation idea derived from the threads instead of the missing offer.
 
 ## `drafts/NNNN-plan.md`
 
 The episode plan, with exactly the keys described in `SKILL.md` ("Episode plan" section). It is non-canonical:
-no fact enters canon without appearing in the chapter.
+no fact enters canon without appearing in the chapter. Every key carries a real value and appears once; the
+validator refuses an empty or placeholder value, a repeated key and a plan that does not declare four to six
+beats. `return_hook` is the only key that may say there is none.
 
 ## `exports/edition.json` (written only when a printed edition is prepared)
 

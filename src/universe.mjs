@@ -3,12 +3,12 @@
 // files belong to `./universe-chapters.mjs`, the canon snapshots to `./universe-state.mjs`.
 import { mkdir, readdir, unlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { config, DEFAULT_LANGUAGE, isSupportedLanguage } from './config.mjs';
+import { config, DEFAULT_LANGUAGE, isSupportedLanguage, languageLabel } from './config.mjs';
 import { fileExists, isUniverseId, slugify, syncUniverseSkills, universeDir, universesDir } from './paths.mjs';
 import { UniverseError, notFound } from './errors.mjs';
 import { composeLaw, resolveElements } from './periodic.mjs';
 import { pad, readJson, readText, writeJson } from './io.mjs';
-import { listChapterHistory, listExports, scanChapterFiles, scanTurns, turnSummary } from './universe-chapters.mjs';
+import { acceptedChapters, listChapterHistory, listExports, scanChapterFiles, scanTurns, turnSummary } from './universe-chapters.mjs';
 import { canonTemplate, charterTemplate, fictionPrompt, universeAgentsDoc } from './universe-prompts.mjs';
 
 function assertUniverseId(id) {
@@ -47,7 +47,7 @@ export async function listUniverses() {
     if (!entry.isDirectory() || !isUniverseId(entry.name)) continue;
     const meta = await readJson(join(universesDir, entry.name, 'universe.json'), null);
     if (!meta) continue;
-    const chapters = await scanChapterFiles(entry.name);
+    const chapters = await acceptedChapters(entry.name);
     universes.push(publicMeta(meta, chapters));
   }
   return universes.sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
@@ -62,7 +62,7 @@ export async function readUniverseMeta(id) {
 
 export async function readUniverseDetail(id) {
   const meta = await readUniverseMeta(id);
-  const chapters = await scanChapterFiles(id);
+  const chapters = await acceptedChapters(id);
   const turns = await scanTurns(id);
   const chapterTurn = new Map();
   for (const turn of turns) {
@@ -87,7 +87,7 @@ export async function readUniverseDetail(id) {
 
 export async function readChapter(id, number) {
   await readUniverseMeta(id);
-  const chapters = await scanChapterFiles(id);
+  const chapters = await acceptedChapters(id);
   const chapter = chapters.find((entry) => entry.number === number);
   if (!chapter) throw notFound(`Chapter ${number} does not exist.`);
   const markdown = await readText(join(universeDir(id), chapter.file), '');
@@ -115,7 +115,7 @@ export async function readChapter(id, number) {
 export async function readIdeas(id) {
   const meta = await readUniverseMeta(id);
   const threads = await readJson(join(universeDir(id), 'threads.json'), {}) ?? {};
-  const chapters = await scanChapterFiles(id);
+  const chapters = await acceptedChapters(id);
   const shorten = (text, max = 64) => {
     const clean = String(text ?? '').replace(/\s+/g, ' ').trim();
     return clean.length > max ? `${clean.slice(0, max - 1)}…` : clean;
@@ -253,7 +253,7 @@ export async function setUniverseLaw(id, law) {
   meta.law = clean;
   meta.updatedAt = new Date().toISOString();
   await writeJson(join(universeDir(id), 'universe.json'), meta);
-  const chapters = await scanChapterFiles(id);
+  const chapters = await acceptedChapters(id);
   return publicMeta(meta, chapters);
 }
 
@@ -289,17 +289,55 @@ export async function applyAgentTitle(id) {
   return name;
 }
 
+/**
+ * Change the language of a book. Before the book has chapters the change is applied everywhere the
+ * server owns the text: `universe.json`, the universe's own `AGENTS.md` and the generated language
+ * line of `charter.md`, and only that line, so a human edit of the charter is never overwritten.
+ * Once the book has chapters its language is fixed, because its prose is written in that language and
+ * a change would leave the chapters and the permanent guidance contradicting each other.
+ */
 export async function setUniverseLanguage(id, language) {
   const clean = String(language ?? '').trim().toLowerCase();
   if (!isSupportedLanguage(clean)) {
     throw new UniverseError('BAD_LANGUAGE', `Language "${language}" is not supported.`, 400);
   }
   const meta = await readUniverseMeta(id);
+  const previous = meta.language ?? DEFAULT_LANGUAGE;
+  const chapters = await scanChapterFiles(id);
+  if (previous === clean) return publicMeta(meta, chapters);
+  if (chapters.length > 0) {
+    throw new UniverseError(
+      'LANGUAGE_LOCKED',
+      `This book already has ${chapters.length} chapter(s) written in ${languageLabel(previous)}; its language is fixed. Start a new universe to write in another language.`,
+      409
+    );
+  }
   meta.language = clean;
   meta.updatedAt = new Date().toISOString();
   await writeJson(join(universeDir(id), 'universe.json'), meta);
-  const chapters = await scanChapterFiles(id);
-  return publicMeta(meta, chapters);
+  await refreshLanguageGuidance(id, meta);
+  return publicMeta(meta, []);
+}
+
+/** Refresh the language of the guidance the server generated, without touching human text. */
+async function refreshLanguageGuidance(id, meta) {
+  const dir = universeDir(id);
+  // `AGENTS.md` is generated by the server at creation and is rewritten for the new language.
+  await writeFile(
+    join(dir, 'AGENTS.md'),
+    universeAgentsDoc(meta.title, meta.language, meta.law, Array.isArray(meta.elements) ? meta.elements : []),
+    'utf8'
+  );
+  // `charter.md` belongs to a human: only its generated language line is refreshed, and only when
+  // that line is still present. A removed or rewritten line is left exactly as the human wrote it.
+  const charterPath = join(dir, 'charter.md');
+  const charter = await readText(charterPath, null);
+  if (charter === null) return;
+  const refreshed = charter.replace(
+    /Fiction language: \*\*[^*]*\*\*/,
+    `Fiction language: **${languageLabel(meta.language)} (${meta.language})**`
+  );
+  if (refreshed !== charter) await writeFile(charterPath, refreshed, 'utf8');
 }
 
 export async function setUniverseStatus(id, status) {
@@ -310,7 +348,7 @@ export async function setUniverseStatus(id, status) {
   meta.status = status;
   meta.updatedAt = new Date().toISOString();
   await writeJson(join(universeDir(id), 'universe.json'), meta);
-  const chapters = await scanChapterFiles(id);
+  const chapters = await acceptedChapters(id);
   return publicMeta(meta, chapters);
 }
 

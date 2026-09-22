@@ -1,19 +1,20 @@
 /**
- * scriptaWorlds — The New screen: two tabs, one field.
+ * scriptaWorlds — The New screen: three tabs, one field.
  *
- * Library holds the worlds from the book; Ingredients holds the table of ideas. Neither
- * creates anything: they only put a request in the field below, where the reader edits it.
+ * Custom holds one large field for a world of your own; Library holds the worlds from the book;
+ * Ingredients holds the table of ideas. Custom creates directly from its text; the other two only
+ * put a request in the field below, where the reader edits it before pressing Send.
  */
 import { closePopup } from '../overlays.js';
+import { customPanel } from './custom.js';
 import { bindIngredients, renderIngredientsPanel } from './ingredients.js';
 import { bindTableInfo } from './tableinfo.js';
 import { renderLibraryTab } from './library.js';
 import { dom, elem, languageLabel, plural, short, state } from '../state.js';
 import { selectUniverse } from '../universe.js';
 
-const NOTE = 'A template is a world that already has rules and a problem under way: open one and its '
-  + 'text lands in the field below, where you can change anything before you press Send — or build '
-  + 'your own world from the table of ideas under Ingredients.';
+const NOTE = 'Write your own world under Custom and press Start, or open a template from the Library and '
+  + 'change anything before you press Send — or build a world from the table of ideas under Ingredients.';
 
 export function welcomePanel() {
   const panel = elem('div', { className: 'welcome' });
@@ -24,6 +25,7 @@ export function welcomePanel() {
   panel.append(tabBar());
   const body = elem('div', { className: 'newbody' });
   const ingredients = ingredientsPanel();
+  body.append(customPanel());
   body.append(libraryPanel());
   body.append(ingredients);
   panel.append(body);
@@ -32,9 +34,11 @@ export function welcomePanel() {
   return panel;
 }
 
+export const NEW_TABS = [['custom', 'Custom'], ['library', 'Library'], ['ingredients', 'Ingredients']];
+
 function tabBar() {
   const tabs = elem('div', { className: 'newtabs', attrs: { id: 'newtabs', role: 'tablist' } });
-  for (const [key, label] of [['library', 'Library'], ['ingredients', 'Ingredients']]) {
+  for (const [key, label] of NEW_TABS) {
     tabs.append(elem('button', {
       className: 'newtab',
       text: label,
@@ -80,7 +84,8 @@ export function openTab(name) {
   state.newTab = name;
   renderTabs();
   if (name === 'library') renderLibraryTab();
-  else renderIngredientsPanel();
+  else if (name === 'ingredients') renderIngredientsPanel();
+  else document.getElementById('custom-spec')?.focus();
 }
 
 function renderTabs() {
@@ -97,7 +102,7 @@ function renderTabs() {
 export async function renderNewScreen() {
   renderTabs();
   if (state.newTab === 'library') await renderLibraryTab();
-  else await renderIngredientsPanel();
+  else if (state.newTab === 'ingredients') await renderIngredientsPanel();
 }
 
 /* ------------------------------------------------- universes (the dialog) */

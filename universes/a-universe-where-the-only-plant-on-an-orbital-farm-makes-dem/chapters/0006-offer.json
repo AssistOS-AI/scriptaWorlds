@@ -1,8 +1,0 @@
-{
-  "teaser": "Hesper has held its first choosing, and it was not made out of the book: the crew ruled that a name may be given to the flower only by the one hand that still remembers the child, and so the plant now carries the name of a girl from Verrin's bunk row, a name that exists in one old woman's head and nowhere on the farm. Rusk wrote the line and lost the voice his own line promised, the register gave up a whole year of its dead, and the child's reading says the count of three was never the plant's. Nothing in the wall moved for the name, and the flower is not looking at the blood at all.",
-  "options": [
-    { "label": "Open the line at the seat", "prompt": "Continue the story: have the crew open the root line at the seat where the open flower is looking, and show what the plant has been asking for since the hands went into the soil." },
-    { "label": "Let the name come back", "prompt": "Continue the story: let a few days pass and show what happens on Hesper when the name Verrin said once at the roots comes back to her in her sleep and somebody in the ring hears it." },
-    { "label": "Jump to the next flowering", "prompt": "Let nine years pass and show the next flowering on Hesper, when the only hand that holds the name given this year is dead and the farm's own rule says no one may give the flower a name at all." }
-  ]
-}

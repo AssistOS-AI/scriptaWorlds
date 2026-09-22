@@ -9,13 +9,15 @@
   "outputs": [
     "<universe>/exports/<slug>-<YYYYMMDD>.pdf",
     "<universe>/exports/<slug>-<YYYYMMDD>.docx",
-    "One-line JSON result on stdout with absolute output paths, sizes, and page count"
+    "<universe>/exports/edition-manifest.json",
+    "One-line JSON result on stdout with absolute output paths, sizes, hashes, page count and the accepted source version"
   ],
   "entrypoints": [
     "SKILL.md",
     "DS.md",
     "dependencies.md",
     "scripts/build-book.mjs",
+    "scripts/verify-edition.mjs",
     "scripts/lib/errors.mjs",
     "scripts/lib/truetype.mjs",
     "scripts/lib/fonts.mjs",
@@ -23,7 +25,9 @@
     "scripts/lib/book.mjs",
     "scripts/lib/layout.mjs",
     "scripts/lib/pdf.mjs",
-    "scripts/lib/docx.mjs"
+    "scripts/lib/docx.mjs",
+    "scripts/lib/verify.mjs",
+    "scripts/lib/manifest.mjs"
   ],
   "selfContained": true
 }

@@ -5,6 +5,7 @@ import { api, loadUniverses } from './api.js';
 import { showError } from './errors.js';
 import { closePanel } from './overlays.js';
 import { autosize, setComposerError } from './render/composer.js';
+import { renderCustomError } from './render/custom.js';
 import { ingredientPayload } from './render/ingredients.js';
 import { renderMenuItems } from './render/menu.js';
 import { render } from './render/reader.js';
@@ -44,10 +45,14 @@ export async function submitRequest(message, { kind = 'chapter', format = null, 
     showError('Pick a universe or start a new one first — your text stays in the field.');
     return;
   }
+  const current = state.slides?.[state.index] ?? null;
+  const sourceChapter = current?.kind === 'chapter' ? current.number : null;
   try {
     const payload = await api(`/api/universes/${encodeURIComponent(state.universeId)}/turns`, {
       method: 'POST',
-      body: kind === 'export' ? { message: text, kind, format: format ?? 'both' } : { message: text, kind }
+      body: kind === 'export'
+        ? { message: text, kind, format: format ?? 'both' }
+        : { message: text, kind, ...(sourceChapter === null ? {} : { sourceChapter }) }
     });
     const job = payload?.job;
     if (job?.id) {
@@ -79,9 +84,43 @@ export async function sendFromInput() {
   }
 }
 
+/**
+ * `Start` in the Custom tab: the text of the large field is the specification of a new universe, so
+ * it is validated here, sent as the law, and the field is cleared once the universe exists. The
+ * refusal line lives under that field rather than under the composer, because that is where the
+ * reader is looking.
+ */
+export async function startFromSpec(button = null) {
+  const text = String(state.customSpec ?? '').trim();
+  if (text.length < 24) {
+    state.customError = 'Describe the world in at least one sentence — that text becomes its law.';
+    renderCustomError();
+    return;
+  }
+  state.customError = null;
+  renderCustomError();
+  const control = button ?? document.getElementById('custom-start');
+  if (control) control.disabled = true;
+  try {
+    const created = await createFromField(text, {
+      onError: (message) => {
+        state.customError = message;
+        renderCustomError();
+      }
+    });
+    if (created) {
+      state.customSpec = '';
+      const field = document.getElementById('custom-spec');
+      if (field) field.value = '';
+    }
+  } finally {
+    if (control) control.disabled = false;
+  }
+}
+
 // With no universe open, Send builds one: the picked template, the chosen ingredients, or
 // just the text (which the server treats as the law). Nothing is created before this point.
-async function createFromField(text) {
+async function createFromField(text, { onError = null } = {}) {
   const elements = ingredientPayload();
   const body = {
     prompt: text,
@@ -107,9 +146,12 @@ async function createFromField(text) {
     }
     if (id) await selectUniverse(id, { targetIndex: 'end' });
     else await refreshDetail({ targetIndex: 'keep' });
+    return true;
   } catch (error) {
     // The field keeps the text; the line under it says what the server refused.
-    setComposerError(error.message);
+    if (onError) onError(error.message);
+    else setComposerError(error.message);
+    return false;
   }
 }
 

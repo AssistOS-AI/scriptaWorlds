@@ -1,8 +1,0 @@
-{
-  "teaser": "Rusk wrote his sixth line into the green journal so that the farm's first choosing would stand in the book and not in one old woman's memory, and Verrin would not say the name twice for a page. The plant answered the line with nothing at all, not one leaf in three days, and on the third morning the count took the officer's left eye — the first eye on Hesper, with a line that still stands and a ladder that has nothing left on it. What moved the plant this week was a quarter turn of a wheel at the seat where its water comes in, and the farm's own gauge said so in a tenth of a point.",
-  "options": [
-    { "label": "Close the line over his eye", "prompt": "Continue the story: let the ring write a new line over the officer's sixth line to close the count before it takes anything else from him, and show what the farm loses when the choosing disappears from the green journal." },
-    { "label": "Give the plant its water", "prompt": "Continue the story: have the crew open the root line at the seat the flower is watching and show what the plant does when the farm gives it water instead of a page." },
-    { "label": "Ask Verrin one more time", "prompt": "Continue the story: let the ring try to make Verrin say the name a second time so the officer's line can be kept, and show whether the law keeps the count on the hand that wrote or on the farm that asked." }
-  ]
-}

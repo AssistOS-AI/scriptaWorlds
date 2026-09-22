@@ -1,0 +1,47 @@
+{
+  "title": "Scripta Metrics Report",
+  "family": "scriptaworlds",
+  "summary": "Produce evidence-backed narrative metrics and five readable evaluation reports for an accepted scene, chapter, arc or book from a frozen input packet, keeping literary scores advisory.",
+  "aliases": [
+    "scripta-metrics-report"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "<result-dir>/assessment.json — the validated bundle (identity, scope, provenance, evidence, metrics, indicators, requirements, findings, preserved qualities, execution)",
+    "<result-dir>/index.md plus 01-stg-compliance.md, 02-specification-adherence.md, 03-metrics-and-indicators.md, 04-score-justification.md, 05-detected-issues.md",
+    "One JSON result envelope on stdout with the assessment id and output paths"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "dependencies.md",
+    "references/metric-catalog.md",
+    "references/report-contract.md",
+    "references/literary-rubric.md",
+    "references/calibration.md",
+    "scripts/build-report.mjs",
+    "scripts/lib/errors.mjs",
+    "scripts/lib/input.mjs",
+    "scripts/lib/workspace.mjs",
+    "scripts/lib/evidence.mjs",
+    "scripts/lib/segments.mjs",
+    "scripts/lib/selection.mjs",
+    "scripts/lib/candidate.mjs",
+    "scripts/lib/tokenize.mjs",
+    "scripts/lib/corpus.mjs",
+    "scripts/lib/overlap.mjs",
+    "scripts/lib/lexical.mjs",
+    "scripts/lib/rules.mjs",
+    "scripts/lib/registry.mjs",
+    "scripts/lib/rubric.mjs",
+    "scripts/lib/timing.mjs",
+    "scripts/lib/contamination.mjs",
+    "scripts/lib/aggregate.mjs",
+    "scripts/lib/annotations.mjs",
+    "scripts/lib/metrics.mjs",
+    "scripts/lib/assemble.mjs",
+    "scripts/lib/markdown.mjs",
+    "scripts/lib/views.mjs",
+    "scripts/lib/render.mjs"
+  ],
+  "selfContained": true
+}

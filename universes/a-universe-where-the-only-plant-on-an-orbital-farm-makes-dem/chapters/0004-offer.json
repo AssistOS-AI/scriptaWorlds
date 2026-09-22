@@ -1,8 +1,0 @@
-{
-  "teaser": "The farm taught its Reader to read shapes instead of chart words, and the lesson broke her own reading open: the words she said on the fourth morning came from the top of the sign and from what the farm remembered, not from the end of it. In the stores the old Reader admitted that nine years ago the line was his own writing and that the book took his tooth for it, and then refused the rest; the woman from the second shift answered what he would not, that the name the plant carries is her daughter's. Then Iven drew the sign of the last flowering on a crate, and it had no hooks at all — so what is the plant asking for now, with two mornings left before the count takes Officer Rusk's eye?",
-  "options": [
-    { "label": "Read the sign whole", "prompt": "Continue the story: send Bea back to the root wall to read the whole name sign end to end in the crown lamplight, and show what the three hooks ask once the flower sign and the long stroke are read as one shape." },
-    { "label": "Ask Iven alone", "prompt": "Continue the story: have Bea go down the spine alone and ask Iven to draw every sign from the last flowering, and show what the old Reader finally says about the line he wrote nine years ago and the tooth it cost him." },
-    { "label": "Let the eye be taken", "prompt": "Continue the story: let the third morning come with the sign still unread, and show the farm on the day the count takes the officer's eye and the name request still stands." }
-  ]
-}

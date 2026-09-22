@@ -4,11 +4,17 @@
 // Usage: npm run check
 
 import { spawn } from 'node:child_process';
-import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { config, probeOmp } from '../src/config.mjs';
-import { publicDir, rootDir, skillsDir, universeDir, universesDir } from '../src/paths.mjs';
+import { listProjectSkills, publicDir, rootDir, skillsDir, universeDir, universesDir } from '../src/paths.mjs';
 import { listUniverses, readUniverseDetail, setUniverseStatus } from '../src/universe.mjs';
+import { runStoreChecks } from './check-store.mjs';
+import { runTurnChecks } from './check-turns.mjs';
+import { runRuntimeChecks } from './check-runtime.mjs';
+import { runPhaseChecks } from './check-phases.mjs';
+import { runAssessmentChecks } from './check-assessments.mjs';
+import { runDataChecks } from './check-data.mjs';
 
 const failures = [];
 let step = 0;
@@ -48,7 +54,7 @@ const probe = await probeOmp();
 if (probe.ok) ok(`the "${config.ompBin}" agent answers: ${probe.stdout.trim().split('\n').pop()}`);
 else fail(`the "${config.ompBin}" agent cannot start: ${(probe.stderr || probe.stdout).trim().split('\n')[0]} (install Oh My Pi or set OMP_BIN)`);
 
-for (const skill of ['scripta-ala', 'scripta-book-export']) {
+for (const skill of ['scripta-ala', 'scripta-book-export', 'scripta-story-design', 'scripta-prose-craft', 'scripta-continuity-review', 'scripta-metrics-report']) {
   const exists = await stat(join(skillsDir, skill, 'SKILL.md')).then(() => true, () => false);
   if (exists) ok(`skill present: skills/${skill}/SKILL.md`);
   else fail(`missing skills/${skill}/SKILL.md`);
@@ -71,6 +77,11 @@ for (const name of ['app.js', 'markdown.js']) {
 }
 
 const checkSeed = `check-${Date.now().toString(36)}`;
+const projectSkills = await listProjectSkills();
+const requiredSkills = ['scripta-ala', 'scripta-book-export'];
+const missingSkills = requiredSkills.filter((name) => !projectSkills.includes(name));
+if (missingSkills.length === 0) ok(`project skills discovered: ${projectSkills.length} (${projectSkills.join(', ')})`);
+else fail(`missing project skills: ${missingSkills.join(', ')}`);
 let checkId = null;
 let checkDir = null;
 const tempDirs = [];
@@ -113,12 +124,75 @@ try {
   if (lawRejected) ok('universe without a fundamental law rejected with BAD_LAW');
   else fail('a universe without a fundamental law should be rejected');
 
-  const skillsLink = await stat(join(checkDir, '.agents', 'skills', 'scripta-ala')).then(() => true, () => false);
-  if (skillsLink) ok('skill symlinks installed inside the universe (.agents/skills/*)');
-  else fail('the universe has no symlinks in .agents/skills/');
+  // Changing the language of a book that has chapters is refused, and before that it rewrites the
+  // guidance the server generated instead of leaving permanent instructions in the old language.
+  {
+    const { readText } = await import('../src/io.mjs');
+    const englishDir = universeDir(english.id);
+    const charter = await readText(join(englishDir, 'charter.md'), '');
+    const guidance = await readText(join(englishDir, 'AGENTS.md'), '');
+    const guidanceUpdated = guidance.includes('Français') && charter.includes('Français');
+    await writeFile(join(englishDir, 'chapters', '0001-locked.md'), '# Locked\n\nA chapter written in the current language.\n', 'utf8');
+    let locked = '';
+    try {
+      await setUniverseLanguage(english.id, 'ro');
+    } catch (error) {
+      locked = error?.code;
+    }
+    // The charter keeps a human edit: a replaced language line is not rewritten again.
+    const edited = await readText(join(englishDir, 'charter.md'), '');
+    await rm(join(englishDir, 'chapters', '0001-locked.md'), { force: true });
+    if (guidanceUpdated && locked === 'LANGUAGE_LOCKED' && edited.includes('Français')) {
+      ok('book language: the change rewrites the generated guidance and is refused once the book has chapters');
+    } else {
+      fail(`book language: guidanceUpdated=${guidanceUpdated}, locked=${locked}, charter=${edited.slice(0, 80)}`);
+    }
+  }
+
+  {
+    const installed = (await readdir(join(checkDir, '.agents', 'skills'))).sort();
+    const missing = projectSkills.filter((name) => !installed.includes(name));
+    if (projectSkills.length >= 2 && missing.length === 0 && installed.length === projectSkills.length) {
+      ok(`skill symlinks installed inside the universe for every project skill (${projectSkills.length})`);
+    } else {
+      fail(`skill symlinks: discovered ${projectSkills.join(', ')} but found ${installed.join(', ')}`);
+    }
+  }
 
   await writeFile(join(checkDir, 'chapters', '0001-check.md'), `# Verification\n\n${'A sample paragraph with diacritics: ș ț ă â î, quotes “…” and a dash — test.\n\n'.repeat(40)}`, 'utf8');
   await writeFile(join(checkDir, 'canon.md'), '# Canon — verification\n\n## Fundamental laws\n- Nothing moves without paying with a memory.\n\n## World\n- Test.\n\n## Recurring characters\n\n## Timeline\n\n## Stable facts\n\n## Mysteries with a fixed cause\n', 'utf8');
+  // A complete, valid chapter fixture: the plan, the reader offer and a touched atlas node, so the
+  // validator can prove `ok: true` rather than merely that the script runs.
+  await mkdir(join(checkDir, 'drafts'), { recursive: true });
+  await writeFile(join(checkDir, 'drafts', '0001-plan.md'), `# Plan chapter 0001
+- dramatic_question: Can a memory be bought without paying?
+- anchor_character: the keeper
+- character_want: to forget a debt
+- primary_idea: memory as currency
+- human_need: safety
+- opening_hook: the keeper counts the night's debts.
+- beats:
+  - the keeper finds a memory that is not theirs
+  - the registry refuses it
+  - the keeper decides to keep it
+  - the debt grows
+- decision: the keeper refuses to sell the memory back to the registry
+- local_consequence: the registry flags the keeper in the ledger
+- long_horizon: the memory returns in ten years, priced higher
+- payoff: the debt the keeper carried is finally weighed
+- return_hook: none
+- new_entities: []
+- deferred_answers: []
+`, 'utf8');
+  await writeFile(join(checkDir, 'chapters', '0001-offer.json'), JSON.stringify({
+    teaser: 'The keeper kept a memory that was not theirs. Now the registry wants it back, and the ledger knows the price.',
+    options: [
+      { label: 'Return it', prompt: 'Continue the story: the keeper returns the memory.' },
+      { label: 'Hide it', prompt: 'Continue the story: the keeper hides the memory.' }
+    ]
+  }), 'utf8');
+  await writeFile(join(checkDir, 'threads.json'), JSON.stringify({ open: [], closed: [], promises: [], deferred_answers: [] }), 'utf8');
+  await writeFile(join(checkDir, 'atlas.json'), JSON.stringify({ version: 1, axes: [{ id: 'memory', nodes: [{ id: 'memory-as-currency', state: 'dramatized', chapters: [1] }] }] }), 'utf8');
   const detail = await readUniverseDetail(checkId);
   if (detail.chapters.length === 1 && detail.chapters[0].words > 50) {
     ok(`store: chapter detected (${detail.chapters[0].words} words, title "${detail.chapters[0].title}")`);
@@ -142,10 +216,35 @@ try {
       return null;
     }
   })();
-  if (validationReport && validationReport.chapter.file === 'chapters/0001-check.md') {
-    ok(`scripta-ala validator runs (errors: ${validationReport.errors.length}, warnings: ${validationReport.warnings.length})`);
+  if (validationReport && validationReport.ok === true && validationReport.errors.length === 0 && validationReport.chapter.file === 'chapters/0001-check.md') {
+    ok(`scripta-ala validator passes a complete fixture (words ${validationReport.chapter.words}, warnings ${validationReport.warnings.length})`);
   } else {
-    fail(`the scripta-ala validator did not produce the expected report: ${validation.stderr.trim().split('\n')[0] ?? validation.stdout.slice(0, 120)}`);
+    fail(`the scripta-ala validator did not return ok:true on the valid fixture: ${JSON.stringify(validationReport?.errors)} ${validation.stderr.trim().split('\n')[0] ?? ''}`);
+  }
+
+  // Malformed state answers a structured report instead of a stack trace, so acceptance can always
+  // read a reason rather than guess from an empty process.
+  {
+    await writeFile(join(checkDir, 'threads.json'), JSON.stringify({ open: {}, closed: [], promises: [], deferred_answers: [] }), 'utf8');
+    const malformed = await run(process.execPath, [
+      join(skillsDir, 'scripta-ala', 'scripts', 'validate-chapter.mjs'),
+      '--universe', checkDir, '--chapter', '0001'
+    ], checkDir);
+    const report = (() => {
+      try {
+        return JSON.parse(malformed.stdout.trim().split('\n').pop());
+      } catch {
+        return null;
+      }
+    })();
+    await writeFile(join(checkDir, 'threads.json'), JSON.stringify({ open: [], closed: [], promises: [], deferred_answers: [] }), 'utf8');
+    const structured = report !== null && report.ok === false
+      && report.errors.some((entry) => entry.includes('open must be a list'));
+    if (structured && malformed.code === 1 && !malformed.stderr.includes('TypeError')) {
+      ok('scripta-ala validator: malformed state answers a structured JSON report and exits 1, without a stack trace');
+    } else {
+      fail(`validator malformed input: report=${JSON.stringify(report?.errors)}, code=${malformed.code}, stack=${malformed.stderr.includes('TypeError')}`);
+    }
   }
 
   const render = await run(process.execPath, [
@@ -169,46 +268,6 @@ try {
   const universes = await listUniverses();
   if (universes.some((entry) => entry.id === checkId)) ok(`universe list: ${universes.length} entries`);
   else fail('the check universe does not appear in the list');
-
-  // Durability: queue persisted on disk + rollback after a restart.
-  const durable = await createUniverse({ title: `Queue verification ${checkSeed}`, law: 'Cities exist only as long as someone tells them; silence dissolves them into stone.', language: 'ro' });
-  tempDirs.push(durable.id);
-  const durableDir = universeDir(durable.id);
-  await writeFile(join(durableDir, 'turns', '0001.json'), JSON.stringify({ number: 1, kind: 'chapter', status: 'queued', request: 'queued request', createdAt: new Date().toISOString() }), 'utf8');
-  await writeFile(join(durableDir, 'turns', '0002.json'), JSON.stringify({ number: 2, kind: 'chapter', status: 'running', request: 'interrupted request', chapterNumber: 1, createdAt: new Date().toISOString() }), 'utf8');
-  await writeFile(join(durableDir, 'chapters', '0001-half.md'), '# Half\n\npartial text\n', 'utf8');
-  await writeFile(join(durableDir, 'canon.md'), '# Canon — durable\n\n## Fundamental laws\n- Nothing moves without paying with a memory.\n\n## World\n- New state written by the agent before the crash.\n\n## Recurring characters\n\n## Timeline\n\n## Stable facts\n\n## Mysteries with a fixed cause\n', 'utf8');
-  await mkdir(join(durableDir, 'turns', '0002.prev'), { recursive: true });
-  await writeFile(join(durableDir, 'turns', '0002.prev', 'canon.md'), '# Canon — durable\n\n## Fundamental laws\n- Nothing moves without paying with a memory.\n\n## World\n- (still undefined)\n\n## Recurring characters\n\n## Timeline\n\n## Stable facts\n\n## Mysteries with a fixed cause\n', 'utf8');
-  const recovery = await recoverUniverse(durable.id);
-  const afterCanon = await readFile(join(durableDir, 'canon.md'), 'utf8').catch(() => '');
-  const partialGone = !(await stat(join(durableDir, 'chapters', '0001-half.md')).then(() => true, () => false));
-  const queuedKept = recovery.queued.length === 1 && recovery.queued[0].number === 1;
-  if (queuedKept && recovery.interrupted.includes(2) && partialGone && afterCanon.includes('(still undefined)')) {
-    ok('durability: the queue stays on disk, a `running` turn becomes `interrupted`, canon rolls back, the partial chapter disappears');
-  } else {
-    fail(`durability: queued=${recovery.queued.length}, interrupted=[${recovery.interrupted}], partialGone=${partialGone}, canonRestored=${afterCanon.includes('(still undefined)')}`);
-  }
-
-  // Concrete ideas (used by the narrative closing panel) + reading ALA's offer from a chapter.
-  await writeFile(join(durableDir, 'threads.json'), JSON.stringify({
-    open: [{ id: 'fir-0001', kind: 'mister', question: 'Who built cage 31?', created_chapter: 1, due_chapter: 3, status: 'deschis' }],
-    closed: [],
-    promises: [],
-    deferred_answers: []
-  }), 'utf8');
-  await writeFile(join(durableDir, 'chapters', '0001-hook.md'), '# Thread\n\nSample text long enough to be counted.\n', 'utf8');
-  await writeFile(join(durableDir, 'chapters', '0001-offer.json'), JSON.stringify({
-    teaser: 'Something changed in the archive and the registry does not know yet.',
-    options: [{ label: 'Follow the registry', prompt: 'Continue the story: show what the registry does.' }]
-  }), 'utf8');
-  const chapter = await readChapter(durable.id, 1);
-  const ideas = await readIdeas(durable.id);
-  if (chapter.offer?.options?.length === 1 && ideas.length >= 2 && ideas.some((idea) => idea.prompt.includes('cage 31'))) {
-    ok(`ALA offer read from chapter/NNNN-offer.json and ${ideas.length} continuation ideas derived from threads`);
-  } else {
-    fail(`offer/ideas: offer=${JSON.stringify(chapter.offer)}, ideas=${ideas.length}`);
-  }
 
   // Rewrite: version archiving and dropping later chapters.
   // Importing the server module must have no side effects: the check suite imports it for one
@@ -301,87 +360,8 @@ try {
     }
   }
 
-  // The Periodic Table of Ideas is a data contract: twelve families, fifteen operators, one hundred
-  // and eighty cells whose systematic symbol is the family letter followed by the operator letter.
-  {
-    const { loadTable, tableForClient, resolveElements, composeLaw, elementLines } = await import('../src/periodic.mjs');
-    const table = await loadTable();
-    const raw = JSON.parse(await readFile(join(rootDir, 'data', 'periodic-table.json'), 'utf8'));
-    const { cellDetail } = await import('../src/periodic.mjs');
-    // The letters live on the family and operator records themselves (family letter + operator
-    // letter is what makes a cell symbol, e.g. `CA` = cosmos + alteration).
-    const familyLetters = Object.fromEntries((raw.families ?? []).map((family) => [family.name, family.letter]));
-    const operatorLetters = Object.fromEntries((raw.operators ?? []).map((operator) => [operator.name, operator.letter]));
-    const wrongSymbol = table.elements.filter((element) => element.symbol
-      !== `${familyLetters[element.family]}${operatorLetters[element.operator]}`);
-    const symbols = new Set(table.elements.map((element) => element.symbol));
-    const familyNames = table.familyList.map((family) => family.name);
-    const perFamily = new Map(familyNames.map((family) => [family, table.elements.filter((element) => element.family === family)]));
-    const orderOk = [...perFamily.values()].every((list) => list.length === table.operators.length);
-    const client = await tableForClient();
-    // Every cell can be opened in the interface: the book's own prose plus a one-line request.
-    const openCell = await cellDetail('LE');
-    const cellText = JSON.stringify(openCell);
-    const cellOk = openCell.name === 'Neutron Life' && openCell.family === 'LIFE'
-      && openCell.operator === 'EXTENSION' && openCell.prompt.startsWith('A universe where ')
-      && openCell.operatorDoes.length > 20 && openCell.familyNote.length > 40
-      && openCell.essence.length > 20 && openCell.ingredient.startsWith('Neutron Life:')
-      // The book's six repeated sections are not served: what a reader sees is the idea, the
-      // sentence about that kind of change, the work it appears in and the scenes that use it.
-      && !('sections' in openCell)
-      && Array.isArray(openCell.scenes) && openCell.scenes.length >= 1
-      && openCell.scenes.every((scene) => scene.title && scene.situation && scene.story && scene.slug)
-      && !/(Kesh|the Atlas|PERIODIC TABLE|scarcity-shift|Nucleus)/.test(cellText);
-    let unknownCell = '';
-    try {
-      await cellDetail('ZZ');
-    } catch (error) {
-      unknownCell = error.code;
-    }
-    const familiesAreObjects = table.familyList.every((family) => family.name && family.label && typeof family.letter === 'string' && Array.isArray(family.cells) && family.cells.length === 15);
-    if (familyNames.length === 12 && table.operators.length === 15 && table.elements.length === 180
-      && symbols.size === 180 && wrongSymbol.length === 0 && orderOk && client.elements.length === 180
-      && client.elements.every((element) => element.symbol && element.name && element.family && element.operator && element.gist && element.prompt)
-      && familiesAreObjects && cellOk && unknownCell === 'UNKNOWN_ELEMENT') {
-      ok(`periodic table: ${familyNames.length} families × ${table.operators.length} operators, ${table.elements.length} cells, opened with the idea, the family sentence and the scenes that use the cell`);
-    } else {
-      fail(`periodic table: families=${familyNames.length}, operators=${table.operators.length}, cells=${table.elements.length}, unique=${symbols.size}, wrong=${wrongSymbol.length}, familiesOk=${familiesAreObjects}, cellOk=${cellOk}, unknownCell=${unknownCell}`);
-    }
-
-    // Choosing ingredients: canonical symbols only, a proposed element the table does not contain,
-    // a hard cap, and the law composed from what was chosen.
-    // The universe's own AGENTS.md lists the ingredients as sentences too, not as symbols.
-    const { universeAgentsDoc } = await import('../src/universe-prompts.mjs');
-    const agentsDoc = universeAgentsDoc('Probe', 'en', 'A law long enough to be accepted by the store.', chosenForDoc());
-    function chosenForDoc() {
-      return [{ symbol: 'RG', name: 'Hunger for Novelty', family: 'META-REALITY', operator: 'GENESIS', gist: 'the possible becomes painfully repeatable', ingredient: 'Hunger for Novelty: a universe where the possible becomes painfully repeatable (science fantasy and meta-reality, genesis).', custom: false }];
-    }
-    const chosen = await resolveElements(['CA', { symbol: 'MR' }, { custom: true, name: 'The Salt Debt', family: 'SOCIETY', operator: 'SCARCITY SHIFT' }]);
-    const law = composeLaw(chosen);
-    // What a person reads — the law, the request field, canon.md — never shows the two-letter
-    // symbols that address cells inside the table.
-    const humanLines = [...elementLines(chosen), ...law.split('\n')].filter((line) => line.trim());
-    const coded = humanLines.filter((line) => /(?:^|[^A-Za-z])[A-Z]{2}(?:[^A-Za-z]|$)/.test(line) && !/^The world is built/.test(line));
-    const rejects = [];
-    for (const bad of [['ZZ'], ['CA', 'CA', 'CA', 'CA', 'CA', 'CA', 'CA'], [{ custom: true, name: 'Unknown Family', family: 'NOPE' }]]) {
-      try {
-        await resolveElements(bad);
-        rejects.push('accepted');
-      } catch (error) {
-        rejects.push(error.code);
-      }
-    }
-    if (chosen.length === 3 && chosen[0].symbol === 'CA' && chosen[2].custom === true
-      && law.includes('Alternative Gravity') && law.includes('The Salt Debt') && law.length >= 24
-      && chosen.every((element) => element.custom || element.ingredient)
-      && coded.length === 0 && humanLines.some((line) => /a universe where/.test(line))
-      && agentsDoc.includes('a universe where the possible becomes painfully repeatable') && !/\bRG\b/.test(agentsDoc)
-      && rejects.join(',') === 'UNKNOWN_ELEMENT,BAD_ELEMENTS,BAD_ELEMENT_FAMILY') {
-      ok('ingredients: symbols resolve, a proposed element is kept, bad input is refused, the law is composed');
-    } else {
-      fail(`ingredients: length=${chosen.length}, law=${law.slice(0, 40)}, rejects=${rejects.join(',')}, coded=${JSON.stringify(coded.slice(0, 2))}, agentsDocSymbols=${/\bRG\b/.test(agentsDoc)}`);
-    }
-  }
+  // The data contract of the design instrument lives in its own module.
+  await runDataChecks({ ok, fail });
 
   // A creation request that names a library template AND its own ingredients keeps both: the route
   // must pass the reader's elements into the template composition.
@@ -395,15 +375,18 @@ try {
       libraryTemplate: template
     });
     const plain = universeInputFromRequest({ body: { title: 'T', premise: 'p'.repeat(40), language: 'ro' } });
+    // Free text with no template and no ingredients becomes the law, the empty-template case.
+    const freeText = universeInputFromRequest({ body: { prompt: 'A world where the tide keeps every promise it ever made to the shore.', language: 'en', start: true } });
     const expected = creationFromTemplate(template, { language: 'ro', prompt: 'x'.repeat(40) });
     const symbols = merged.elements.map((element) => (typeof element === 'string' ? element : (element.symbol ?? element.name)));
     const custom = merged.elements.find((element) => typeof element === 'object' && element?.custom === true);
     if (fromTemplate.elements.join(',') === expected.elements.join(',')
       && symbols.join(',') === 'LE,TQ,CA,The Salt Debt' && custom?.name === 'The Salt Debt'
-      && plain.premise.length === 40) {
-      ok('creation input: a template keeps its own cells and the reader may add ingredients on top');
+      && plain.premise.length === 40
+      && freeText.law === 'A world where the tide keeps every promise it ever made to the shore.' && freeText.elements.length === 0) {
+      ok('creation input: a template keeps its own cells, the reader may add ingredients, and free text becomes the law');
     } else {
-      fail(`creation input: template=${fromTemplate.elements.join(',')}, merged=${symbols.join(',')}, custom=${custom?.name ?? 'none'}, plain=${plain.premise.length}`);
+      fail(`creation input: template=${fromTemplate.elements.join(',')}, merged=${symbols.join(',')}, custom=${custom?.name ?? 'none'}, plain=${plain.premise.length}, freeText=${freeText.law.slice(0, 30)}`);
     }
   }
 
@@ -422,19 +405,9 @@ try {
   } else {
     fail(`create body mapping: ${JSON.stringify({ typedOnly, legacy, fromTemplate, mixed })}`);
   }
-
-  const { archiveChapter, dropChaptersFrom, listChapterHistory } = await import('../src/universe-chapters.mjs');
-  await writeFile(join(durableDir, 'chapters', '0002-two.md'), '# Two\n\ntext two\n', 'utf8');
-  await writeFile(join(durableDir, 'chapters', '0003-three.md'), '# Three\n\nthree text\n', 'utf8');
-  const archived = await archiveChapter(durable.id, 1);
-  const history = await listChapterHistory(durable.id, 1);
-  const dropped = await dropChaptersFrom(durable.id, 2);
-  const twoGone = !(await stat(join(durableDir, 'chapters', '0002-two.md')).then(() => true, () => false));
-  if (archived?.version === 1 && history.length === 1 && dropped.join(',') === '2,3' && twoGone) {
-    ok('rewrite: the old version is archived in chapters/.history/ and later chapters can be dropped');
-  } else {
-    fail(`rewrite: archived=${archived?.version}, history=${history.length}, dropped=[${dropped}], 0002 gone=${twoGone}`);
-  }
+  // The store, queue, rewrite and export integrity group lives in its own module so that this
+  // script stays a readable sequence of checks.
+  await runStoreChecks({ ok, fail, checkSeed, tempDirs });
 
   const { listTemplates } = await import('../src/templates.mjs');
   const templates = await listTemplates('ro');
@@ -466,6 +439,13 @@ try {
   } else {
     fail(`naming: rejected=${JSON.stringify(rejectedName)}, assigned=${JSON.stringify(assigned)}, autoTitle=${afterNaming.autoTitle}`);
   }
+  await runTurnChecks({ ok, fail, checkSeed, tempDirs });
+  // The separate design and review phases, over a frozen packet, with no model budget.
+  await runPhaseChecks({ ok, fail, run });
+  // The requested and arc-end orchestration around those phases.
+  await runAssessmentChecks({ ok, fail, checkSeed, tempDirs });
+  // The runtime group stops the job manager on purpose, so it runs after every check that queues a turn.
+  await runRuntimeChecks({ ok, fail, checkSeed, tempDirs, run });
 } catch (error) {
   fail(`the technical pipeline check failed: ${error?.message ?? error}`);
 } finally {

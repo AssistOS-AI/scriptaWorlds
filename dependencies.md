@@ -2,10 +2,8 @@
 
 ## Scope
 
-This record covers the whole scriptaWorlds project: the Node.js server (`src/`), the static interface
-(`public/`), the project skills (`skills/`), the universe template catalogue (`templates/`) and the data in
-`universes/`. Each skill keeps its own local record (`skills/scripta-ala/dependencies.md`,
-`skills/scripta-book-export/dependencies.md`).
+This record covers the whole scriptaWorlds project: the Node.js server (`src/`), the static interface (`public/`), the project skills (`skills/`), the universe template catalogue (`templates/`) and the data in
+`universes/`. Each skill keeps its own local record (`skills/<name>/dependencies.md`), and every one of the six product skills states there that it has no external dependency beyond Node.js.
 
 ## Runtime prerequisites
 

@@ -83,9 +83,10 @@ ${elements.length ? elementLines(elements).join('\n') : '- (none chosen: the wor
   schema vocabulary (plan keys, canon section names, JSON fields) in English.
 - Work only inside this folder. Do not run \`git\`, do not touch folders outside it.
 - Chapters are written through the \`scripta-ala\` skill; printed editions through \`scripta-book-export\`.
-- You write: \`canon.md\`, \`threads.json\`, \`atlas.json\`, \`chapters/*.md\`, \`chapters/NNNN-offer.json\`, \`exports/edition.json\`.
+- You write: \`canon.md\`, \`threads.json\`, \`atlas.json\`, \`chapters/*.md\`, \`chapters/NNNN-offer.json\`, \`drafts/NNNN-plan.md\`, \`exports/edition.json\`.
 - If the universe still has no name (universe.json → autoTitle: true), the first chapter names it:
-  write one descriptive line to \`universe-title.txt\` (in the fiction language) saying what is unique about this universe.
+  write a short name to \`universe-title.txt\` (in the fiction language) — 2 to 7 words, at most 60
+  characters, a name and not a sentence, no colon, no final period, no description of the law.
 - The server writes: \`universe.json\`, \`turns/*\`. Do not modify them.
 - Short paragraphs, concrete scenes, no encyclopaedia blocks.
 `;

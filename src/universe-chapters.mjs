@@ -101,6 +101,28 @@ export async function scanTurns(id) {
   return turns.sort((a, b) => a.number - b.number);
 }
 
+/**
+ * The chapter numbers a running turn is writing. They are candidates rather than accepted chapters:
+ * a chapter being written for the first time, or the chapter a rewrite is replacing, is hidden from
+ * readers until the turn commits, and the accepted version comes back if it fails.
+ */
+export async function writingChapterNumbers(id) {
+  const numbers = new Set();
+  for (const turn of await scanTurns(id)) {
+    if (turn.status !== 'running') continue;
+    if (turn.kind !== 'chapter') continue;
+    if (Number.isInteger(turn.chapterNumber)) numbers.add(turn.chapterNumber);
+  }
+  return numbers;
+}
+
+/** The accepted chapters of a universe: the view a reader, a review or an edition may rely on. */
+export async function acceptedChapters(id) {
+  const chapters = await scanChapterFiles(id);
+  const hidden = await writingChapterNumbers(id);
+  return hidden.size === 0 ? chapters : chapters.filter((chapter) => !hidden.has(chapter.number));
+}
+
 /** The turn record without the answer and the agent log, as the interface lists it. */
 export function turnSummary(turn) {
   return {
@@ -161,7 +183,7 @@ export async function removeChapterFiles(id, number) {
   }
 }
 
-/** Copy the current text of a chapter to chapters/.history/NNNN-vK.md (version archive). */
+/** Copy the current text and offer of a chapter to `chapters/.history/NNNN-vK.md` (version archive). */
 export async function archiveChapter(id, number) {
   const dir = join(universeDir(id), 'chapters');
   const historyDir = join(dir, '.history');
@@ -176,10 +198,25 @@ export async function archiveChapter(id, number) {
   const text = await readText(join(dir, chapterFile), '');
   await mkdir(historyDir, { recursive: true });
   const existing = await readdir(historyDir).catch(() => []);
-  const version = existing.filter((name) => name.startsWith(`${pad(number)}-v`)).length + 1;
+  const version = existing.filter((name) => name.startsWith(`${pad(number)}-v`) && name.endsWith('.md')).length + 1;
   const target = join(historyDir, `${pad(number)}-v${version}.md`);
   await writeFile(target, text, 'utf8');
-  return { file: `chapters/.history/${pad(number)}-v${version}.md`, text, version };
+  // The reader offer is part of the chapter's accepted state: archive it under the same version so a
+  // failed rewrite can restore both the text and the offer.
+  const offerName = `${pad(number)}-offer.json`;
+  const offer = await readText(join(dir, offerName), null);
+  let offerFile = null;
+  if (offer !== null) {
+    offerFile = `chapters/.history/${pad(number)}-v${version}-offer.json`;
+    await writeFile(join(historyDir, `${pad(number)}-v${version}-offer.json`), offer, 'utf8');
+  }
+  return {
+    file: `chapters/.history/${pad(number)}-v${version}.md`,
+    offerFile,
+    text,
+    offer,
+    version
+  };
 }
 
 /** Remove chapters from `fromNumber` upwards (used when rewriting an older chapter). */
@@ -227,25 +264,3 @@ export async function listExports(id) {
   return files.sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
 }
 
-/** The editions written since `sinceMs`, as the turn result reports them. */
-export async function recentExportFiles(universeId, sinceMs) {
-  const dir = join(universeDir(universeId), 'exports');
-  let entries = [];
-  try {
-    entries = await readdir(dir);
-  } catch {
-    return [];
-  }
-  const files = [];
-  for (const name of entries) {
-    if (!EXPORT_RE.test(name)) continue;
-    const info = await stat(join(dir, name));
-    if (info.mtimeMs + 1_000 < sinceMs) continue;
-    files.push({
-      format: name.toLowerCase().endsWith('.pdf') ? 'pdf' : 'docx',
-      name,
-      bytes: info.size
-    });
-  }
-  return files;
-}

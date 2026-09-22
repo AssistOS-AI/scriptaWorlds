@@ -1,0 +1,24 @@
+{
+  "title": "Scripta Story Design",
+  "family": "scriptaworlds",
+  "summary": "Designs or revises a book's thematic question, reader promise, flexible arcs, characters, relationships and world assumptions before drafting, then validates the design.v1 brief with a dependency-free Node.js validator.",
+  "aliases": [
+    "scripta-story-design"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "A story-design brief JSON (schema design.v1) written as proposal/story-design.json in an external assessment workspace, with thematic question, reader promise, arcs, characters, relationships and world assumptions",
+    "One JSON validation result on stdout with schema_version, ok, errors and warnings (validate-design.mjs)"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "dependencies.md",
+    "references/concepts.md",
+    "references/design-workflow.md",
+    "references/source-map.md",
+    "scripts/validate-design.mjs",
+    "scripts/lib/design.mjs",
+    "scripts/lib/packet.mjs"
+  ],
+  "selfContained": true
+}

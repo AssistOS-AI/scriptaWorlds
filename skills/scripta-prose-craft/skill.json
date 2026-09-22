@@ -1,0 +1,23 @@
+{
+  "title": "Scripta Prose Craft",
+  "family": "scriptaworlds",
+  "summary": "Shapes and revises fictional scenes through focalization, character voice, subtext, narrative blocks and rhythm, with a dependency-free prose-profile validator (profile.v1) that checks an assessment-input.v2 packet. A separate-phase craft skill, not used during chapter writing.",
+  "aliases": [
+    "scripta-prose-craft"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "proposal/prose-profile.json validated by scripts/validate-profile.mjs",
+    "Prose directions and bounded candidate edits handed to ALA"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "references/narrative-blocks.md",
+    "references/voice-and-revision.md",
+    "scripts/validate-profile.mjs",
+    "scripts/lib/packet.mjs",
+    "scripts/lib/profile.mjs",
+    "scripts/lib/components.mjs"
+  ],
+  "selfContained": true
+}

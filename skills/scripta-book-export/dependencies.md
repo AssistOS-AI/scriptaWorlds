@@ -3,9 +3,12 @@
 ## Scope
 
 This record covers the complete `scripta-book-export` skill folder: `SKILL.md`, `skill.json`,
-`DS.md`, this file, the executable entry point `scripts/build-book.mjs`, and the engine modules it
-imports from `scripts/lib/` — `errors.mjs`, `truetype.mjs`, `fonts.mjs`, `markdown.mjs`, `book.mjs`,
-`layout.mjs`, `pdf.mjs` and `docx.mjs`.
+`DS.md`, this file, the two executables `scripts/build-book.mjs` (the renderer the agent runs) and
+`scripts/verify-edition.mjs` (the read-only verifier the server runs), the engine modules they import
+from `scripts/lib/` — `errors.mjs`, `truetype.mjs`, `fonts.mjs`, `markdown.mjs`, `book.mjs`,
+`layout.mjs`, `pdf.mjs`, `docx.mjs`, `verify.mjs` (structural PDF/DOCX verification) and
+`manifest.mjs` (the `edition-manifest.v1` record) — and the focused `node --test` suites under
+`tests/`.
 
 ## Runtime prerequisites
 
@@ -15,7 +18,10 @@ imports from `scripts/lib/` — `errors.mjs`, `truetype.mjs`, `fonts.mjs`, `mark
   on the project's stated engine range (`package.json` → `engines.node: ">=20"`).
 - Invocation (from a universe folder, resolved through the project symlink):
   `node .agents/skills/scripta-book-export/scripts/build-book.mjs --universe . --format both`.
-- No installation step, no build step, no network access at runtime.
+  The server's acceptance step is
+  `node .agents/skills/scripta-book-export/scripts/verify-edition.mjs --universe . --format both`.
+- No installation step, no build step, no network access at runtime. The verifier reads the produced
+  files with `node:zlib` (`inflateRawSync`) and `node:crypto` (sha256) and writes nothing.
 
 ## External dependencies
 
@@ -35,10 +41,17 @@ the engines) and use Node.js built-ins only (`node:zlib` for
   then any `/usr/share/fonts/truetype/liberation*`, then `/usr/share/fonts/google-noto-vf/NotoSerif*`,
   then any other serif TrueType family under `/usr/share/fonts`. `--fonts <folder>` replaces the
   whole search with that folder.
-- **Acceptance rule:** a family is used only if its regular face covers, through its parsed `cmap`,
-  every character of the book; missing styles fall back to the regular face. A family that covers at
-  least printable ASCII plus the Romanian diacritics is used as a last resort, and unmapped
-  characters are written as `?` with a warning on stderr.
+- **Acceptance rule:** a family is used only when every face the layout actually renders with
+  covers, through its parsed `cmap`, the characters that face is asked for — the bold face the
+  headings and the emphasised runs, the italic face the quotes, the bold-italic face both — and the
+  regular face additionally covers the essential baseline (printable Latin, the Romanian diacritics
+  and the typographic punctuation used by the labels, the page numbers and the table of contents). A
+  style with no file of its own falls back to the regular face, and that fallback is accepted only
+  when the regular face covers the characters the style renders. There is no partial-font success
+  path: a character with no glyph is never replaced by `?` or by a dropped run, and the incomplete
+  edition is refused with `MISSING_FONT`, naming the family, the face and the missing characters.
+  `scripts/verify-edition.mjs --fonts <folder>` repeats the same check over the accepted text, so the
+  server refuses an edition whose text the font set it passes cannot render.
 - **Accepted formats:** TrueType with `glyf` outlines (`.ttf`). CFF/OpenType (`.otf`) and font
   collections (`.ttc`) are skipped, because the subsetter operates on `glyf`/`loca`.
 - **Verified environment:** Liberation Serif (used for the reference build) and Noto Serif variable
@@ -59,6 +72,12 @@ the engines) and use Node.js built-ins only (`node:zlib` for
 produced files during development (text extraction, diacritics, page numbers, rendering, DOCX
 structure and LibreOffice round-trip). They are verification tools, not runtime dependencies of the
 skill.
+
+The permanent suites under `tests/` need no such tool: they run with `node --test`, build temporary
+universes, use the real CLIs, and read the produced files back with the skill's own `verify.mjs`. No
+font is downloaded and no font is bundled: the font fixtures are subsets of the system font the
+machine already provides, and a test that needs a face without a glyph cuts one down with the
+skill's own subsetter.
 
 ## Maintenance
 

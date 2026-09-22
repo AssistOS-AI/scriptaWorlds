@@ -1,0 +1,81 @@
+{
+  "schema_version": "assessment-input.v2",
+  "universe_id": "assess-check-mucsmcxn",
+  "version": "sha256:5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010",
+  "captured_at": "2026-09-22T14:52:27.386Z",
+  "book": {
+    "title": "assess check-mucsmcxn",
+    "language": "en",
+    "last_accepted_chapter": 2
+  },
+  "scope": {
+    "kind": "complete",
+    "chapters": [
+      1,
+      2
+    ],
+    "omitted": []
+  },
+  "files": [
+    {
+      "path": "canon.md",
+      "sha256": "02fde834f0b324edeff0b0ba7d46046163255abd54eb55e4e9d8de9aa3a091e3",
+      "bytes": 255,
+      "role": "canon",
+      "artifact_id": "canon"
+    },
+    {
+      "path": "threads.json",
+      "sha256": "97e34671449793a94f8c0b21f9c23082ca7070b5029af840f36a616576faabd1",
+      "bytes": 59,
+      "role": "threads",
+      "artifact_id": "threads"
+    },
+    {
+      "path": "atlas.json",
+      "sha256": "e6a62b7abae92301b5131a28e6af5db7294e8229fbd503b3bdd808b1cdd538ea",
+      "bytes": 23,
+      "role": "atlas",
+      "artifact_id": "atlas"
+    },
+    {
+      "path": "chapters/0001-one.md",
+      "sha256": "076aed36fe8ee3ca9f9ef2aeb04f3cb447ce84279604fe443bee8de544711d21",
+      "bytes": 1447,
+      "role": "chapter",
+      "chapter": 1,
+      "artifact_id": "chapter-0001"
+    },
+    {
+      "path": "chapters/0001-offer.json",
+      "sha256": "c9b2104717901fe9f027cf0c385c8d367f9793e11d54b4f49d7ffa76de36375d",
+      "bytes": 289,
+      "role": "offer",
+      "chapter": 1,
+      "artifact_id": "offer-0001"
+    },
+    {
+      "path": "chapters/0002-two.md",
+      "sha256": "d3ebcda7bcab526c7c672eaef2b46b957a5ea2d337f5104fa414e74733692966",
+      "bytes": 1467,
+      "role": "chapter",
+      "chapter": 2,
+      "artifact_id": "chapter-0002"
+    },
+    {
+      "path": "chapters/0002-offer.json",
+      "sha256": "48576759a61acf8bc3d1d3d6594a00f4b0a13c941a5ed30cd17d15ce50645083",
+      "bytes": 288,
+      "role": "offer",
+      "chapter": 2,
+      "artifact_id": "offer-0002"
+    },
+    {
+      "path": "profile.json",
+      "sha256": "41b4be007fa235ed4a2ac2e66e6f5a4431c64d40af51b4333f81d81831e2ec68",
+      "bytes": 225,
+      "role": "profile",
+      "artifact_id": "profile"
+    }
+  ]
+}

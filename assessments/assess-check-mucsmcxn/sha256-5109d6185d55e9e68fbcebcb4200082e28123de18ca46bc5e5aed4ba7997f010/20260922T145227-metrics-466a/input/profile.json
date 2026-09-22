@@ -1,0 +1,11 @@
+{
+  "schema_version": "profile.v1",
+  "profile_id": "broken",
+  "scope": {
+    "kind": "chapter",
+    "chapters": [
+      999
+    ],
+    "context_chapters": []
+  }
+}

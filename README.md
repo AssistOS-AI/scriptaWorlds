@@ -10,7 +10,7 @@ A universe starts from its law. A reader picks one of the proposed universes, ea
 
 Requests are queued per universe. A request never fails because a book is busy: it enters a FIFO queue for that universe, the server records it on disk with the status `queued`, and only then acknowledges it. Each universe runs one turn at a time and different universes run in parallel, so a second reader can write in another book while the first one is being written. Because the queue is on disk, restarting the server resumes waiting turns in order, and a turn that was running becomes `interrupted` with the canon rolled back and the partial chapter removed; it can then be retried with the same request.
 
-Each turn is one headless agent process. The server starts `omp` in the universe folder with the law, the reader's request, the required file names and the language of the book in the prompt, streams the agent's live text and tool calls to the interface, and then verifies the result: a chapter turn must have written its chapter file, an export turn must have produced a printed file, and a chapter outside the expected word band or with a missing offer is reported as a warning. The agent is the only writer of the canon, the thread list, the atlas, the chapters and the editorial metadata; the server is the only writer of the universe record, the turn records and the skill links.
+Each turn is one headless agent process. The server starts `omp` in the universe folder with the law, the reader's request, the required file names and the language of the book in the prompt, streams the agent's live text and tool calls to the interface, and then verifies the result: a chapter turn must have written exactly one chapter file and must pass the skill's own validator, an export turn must have produced a document that the print skill's own verifier accepts as a PDF or a DOCX, and a chapter outside the expected word band is reported as a warning. Before every turn the server publishes a verified snapshot of the accepted book, so a failed or interrupted turn restores its bytes and its membership exactly; a turn whose snapshot cannot be restored blocks the book with `RECOVERY_REQUIRED` instead of writing on top of an unknown state, and a rewrite whose target changed while it waited is refused as stale rather than reinterpreted. The agent is the only writer of the canon, the thread list, the atlas, the chapters and the editorial metadata; the server is the only writer of the universe record, the turn records and the skill links.
 
 Every chapter ends with an [offer](docs/wiki.html#definition-offer). ALA writes a short teaser addressed to the reader plus two or three concrete decisions, each with the exact request it would send. Pressing a decision sends it; editing it puts the same text in the input field. When a chapter has no offer, the server derives continuation ideas from the open threads and promises of the book without running the agent, so a reader always has something concrete to press.
 
@@ -20,7 +20,7 @@ A book can be printed. An export turn asks the agent to write the editorial meta
 
 ## Requirements
 
-- Node.js 20 or later. The server, the check script, the browser interface and both skill scripts use only built-in modules.
+- Node.js 20 or later. The server, the check script, the browser interface and the skill scripts use only built-in modules.
 - The `omp` command (Oh My Pi, 18.2 or later) available and authenticated for the configured model. The server probes it with `omp --version` before it starts listening and exits with a clear error when it cannot run; set `OMP_BIN` when the binary is installed elsewhere.
 - A system serif TrueType font for printed editions (for example Liberation Serif or Noto Serif). The renderer resolves the font before it decides which format to write, so every edition format needs one; without a suitable font it fails with `MISSING_FONT` instead of producing a broken file.
 
@@ -29,7 +29,7 @@ There is no install step and no build step: the runtime has no npm dependencies,
 ## Starting the server
 
 ```sh
-npm run check     # verify Node.js, the agent, the store, the queue, the language rules, both skills and a restart
+npm run check     # verify Node.js, the agent, the store, the queue, the skills, the edition verifier, the phases and the failure paths
 npm run server    # start the API and the reader interface
 ```
 
@@ -73,6 +73,10 @@ Configuration is read once at startup, so a change requires a restart. The effec
 | `templates/` | The catalog of proposed universes: `universes.json` plus optional `parts/*.json` files, localized in Romanian and English, each entry with a descriptive title, a law and several openings. |
 | `skills/scripta-ala/` | The narrative skill: the working order, the narrative invariants, the file schemas, the creative palette and the chapter validator. |
 | `skills/scripta-book-export/` | The print skill: the dependency-free DOCX and PDF renderer. |
+| `skills/scripta-story-design/` | The design skill: the tentative book or arc brief, and its validator. A separate phase, never read while a chapter is written. |
+| `skills/scripta-prose-craft/` | The craft skill: focalization, voice, subtext and rhythm, and the validator of the prose profile. A separate phase. |
+| `skills/scripta-continuity-review/` | The continuity reviewer: deterministic integrity checks and re-verified semantic annotations over a frozen assessment packet. A separate phase. |
+| `skills/scripta-metrics-report/` | The measurement skill: one assessment bundle and the five reports rendered from it. A separate phase. |
 | `universes/<id>/` | One folder per book, with its metadata, charter, canon, threads, atlas, chapters, plans, turn records, archives and editions. |
 | `scripts/check.mjs` | The environment and technology-chain check run by `npm run check`. |
 | `docs/` | The documentation: HTML pages, the specification set under `docs/specs/`, and the internal contract reference `docs/contracts.md`. |
@@ -108,10 +112,10 @@ Failures are JSON objects with a stable code and an English message, for example
 - `docs/operations.html` covers requirements, configuration, the environment check, restarts and the failure codes an operator meets.
 - `docs/api.html` documents every route, the error envelope and the live event stream.
 - `docs/reader-interface.html` documents the browser reader: reading flow, exploration, composer, live activity, rewrite, closing and editions.
-- `docs/scripta-ala-skill.html` and `docs/scripta-book-export-skill.html` document the two product skills.
+- `docs/scripta-ala-skill.html` and `docs/scripta-book-export-skill.html` document the two skills that write a book; `docs/scripta-story-design-skill.html`, `docs/scripta-prose-craft-skill.html`, `docs/scripta-continuity-review-skill.html` and `docs/scripta-metrics-report-skill.html` document the four separate-phase skills.
 - `docs/specs/` holds the numbered design specifications; `docs/specs/matrix.md` lists them and each one opens through `docs/specsLoader.html`.
 - `docs/wiki.html` is the canonical terminology page, and `docs/contracts.md` is the internal reference for file formats, HTTP payloads and the renderer command line.
 
 ## Boundaries
 
-The product does not call a model API directly: it runs the `omp` command, and it needs that binary to continue a book. It has no user accounts and no per-universe access control. It does not translate existing text: changing the language of a book affects later turns, and the labels of a printed edition can differ from the language of its prose. Semantic retrieval over the canon is not part of the contract, because the agent reads the canon, the threads and the last chapters directly from the folder it works in. The engineering tooling installed for coding agents under `.agents/skills/` supports development of this repository and is not part of the product or of its runtime.
+The product does not call a model API directly: it runs the `omp` command, and it needs that binary to continue a book. It has no user accounts and no per-universe access control. It does not translate existing text: the language of a book is chosen before its first chapter and is fixed once a chapter exists, and the labels of a printed edition can differ from the language of its prose. Semantic retrieval over the canon is not part of the contract, because the agent reads the canon, the threads and the last chapters directly from the folder it works in. The engineering tooling installed for coding agents under `.agents/skills/` supports development of this repository and is not part of the product or of its runtime.

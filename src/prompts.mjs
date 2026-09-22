@@ -6,7 +6,7 @@ import { DEFAULT_LANGUAGE, languageLabel } from './config.mjs';
 import { elementLines } from './periodic.mjs';
 import { pad, truncate } from './io.mjs';
 
-export function buildChapterPrompt({ title, law = '', language = DEFAULT_LANGUAGE, chapterNumber, message, minWords, maxWords, needsTitle = false, elements = [] }) {
+export function buildChapterPrompt({ title, law = '', language = DEFAULT_LANGUAGE, chapterNumber, message, minWords, maxWords, needsTitle = false, elements = [], contextChapters = [], omittedChapters = [], directions = [] }) {
   const languageName = languageLabel(language);
   const titleDuty = needsTitle
     ? `NAMING DUTY: this universe has no name yet. After the chapter, write a SHORT name to
@@ -37,9 +37,24 @@ conflicts are effects of the law, not decoration.
 
 `
     : '';
+  const contextList = contextChapters.length
+    ? ` — and only these: ${contextChapters.map((file) => `\`${file}\``).join(', ')}`
+    : ', when they exist';
+  const omittedNote = omittedChapters.length
+    ? ` (chapters ${omittedChapters.join(', ')} are earlier context, not the immediate narrative; read one only when the request needs it)`
+    : '';
+  const directionsBlock = directions.length
+    ? `APPROVED DIRECTIONS (accepted by the author in a separate design phase, for this chapter)
+${directions.map((direction, index) => `${index + 1}. ${direction}`).join('\n')}
+
+These are instructions, not suggestions to discuss: follow them where they apply to this episode, keep the
+fundamental law and the accepted canon above them, and say in your final report which of them you used.
+
+`
+    : '';
   return `You are ALA, the narrative agent of the universe "${title}" — a science-fiction book written in ${languageName}.
 
-${lawBlock}${elementsBlock}${titleDuty}Fiction language: **${languageName}** (code \`${language}\`). All narrative text — chapter title, prose, dialogue,
+${lawBlock}${elementsBlock}${directionsBlock}${titleDuty}Fiction language: **${languageName}** (code \`${language}\`). All narrative text — chapter title, prose, dialogue,
 place names — is written in ${languageName}. Keep the schema vocabulary (plan keys, canon section names,
 JSON field names) and your final report to the system in English.
 
@@ -49,11 +64,13 @@ ${message.trim()}
 """
 
 TASK
-Write chapter ${chapterNumber} of the book and keep canon up to date.
+Write chapter ${chapterNumber} of the book and keep canon up to date. This episode is a piece of a life,
+not a demonstration of the law: honour a quiet request without manufacturing a crisis, and let ordinary
+affection, work and aftermath matter as much as a revelation.
 
 MANDATORY STEPS
 1. Read \`skill://scripta-ala\` and follow it exactly (narrative rules, StoryPlan, limits on new names and concepts).
-2. Read, in this order: \`universe.json\` (fundamental law), \`charter.md\`, \`canon.md\`, \`threads.json\`, \`atlas.json\`, then the last two files in \`chapters/\` (if any). Do not ask for extra context.
+2. Read, in this order: \`universe.json\` (fundamental law), \`charter.md\`, \`canon.md\`, \`threads.json\`, \`atlas.json\`, then these accepted chapters${contextList}${omittedNote}. The \`chapters/NNNN-offer.json\` files are your voice to the reader, not narrative context: do not read them. If you need an earlier passage for an object, a promise or a relationship, read that specific chapter file; do not read the whole book. Do not ask for extra context.
 3. Write the chapter to \`chapters/${pad(chapterNumber)}-<slug>.md\` (slug: lowercase letters, digits, hyphens; first line is \`# Chapter title\`). The chapter answers the reader request and closes at least one old promise, if any exists.
 4. Length target: ${minWords}–${maxWords} words. Narration only: no notes, no plan, no meta commentary in the file.
 5. Update \`canon.md\` (sections: fundamental laws, world, recurring characters, timeline, stable facts, mysteries with a fixed cause), \`threads.json\` (open, closed, promises, deferred answers) and \`atlas.json\` (axes and nodes touched, state: mentioned/dramatized/decision/recontextualized). Text values in those files are written in ${languageName}.
@@ -80,7 +97,7 @@ are written in ${languageName}, in the same register as the existing narrative t
 MANDATORY STEPS
 1. Read \`skill://scripta-book-export\` and follow it.
 2. Read \`universe.json\` and the chapter titles in \`chapters/\`.
-3. Write \`exports/edition.json\` with quality editorial metadata in ${languageName}: title, subtitle, author, year, dedication, \`preface\` (300–600 words about the world and what the book is after) and \`afterword\` (150–400 words). No spoilers that defuse the plot. You may add \`"language": "${language}"\`.
+3. Check and complete \`exports/edition.json\` exactly as \`skill://scripta-book-export\` requires: keep what already exists and fill in only the gaps. \`title\` is the only mandatory field; \`subtitle\`, \`author\`, \`year\`, \`dedication\`, \`preface\` and \`afterword\` are optional, written in ${languageName} when you do add them, grounded in the actual chapters of this edition, and short. A preface or an afterword must add no spoiler that defuses the plot; leaving either out is correct when the book does not call for it. You may add \`"language": "${language}"\`.
 4. Run exactly: \`node .agents/skills/scripta-book-export/scripts/build-book.mjs --universe . --format ${format}\`
 5. Check the JSON line printed by the script and that the files exist in \`exports/\`. If something is missing, fix it and run again.
 
@@ -102,7 +119,12 @@ export function buildRewritePrompt({
   minWords,
   maxWords,
   laterChapters = [],
-  elements = []
+  elements = [],
+  contextChapters = [],
+  omittedChapters = [],
+  directions = [],
+  findings = [],
+  preserve = []
 }) {
   const languageName = languageLabel(language);
   // The recipe the universe is a compound of: the reader picked it when the book was created.
@@ -123,29 +145,63 @@ ${law.trim()}
 
 `
     : '';
+  const contextList = contextChapters.length
+    ? ` — and only these: ${contextChapters.map((file) => `\`${file}\``).join(', ')}`
+    : ', when they exist';
+  const omittedNote = omittedChapters.length
+    ? ` (chapters ${omittedChapters.join(', ')} are earlier context, not the immediate narrative; read one only when the feedback needs it)`
+    : '';
+  // What an external review reported and the author chose to act on, with the qualities to keep. One
+  // candidate version, one pass: a revision is not an invitation to rewrite the book around it.
+  const findingsBlock = findings.length
+    ? `SELECTED FINDINGS (reported by a separate review, chosen by the author; each names its own evidence)
+${findings.map((finding, index) => {
+  const evidence = finding.evidence?.length ? ` — evidence: ${finding.evidence.map((item) => `"${item}"`).join(' | ')}` : '';
+  return `${index + 1}. ${finding.id}${finding.claim ? `: ${finding.claim}` : ''}${evidence}`;
+}).join('\n')}
+
+Address these findings in one candidate version of the chapter; do not start a second pass and do not
+rewrite chapters other than this one. In your final report, name each finding you addressed and how.
+`
+    : '';
+  const preserveBlock = preserve.length
+    ? `KEEP WHAT THE AUTHOR VALUES (do not trade these away for a cleaner fix)
+${preserve.map((item) => `- ${item}`).join('\n')}
+
+`
+    : '';
   const laterBlock = laterChapters.length
     ? `Chapters ${laterChapters.join(', ')} no longer exist: they were removed together with this rewrite, so do not continue or reference them.\n`
     : '';
+  const directionsBlock = directions.length
+    ? `APPROVED DIRECTIONS (accepted by the author in a separate design phase, for this rewrite)
+${directions.map((direction, index) => `${index + 1}. ${direction}`).join('\n')}
+
+`
+    : '';
   return `You are ALA, the narrative agent of the universe "${title}" — a science-fiction book written in ${languageName}.
 
-${lawBlock}${elementsBlock}READER FEEDBACK (what is wrong and what must change) — mandatory and takes priority:
+${lawBlock}${elementsBlock}${directionsBlock}READER FEEDBACK (what is wrong and what must change) — mandatory and takes priority:
 """
 ${instructions.trim()}
 """
 
+${findingsBlock}${preserveBlock}
+
 TASK
 Rewrite chapter ${chapterNumber} of the book, in ${languageName}, as a better version. ${laterBlock}
 MANDATORY STEPS
-1. Read \`skill://scripta-ala\` and follow it, then \`universe.json\`, \`charter.md\`, \`canon.md\`, \`threads.json\`.
+1. Read \`skill://scripta-ala\` and follow it, then \`universe.json\`, \`charter.md\`, \`canon.md\`, \`threads.json\`, \`atlas.json\`, then these accepted chapters${contextList}${omittedNote}. The \`chapters/NNNN-offer.json\` files are your voice to the reader, not narrative context: do not read them.
 2. The OLD text of chapter ${chapterNumber} (reference only — do not copy it, rewrite it):
 """
 ${truncate(previousText, 20_000).trim()}
 """
 3. Write the new version to \`chapters/${pad(chapterNumber)}-<slug>.md\` (same chapter number, new slug if the title changes; first line \`# Chapter title\`). Honour the reader feedback, but keep the universe laws and continuity with earlier chapters.
-4. Length target: ${minWords}–${maxWords} words.
-5. Rewrite \`chapters/${pad(chapterNumber)}-offer.json\` (teaser + 2–3 concrete options for what comes next), in ${languageName}.
-6. Update \`canon.md\`, \`threads.json\`, \`atlas.json\` so they reflect the new version: drop facts that are no longer true and write the new ones, as if this chapter had always been the one.
-7. Do not write other chapters, do not modify \`universe.json\`, \`charter.md\` or \`turns/\`, do not run \`git\`.
+4. Rewrite \`drafts/${pad(chapterNumber)}-plan.md\` with the plan keys of this chapter (the same keys the chapter prompt lists), so the plan describes the new version and not the old one.
+5. Length target: ${minWords}–${maxWords} words.
+6. Rewrite \`chapters/${pad(chapterNumber)}-offer.json\` (teaser + 2–3 concrete options for what comes next), in ${languageName}.
+7. Update \`canon.md\`, \`threads.json\`, \`atlas.json\` so they reflect the new version: drop facts that are no longer true and write the new ones, as if this chapter had always been the one.
+8. Do not write other chapters, do not modify \`universe.json\`, \`charter.md\` or \`turns/\`, do not run \`git\`.
 
 FINAL REPLY (3-6 lines, in English): what you changed, what stayed the same, which thread stays open.`;
 }

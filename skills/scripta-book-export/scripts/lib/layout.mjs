@@ -342,3 +342,22 @@ export function layoutBook(book, faces) {
   for (const heading of body.headings) bookmarks.push({ title: heading.title, page: heading.page, y: heading.y, level: heading.level });
   return { pages, entries, bookmarks };
 }
+
+/**
+ * Notes on every face the characters the finished layout asks it to render, and returns the set of
+ * faces that appear. The renderer uses it twice: before a family is accepted, to prove that each
+ * face covers the characters rendered with it (see `resolveFonts` in fonts.mjs), and before the PDF
+ * fonts are subsetted. Calling it twice is harmless: `BookFace.note` only adds.
+ */
+export function usedFaces(layout) {
+  const used = new Set();
+  for (const page of layout.pages) {
+    for (const line of page.lines) {
+      for (const token of line.tokens) {
+        token.face.note(token.text);
+        used.add(token.face);
+      }
+    }
+  }
+  return used;
+}

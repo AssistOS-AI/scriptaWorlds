@@ -34,6 +34,14 @@ export function readTextFile(file) {
   }
 }
 
+export function readBytesFile(file) {
+  try {
+    return readFileSync(file);
+  } catch (err) {
+    return fail(`Cannot read ${file}: ${err.message}`, 'IO_ERROR');
+  }
+}
+
 export function readJsonFile(file) {
   const raw = readTextFile(file);
   try {
@@ -101,6 +109,23 @@ export function pdfTextString(text) {
 }
 
 /* --------------- Byte and big-endian helpers --------------- */
+
+let crcTable = null;
+
+/** CRC-32 (the ZIP member checksum) of a byte buffer. */
+export function crc32(buffer) {
+  if (!crcTable) {
+    crcTable = new Uint32Array(256);
+    for (let i = 0; i < 256; i++) {
+      let value = i;
+      for (let bit = 0; bit < 8; bit++) value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+      crcTable[i] = value >>> 0;
+    }
+  }
+  let crc = 0xffffffff;
+  for (let i = 0; i < buffer.length; i++) crc = crcTable[(crc ^ buffer[i]) & 0xff] ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
+}
 
 export function byteTag(bytes, off) {
   return String.fromCharCode(bytes[off], bytes[off + 1], bytes[off + 2], bytes[off + 3]);

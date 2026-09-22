@@ -26,7 +26,10 @@ export function buildSlides() {
     };
   });
   const known = new Set(chapters.map((chapter) => chapter.number));
-  const nextNumber = chapters.length + 1;
+  // Pending work is counted in chapters, not in turns: a queue of three chapter turns behind a book of
+  // eight accepted chapters reads 9, 10 and 11 even when rewrites and editions have pushed the turn
+  // numbers far ahead of the chapter numbers. An edition never takes a chapter number.
+  let nextNumber = chapters.reduce((max, chapter) => Math.max(max, chapter.number), 0) + 1;
   const pending = (detail.turns ?? [])
     .filter((turn) => turn.kind === 'chapter'
       && !(turn.chapterNumber != null && known.has(turn.chapterNumber))
@@ -35,12 +38,12 @@ export function buildSlides() {
   for (const turn of pending) {
     const live = liveForTurn(turn.number);
     const status = live && LIVE_STATUSES.has(live.status) ? live.status : turn.status;
+    const number = turn.chapterNumber ?? nextNumber;
+    if (turn.chapterNumber == null) nextNumber += 1;
     slices.push({
       key: `t${turn.number}`,
       kind: 'activity',
-      // A pending turn shows the number of the chapter it will write: its own turn number when
-      // the chapter is not committed yet, so a queue reads 9, 10, 11 instead of repeating the next one.
-      number: turn.chapterNumber ?? turn.number ?? nextNumber,
+      number,
       title: null,
       offer: null,
       turnNumber: turn.number,
@@ -53,21 +56,36 @@ export function buildSlides() {
   return slices;
 }
 
+/**
+ * The identity of the chapter text a cached body belongs to. A rewrite can replace the prose with a
+ * body of exactly the same length, so the byte count alone would keep showing the old chapter: the
+ * entry's byte count, its store timestamp, its word count and its title together change whenever the
+ * text does.
+ */
+function chapterIdentity(meta) {
+  if (!meta) return null;
+  return `${meta.bytes ?? '?'}:${meta.createdAt ?? '?'}:${meta.words ?? '?'}:${meta.title ?? '?'}`;
+}
+
 export async function ensureChapterMarkdown(models) {
   const chapters = state.detail?.chapters ?? [];
   await Promise.all(models.map(async (model) => {
     if (model.kind !== 'chapter' || !model.number) return;
     const meta = chapters.find((chapter) => chapter.number === model.number);
+    const identity = chapterIdentity(meta);
     const cached = state.chapters.get(model.number);
-    if (cached && cached.bytes === meta?.bytes) return;
+    if (cached && identity !== null && cached.identity === identity && cached.markdown) return;
     try {
       const payload = await api(`/api/universes/${encodeURIComponent(state.universeId)}/chapters/${model.number}`);
       state.chapters.set(model.number, {
+        identity,
         bytes: payload.chapter?.bytes ?? meta?.bytes ?? null,
         markdown: payload.chapter?.markdown ?? ''
       });
     } catch (error) {
-      state.chapters.set(model.number, { bytes: meta?.bytes ?? null, markdown: null, error: error.message });
+      // A failed fetch is not cached as the chapter: the next refresh tries again, and the slide says
+      // what happened in the meantime.
+      state.chapters.set(model.number, { identity: null, bytes: meta?.bytes ?? null, markdown: null, error: error.message });
     }
   }));
 }

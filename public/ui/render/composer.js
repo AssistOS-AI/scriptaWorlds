@@ -71,6 +71,15 @@ export function renderFooter() {
     }
   }
   if (items.length) nodes.push(elem('ul', { className: 'offer__list' }, items));
+  // Sending never rewrites the chapter on screen: it continues the book from its accepted end. The
+  // reader sees that plainly, with the way to change the chapter they are reading right next to it.
+  const last = (state.detail?.chapters ?? []).reduce((max, chapter) => Math.max(max, chapter.number), 0);
+  if (model?.kind === 'chapter' && last > model.number) {
+    nodes.push(elem('p', {
+      className: 'ala__hint',
+      text: `Sending continues the story after chapter ${last}: your request opens the next chapter, it does not change chapter ${model.number}. Use Rewrite on chapter ${model.number} to change it instead.`
+    }));
+  }
   area.replaceChildren(...nodes);
   dom.input.placeholder = state.universeId ? 'Write what should happen next…' : 'Pick a universe or start a new one…';
   renderNotice();

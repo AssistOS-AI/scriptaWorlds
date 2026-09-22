@@ -1,0 +1,15 @@
+{
+  "schema_version": "profile.v1",
+  "profile_id": "check-assessments",
+  "scope": {
+    "kind": "book",
+    "chapters": [
+      1,
+      2
+    ],
+    "context_chapters": []
+  },
+  "aggregation": {
+    "enabled": false
+  }
+}

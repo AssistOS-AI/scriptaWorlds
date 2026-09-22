@@ -1,0 +1,29 @@
+{
+  "schema_version": "assessment-run.v1",
+  "run_id": "20260922T145227-metrics-466a",
+  "universe_id": "assess-check-mucsmcxn",
+  "phase": "metrics",
+  "trigger": "requested",
+  "arc_id": null,
+  "version": "sha256:5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010",
+  "scope": {
+    "kind": "complete",
+    "chapters": [
+      1,
+      2
+    ],
+    "omitted": []
+  },
+  "profile_sha256": "a77dd59659da1bb1577e928401beb0ad37fb17d7cc2b8f5d75893002eb20f2cd",
+  "annotations": false,
+  "input_dir": "assess-check-mucsmcxn/sha256-5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010/20260922T145227-metrics-466a/input",
+  "result_dir": "assess-check-mucsmcxn/sha256-5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010/20260922T145227-metrics-466a/result",
+  "status": "interrupted",
+  "created_at": "2026-09-22T14:52:27.503Z",
+  "started_at": "2026-09-22T14:52:27.503Z",
+  "finished_at": "2026-09-22T14:52:27.512Z",
+  "exit_code": null,
+  "error": "interrupted by a server restart; retry reuses the same frozen packet",
+  "outputs": [],
+  "historical": false
+}

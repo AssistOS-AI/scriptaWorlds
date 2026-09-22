@@ -141,16 +141,63 @@
             </tr>
             <tr>
               <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>chapters/<wbr>:<wbr>number/<wbr>rewrite</code></td>
-              <td>Starts a rewrite from <code>instructions</code> of at least ten characters and an optional <code>dropLater</code>. The current version is archived, the canon is rewound to the state before that chapter, and the answer is <code>202</code> with the job and the dropped chapter numbers. Without <code>dropLater</code>, a rewrite that would discard later chapters answers <code>409</code> with the code <code>LATER_CHAPTERS</code> and a <code>laterChapters</code> array inside the error object, which is what a client uses to confirm the loss.</td>
+              <td>Starts a rewrite from <code>instructions</code> of at least ten characters and an optional <code>dropLater</code>. The route validates and enqueues; when the job runs under the per-universe execution lock the current version is archived together with its offer, the later chapters are archived before they are dropped, and the book is rewound to the state before that chapter. The answer is <code>202</code> with the job and the dropped chapter numbers. Without <code>dropLater</code>, a rewrite that would discard later chapters answers <code>409</code> with the code <code>LATER_CHAPTERS</code> and a <code>laterChapters</code> array inside the error object, which is what a client uses to confirm the loss. The request is bound to the version it was written for, so a rewrite that waited behind another turn and met a changed target, or a later chapter it never authorised, answers <code>409</code> <code>STALE_REQUEST</code> without rewriting anything; a book whose accepted state could not be restored answers <code>409</code> <code>RECOVERY_REQUIRED</code>, and a turn refused because the server is stopping answers <code>503</code> <code>SHUTTING_DOWN</code>.</td>
             </tr>
           </tbody>
         </table>
-        <p>Instructions shorter than one sentence are rejected with <code>BAD_INSTRUCTIONS</code>, an unknown chapter with <code>NOT_FOUND</code>, and a closed universe with <code>CLOSED</code>. Once confirmed, <code>dropLater</code> removes and archives the later chapters, and the rewrite runs as a new turn so the discussion log of the book stays complete.</p>
+        <p>A writing request may also carry <code>sourceChapter</code>, the accepted chapter the reader was looking at, which is recorded on the turn and refused with <code>400</code> <code>BAD_NUMBER</code> when it does not name an accepted chapter. It may also carry <code>directions</code> — the short instructions a separate design or craft phase produced and the author accepted — with the <code>approval</code> record they came from; they are stated in the prompt under the law, recorded with the turn, and a malformed list answers <code>400</code> <code>BAD_DIRECTIONS</code>. Instructions shorter than one sentence are rejected with <code>BAD_INSTRUCTIONS</code>, an unknown chapter with <code>NOT_FOUND</code>, and a closed universe with <code>CLOSED</code>. Once confirmed, <code>dropLater</code> removes and archives the later chapters, and the rewrite runs as a new turn so the discussion log of the book stays complete.</p>
       </section>
 
       <section>
         <h2>Editions and files</h2>
         <p>An edition is produced by the same pipeline as a chapter: the agent writes <code>exports/edition.json</code>, runs the print renderer, and the server fails the turn with <code>NO_EXPORT</code> when no edition file appeared. The universe detail then lists each file with its format, size, creation time and URL, and <code>GET /api/files/:id/:name</code> serves it as an attachment. The name must match a <code>.pdf</code> or <code>.docx</code> file inside that universe's <code>exports/</code> folder, otherwise the answer is <code>BAD_NAME</code>, so the route cannot be used to read any other file.</p>
+      </section>
+
+      <section>
+        <h2>Design and review phases</h2>
+        <p>These routes run the separate design and review skills over a frozen packet of one accepted version. They live outside <code>universes/</code>: the host captures a packet into the assessment workspace, the skill publishes there, and no phase ever writes into a book, so a report can never roll back a chapter. A packet is captured only while the book is stable, and the runs are deduplicated by phase, version, profile and trigger.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Method and path</th>
+              <th scope="col">Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>POST /api/universes/:id/assessments</code></td>
+              <td>Starts one separate-phase review of a frozen accepted version: the body carries <code>phase</code> (<code>continuity</code> or <code>metrics</code>), the <code>profile</code> the metrics phase needs, optional <code>annotations</code> and <code>corpus</code>, and optionally <code>fromTurn</code> to capture from the snapshot of a finished turn. A turn that is queued or running makes the capture answer <code>409 UNSTABLE_VERSION</code>; a missing profile answers <code>NO_PROFILE</code>. The answer is <code>202</code> with the run record, or with the existing run and <code>deduplicated: true</code> when the same phase, version, profile and trigger were already reviewed.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/universes/:id/assessments</code></td>
+              <td>The runs of that book, newest first, each with <code>historical: true</code> when its version is no longer the accepted one, plus the declared arc-completion events.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/universes/:id/assessments/:runId</code></td>
+              <td>One run: phase, trigger, version, scope, profile hash, status, outputs and the envelope the phase printed.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/universes/:id/assessments/:runId</code></td>
+              <td><code>{"action":"cancel"}</code> stops a queued or running review (<code>NOT_CANCELLABLE</code> when it settled); <code>{"action":"retry"}</code> runs the same frozen packet again, which is how an interrupted review continues.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/universes/:id/arc-events</code></td>
+              <td>Declares an arc complete against the current accepted version: <code>{"arcId":"arc-ledger","note":"…","profile":{…}}</code> writes a versioned event outside the book and starts the assessment the profile implies. A planned <code>completed</code> flag in a design proposal is not an event.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/universes/:id/approvals</code></td>
+              <td>Records the human decision on a design or craft proposal: <code>{"proposal":{…}|"path","decision":"approved|declined","reviewer":"…","directions":["…"],"version":"sha256:…"}</code> → <code>201</code> with the approval. A proposal written against another version answers <code>STALE_REQUEST</code>, a second decision on the same proposal and version answers <code>ALREADY_DECIDED</code>, and only an approved proposal may carry directions.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/universes/:id/approvals</code></td>
+              <td>The approvals recorded for that book, newest first. This is where a later writing request takes the directions it carries.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/universes/:id/arc-events</code></td>
+              <td>The arc-completion events of that book, newest first.</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section>

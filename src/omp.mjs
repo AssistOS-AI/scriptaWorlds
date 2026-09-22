@@ -20,7 +20,7 @@ function appendLast(list, text) {
   else list[list.length - 1] += text;
 }
 
-export function runOmpAgent({ cwd, prompt, timeoutMs, onEvent }) {
+export function runOmpAgent({ cwd, prompt, timeoutMs, onEvent, onSpawn }) {
   return new Promise((resolve) => {
     const args = [
       '-p',
@@ -37,6 +37,8 @@ export function runOmpAgent({ cwd, prompt, timeoutMs, onEvent }) {
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env, PI_NO_TITLE: '1' }
     });
+    // The caller keeps the handle so a shutdown can signal the child and wait for it to be gone.
+    if (typeof onSpawn === 'function') onSpawn(child);
 
     const state = {
       assistantTexts: [],

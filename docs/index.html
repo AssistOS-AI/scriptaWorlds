@@ -55,7 +55,11 @@
               <td>
                 <div class="docmap__entry">
                   <a href="scripta-ala-skill.html">scripta-ala</a>
-                  <span class="docmap__note">The narrative skill the agent reads before writing an episode, plus the validator that checks the result.</span>
+                  <span class="docmap__note">The narrative skill the agent reads before writing an episode, plus the validator that checks the result and gates the turn.</span>
+                </div>
+                <div class="docmap__entry">
+                  <a href="scripta-story-design-skill.html">scripta-story-design</a>
+                  <span class="docmap__note">The separate-phase design skill: the brief that gives a book or an arc its purpose, and its validator.</span>
                 </div>
               </td>
               <td>
@@ -77,6 +81,18 @@
                 <div class="docmap__entry">
                   <a href="scripta-book-export-skill.html">scripta-book-export</a>
                   <span class="docmap__note">The print skill: one command that turns the chapters of a universe into a DOCX and a PDF edition.</span>
+                </div>
+                <div class="docmap__entry">
+                  <a href="scripta-prose-craft-skill.html">scripta-prose-craft</a>
+                  <span class="docmap__note">The separate-phase craft skill: focalization, voice, subtext and rhythm, with the prose-profile validator.</span>
+                </div>
+                <div class="docmap__entry">
+                  <a href="scripta-continuity-review-skill.html">scripta-continuity-review</a>
+                  <span class="docmap__note">The separate-phase continuity reviewer: integrity checks and re-verified annotations over a frozen packet.</span>
+                </div>
+                <div class="docmap__entry">
+                  <a href="scripta-metrics-report-skill.html">scripta-metrics-report</a>
+                  <span class="docmap__note">The separate-phase measurement skill: one assessment bundle and the five reports rendered from it.</span>
                 </div>
               </td>
               <td>
@@ -110,7 +126,7 @@
             </tr>
           </tbody>
         </table></div>
-        <p>A new reader starts with <strong>Overview</strong> and then opens <strong>System</strong>: <em>Architecture</em> explains how a request becomes a chapter, and <em>Operations</em> explains how to run the server that does it. <strong>Skills</strong> documents what the agent is told to do, first the narrative skill <em>scripta-ala</em> and then the print skill <em>scripta-book-export</em>. <strong>Reference</strong> holds the specification matrix and the wiki; the wiki is the place to look up any term used on the other pages, and the specifications are the source of truth for behavior and structure.</p>
+        <p>A new reader starts with <strong>Overview</strong> and then opens <strong>System</strong>: <em>Architecture</em> explains how a request becomes a chapter, and <em>Operations</em> explains how to run the server that does it. <strong>Skills</strong> documents what the agent is told to do: the narrative skill <em>scripta-ala</em> and the print skill <em>scripta-book-export</em> are read while a book is written, and the four separate-phase skills — <em>scripta-story-design</em>, <em>scripta-prose-craft</em>, <em>scripta-continuity-review</em> and <em>scripta-metrics-report</em> — are chosen for design and validation work in their own sessions. <strong>Reference</strong> holds the specification matrix and the wiki; the wiki is the place to look up any term used on the other pages, and the specifications are the source of truth for behavior and structure.</p>
       </section>
 
       <section>
@@ -118,7 +134,7 @@
         <p>The server needs Node.js 20 or later and a working <code>omp</code> command. Both are checked before the listener is created, so a machine that cannot run the agent refuses to start instead of failing later inside a turn. A third tool, <code>pdftotext</code>, is needed only to rebuild the library from the printed book; the generated library is committed.</p>
         <pre><code>npm run check     # verify Node.js, the agent binary, the store, the queue, the validator and the renderer
 npm run server    # start the API and the reader on http://127.0.0.1:8787</code></pre>
-        <p>Open the printed address in a browser and the start screen offers two ways in. <em>Library</em> lists the prepared worlds read from the book; choosing one puts its request text into the field at the bottom, where it can be rewritten. <em>Ingredients</em> shows the table of ideas, twelve families by fifteen operators, where up to six operations compose a world and the request text builds itself. Pressing <em>Send</em> creates the <a href="wiki.html#definition-universe">universe</a> and its first chapter in one request, and that chapter names the book. The <em>Universes</em> button in the header loads a book that already exists, and the language selector next to it chooses the language of the next book. <a href="operations.html">Operations</a> documents the environment variables, the store lock, the library rebuild, the reload banner, the event stream behaviour behind a proxy, and what to do when the agent, the fonts or the queue need attention.</p>
+        <p>Open the printed address in a browser and the start screen offers three ways in. <em>Custom</em> is one large field for a world of your own: write what exists in it and what is already wrong, press <em>Start</em>, and the text becomes the law of the new universe while its first chapter begins. <em>Library</em> lists the prepared worlds read from the book; choosing one puts its request text into the field at the bottom, where it can be rewritten, and <em>Ingredients</em> shows the table of ideas, twelve families by fifteen operators, where up to six operations compose a world and the request text builds itself. However a world is started, one request creates the <a href="wiki.html#definition-universe">universe</a> and its first chapter, and that chapter names the book. The <em>Universes</em> button in the header loads a book that already exists, and the language selector next to it chooses the language of the next book. <a href="operations.html">Operations</a> documents the environment variables, the store lock, the library rebuild, the reload banner, the event stream behaviour behind a proxy, and what to do when the agent, the fonts or the queue need attention.</p>
       </section>
 
       <section>
@@ -154,7 +170,7 @@ npm run server    # start the API and the reader on http://127.0.0.1:8787</code>
             </tr>
             <tr>
               <td><code>skills/</code></td>
-              <td>The canonical source of the two <a href="wiki.html#definition-project-skill">product skills</a>, linked into every universe folder.</td>
+              <td>The canonical source of the six <a href="wiki.html#definition-project-skill">product skills</a>, linked into every universe folder: two that write a book and four that are chosen only in a separate design or validation phase.</td>
             </tr>
             <tr>
               <td><code>universes/</code></td>

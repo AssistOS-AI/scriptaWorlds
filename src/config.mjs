@@ -1,4 +1,6 @@
 import { spawn } from 'node:child_process';
+import { join } from 'node:path';
+import { rootDir } from './paths.mjs';
 
 const DEFAULT_MODEL = 'deepseek/deepseek-v4-flash';
 
@@ -55,7 +57,11 @@ export const config = Object.freeze({
   exportTimeoutMs: positiveInt(process.env.EXPORT_TIMEOUT_MS, 20 * 60 * 1000),
   chapterMinWords: positiveInt(process.env.CHAPTER_MIN_WORDS, 900),
   chapterMaxWords: positiveInt(process.env.CHAPTER_MAX_WORDS, 2400),
-  maxBodyBytes: 512 * 1024
+  maxBodyBytes: 512 * 1024,
+  // Where the separate design and review phases keep their frozen packets and published results. It is
+  // deliberately outside `universes/`: a phase never writes into a book.
+  assessmentWorkspace: process.env.ASSESSMENT_WORKSPACE ?? join(rootDir, 'assessments'),
+  assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 5 * 60 * 1000)
 });
 
 function run(command, args, { timeoutMs = 20_000 } = {}) {

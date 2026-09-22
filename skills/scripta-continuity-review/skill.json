@@ -1,0 +1,31 @@
+{
+  "title": "Scripta Continuity Review",
+  "family": "scriptaworlds",
+  "summary": "Reviews a frozen assessment-input.v2 packet for unsupported changes in facts, chronology, character knowledge and attributes, validates semantic annotations as evidence-bearing records, derives CCI and CAD from a versioned comparison ledger, and publishes a continuity-result.v1 envelope without editing the story.",
+  "aliases": [
+    "scripta-continuity-review"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "continuity-result.v1 JSON envelope on stdout",
+    "<result-dir>/continuity-result.json"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "references/review-protocol.md",
+    "references/state-and-evidence.md",
+    "scripts/review-continuity.mjs",
+    "scripts/lib/manifest.mjs",
+    "scripts/lib/scope.mjs",
+    "scripts/lib/json-spans.mjs",
+    "scripts/lib/evidence.mjs",
+    "scripts/lib/checks.mjs",
+    "scripts/lib/claims.mjs",
+    "scripts/lib/annotations.mjs",
+    "scripts/lib/ledger.mjs",
+    "scripts/lib/paths.mjs",
+    "scripts/lib/publish.mjs",
+    "scripts/lib/result.mjs"
+  ],
+  "selfContained": true
+}

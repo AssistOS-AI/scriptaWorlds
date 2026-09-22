@@ -1,0 +1,54 @@
+{
+  "schema_version": "continuity-result.v1",
+  "ok": true,
+  "version": "sha256:5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010",
+  "scope": {
+    "universe_id": "assess-check-mucsmkir",
+    "kind": "complete",
+    "chapters": [
+      1,
+      2
+    ],
+    "omitted": [],
+    "chapters_reviewed": [
+      1,
+      2
+    ],
+    "coverage_note": "Deterministic integrity review over 2 chapter file(s) and the packet state of a complete book (chapters 1..2). No annotations supplied, so no semantic continuity comparisons were performed.",
+    "coverage": null,
+    "coverage_bounds": null
+  },
+  "reviewed_claims": [],
+  "comparisons": [],
+  "counts": {
+    "eligible_comparisons": 0,
+    "consistent": 0,
+    "contradicted": 0,
+    "unresolved": 0
+  },
+  "derived": {
+    "cci": {
+      "status": "not_applicable",
+      "value": null,
+      "coverage": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "reason": "no eligible comparisons were reviewed"
+    },
+    "cad": {
+      "status": "not_applicable",
+      "value": null,
+      "coverage": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "eligible": 0,
+      "reason": "no eligible character change comparisons were reviewed"
+    }
+  },
+  "findings": [],
+  "errors": [],
+  "warnings": [],
+  "outputs": [
+    "/home/salboaie/work/axiologic/scriptaWorlds/assessments/assess-check-mucsmkir/sha256-5109d6185d55e9e68fbcebcb4200082e28123de18ca46bc5e5aed4ba7997f010/20260922T145237-continuity-3fe4/result/continuity-result.json"
+  ]
+}

@@ -31,11 +31,11 @@
         <h2>Starting the server</h2>
         <pre><code>npm run check      # verify the environment and the whole technology chain without using the agent
 npm run server     # start the API and the reader interface</code></pre>
-        <p>The server listens on <code>HOST</code> and <code>PORT</code>, creates the <code>universes/</code> folder when it does not exist, recovers the turns of every universe, refreshes the links to the <a href="wiki.html#definition-project-skill">product skills</a> inside each universe, and prints the loopback address, every reachable IPv4 address of the machine, the agent it found and the effective concurrency limit. Network addresses are printed so that a reader can open the book on a phone on the same network. <code>SIGINT</code> and <code>SIGTERM</code> close the listener and end the process, with a forced exit if it does not stop within a few seconds.</p>
+        <p>The server listens on <code>HOST</code> and <code>PORT</code>, creates the <code>universes/</code> folder when it does not exist, recovers the turns of every universe, refreshes the links to the <a href="wiki.html#definition-project-skill">product skills</a> inside each universe, and prints the loopback address, every reachable IPv4 address of the machine, the agent it found and the effective concurrency limit. Network addresses are printed so that a reader can open the book on a phone on the same network. <code>SIGINT</code> and <code>SIGTERM</code> stop the intake of new turns first, then signal the running agent processes and wait for them to be gone — a bounded <code>SIGTERM</code>, then <code>SIGKILL</code> — and only then close the listener and release the store lock, so a second server can never start writing while a child of the first one is still alive. A second signal during that shutdown is ignored rather than releasing ownership early, and the turns that were still queued stay on disk and resume at the next start.</p>
         <p>Because the runtime has no npm dependencies, there is no install step and no build step. Starting the server is running one Node.js file; the browser interface is served from <code>public/</code> as it lies on disk, and the <a href="wiki.html#definition-periodic-table">table of ideas</a> and the <a href="wiki.html#definition-library">library</a> are read from <code>data/</code> and <code>library/</code> as they are committed.</p>
         <p>Before it touches the store, the process takes the <a href="wiki.html#definition-store-lock">store lock</a> in <code>universes/.server.lock</code>, so only one server owns a store. A second instance on the same folder prints one line on standard error and exits with status <code>1</code> without listening:</p>
         <pre><code>[start] another scriptaWorlds server is already running (pid 4812, since 2026-09-21T19:04:11.000Z) and owns /srv/scriptaWorlds/universes; stop it before starting a second one</code></pre>
-        <p>The message names the process that holds the store and the moment it started, so the owner can be stopped deliberately. A lock left behind by a process that is gone — a killed server or a machine that was shut down — is recognised as stale as soon as the recorded process identifier is no longer alive, and the new instance takes it over; the lock is removed when the server stops with <code>SIGINT</code> or <code>SIGTERM</code>. Starting two servers is not a way to serve one store twice: each of them would treat the turns of the other as interrupted, which is exactly what the lock prevents. Two independent books on one machine are two checkouts with two <code>universes/</code> folders.</p>
+        <p>The message names the process that holds the store and the moment it started, so the owner can be stopped deliberately. A lock left behind by a process that is gone — a killed server or a machine that was shut down — is recognised as stale as soon as the recorded process identifier is no longer alive, and the new instance takes it over; the lock is removed when the server stops with <code>SIGINT</code> or <code>SIGTERM</code>, and only after its running turns are gone. Starting two servers is not a way to serve one store twice: each of them would treat the turns of the other as interrupted, which is exactly what the lock prevents. Two independent books on one machine are two checkouts with two <code>universes/</code> folders.</p>
       </section>
 
       <section>
@@ -86,6 +86,16 @@ npm run server     # start the API and the reader interface</code></pre>
               <td>The deadline of an export turn, in milliseconds.</td>
             </tr>
             <tr>
+              <td><code>ASSESSMENT_WORKSPACE</code></td>
+              <td><code>assessments/</code></td>
+              <td>Where the separate design and review phases keep their frozen packets and published results. It is deliberately outside <code>universes/</code>: a phase never writes into a book, so a report can never roll back a chapter. Point it at another directory to keep reviews on a different disk.</td>
+            </tr>
+            <tr>
+              <td><code>ASSESSMENT_TIMEOUT_MS</code></td>
+              <td><code>300000</code></td>
+              <td>The deadline of one review run, in milliseconds. A run that passes it is terminated and recorded as an error with the reason.</td>
+            </tr>
+            <tr>
               <td><code>CHAPTER_MIN_WORDS</code></td>
               <td><code>900</code></td>
               <td>The lower bound of the <a href="wiki.html#definition-word-band">word band</a> stated in the prompt and used to warn about a short chapter.</td>
@@ -102,7 +112,7 @@ npm run server     # start the API and the reader interface</code></pre>
 
       <section>
         <h2>The environment check</h2>
-        <p><code>npm run check</code> runs <code>scripts/check.mjs</code>, which proves the whole technology chain without spending model budget. It verifies the Node.js version, probes the agent binary, asserts that both skill manifests exist, creates temporary universes, checks the default language and the language change, exercises the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and language validation paths, asserts that skill links are installed inside a universe, writes a chapter with diacritics and reads it back through the store, closes and reopens a universe, runs the narrative <a href="wiki.html#definition-validator">validator</a> and parses its JSON report, runs the print renderer and requires a positive page count, lists universes, and finally reproduces a restart: a queued turn stays on disk, a running turn becomes interrupted, the canon is rolled back and the partial chapter disappears. It also asserts the data and the paths this release depends on: the one hundred and eighty <a href="wiki.html#definition-cell">cells</a> of the <a href="wiki.html#definition-periodic-table">table of ideas</a> with the systematic symbol of every cell and the page of the book behind each of them, the resolution of <a href="wiki.html#definition-ingredient">ingredients</a> and the composition of the law, together with the assertion that neither the law nor the ingredient lines nor the <code>AGENTS.md</code> of a universe carries a two-letter symbol instead of the sentence, the mapping of the creation request body in which <code>premise</code> wins over <code>opening</code>, the fact that a template keeps its own cells while the reader may add ingredients on top, the <a href="wiki.html#definition-library">library</a> index against the folders on disk — with the indications and the source text of a night template — and the universe composed from a template, the <a href="wiki.html#definition-short-name">short name</a> adopted from the hand-off file and the long line that is refused, the <a href="wiki.html#definition-store-lock">store lock</a> refusing a live owner and taking over a stale one, and the fact that importing the server module starts no server and takes no lock. It exits with status 0 only when every check passed, and it always removes the universes it created.</p>
+        <p><code>npm run check</code> runs <code>scripts/check.mjs</code>, which proves the whole technology chain without spending model budget. It verifies the Node.js version, probes the agent binary, asserts that both skill manifests exist, creates temporary universes, checks the default language and the language change, exercises the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and language validation paths, asserts that skill links are installed inside a universe, writes a chapter with diacritics and reads it back through the store, closes and reopens a universe, runs the narrative <a href="wiki.html#definition-validator">validator</a> and parses its JSON report, runs the print renderer and requires a positive page count, lists universes, and finally reproduces a restart and the store's failure paths: a queued turn stays on disk, a running turn becomes interrupted and the canon is rolled back while the partial chapter disappears, a missing or tampered snapshot leaves that turn recovery-required and blocks the book for writing, a restore puts back the exact accepted file set twice in a row, a chapter being written stays hidden from readers until the commit, a rewrite whose target changed while it waited behind another turn fails as a stale request without touching the book, a failing archive stops a deletion, a real agent process is signalled and waited for during shutdown, and a rendered edition is accepted while a truncated one is refused. It then runs the separate-phase half of the product with no model budget: it freezes a synthetic accepted book as an <code>assessment-input.v2</code> packet in the workspace layout, runs the continuity review and the metrics report over that packet, requires the five report views and all twelve metrics, asserts that neither phase changed a byte of the packet, and tampers with one chapter to prove that both skills refuse the packet with the same code and publish nothing. It then exercises the orchestration around those phases: a capture is refused while the book is being written, both phases publish into the external workspace while the store stays byte-identical, an identical request is deduplicated, a rewrite makes an older result historical, a restart keeps a queued run and interrupts a running one, an arc-completion event is versioned and deduplicated, and an approval records its decision, refuses a stale proposal and is never rewritten. It also asserts the data and the paths this release depends on: the one hundred and eighty <a href="wiki.html#definition-cell">cells</a> of the <a href="wiki.html#definition-periodic-table">table of ideas</a> with the systematic symbol of every cell and the page of the book behind each of them, the resolution of <a href="wiki.html#definition-ingredient">ingredients</a> and the composition of the law, together with the assertion that neither the law nor the ingredient lines nor the <code>AGENTS.md</code> of a universe carries a two-letter symbol instead of the sentence, the mapping of the creation request body in which <code>premise</code> wins over <code>opening</code>, the fact that a template keeps its own cells while the reader may add ingredients on top, the <a href="wiki.html#definition-library">library</a> index against the folders on disk — with the indications and the source text of a night template — and the universe composed from a template, the <a href="wiki.html#definition-short-name">short name</a> adopted from the hand-off file and the long line that is refused, the <a href="wiki.html#definition-store-lock">store lock</a> refusing a live owner and taking over a stale one, and the fact that importing the server module starts no server and takes no lock. It exits with status 0 only when every check passed, and it always removes the universes it created.</p>
         <p>Run it before starting a server on a new machine, after installing or upgrading the agent, and after changing anything that touches the universe file contract. It is the fastest way to distinguish an environment problem from a story problem.</p>
       </section>
 
@@ -157,15 +167,67 @@ npm run table -- --check     # compare the table with the book; write nothing</c
             </tr>
             <tr>
               <td><code>AGENT_FAILED</code></td>
-              <td>The agent did not start, exited with a nonzero status, or exceeded its deadline. The canon has already been rolled back; inspect the turn's agent log, fix the cause and retry the turn.</td>
+              <td>The agent did not start, exited with a nonzero status, or exceeded its deadline. The last accepted book has already been restored from the snapshot; inspect the turn's agent log, fix the cause and retry the turn.</td>
             </tr>
             <tr>
               <td><code>NO_CHAPTER</code></td>
               <td>The agent finished without writing the expected chapter file. Retry, and check the skills are present in the universe folder.</td>
             </tr>
             <tr>
+              <td><code>DUPLICATE_CHAPTER</code></td>
+              <td>The turn left more than one chapter file for the same chapter number, usually a rewrite that changed the slug without removing the old file. The failure path removes the extra files and restores the accepted chapter; retry after checking the agent log.</td>
+            </tr>
+            <tr>
+              <td><code>INVALID_CHAPTER</code></td>
+              <td>The chapter failed the skill's structural validator, so it was not accepted: a missing or malformed plan, offer, canon, threads or atlas file. The message names the validator errors, and the accepted book is restored; retry after the cause is fixed.</td>
+            </tr>
+            <tr>
+              <td><code>NO_ANCESTRY</code></td>
+              <td>A rewrite was requested for a chapter whose pre-chapter state is not recorded, so the book cannot be rewound safely. Reconstruct the state that preceded the chapter — canon, threads and atlas — or rewrite the last chapter instead.</td>
+            </tr>
+            <tr>
+              <td><code>STALE_REQUEST</code></td>
+              <td>A queued rewrite reached the front of its queue and the book no longer matches the request: the target changed, or a later chapter appeared that the request never authorised dropping. Nothing was rewritten; read the chapter again and ask for the rewrite again.</td>
+            </tr>
+            <tr>
+              <td><code>RECOVERY_REQUIRED</code></td>
+              <td>A turn failed or was interrupted and the snapshot taken before it is missing or unusable, so the accepted state of that book is unknown. Every new turn and every retry is refused until the accepted version is established by hand; the reason names the unusable snapshot.</td>
+            </tr>
+            <tr>
+              <td><code>SHUTTING_DOWN</code></td>
+              <td>The server stopped accepting new turns because <code>SIGINT</code> or <code>SIGTERM</code> arrived. Wait for the process to end and start it again; queued turns are on disk and resume.</td>
+            </tr>
+            <tr>
+              <td><code>UNSTABLE_VERSION</code></td>
+              <td>A review was requested while a turn of that book was queued or running, so the packet would not be an accepted version. Wait for the turn, or capture from the snapshot of a finished turn.</td>
+            </tr>
+            <tr>
+              <td><code>MISSING_FILE</code></td>
+              <td>A review could not freeze the accepted version because a file the packet must contain is absent (a state file, or a chapter the manifest expects). The book is incomplete rather than unstable; establish the missing file first.</td>
+            </tr>
+            <tr>
+              <td><code>BAD_STATUS</code></td>
+              <td>The status asked for is not <code>open</code> or <code>closed</code>.</td>
+            </tr>
+            <tr>
+              <td><code>NO_PROFILE</code></td>
+              <td>The metrics phase was requested without an evaluation profile. Supply one (<code>profile.v1</code>), because the measurements depend on the scope and the aggregation it declares.</td>
+            </tr>
+            <tr>
+              <td><code>NOT_CANCELLABLE</code></td>
+              <td>A review that already settled was asked to cancel. Read its result, or start a new run over the same packet.</td>
+            </tr>
+            <tr>
+              <td><code>BAD_ARC</code></td>
+              <td>An arc-completion event carried an identifier that is not lowercase letters, digits and hyphens. The identifier is what deduplicates the assessments of that arc.</td>
+            </tr>
+            <tr>
               <td><code>NO_EXPORT</code></td>
-              <td>An export turn produced no <code>.pdf</code> or <code>.docx</code> file. Usually <code>MISSING_FONT</code> or a renderer usage error; read the agent log for the renderer's JSON line.</td>
+              <td>An export turn produced no <code>.pdf</code> or <code>.docx</code> file for a requested format. Usually <code>MISSING_FONT</code> or a renderer usage error; read the agent log for the renderer's JSON line.</td>
+            </tr>
+            <tr>
+              <td><code>INVALID_EXPORT</code></td>
+              <td>The edition file the agent left is empty or is not a valid PDF or DOCX document, so it is not reported as a produced edition. Read the renderer's JSON line in the agent log; the file is usually a truncated run or a failed write.</td>
             </tr>
             <tr>
               <td><code>NO_TABLE</code></td>
@@ -178,6 +240,10 @@ npm run table -- --check     # compare the table with the book; write nothing</c
             <tr>
               <td><code>CLOSED</code></td>
               <td>A chapter turn or a rewrite was requested for a closed universe. Reopen the universe first; editions are still allowed while it is closed.</td>
+            </tr>
+            <tr>
+              <td><code>LANGUAGE_LOCKED</code></td>
+              <td>A language change was requested for a book that already has chapters. The accepted prose is written in the current language, so the language is fixed; start a new universe to write in another language.</td>
             </tr>
             <tr>
               <td><code>NOT_RETRYABLE</code></td>

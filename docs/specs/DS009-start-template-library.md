@@ -54,7 +54,7 @@ A rebuild removes only the folders it generates (`night-*`) and writes them agai
 
 The empty template is the world the reader writes. Its `kind` is `empty`, its `number` is `0`, it has no sector, no genealogy, no cells and no prohibition, and its `request` states the promise in its first line — `A new world, with nothing fixed yet: this first request becomes its first law.` — before inviting the reader to say what exists in that world, what sustains life, who holds power, what cannot be done and what is true from the first page. Its summary carries the same contract.
 
-Inside the universe, that promise is implemented rather than declared: when a template is `empty`, has no cells and states no prohibition, `creationFromTemplate` uses the reader's own request text as the law of the new universe (bounded to 2000 characters). A reader who starts from the empty template therefore writes the [fundamental law](wiki.html#definition-fundamental-law) of the book in the same text that opens its first chapter.
+Inside the universe, that promise is implemented rather than declared: when a template is `empty`, has no cells and states no prohibition, `creationFromTemplate` uses the reader's own request text as the law of the new universe (bounded to 2000 characters). A reader who starts from the empty template therefore writes the [fundamental law](wiki.html#definition-fundamental-law) of the book in the same text that opens its first chapter. Sending text with no `library` and no `elements` at all takes the same route: the request the reader wrote becomes the law, so the free-text start and the empty template cannot drift apart.
 
 ### The index and the folder split
 

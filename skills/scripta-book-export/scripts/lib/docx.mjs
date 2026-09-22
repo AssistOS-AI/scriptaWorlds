@@ -6,7 +6,7 @@
 
 import { deflateRawSync } from 'node:zlib';
 
-import { xmlEscape } from './errors.mjs';
+import { crc32, xmlEscape } from './errors.mjs';
 
 const W_NS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
 const R_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
@@ -17,22 +17,6 @@ const DOCX_PAGE_TWIPS_H = 11906; // 210 mm
 const DOCX_MARGIN_TWIPS = 1134; // 2 cm
 
 const XML_DECL = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
-
-let crcTable = null;
-
-function crc32(buffer) {
-  if (!crcTable) {
-    crcTable = new Uint32Array(256);
-    for (let i = 0; i < 256; i++) {
-      let value = i;
-      for (let bit = 0; bit < 8; bit++) value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
-      crcTable[i] = value >>> 0;
-    }
-  }
-  let crc = 0xffffffff;
-  for (let i = 0; i < buffer.length; i++) crc = crcTable[(crc ^ buffer[i]) & 0xff] ^ (crc >>> 8);
-  return (crc ^ 0xffffffff) >>> 0;
-}
 
 function zipArchive(files, buildDate) {
   const dosTime = (buildDate.getHours() << 11) | (buildDate.getMinutes() << 5) | (buildDate.getSeconds() >> 1);

@@ -1,8 +1,9 @@
 /**
  * Font families for the book: discovery under `--fonts` or the system font roots, family
  * ranking, the `BookFace` wrapper (used-character tracking, subset tag, Identity-H codes) and
- * `resolveFonts`, which picks the first serif family whose regular face covers the book
- * characters (falling back to Latin + Romanian diacritics, else `MISSING_FONT`).
+ * `resolveFonts`, which accepts a family only when every face the layout renders with covers the
+ * characters rendered with it (the regular face must also cover the essential Latin baseline),
+ * and otherwise fails with `MISSING_FONT` naming the family, the face and the missing characters.
  */
 
 import { createHash } from 'node:crypto';
@@ -98,7 +99,6 @@ export class BookFace {
     this.gidMap = null;
     this.gidOrder = null;
     this.tag = null;
-    this.missingChars = new Set();
     this.pdfName = null;
   }
 
@@ -119,8 +119,6 @@ export class BookFace {
   }
 
   finish() {
-    const missing = this.font.missing(this.codes);
-    for (const code of missing) this.missingChars.add(String.fromCodePoint(code));
     const { data, gidMap } = this.font.subset(this.codes);
     this.subsetData = Buffer.from(data);
     this.gidMap = gidMap;
@@ -178,6 +176,12 @@ function rankFamilies(files) {
   return list;
 }
 
+/**
+ * The four faces of one family. A style that has no file of its own uses the regular face (then the
+ * bold face, then the italic one) — the documented fallback — and that substitution is acceptable
+ * only if the substituted face covers the characters that style renders, which `coverageProblem`
+ * proves before the family is accepted.
+ */
 function makeFaceSet(family) {
   const pick = (style) =>
     family.faces[style] || family.faces.regular || family.faces.bold || family.faces.italic || null;
@@ -192,26 +196,75 @@ function makeFaceSet(family) {
 }
 
 /**
- * Picks the serif font family that covers all requested characters.
+ * Characters a candidate family cannot render, per face the layout actually used: every used face
+ * must cover the characters rendered with it, and the regular face must additionally cover the
+ * essential baseline (printable Latin, the Romanian diacritics and the typographic punctuation the
+ * labels, the page numbers and the table of contents are built from).
+ * @returns {null|{family: string, problems: Array<{face: object, missing: number[]}>}}
+ */
+function coverageProblem(set, used, essential) {
+  const problems = [];
+  for (const face of used) {
+    const missing = face.font.missing(face.codes);
+    if (missing.length) problems.push({ face, missing });
+  }
+  const regular = set.faces.regular.font;
+  if (!problems.length && !regular.covers(essential)) {
+    problems.push({ face: set.faces.regular, missing: regular.missing(essential) });
+  }
+  return problems.length ? { family: set.family, problems } : null;
+}
+
+function describeProblem(problem) {
+  const parts = problem.problems.map(({ face, missing }) => {
+    const listed = missing.slice(0, 8).map((code) => {
+      const hex = code.toString(16).toUpperCase().padStart(4, '0');
+      return `${JSON.stringify(String.fromCodePoint(code))} (U+${hex})`;
+    });
+    if (missing.length > listed.length) listed.push(`and ${missing.length - listed.length} more`);
+    return `${problem.family} ${face.style} face (${face.psName}) has no glyph for ${listed.join(' ')}`;
+  });
+  return parts.join('; ');
+}
+
+function missingFontMessage(problems, overrideDir) {
+  const where = overrideDir
+    ? `the --fonts folder ${overrideDir}`
+    : '/usr/share/fonts (Liberation Serif, Liberation, Noto Serif, then any serif family)';
+  const detail = problems.length
+    ? describeProblem(problems[0])
+    : 'no serif TrueType font with usable glyf outlines was found there';
+  return (
+    `No font family covers every character of this edition. Searched in ${where}: ${detail}. ` +
+    'Install a serif TrueType family (for example liberation-serif-fonts) or pass --fonts <folder> ' +
+    'with .ttf files whose regular, bold, italic and bold-italic faces cover the text.'
+  );
+}
+
+/**
+ * Picks the serif font family that can render the whole edition.
+ *
+ * `probe(faces)` lays the book out with a candidate family and returns the faces actually used
+ * (`usedFaces` in layout.mjs), each of them carrying the characters rendered with it. A family is
+ * accepted only when every one of those faces covers its own characters; a style without its own
+ * file uses the regular face, which is allowed only when the regular face covers the characters
+ * that style renders. No partial family is ever accepted, and an incomplete edition is never
+ * produced: the search either finds a covering family or fails with `MISSING_FONT`.
+ *
  * Order: `--fonts`, then Liberation Serif, then any Liberation, then Noto Serif, then the system.
  */
-export function resolveFonts(overrideDir, requiredCodes) {
+export function resolveFonts(overrideDir, probe) {
   const essential = essentialCodes();
-  let partial = null;
+  const problems = [];
   for (const root of fontSearchRoots(overrideDir)) {
     for (const family of rankFamilies(root.files)) {
       const set = makeFaceSet(family);
       if (!set) continue;
-      if (set.faces.regular.font.covers(requiredCodes)) return set;
-      if (!partial && set.faces.regular.font.covers(essential)) partial = set;
+      const problem = coverageProblem(set, probe(set.faces), essential);
+      if (!problem) return set;
+      problems.push(problem);
     }
   }
-  if (partial) return partial;
-  fail(
-    `No valid serif TrueType font with coverage for the book characters was found. ` +
-      `Searched in ${overrideDir ? `the --fonts folder ${overrideDir}` : '/usr/share/fonts (Liberation Serif, Liberation, Noto Serif, then any serif)'}. ` +
-      `Install liberation-serif-fonts or use --fonts <folder> with a serif .ttf font.`,
-    'MISSING_FONT',
-  );
+  fail(missingFontMessage(problems, overrideDir), 'MISSING_FONT');
   return null;
 }

@@ -11,9 +11,20 @@ import { findTemplate, listTemplates } from './templates.mjs';
 import { cellDetail, tableForClient } from './periodic.mjs';
 import { acquireStoreLock } from './lock.mjs';
 import { creationFromTemplate, readLibraryIndex, readTemplate } from './library.mjs';
-import { archiveChapter, dropChaptersFrom } from './universe-chapters.mjs';
 import { firstChapterRequest } from './universe-prompts.mjs';
-import { recoverAllUniverses, restoreState } from './universe-state.mjs';
+import { recoverAllUniverses } from './universe-state.mjs';
+import {
+  cancelAssessment,
+  listApprovals,
+  recordApproval,
+  declareArcCompletion,
+  listArcEvents,
+  listAssessments,
+  readAssessment,
+  recoverAssessments,
+  retryAssessment,
+  startAssessment
+} from './assessments.mjs';
 import {
   createUniverse,
   listUniverses,
@@ -64,7 +75,9 @@ export function universeInputFromBody(body = {}, template = null) {
 /**
  * The fields `createUniverse` receives, from either a template of the library (the book supplies the
  * law, the cells and the situation, and the reader may add their own ingredients on top) or the
- * request body itself.
+ * request body itself. Text sent with neither a template nor an ingredient is the empty-template
+ * case: the request the reader wrote becomes the law of the new world, so the free-text start is a
+ * usable path instead of a `BAD_LAW` rejection.
  */
 export function universeInputFromRequest({ body = {}, template = null, libraryTemplate = null } = {}) {
   if (libraryTemplate) {
@@ -74,7 +87,12 @@ export function universeInputFromRequest({ body = {}, template = null, libraryTe
       elements: Array.isArray(body.elements) ? body.elements : []
     });
   }
-  return universeInputFromBody(body, template);
+  const input = universeInputFromBody(body, template);
+  const typed = String(body.prompt ?? '').trim();
+  if (!input.law.trim() && input.elements.length === 0 && typed.length >= 24) {
+    input.law = typed;
+  }
+  return input;
 }
 
 async function handleUniverses(req, res, segments, url) {
@@ -189,20 +207,113 @@ async function handleUniverses(req, res, segments, url) {
         throw error;
       }
 
-      const turnNumber = chapter.turnNumber;
-      const previous = await archiveChapter(id, number);
-      const droppedChapters = body.dropLater === true ? await dropChaptersFrom(id, number + 1) : [];
-      for (const dropped of droppedChapters) await archiveChapter(id, dropped).catch(() => {});
-      if (turnNumber !== null) await restoreState(id, turnNumber);
-
+      // The handler only validates and enqueues. Archiving the old text, dropping later chapters and
+      // restoring the pre-chapter state happen inside the job, under the per-universe execution lock.
       const job = await jobs.startRewrite({
         universeId: id,
         chapterNumber: number,
         instructions,
-        previousText: previous?.text ?? ''
+        dropLater: laterChapters.length > 0 && body.dropLater === true,
+        findings: body.findings ?? [],
+        preserve: body.preserve ?? [],
+        sourceVersion: typeof body.sourceVersion === 'string' ? body.sourceVersion : null
       });
-      console.log(`[job] ${job.id} rewriting chapter ${number} in ${id}${droppedChapters.length ? ` (dropped: ${droppedChapters.join(', ')})` : ''}`);
-      sendJson(res, 202, { job, droppedChapters });
+      console.log(`[job] ${job.id} rewriting chapter ${number} in ${id}${laterChapters.length ? ` (dropped: ${laterChapters.join(', ')})` : ''}`);
+      sendJson(res, 202, { job, droppedChapters: laterChapters });
+      return true;
+    }
+    throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+  }
+
+  if (sub === 'assessments') {
+    // The separate design and review phases: a frozen packet of one accepted version, run outside the
+    // book. They never write into `universes/`, so a report can never roll back a chapter.
+    if (extra === undefined) {
+      if (req.method === 'GET') {
+        sendJson(res, 200, {
+          runs: await listAssessments(id),
+          arcEvents: await listArcEvents(id),
+          workspace: 'assessments'
+        });
+        return true;
+      }
+      if (req.method === 'POST') {
+        const body = await readJsonBody(req, config.maxBodyBytes);
+        const run = await startAssessment({
+          universeId: id,
+          phase: body.phase ?? 'metrics',
+          profile: body.profile ?? null,
+          annotations: body.annotations ?? null,
+          corpus: body.corpus ?? null,
+          fromTurn: Number.isInteger(body.fromTurn) ? body.fromTurn : null,
+          trigger: 'requested',
+          force: body.force === true
+        });
+        console.log(`[assess] ${run.run_id} ${run.phase} ${run.status} for ${id}${run.deduplicated ? ' (deduplicated)' : ''}`);
+        sendJson(res, 202, { run });
+        return true;
+      }
+      throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+    }
+    if (req.method === 'GET') {
+      // `/assessments` on an existing book: `GET /api/universes/:id/assessments` is the list above.
+      sendJson(res, 200, { run: await readAssessment(id, extra) });
+      return true;
+    }
+    if (req.method === 'POST') {
+      const body = await readJsonBody(req, config.maxBodyBytes).catch(() => ({}));
+      if (body.action === 'cancel') {
+        sendJson(res, 200, { run: await cancelAssessment(id, extra) });
+        return true;
+      }
+      if (body.action === 'retry') {
+        sendJson(res, 202, { run: await retryAssessment(id, extra) });
+        return true;
+      }
+      throw new UniverseError('BAD_ACTION', 'Unknown assessment action (cancel|retry).', 400);
+    }
+    throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+  }
+
+  if (sub === 'approvals') {
+    // The human decision that lets a design or craft proposal reach a later writing request (§8.4).
+    if (extra === undefined && req.method === 'GET') {
+      sendJson(res, 200, { approvals: await listApprovals(id) });
+      return true;
+    }
+    if (extra === undefined && req.method === 'POST') {
+      const body = await readJsonBody(req, config.maxBodyBytes);
+      const approval = await recordApproval({
+        universeId: id,
+        proposal: body.proposal ?? null,
+        decision: body.decision,
+        reviewer: body.reviewer ?? null,
+        directions: body.directions ?? [],
+        version: typeof body.version === 'string' ? body.version : null
+      });
+      console.log(`[assess] approval ${approval.decision} for ${id} at ${String(approval.version).slice(0, 18)}… (${approval.directions.length} directions)`);
+      sendJson(res, 201, { approval });
+      return true;
+    }
+    throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+  }
+
+  if (sub === 'arc-events') {
+    if (extra === undefined && req.method === 'GET') {
+      sendJson(res, 200, { events: await listArcEvents(id) });
+      return true;
+    }
+    if (extra === undefined && req.method === 'POST') {
+      const body = await readJsonBody(req, config.maxBodyBytes);
+      const declared = await declareArcCompletion({
+        universeId: id,
+        arcId: body.arcId,
+        note: body.note ?? null,
+        phase: body.phase ?? 'metrics',
+        profile: body.profile ?? null
+      });
+      console.log(`[assess] arc ${declared.event.arc_id} complete at ${declared.event.version.slice(0, 18)}… for ${id}${declared.run ? '' : ' (no profile, no run)'}`);
+      sendJson(res, 202, declared);
       return true;
     }
     throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
@@ -224,6 +335,9 @@ async function handleUniverses(req, res, segments, url) {
         universeId: id,
         message: body.message,
         kind,
+        directions: body.directions,
+        approval: body.approval,
+        sourceChapter: body.sourceChapter,
         format
       });
       console.log(`[job] ${job.id} ${job.kind} queued for ${id} (position ${job.queuePosition})`);
@@ -399,6 +513,10 @@ async function main() {
   });
 
   const recovered = await recoverAllUniverses();
+  const recoveredRuns = await recoverAssessments();
+  if (recoveredRuns.interrupted.length > 0 || recoveredRuns.resumed.length > 0) {
+    console.log(`[start] assessments: ${recoveredRuns.resumed.length} resumed, ${recoveredRuns.interrupted.length} interrupted (retryable)`);
+  }
   const resumed = await jobs.resumeQueued(recovered.filter((entry) => entry.action === 'queued'));
   for (const entry of recovered) {
     if (entry.action === 'interrupted') {
@@ -432,11 +550,22 @@ async function main() {
     console.log(`  directories: universes=${universesDir}`);
   });
 
+  // One shutdown path, and ownership of the store is released last: a second server must not acquire
+  // the store while a child process of this one is still writing into it. The handler is idempotent so
+  // two signals (or a signal during a slow shutdown) cannot race the release.
+  let shuttingDown = false;
   const shutdown = async () => {
+    if (shuttingDown) return;
+    shuttingDown = true;
     console.log('\n[stop] shutting the server down…');
+    const stopped = await jobs.stop({ timeoutMs: 15_000 });
+    if (stopped.stopped > 0) {
+      console.log(`[stop] stopped ${stopped.stopped} running turn(s)${stopped.killed > 0 ? `, killed ${stopped.killed}` : ''}`);
+    }
+    await new Promise((resolve) => server.close(resolve));
     await lock.release();
-    server.close(() => process.exit(0));
-    setTimeout(() => process.exit(0), 3_000).unref();
+    console.log('[stop] store lock released; the server is gone');
+    process.exit(0);
   };
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);

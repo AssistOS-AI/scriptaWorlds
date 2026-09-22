@@ -19,12 +19,16 @@ The design specifications under `docs/specs/` are the source of truth for docume
 
 ## Current Skill Catalog
 
-The repository implements two product skills, and they are the only skills that belong to the product documentation:
+The repository implements six product skills. Two of them write a book and are read during a turn; four of them are chosen only in a separate design or validation phase and are never invoked while a chapter is being written. All six belong to the product documentation:
 
 | Skill | What it is |
 | --- | --- |
 | `scripta-ala` | The narrative skill the agent reads before writing an episode: the mandatory working order, the narrative invariants, the file schemas, the creative palette and the chapter validator. Specified in `docs/specs/DS007-scripta-ala-skill.md`, documented on `docs/scripta-ala-skill.html`. |
 | `scripta-book-export` | The print skill: one dependency-free command that produces the DOCX and PDF editions of a universe. Specified in `docs/specs/DS008-scripta-book-export-skill.md`, documented on `docs/scripta-book-export-skill.html`. |
+| `scripta-story-design` | The design skill: the tentative brief that gives a book or an arc its purpose before any prose is written, plus its validator. A separate-phase skill, never read during chapter writing. Specified in `docs/specs/DS010-scripta-story-design-skill.md`, documented on `docs/scripta-story-design-skill.html`. |
+| `scripta-prose-craft` | The craft skill: focalization, voice, subtext, blocks and rhythm, plus the validator of the prose profile that records them. A separate-phase skill, never read during chapter writing. Specified in `docs/specs/DS011-scripta-prose-craft-skill.md`, documented on `docs/scripta-prose-craft-skill.html`. |
+| `scripta-continuity-review` | The continuity reviewer: deterministic integrity checks over a frozen assessment packet, plus re-verified semantic annotations, producing evidence-backed findings without editing the book. A separate-phase skill. Specified in `docs/specs/DS012-scripta-continuity-review-skill.md`, documented on `docs/scripta-continuity-review-skill.html`. |
+| `scripta-metrics-report` | The measurement skill: one validated assessment bundle and the five reports rendered from it, with advisory scores and honest unavailable results. A separate-phase skill. Specified in `docs/specs/DS013-scripta-metrics-report-skill.md`, documented on `docs/scripta-metrics-report-skill.html`. |
 
 Update this table, `docs/index.html`, the affected specification and the specification matrix in the same change whenever this catalog changes.
 
@@ -52,7 +56,7 @@ The model comes from `SCRIPTAS_MODEL` and defaults to `deepseek/deepseek-v4-flas
 
 The repository has no npm dependencies. `dependencies.md` at the root records the two runtime requirements and the optional system font, and each skill folder keeps its own record. Behavior is verified with `npm run check`, which runs `scripts/check.mjs` against temporary universes without spending model budget, and a change is not complete until that check passes together with a scoped reproduction of the changed path.
 
-Inside a universe folder the rules are narrower. Work only in that folder. Do not run `git` and do not touch another universe. Narrative content is written only through the workflow of `scripta-ala`, and printed editions only through `scripta-book-export`. Write only `canon.md`, `threads.json`, `atlas.json`, `chapters/*`, `drafts/*` and `exports/edition.json`; `universe.json`, `turns/*` and `.agents/` belong to the server, and `charter.md` is edited only by a human or a client that intends to change the permanent rules of the universe.
+Inside a universe folder the rules are narrower. Work only in that folder. Do not run `git` and do not touch another universe. Narrative content is written only through the workflow of `scripta-ala`, and printed editions only through `scripta-book-export`. Write only `canon.md`, `threads.json`, `atlas.json`, `chapters/*`, `drafts/*` and `exports/edition.json`; `universe.json`, `turns/*` and `.agents/` belong to the server, and `charter.md` is edited only by a human or a client that intends to change the permanent rules of the universe. A design or validation pass is a separate phase: it selects `scripta-story-design`, `scripta-prose-craft`, `scripta-continuity-review` or `scripta-metrics-report`, it reads a frozen copy of the accepted version, and it writes nothing into the universe.
 
 ## Key Paths
 
@@ -61,7 +65,8 @@ Inside a universe folder the rules are narrower. Work only in that folder. Do no
 - `docs/operations.html`: requirements, configuration, the environment check and the failure reference.
 - `docs/api.html`: every route, the error envelope and the live event stream.
 - `docs/reader-interface.html`: the browser reader and its in-flow surfaces.
-- `docs/scripta-ala-skill.html`, `docs/scripta-book-export-skill.html`: the two product skills.
+- `docs/scripta-ala-skill.html`, `docs/scripta-book-export-skill.html`: the two product skills that write a book.
+- `docs/scripta-story-design-skill.html`, `docs/scripta-prose-craft-skill.html`, `docs/scripta-continuity-review-skill.html`, `docs/scripta-metrics-report-skill.html`: the four separate-phase design and review skills.
 - `docs/wiki.html`: the canonical terminology page for every project-specific term.
 - `docs/specs/`: the specification set; `docs/specs/matrix.md` is its generated index and `docs/specsLoader.html` is the viewer.
 - `docs/contracts.md`: the internal contract reference for formats, payloads and command lines.

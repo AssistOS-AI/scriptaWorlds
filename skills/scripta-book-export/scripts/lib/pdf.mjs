@@ -8,20 +8,7 @@ import { createHash } from 'node:crypto';
 import { deflateSync } from 'node:zlib';
 
 import { pdfDate, pdfTextString } from './errors.mjs';
-import { PAGE } from './layout.mjs';
-
-function collectFaceCodes(layout) {
-  const used = new Set();
-  for (const page of layout.pages) {
-    for (const line of page.lines) {
-      for (const token of line.tokens) {
-        token.face.note(token.text);
-        used.add(token.face);
-      }
-    }
-  }
-  return used;
-}
+import { PAGE, usedFaces } from './layout.mjs';
 
 function fmt(value) {
   return Number(value.toFixed(2)).toString();
@@ -155,7 +142,7 @@ function pageContentStream(page) {
 }
 
 export function renderPdf(book, faces, layout, buildDate) {
-  const used = collectFaceCodes(layout);
+  const used = usedFaces(layout);
   for (const face of used) face.finish();
   const objects = [];
   const add = (buffer) => {

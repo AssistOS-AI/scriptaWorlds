@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scripta-continuity-review skill - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › scripta-continuity-review</p>
+      <p class="kicker">Skills</p>
+      <h1>scripta-continuity-review</h1>
+
+      <p class="lead"><a href="wiki.html#definition-scripta-continuity-review">scripta-continuity-review</a> reviews a frozen accepted version for continuity defects and reports them as evidence-backed <a href="wiki.html#definition-continuity-finding">findings</a>, without changing a single byte of the book. It is a separate-phase skill: it is chosen for validation work and never runs during chapter writing.</p>
+
+      <section>
+        <h2>What the skill covers</h2>
+        <p>A book accumulates facts, and a continuation that contradicts one of them is a defect a reader notices at once. The skill reviews continuity in two layers. The first is deterministic and needs no model: it checks the shape of the frozen input, the hash and encoding of every file, the chapter numbering, references to chapters that do not exist, malformed state containers and the chapter numbers a design blueprint plans. The second consumes semantic annotations written by a reviewer, verifies every quoted piece of evidence against the frozen input, and derives a comparison ledger from the judgements that survive, so a fabricated or stale quotation refuses the file instead of reaching a report.</p>
+        <p>The folder contains <code>SKILL.md</code> with the procedure, the refusal codes and the result envelope, <code>references/state-and-evidence.md</code> with the evidence classes, <code>references/review-protocol.md</code> with the review order and the questions for a suspected contradiction, <code>skill.json</code> as the catalog manifest, <code>dependencies.md</code> as the local dependency record, <code>scripts/review-continuity.mjs</code> as the single executable and <code>scripts/lib/</code> with the packet loader, the span-aware JSON parser, the evidence builder, the deterministic checks, the claim validator, the ledger and the publication module.</p>
+      </section>
+
+      <section>
+        <h2>The frozen assessment packet</h2>
+        <p>The reviewer reads an <a href="wiki.html#definition-assessment-packet">assessment packet</a>: a directory that contains a manifest plus every referenced file at its relative path. The manifest declares the book it describes, the last accepted chapter, the content identity of the accepted version and one entry per file with a relative path, a SHA-256 hash, a byte count, a role of chapter, offer, canon, threads, atlas, meta, design, profile, annotations, corpus, rules or timing, and an artifact identifier.</p>
+        <p>Every declared file must exist inside the packet, be valid UTF-8, match its declared size and hash, and still resolve inside the packet after symlinks are resolved. The content identity is recomputed from the accepted narrative roles and compared with the declared one. The declared scope is honoured rather than assumed: a complete packet needs every chapter and the three state containers, a partial packet declares the chapters it left out, and a textual-only packet carries prose alone, in which case the result states that no continuity context was available.</p>
+        <p>Every refusal is one coded sentence, and each case has exactly one name, so a host can act on a refused packet without parsing prose: a missing packet, a missing manifest, an unparseable manifest, an unknown schema version, an escaped path or a symlink escape, a duplicate path, artifact identifier or chapter, a missing file, bytes that are not UTF-8, a byte or hash mismatch, a wrong version identity, an undeclared role, an incomplete scope or an inconsistent one. The command prints the envelope with <code>ok: false</code>, exits with status <code>2</code> and writes nothing.</p>
+      </section>
+
+      <section>
+        <h2>Deterministic checks and annotations</h2>
+        <p>The deterministic layer reads chapter references field by field, because the fields do not mean the same thing. An asked question, a thread's creation or closure and an atlas occurrence assert accepted material, so each must name a chapter the packet contains. A deadline and a blueprint destination are plans: they may point forward, and only the shape of their value is checked. A chapter the scope declares omitted is a declared omission rather than a defect. The layer also reports duplicate active chapter numbers, a chapter file numbered beyond the last accepted chapter, a malformed state container and a malformed JSON blueprint.</p>
+        <p>Each deterministic finding is confirmed with deterministic certainty and cites the offending bytes. Evidence is built from the spans of the parsed document, so a key that repeats across objects cites the object that actually offends rather than the first occurrence of the key, and every window ends on a UTF-8 code-point boundary, so a window that would split a Romanian diacritic is shortened instead.</p>
+        <p>Semantic continuity — a character who knows something they cannot know, a fact that changes without a cause, a rule that quietly stops applying — cannot be settled mechanically. Each annotation is therefore an evidence-bearing record: a stable identifier, the version it was written against, the scope it reviewed, an evaluator and method, a declared status, category, severity and certainty, a rationale, the evidence it rests on, an alternative explanation, and its attribute and catalyst when a character changed. Evidence is verified against the frozen bytes, a fabricated quotation refuses the file, and a resolved verdict without paired earlier-and-later evidence is preserved as declared but reported as unresolved, so it can inflate neither the contradicted nor the consistent count.</p>
+      </section>
+
+      <section>
+        <h2>The ledger, the indices and the result</h2>
+        <p>The reviewed comparisons are stored separately from the defect list, because a defect list is a list of symptoms and a ledger is a list of decisions. Each comparison names its subject, its baseline and later evidence, its temporal scope and one outcome of supported, contradicted or unresolved. Symptoms linked to one defect share a single outcome, so repeated symptoms of one defect add one penalty, while two distinct defects on the same subject stay two comparisons. Counts are derived from those records and never trusted from outside: a supplied total that disagrees, including a reproduced <code>eligible=1, consistent=8</code> payload, is refused rather than believed, and an embedded previous result is accepted only when it is successful, describes this same version and scope, and reconciles.</p>
+        <p>Coverage is the share of eligible comparisons that reached an outcome and stays between zero and one, and is empty when there was nothing to cover; its bounds carry what the unresolved comparisons leave open. The derived consistency and attribute-change indices report a value, bounds or not-applicable: no eligible comparison means there was nothing to measure, no eligible character change means the attribute index does not apply, and an index that cannot be settled is withheld rather than reported as perfect. The result records the packet version and the scope it covered, so a reading of two chapters is never presented as a whole-book result, and the judged provenance of every comparison survives the arithmetic.</p>
+      </section>
+
+      <section>
+        <h2>Command and publication</h2>
+        <pre><code>node skills/scripta-continuity-review/scripts/review-continuity.mjs --input &lt;packet-dir&gt; --out &lt;result-dir&gt; [--annotations &lt;annotations.json&gt;]</code></pre>
+        <p>Standard output carries exactly one <code>continuity-result.v1</code> line, and the same envelope is published as <code>continuity-result.json</code> inside the result directory. Exit status <code>0</code> means the review completed, whatever it found, because findings and unsettled comparisons are result data rather than failure; status <code>2</code> means invalid arguments, a rejected packet, invalid annotations or an unusable result directory, in which case nothing is written; status <code>1</code> means an execution or publication failure, which the envelope reports while naming no bundle.</p>
+        <p>The result directory need not exist yet. Before any write, the destination is proven separate from every input on real paths, so an equal path, a nested path, a symlink alias or a not-yet-existing child beneath a symlink is refused, and a supplied annotations file is protected the same way. A non-empty destination is refused, because every run owns its directory and an accepted result is never overwritten file by file. The bundle is assembled in a fresh staging directory, verified there, and published with one rename, so a reader sees either the previous complete result or the new complete result, never a mixture, and an interrupted run leaves only a staging directory that the next run removes.</p>
+      </section>
+
+      <section>
+        <h2>Dependencies and boundaries</h2>
+        <p>The folder needs Node.js 20 or later and nothing else: the reviewer uses built-in modules for file access, hashing, paths and decoding, and it has no npm package, no vendored code and no network access at runtime. Its tests use the built-in <code>node --test</code> runner, build real assessment packets in temporary directories, and assert the observable contract — every refusal code, the declared-partial distinction, the input/output separation and atomic publication, the field-specific chapter references, the code-point evidence boundaries of Romanian text, the annotation rules and the ledger arithmetic.</p>
+        <p>The boundary is that this skill observes and reports. It does not edit chapters, canon, threads, atlas, permanent rules or design plans, and it does not decide that a revision must happen: a host validates the result and publishes it, and the author of the book chooses and writes any revision through the normal transaction. Continuity findings are also the evidence the metrics layer consumes for its continuity indicators, which is specified in <a href="specsLoader.html?spec=DS013-scripta-metrics-report-skill.md">DS013-scripta-metrics-report-skill</a>; the complete contract of this skill is <a href="specsLoader.html?spec=DS012-scripta-continuity-review-skill.md">DS012-scripta-continuity-review-skill</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

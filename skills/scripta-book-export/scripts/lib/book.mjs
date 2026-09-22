@@ -1,13 +1,21 @@
 /**
  * Edition language and book model: reads `universe.json` + `exports/edition.json` +
  * `chapters/NNNN-slug.md`, resolves the edition language (§3) and assembles the title, the
- * labeled sections and the word count the renderers consume.
+ * labeled sections, the word count the renderers consume, and the chapter inventory (relative
+ * path, sha256, bytes).
+ *
+ * It also computes the accepted version of `docs/contracts.md` §8.2 — `contentIdentity` over the
+ * role files `versionEntries` finds — which is what an edition is bound to: the renderer records it
+ * as the `source_version` of `exports/edition-manifest.json` and the verifier recomputes it from
+ * the universe on disk, so an edition rendered from content that has since changed is visibly
+ * historical instead of pretending to contain the current book.
  */
 
 import { existsSync, readdirSync } from 'node:fs';
 import { basename, join } from 'node:path';
+import { createHash } from 'node:crypto';
 
-import { EXIT_USAGE, countWords, fail, readJsonFile, readTextFile, slugify } from './errors.mjs';
+import { EXIT_USAGE, countWords, fail, readBytesFile, readJsonFile, slugify } from './errors.mjs';
 import { blockText, parseMarkdown } from './markdown.mjs';
 
 const EDITION_LABELS = {
@@ -68,6 +76,57 @@ function titleFromSlug(slug, fallback) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+/**
+ * The content identity of `docs/contracts.md` §8.2 over `entries`: `sha256:` + the hex digest of
+ * `` `${path}\t${sha256}\t${bytes}\n` `` for every entry, sorted by path in byte order.
+ */
+export function contentIdentity(entries) {
+  const byPath = (a, b) => Buffer.compare(Buffer.from(a.path, 'utf8'), Buffer.from(b.path, 'utf8'));
+  const lines = [...entries]
+    .sort(byPath)
+    .map((entry) => `${entry.path}\t${entry.sha256}\t${entry.bytes}\n`)
+    .join('');
+  return `sha256:${createHash('sha256').update(lines, 'utf8').digest('hex')}`;
+}
+
+/** The roles that make up the narrative content of an accepted version (§8.2). */
+export const VERSION_ROLES = Object.freeze(['chapter', 'offer', 'canon', 'threads', 'atlas']);
+
+/**
+ * The role files of a universe, relative to its folder, with the hash and the size each one has
+ * now: the chapters, their offers and the three state documents. `universe.json` (role `meta`) and
+ * the assessment inputs are deliberately absent, because §8.2 excludes them from the identity.
+ * @returns {Array<{path: string, role: string, sha256: string, bytes: number}>}
+ */
+export function versionEntries(universeDir) {
+  const entries = [];
+  const add = (relative, role) => {
+    const file = join(universeDir, relative);
+    if (!existsSync(file)) return;
+    const data = readBytesFile(file);
+    entries.push({ path: relative, role, sha256: createHash('sha256').update(data).digest('hex'), bytes: data.length });
+  };
+  const chaptersDir = join(universeDir, 'chapters');
+  if (existsSync(chaptersDir)) {
+    const names = readdirSync(chaptersDir);
+    for (const name of names.filter((entry) => /^\d{4}-[a-z0-9-]+\.md$/.test(entry)).sort()) {
+      add(`chapters/${name}`, 'chapter');
+    }
+    for (const name of names.filter((entry) => /^\d{4}-offer\.json$/.test(entry)).sort()) {
+      add(`chapters/${name}`, 'offer');
+    }
+  }
+  add('canon.md', 'canon');
+  add('threads.json', 'threads');
+  add('atlas.json', 'atlas');
+  return entries;
+}
+
+/** The accepted version of the universe as it is on disk now (§8.2). */
+export function acceptedVersion(universeDir) {
+  return contentIdentity(versionEntries(universeDir));
+}
+
 function matterSection(kind, markdown, defaultTitle) {
   const blocks = parseMarkdown(markdown);
   let title = defaultTitle;
@@ -107,7 +166,8 @@ export function loadBook(universeDir, options = {}) {
   const chapters = [];
   let words = 0;
   for (const entry of chapterFiles) {
-    const markdown = readTextFile(entry.file);
+    const data = readBytesFile(entry.file);
+    const markdown = data.toString('utf8');
     const blocks = parseMarkdown(markdown);
     const title = headingTitle(blocks, titleFromSlug(entry.slug, labels.untitled));
     // The chapter title (docs/contracts.md §2.3) becomes the section heading, not a body block.
@@ -115,7 +175,16 @@ export function loadBook(universeDir, options = {}) {
     let chapterWords = 0;
     for (const block of blocks) chapterWords += countWords(blockText(block));
     words += chapterWords;
-    chapters.push({ number: entry.number, slug: entry.slug, title, blocks: body, words: chapterWords });
+    chapters.push({
+      number: entry.number,
+      slug: entry.slug,
+      path: `chapters/${basename(entry.file)}`,
+      sha256: createHash('sha256').update(data).digest('hex'),
+      bytes: data.length,
+      title,
+      blocks: body,
+      words: chapterWords,
+    });
   }
 
   const title = String(edition.title || universe.title || labels.untitled);

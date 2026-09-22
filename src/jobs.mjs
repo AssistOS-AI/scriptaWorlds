@@ -10,12 +10,20 @@ import { universeDir } from './paths.mjs';
 import { nowIso, pad, readJson, truncate } from './io.mjs';
 import { UniverseError } from './errors.mjs';
 import { applyAgentTitle, readUniverseMeta, touchUniverse } from './universe.mjs';
-import { nextTurnNumber, writeTurnRecord } from './universe-chapters.mjs';
-import { commitState, snapshotState } from './universe-state.mjs';
+import { acceptedChapters, nextTurnNumber, scanTurns, writeTurnRecord } from './universe-chapters.mjs';
+import { readText } from './io.mjs';
+import { prepareSnapshot, readAncestry, restoreState, writeAncestry } from './universe-state.mjs';
+import { currentVersion } from './assessment-packet.mjs';
+import { normaliseDirections, normaliseRevision } from './request-fields.mjs';
+import { sha256Hex } from './version.mjs';
 import { composeAgentLog, runOmpAgent } from './omp.mjs';
-import { failTurn, turnPrompt, verifyChapterTurn, verifyExportTurn } from './turn.mjs';
+import { failTurn, prepareRewrite, turnPrompt, verifyChapterTurn, verifyExportTurn } from './turn.mjs';
 
 const MAX_EVENTS = 800;
+
+
+// Completed jobs kept in memory (their durable records stay on disk for the reader).
+const MAX_SETTLED_JOBS = 40;
 const MAX_TEXT_CHARS = 120_000;
 
 export class JobManager {
@@ -25,8 +33,44 @@ export class JobManager {
   #locks = new Map();
   #queue = [];
   #running = 0;
+  #stopping = false;
 
-  async start({ universeId, message, kind = 'chapter', format = 'both' }) {
+  /**
+   * The chapter a request was sent from, or `null`. A number that does not name an accepted chapter is
+   * a client bug, not a preference, so it is refused before the request is queued.
+   */
+  async #validatedSourceChapter(universeId, value) {
+    if (value === null || value === undefined) return null;
+    const number = Number(value);
+    if (!Number.isInteger(number) || number < 1) {
+      throw new UniverseError('BAD_NUMBER', '`sourceChapter` must be a chapter number.', 400);
+    }
+    const accepted = await acceptedChapters(universeId);
+    if (!accepted.some((chapter) => chapter.number === number)) {
+      throw new UniverseError('BAD_NUMBER', `Chapter ${number} is not an accepted chapter of this book.`, 400);
+    }
+    return number;
+  }
+
+  /**
+   * A universe whose accepted state could not be restored refuses new work: the snapshot that would
+   * have restored it is unusable, so any further write could entrench the wrong book.
+   */
+  async #assertWritable(universeId) {
+    if (this.#stopping) {
+      throw new UniverseError('SHUTTING_DOWN', 'The server is shutting down; no new turn is accepted.', 503);
+    }
+    for (const turn of await scanTurns(universeId)) {
+      if (turn.status !== 'recovery_required') continue;
+      throw new UniverseError(
+        'RECOVERY_REQUIRED',
+        `Turn ${turn.number} could not restore the accepted state of this book (${turn.error ?? 'unknown reason'}); establish it by hand before writing again.`,
+        409
+      );
+    }
+  }
+
+  async start({ universeId, message, kind = 'chapter', format = 'both', directions = [], approval = null, sourceChapter = null }) {
     const cleanMessage = String(message ?? '').trim();
     if (!cleanMessage) {
       throw new UniverseError('BAD_MESSAGE', 'Write a message for ALA.', 400);
@@ -41,19 +85,60 @@ export class JobManager {
     if (kind === 'chapter' && meta.status === 'closed') {
       throw new UniverseError('CLOSED', 'This universe is closed. Reopen it to continue the story.', 409);
     }
+    const accepted = normaliseDirections(directions, approval);
+    // Where the request came from: the chapter the reader was looking at, which is not always the
+    // chapter this turn will write. It is recorded so a chapter can be traced to the reader's place in
+    // the book, and an unknown chapter number is refused instead of silently ignored.
+    const source = await this.#validatedSourceChapter(universeId, sourceChapter);
+    await this.#assertWritable(universeId);
     const job = this.#createJob({ universeId, message: cleanMessage, kind, format });
+    job.directions = accepted.directions;
+    job.approval = accepted.approval;
+    job.sourceChapter = source;
     await this.#enqueue(job);
     return this.snapshot(job);
   }
 
   /**
-   * Rescrie un capitol existent: serverul a restaurat deja canonul de dinaintea lui, a arhivat
-   * the old version and (when needed) dropped later chapters. Here we only start the agent.
+   * Queue a rewrite of an existing chapter. All store mutation (archiving the old text, dropping
+   * later chapters, restoring the pre-chapter state) happens inside the run, under the same
+   * per-universe execution lock as generation, so the HTTP handler never changes input files while
+   * an agent is working. The job carries the target chapter and the turn whose snapshot is the
+   * pre-chapter state.
    */
-  async startRewrite({ universeId, chapterNumber, instructions, previousText }) {
+  async startRewrite({ universeId, chapterNumber, instructions, dropLater = false, findings = [], preserve = [], sourceVersion = null }) {
     const meta = await readUniverseMeta(universeId);
     if (meta.status === 'closed') {
       throw new UniverseError('CLOSED', 'This universe is closed. Reopen it to rewrite it.', 409);
+    }
+    await this.#assertWritable(universeId);
+    const accepted = await acceptedChapters(universeId);
+    const target = accepted.find((chapter) => chapter.number === chapterNumber) ?? null;
+    if (!target) {
+      throw new UniverseError('NOT_FOUND', `Chapter ${chapterNumber} does not exist.`, 404);
+    }
+    // The request is bound to the version it was written for: its hash, the later chapters that
+    // existed at that moment, and the recorded ancestry the rewrite must generate from.
+    const ancestry = await readAncestry(universeId, chapterNumber);
+    if (!ancestry) {
+      throw new UniverseError(
+        'NO_ANCESTRY',
+        `Chapter ${chapterNumber} has no recorded pre-chapter state, so it cannot be rewound safely; reconstruct that state first.`,
+        409
+      );
+    }
+    const revision = normaliseRevision({ findings, preserve });
+    // Findings are bound to the version they were reported against: a revision of a book that already
+    // moved on would act on stale evidence, so it is refused instead of interpreted.
+    if (revision.findings.length > 0 && sourceVersion) {
+      const current = await currentVersion(universeId);
+      if (current !== null && current !== sourceVersion) {
+        throw new UniverseError(
+          'STALE_REQUEST',
+          `These findings were reported against ${String(sourceVersion).slice(0, 24)}… but the accepted version is ${String(current).slice(0, 24)}…; reconcile them before revising.`,
+          409
+        );
+      }
     }
     const job = this.#createJob({
       universeId,
@@ -62,7 +147,12 @@ export class JobManager {
       format: 'both'
     });
     job.chapterNumber = chapterNumber;
-    job.previousText = previousText;
+    job.dropLater = dropLater === true;
+    job.ancestryTurn = ancestry.source_turn;
+    job.findings = revision.findings;
+    job.preserve = revision.preserve;
+    job.findingsVersion = revision.findings.length > 0 ? (sourceVersion ?? null) : null;
+    job.previousText = '';
     await this.#enqueue(job);
     return this.snapshot(job);
   }
@@ -71,6 +161,20 @@ export class JobManager {
   async retry(universeId, turnNumber) {
     const record = await this.#readTurn(universeId, turnNumber);
     if (!record) throw new UniverseError('NOT_FOUND', `Turn ${turnNumber} does not exist.`, 404);
+    if (record.status === 'recovery_required') {
+      // A book whose accepted state could not be restored is only retried through a successful
+      // restore: the retry repairs the state first, and refuses while the snapshot stays unusable.
+      const repaired = await restoreState(universeId, turnNumber);
+      if (!repaired.ok) {
+        throw new UniverseError(
+          'RECOVERY_REQUIRED',
+          `The accepted state of this book could not be restored (${repaired.reason}); establish it by hand before retrying.`,
+          409
+        );
+      }
+      await writeTurnRecord(universeId, { ...record, status: 'interrupted', error: 'the accepted state was restored; the turn can be retried' });
+      record.status = 'interrupted';
+    }
     if (!['interrupted', 'error'].includes(record.status)) {
       throw new UniverseError('NOT_RETRYABLE', 'Only interrupted or failed turns can be retried.', 409);
     }
@@ -87,7 +191,19 @@ export class JobManager {
       format: record.format ?? 'both',
       turnNumber
     });
-    if (record.rewrite && record.chapterNumber) job.chapterNumber = record.chapterNumber;
+    job.directions = Array.isArray(record.directions) ? record.directions : [];
+    job.approval = record.approval ?? null;
+    job.sourceChapter = record.sourceChapter ?? null;
+    job.findings = Array.isArray(record.findings) ? record.findings : [];
+    job.preserve = Array.isArray(record.preserve) ? record.preserve : [];
+    job.findingsVersion = record.findingsVersion ?? null;
+    if (record.rewrite && record.chapterNumber) {
+      job.chapterNumber = record.chapterNumber;
+      job.dropLater = record.dropLater === true;
+      job.ancestryTurn = record.ancestryTurn ?? null;
+      job.targetSha256 = record.targetSha256 ?? null;
+      job.authorizedLaterChapters = Array.isArray(record.authorizedLaterChapters) ? record.authorizedLaterChapters : null;
+    }
     await this.#enqueue(job, { reuseRecord: true });
     return this.snapshot(job);
   }
@@ -128,12 +244,34 @@ export class JobManager {
         job.turnNumber = await nextTurnNumber(job.universeId);
       }
       job.id = this.#jobs.has(job.id) ? job.id : `${job.universeId}#${job.turnNumber}`;
+      // A rewrite is bound to the version it was written for, and the binding is durable: the target
+      // hash and the later chapters that existed when the reader asked travel with the queued record.
+      let target = null;
+      let laterChapterNumbers = null;
+      if (job.kind === 'rewrite' && Number.isInteger(job.chapterNumber)) {
+        // The binding names the *accepted* book: a chapter that another turn of this universe is still
+        // writing is a candidate, not accepted material, so it never enters the request.
+        const accepted = await acceptedChapters(job.universeId);
+        const chapter = accepted.find((entry) => entry.number === job.chapterNumber) ?? null;
+        if (!chapter) throw new UniverseError('NOT_FOUND', `Chapter ${job.chapterNumber} does not exist.`, 404);
+        const bytes = await readText(join(universeDir(job.universeId), chapter.file), '');
+        target = { name: chapter.file.split('/').pop(), sha256: sha256Hex(bytes), bytes: bytes.length };
+        laterChapterNumbers = accepted
+          .filter((entry) => entry.number > job.chapterNumber)
+          .map((entry) => entry.number);
+        job.targetSha256 = target.sha256;
+        job.authorizedLaterChapters = laterChapterNumbers;
+      }
       if (!reuseRecord) {
         await writeTurnRecord(job.universeId, {
           number: job.turnNumber,
           kind: job.kind === 'export' ? 'export' : 'chapter',
           rewrite: job.kind === 'rewrite',
           chapterNumber: job.kind === 'rewrite' ? job.chapterNumber : null,
+          dropLater: job.kind === 'rewrite' ? job.dropLater === true : null,
+          ancestryTurn: job.kind === 'rewrite' ? (job.ancestryTurn ?? null) : null,
+          targetSha256: job.kind === 'rewrite' ? (target?.sha256 ?? null) : null,
+          authorizedLaterChapters: job.kind === 'rewrite' ? laterChapterNumbers : null,
           status: 'queued',
           createdAt: job.createdAt,
           startedAt: null,
@@ -142,7 +280,6 @@ export class JobManager {
           request: job.message,
           model: config.model,
           format: job.format,
-          chapterNumber: null,
           chapterFile: null,
           chapterTitle: null,
           answer: '',
@@ -179,13 +316,21 @@ export class JobManager {
     const ordered = [...entries].sort((a, b) => (a.turnNumber ?? 0) - (b.turnNumber ?? 0));
     for (const entry of ordered) {
       const turn = entry.turn ?? {};
+      const kind = turn.rewrite ? 'rewrite' : turn.kind === 'export' ? 'export' : 'chapter';
       const job = this.#createJob({
         universeId: entry.universeId,
         message: turn.request ?? '',
-        kind: turn.kind === 'export' ? 'export' : 'chapter',
+        kind,
         format: turn.format ?? 'both',
         turnNumber: entry.turnNumber
       });
+      if (turn.rewrite && turn.chapterNumber) {
+        job.chapterNumber = turn.chapterNumber;
+        job.dropLater = turn.dropLater === true;
+        job.ancestryTurn = turn.ancestryTurn ?? null;
+        job.targetSha256 = turn.targetSha256 ?? null;
+        job.authorizedLaterChapters = Array.isArray(turn.authorizedLaterChapters) ? turn.authorizedLaterChapters : null;
+      }
       this.#queue.push(job);
       this.#emitUniverse(entry.universeId, { type: 'job', job: this.snapshot(job), jobId: job.id });
     }
@@ -253,6 +398,7 @@ export class JobManager {
       startedAt: job.startedAt,
       finishedAt: job.finishedAt,
       turnNumber: job.turnNumber,
+      chapterNumber: job.chapterNumber ?? null,
       request: job.message,
       queuePosition: job.status === 'queued' ? this.joinQueue(job.id) ?? 0 : 0,
       result: job.result,
@@ -301,6 +447,7 @@ export class JobManager {
    * turns at once inside the same universe — queue order is preserved.
    */
   #pump() {
+    if (this.#stopping) return;
     let progressed = true;
     while (progressed) {
       progressed = false;
@@ -318,6 +465,47 @@ export class JobManager {
     }
   }
 
+  /** Keep only the most recent settled jobs in memory; their durable records stay on disk. */
+  #retain() {
+    const settled = [...this.#jobs.values()]
+      .filter((entry) => entry.status === 'done' || entry.status === 'error')
+      .sort((a, b) => String(a.finishedAt ?? '').localeCompare(String(b.finishedAt ?? '')));
+    if (settled.length <= MAX_SETTLED_JOBS) return;
+    for (const entry of settled.slice(0, settled.length - MAX_SETTLED_JOBS)) {
+      this.#jobs.delete(entry.id);
+      this.#subscribers.delete(entry.id);
+    }
+  }
+
+  /**
+   * Stop intake, keep the queue on disk, signal the running agents and wait for them to be gone before
+   * returning. Ownership of the store is released only after this resolves, so a second server can
+   * never start writing while a child of this one is still alive.
+   */
+  async stop({ timeoutMs = 10_000 } = {}) {
+    if (this.#stopping) return { stopped: 0, killed: 0 };
+    this.#stopping = true;
+    const running = [...this.#jobs.values()].filter((job) => job.status === 'running');
+    this.#queue = [];
+    if (running.length === 0) return { stopped: 0, killed: 0 };
+    for (const job of running) job.child?.kill('SIGTERM');
+    const waitForExit = async (deadline) => {
+      while (Date.now() < deadline && running.some((job) => job.status === 'running')) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    };
+    await waitForExit(Date.now() + timeoutMs);
+    const stillRunning = running.filter((job) => job.status === 'running');
+    for (const job of stillRunning) job.child?.kill('SIGKILL');
+    await waitForExit(Date.now() + 3_000);
+    return { stopped: running.length, killed: stillRunning.length };
+  }
+
+  /** Whether intake has been closed by a shutdown. */
+  get stopping() {
+    return this.#stopping;
+  }
+
   async #run(job) {
     const { universeId } = job;
     job.status = 'running';
@@ -331,22 +519,65 @@ export class JobManager {
         throw new UniverseError('CLOSED', 'This universe is closed. Reopen it to continue the story.', 409);
       }
       const isRewrite = job.kind === 'rewrite';
-      if (!isRewrite) await snapshotState(universeId, turnNumber);
+      await this.#assertWritable(universeId);
+      // Snapshot the whole accepted book before any mutation, published atomically and verified, so a
+      // crash can never leave a half-written recovery point. Every turn takes one, including an export
+      // turn: an agent that writes narrative files while rendering an edition must not leave them
+      // behind when the turn fails. For a new chapter the snapshot is also the chapter's ancestry; for
+      // a rewrite it is the rollback reference for the current accepted book.
+      const snapshot = await prepareSnapshot(universeId, turnNumber, job.kind);
 
-      const chapterFiles = (await readdir(join(universeDir(universeId), 'chapters')).catch(() => []))
+      let chapterFiles = (await readdir(join(universeDir(universeId), 'chapters')).catch(() => []))
         .filter((name) => /^\d{4}-.+\.md$/.test(name));
-      const chapterNumber = isRewrite
-        ? job.chapterNumber
-        : chapterFiles.reduce((max, name) => Math.max(max, Number.parseInt(name.slice(0, 4), 10)), 0) + 1;
+      let chapterNumber;
+      if (isRewrite) {
+        chapterNumber = job.chapterNumber;
+        // Archive the old text and offers, drop later chapters and restore the pre-chapter state,
+        // all before the agent runs and under this turn's execution lock. The request was bound to a
+        // version at enqueue time and is revalidated here against the book as it is now.
+        job.previousText = await prepareRewrite({
+          universeId,
+          chapterNumber,
+          dropLater: job.dropLater,
+          ancestryTurn: job.ancestryTurn ?? null,
+          expectedTargetSha256: job.targetSha256 ?? null,
+          expectedLaterChapters: job.authorizedLaterChapters ?? null
+        });
+        chapterFiles = (await readdir(join(universeDir(universeId), 'chapters')).catch(() => []))
+          .filter((name) => /^\d{4}-.+\.md$/.test(name));
+      } else {
+        chapterNumber = chapterFiles.reduce((max, name) => Math.max(max, Number.parseInt(name.slice(0, 4), 10)), 0) + 1;
+      }
       const startedMs = Date.now();
+      if (job.kind !== 'export') job.chapterNumber = chapterNumber;
 
-      const prompt = turnPrompt({ meta, job, chapterNumber, chapterFiles });
+      // The narrative context of the turn is selected explicitly from the accepted view — the two most
+      // recent accepted chapters, and nothing else by default — and the selection is recorded, so a
+      // reader can see which version and which chapters a chapter was written from.
+      const acceptedForContext = await acceptedChapters(universeId);
+      const contextChapters = acceptedForContext.slice(-2).map((chapter) => chapter.file);
+      const omittedChapters = acceptedForContext.slice(0, -2).map((chapter) => chapter.number);
+      const prompt = turnPrompt({
+        meta,
+        job,
+        chapterNumber,
+        chapterFiles,
+        contextChapters,
+        omittedChapters,
+        directions: job.directions ?? [],
+        findings: job.findings ?? [],
+        preserve: job.preserve ?? []
+      });
 
       const record = {
         number: turnNumber,
         kind: job.kind === 'export' ? 'export' : 'chapter',
         rewrite: isRewrite,
         instructions: isRewrite ? job.message : null,
+        dropLater: isRewrite ? job.dropLater === true : null,
+        ancestryTurn: isRewrite ? (job.ancestryTurn ?? null) : null,
+        targetSha256: isRewrite ? (job.targetSha256 ?? null) : null,
+        authorizedLaterChapters: isRewrite ? (job.authorizedLaterChapters ?? null) : null,
         status: 'running',
         createdAt: job.createdAt,
         startedAt: job.startedAt,
@@ -356,6 +587,19 @@ export class JobManager {
         model: config.model,
         format: job.format,
         chapterNumber: job.kind === 'export' ? null : chapterNumber,
+        context: job.kind === 'export'
+          ? null
+          : {
+              version: snapshot?.accepted_version ?? null,
+              chapters: contextChapters,
+              omittedChapters
+            },
+        directions: job.directions ?? [],
+        approval: job.approval ?? null,
+        sourceChapter: job.sourceChapter ?? null,
+        findings: job.findings ?? [],
+        preserve: job.preserve ?? [],
+        findingsVersion: job.findingsVersion ?? null,
         chapterFile: null,
         chapterTitle: null,
         answer: '',
@@ -380,6 +624,7 @@ export class JobManager {
       const run = await runOmpAgent({
         cwd: universeDir(universeId),
         prompt,
+        onSpawn: (child) => { job.child = child; },
         timeoutMs: job.kind === 'export' ? config.exportTimeoutMs : config.chapterTimeoutMs,
         onEvent: (event) => {
           if (event.type === 'delta') {
@@ -408,7 +653,7 @@ export class JobManager {
       if (job.kind !== 'export') {
         await verifyChapterTurn({ universeId, chapterNumber, chapterFiles, record });
       } else {
-        await verifyExportTurn({ universeId, startedMs, record });
+        await verifyExportTurn({ universeId, startedMs, record, format: job.format });
       }
 
       record.status = 'done';
@@ -417,7 +662,11 @@ export class JobManager {
       record.answer = answer;
       record.agentLog = agentLog;
       await writeTurnRecord(universeId, record);
-      await commitState(universeId, turnNumber);
+      // The ancestry of a chapter is the state that preceded it, and it is recorded once: successive
+      // rewrites of that chapter generate from the same ancestry instead of from the latest rewrite.
+      if (job.kind === 'chapter' && !isRewrite) {
+        await writeAncestry(universeId, chapterNumber, turnNumber, snapshot?.accepted_version ?? null);
+      }
       await touchUniverse(universeId);
       const assignedTitle = await applyAgentTitle(universeId).catch(() => null);
       if (assignedTitle) console.log(`[universe] ${universeId} named by ALA: ${assignedTitle}`);
@@ -433,15 +682,17 @@ export class JobManager {
         durationMs: record.durationMs
       };
       this.#emit(job, { type: 'done', job: this.snapshot(job) });
+      this.#retain();
       return;
     } catch (error) {
       const message = error instanceof UniverseError
         ? error.message
         : `internal error: ${error?.message ?? error}`;
-      await failTurn({ universeId, job, turnNumber, message });
+      await failTurn({ universeId, job, turnNumber, message, interrupted: this.#stopping });
       job.status = 'error';
-      job.error = message;
       job.finishedAt = nowIso();
+      this.#retain();
+      job.error = message;
       this.#emit(job, { type: 'error', message, job: this.snapshot(job) });
     }
   }
