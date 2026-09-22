@@ -61,7 +61,16 @@ export const config = Object.freeze({
   // Where the separate design and review phases keep their frozen packets and published results. It is
   // deliberately outside `universes/`: a phase never writes into a book.
   assessmentWorkspace: process.env.ASSESSMENT_WORKSPACE ?? join(rootDir, 'assessments'),
-  assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 5 * 60 * 1000)
+  assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 5 * 60 * 1000),
+  // The largest book the server accepts: the limit is enforced while the upload streams in, so a file
+  // over it is refused during the transfer rather than after.
+  importMaxBytes: positiveInt(process.env.IMPORT_MAX_BYTES, 64 * 1024 * 1024),
+  // How much of a book one import turn carries is not configured here: the import skill publishes its
+  // own turn limits in `skills/scripta-import/schema/import.v1.json` and the host plans within them.
+  // Whether a review asks the configured agent for semantic observations by default. `generic` is the
+  // product default, because a report with every semantic result unavailable diagnoses little;
+  // `deterministic` keeps the host free of model calls for a deployment that wants only measurements.
+  assessmentMode: (process.env.ASSESSMENT_MODE ?? 'generic') === 'deterministic' ? 'deterministic' : 'generic'
 });
 
 function run(command, args, { timeoutMs = 20_000 } = {}) {

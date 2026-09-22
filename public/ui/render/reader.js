@@ -4,7 +4,11 @@
 import { retryTurn } from '../actions.js';
 import { loadTurn } from '../api.js';
 import { errorRow } from '../errors.js';
+import { openFeedback } from '../feedback.js';
+import { iconButton } from '../icons.js';
 import { openPanel, openRewrite, renderPanels, renderPopups } from '../overlays.js';
+import { openReport } from '../report.js';
+import { openReview } from '../review.js';
 import { renderFooter } from './composer.js';
 import { renderNewScreen, renderUniverseList, welcomePanel } from './explore.js';
 import { renderHeader } from './header.js';
@@ -61,25 +65,10 @@ export function exchangeNode(model) {
 }
 
 export function chapterBubble(model) {
-  const actions = elem('div', { className: 'bubble__actions' },
-    model.turnNumber != null ? elem('button', {
-      className: 'linkish',
-      text: 'i',
-      attrs: { type: 'button', 'aria-label': 'What you asked for' },
-      on: { click: () => openRequest(model) }
-    }) : null,
-    elem('button', {
-      className: 'linkish',
-      text: 'Rewrite',
-      attrs: { type: 'button' },
-      on: { click: () => openRewrite(model.number) }
-    }),
-    model.turnNumber != null ? chapterConsoleToggle(model.turnNumber) : null
-  );
   const bubble = elem('div', { className: 'bubble bubble--ala' },
     elem('div', { className: 'bubble__head' },
       elem('span', { className: 'bubble__head-title', text: `Chapter ${model.number} · ${model.title ?? 'untitled'}` }),
-      actions
+      chapterToolbar(model)
     )
   );
   const cached = state.chapters.get(model.number);
@@ -96,12 +85,46 @@ export function chapterBubble(model) {
   return bubble;
 }
 
+/**
+ * The actions of one chapter, as a toolbar of icon buttons: what the chapter was asked for, rewriting it,
+ * its scene log, what a reader says about the book, a review of it and the reports of the book. Every
+ * control is a real button with an accessible name, so the strip is reachable by Tab and activatable
+ * with Enter or Space, and the icon only carries the picture.
+ */
+export function chapterToolbar(model) {
+  return elem('div', {
+    className: 'bubble__actions toolbar',
+    attrs: { role: 'group', 'aria-label': `Chapter ${model.number} actions` }
+  },
+  model.turnNumber != null
+    ? iconButton({ name: 'info', label: 'What you asked for', on: { click: () => openRequest(model) } })
+    : null,
+  iconButton({
+    name: 'rewrite',
+    label: `Rewrite chapter ${model.number}`,
+    on: { click: () => openRewrite(model.number) }
+  }),
+  model.turnNumber != null ? chapterConsoleToggle(model.turnNumber) : null,
+  iconButton({
+    name: 'feedback',
+    label: `Say what you think of this book, from chapter ${model.number}`,
+    on: { click: () => openFeedback({ chapter: model.number }) }
+  }),
+  iconButton({
+    name: 'review',
+    label: `Review chapter ${model.number}`,
+    on: { click: () => openReview({ chapter: model.number }) }
+  }),
+  iconButton({ name: 'report', label: 'Reports and reviews', on: { click: () => openReport() } })
+  );
+}
+
 export function chapterConsoleToggle(turnNumber) {
   const open = state.expanded.has(turnNumber);
-  return elem('button', {
-    className: 'linkish',
-    text: open ? 'hide console' : 'Console',
-    attrs: { type: 'button', 'aria-expanded': open ? 'true' : 'false' },
+  return iconButton({
+    name: 'console',
+    label: open ? 'Hide the scene log' : 'Show the scene log',
+    attrs: { 'aria-expanded': open ? 'true' : 'false' },
     on: {
       click: () => {
         if (state.expanded.has(turnNumber)) state.expanded.delete(turnNumber);

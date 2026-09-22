@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-07-nonlinear-chronology",
+  "language": "en",
+  "title": "The bicycle key",
+  "kind": "pair",
+  "target_distinction": "nonlinear_chronology",
+  "distinction_statement": "The weak version jumps between winters with no anchors; the strong version jumps the same way but the order can be rebuilt from March, the shop and the notch in the key.",
+  "intention": "A deliberate time jump should stay recoverable through concrete anchors without being flattened into chronological order.",
+  "change": {
+    "feature": "chronology_order",
+    "description": "Paragraph 2 replaces the contradictory unanchored sequence with the winter of the illness, the March closing and the notch filed into the key.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "reanchored_jump",
+    "text": "In April, Owen found the bicycle key in the pocket of his winter coat when he took the coat down to air it. He was still holding it when the phone rang, and he answered without looking at the screen.\n\nThe key belonged to the shop on Pell Street, where he had worked the winter his father was ill; he knew it by the notch filed into the head, cut there by Mr Adeyemi with a hacksaw the week the roof leaked. That winter had ended in March, when the shop closed and the stock was sold off, and the key had stayed in his pocket because nobody had thought to ask for it. Now, in April, it opened nothing at all.\n\nHe put the key on the hall table, next to the phone, and let the phone ring until it stopped."
+  },
+  "after": {
+    "label": "unanchored_jump",
+    "text": "In April, Owen found the bicycle key in the pocket of his winter coat when he took the coat down to air it. He was still holding it when the phone rang, and he answered without looking at the screen.\n\nHe had moved. It had been winter. It was summer when he came back. Then winter again, but not that winter, the other one, from before. The phone had rung. It had stopped ringing. His father had died, or was going to die, it was not clear. The shop had closed or was going to close; either way somebody had closed it at some point.\n\nHe put the key on the hall table, next to the phone, and let the phone ring until it stopped."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Then winter again, but not that winter, the other one, from before.",
+      "start": 268,
+      "end": 335,
+      "expectation": "quoted as a jump with no recoverable anchor"
+    },
+    {
+      "side": "before",
+      "quote": "That winter had ended in March, when the shop closed",
+      "start": 407,
+      "end": 459,
+      "expectation": "quoted as an anchor that makes the order recoverable"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The disorder can be read as the character’s confusion if the text signals a state rather than a sequence.",
+    "Some readers prefer explicit chronology; the reanchored version permits it without insisting on it."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-07-nonlinear-chronology",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

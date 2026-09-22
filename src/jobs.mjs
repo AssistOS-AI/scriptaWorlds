@@ -17,7 +17,7 @@ import { currentVersion } from './assessment-packet.mjs';
 import { normaliseDirections, normaliseRevision } from './request-fields.mjs';
 import { sha256Hex } from './version.mjs';
 import { composeAgentLog, runOmpAgent } from './omp.mjs';
-import { failTurn, prepareRewrite, turnPrompt, verifyChapterTurn, verifyExportTurn } from './turn.mjs';
+import { failTurn, prepareRewrite, turnPrompt, verifyChapterTurn, verifyExportTurn, verifyImportTurn } from './turn.mjs';
 
 const MAX_EVENTS = 800;
 
@@ -157,6 +157,30 @@ export class JobManager {
     return this.snapshot(job);
   }
 
+  /**
+   * Queue one import turn: a range of an uploaded book that ALA writes into the store under
+   * `scripta-import`. The range is what keeps the turn bounded, and the next range is read from the
+   * import progress the skill keeps in the universe, so a long book is imported one step at a time.
+   */
+  async startImport({ universeId, importId, range, info = null }) {
+    const meta = await readUniverseMeta(universeId);
+    if (meta.status === 'closed') {
+      throw new UniverseError('CLOSED', 'This universe is closed. Reopen it to finish the import.', 409);
+    }
+    await this.#assertWritable(universeId);
+    const job = this.#createJob({
+      universeId,
+      message: `Import chapters ${range.from}-${range.to} of an uploaded book`,
+      kind: 'import',
+      format: 'both'
+    });
+    job.importId = importId;
+    job.importRange = range;
+    job.importInfo = info;
+    await this.#enqueue(job);
+    return this.snapshot(job);
+  }
+
   /** Retry an interrupted or failed turn, reusing the same turn number and request. */
   async retry(universeId, turnNumber) {
     const record = await this.#readTurn(universeId, turnNumber);
@@ -187,7 +211,7 @@ export class JobManager {
     const job = this.#createJob({
       universeId,
       message: record.request ?? '',
-      kind: record.rewrite ? 'rewrite' : record.kind === 'export' ? 'export' : 'chapter',
+      kind: record.rewrite ? 'rewrite' : record.kind === 'export' ? 'export' : record.kind === 'import' ? 'import' : 'chapter',
       format: record.format ?? 'both',
       turnNumber
     });
@@ -265,7 +289,7 @@ export class JobManager {
       if (!reuseRecord) {
         await writeTurnRecord(job.universeId, {
           number: job.turnNumber,
-          kind: job.kind === 'export' ? 'export' : 'chapter',
+          kind: job.kind === 'export' ? 'export' : job.kind === 'import' ? 'import' : 'chapter',
           rewrite: job.kind === 'rewrite',
           chapterNumber: job.kind === 'rewrite' ? job.chapterNumber : null,
           dropLater: job.kind === 'rewrite' ? job.dropLater === true : null,
@@ -571,7 +595,7 @@ export class JobManager {
 
       const record = {
         number: turnNumber,
-        kind: job.kind === 'export' ? 'export' : 'chapter',
+        kind: job.kind === 'export' ? 'export' : job.kind === 'import' ? 'import' : 'chapter',
         rewrite: isRewrite,
         instructions: isRewrite ? job.message : null,
         dropLater: isRewrite ? job.dropLater === true : null,
@@ -650,7 +674,9 @@ export class JobManager {
         throw new UniverseError('AGENT_FAILED', reason, 502);
       }
 
-      if (job.kind !== 'export') {
+      if (job.kind === 'import') {
+        await verifyImportTurn({ universeId, range: job.importRange, record });
+      } else if (job.kind !== 'export') {
         await verifyChapterTurn({ universeId, chapterNumber, chapterFiles, record });
       } else {
         await verifyExportTurn({ universeId, startedMs, record, format: job.format });

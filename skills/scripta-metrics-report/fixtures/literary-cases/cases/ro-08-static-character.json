@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-08-static-character",
+  "language": "ro",
+  "title": "Portarul de la poarta a doua",
+  "kind": "pair",
+  "target_distinction": "static_character",
+  "distinction_statement": "Varianta slabă înlocuiește omul cu eticheta „sever\"; varianta puternică păstrează același om neschimbat, dar fiecare scenă arată altceva.",
+  "intention": "Un personaj care nu se schimbă să rămână complex prin situațiile diferite în care repetă aceeași regulă.",
+  "change": {
+    "feature": "character_stasis_function",
+    "description": "Paragraful 2 înlocuiește repetarea etichetei de om sever cu trei excepții cu costuri diferite.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "stasis_with_depth",
+    "text": "Ghiță stătea la poarta a doua a fabricii de douăzeci și șase de ani, în aceeași cabină de sticlă, cu același registru cu coperte negre. Nu lipsea niciodată și nu lăsa pe nimeni să intre fără legitimație, nici pe vremea când intrau toți.\n\nFemeii cu copilul bolnav i-a spus că fără legitimație nu se poate, dar a scos din registru o foaie și i-a scris numele, ca să nu fie nevoită să se întoarcă. Lui Ionică, care lucrase cu el la turnătorie, i-a spus aceleași cuvinte și s-a uitat în altă parte până a trecut omul. Când a venit rândul cumnatului său, a spus propoziția mai încet, a semnat în locul lui și a pus registrul deoparte, scuturându-și mâinile ca de praf.\n\nSeara, la sfârșitul schimbului, a închis poarta cu lanțul, a suflat în mâini și a mers acasă pe jos, deși autobuzul trecea pe la colț."
+  },
+  "after": {
+    "label": "flattened_label",
+    "text": "Ghiță stătea la poarta a doua a fabricii de douăzeci și șase de ani, în aceeași cabină de sticlă, cu același registru cu coperte negre. Nu lipsea niciodată și nu lăsa pe nimeni să intre fără legitimație, nici pe vremea când intrau toți.\n\nGhiță era un om sever. La poartă, Ghiță era sever. Când cineva întârzia, Ghiță era sever. Când cineva uita legitimația, Ghiță era sever. Toată fabrica îl știa ca pe un om sever, iar el era sever, zi după zi, la fel.\n\nSeara, la sfârșitul schimbului, a închis poarta cu lanțul, a suflat în mâini și a mers acasă pe jos, deși autobuzul trecea pe la colț."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "La poartă, Ghiță era sever. Când cineva întârzia, Ghiță era sever.",
+      "start": 283,
+      "end": 357,
+      "expectation": "citată ca etichetă repetată care ia locul personajului"
+    },
+    {
+      "side": "before",
+      "quote": "a semnat în locul lui și a pus registrul deoparte",
+      "start": 622,
+      "end": 673,
+      "expectation": "citată ca excepție care arată ce costă regula pentru el"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Omul sever, repetat ca etichetă, poate fi citit ca procedeu satiric, dacă restul textului l-ar susține.",
+    "Excepția pentru cumnat poate fi citită ca favoritism; textul nu o judecă."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-08-static-character",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

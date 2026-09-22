@@ -8,6 +8,7 @@
 const HEADING = /^(#{1,6})\s+(.*)$/;
 const SCENE_BREAK = /^(?:-{3,}|\*{3,}|_{3,})$/;
 const QUOTE = /^>\s?(.*)$/;
+const LINK = /^\[([^\]]+)\]\(([^)\s]+)\)$/;
 
 export function renderMarkdown(markdown, { className = 'prose' } = {}) {
   const root = document.createElement('div');
@@ -81,12 +82,32 @@ export function renderMarkdown(markdown, { className = 'prose' } = {}) {
 }
 
 function appendInline(parent, text) {
-  const pattern = /(\*\*[^*]+\*\*|\*[^*\n]+\*|__[^_]+__|_[^_\n]+_)/g;
+  const pattern = /(`[^`\n]+`|\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*|\*[^*\n]+\*|__[^_]+__|_[^_\n]+_)/g;
   let cursor = 0;
   let match = pattern.exec(text);
   while (match) {
     if (match.index > cursor) parent.append(text.slice(cursor, match.index));
     const token = match[0];
+    if (token.startsWith('`')) {
+      const code = document.createElement('code');
+      code.textContent = token.slice(1, token.length - 1);
+      parent.append(code);
+      cursor = match.index + token.length;
+      match = pattern.exec(text);
+      continue;
+    }
+    const link = LINK.exec(token);
+    if (link) {
+      // A published view links its siblings by file name; the surface that renders it decides what the
+      // address means, so the renderer keeps the address exactly as the document wrote it.
+      const anchor = document.createElement('a');
+      anchor.setAttribute('href', link[2]);
+      appendInline(anchor, link[1]);
+      parent.append(anchor);
+      cursor = match.index + token.length;
+      match = pattern.exec(text);
+      continue;
+    }
     const strong = token.startsWith('**') || token.startsWith('__');
     const marker = strong ? 2 : 1;
     const node = document.createElement(strong ? 'strong' : 'em');

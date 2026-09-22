@@ -363,3 +363,13 @@
 
 .ing__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
 .ing__count { font-size: 13px; color: var(--muted); }
+
+/* The Import tab: one file, one title, and what the server did with them. */
+.import__row { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; }
+.import__file { flex: 1 1 320px; min-width: 0; color: var(--c-text); }
+.import__field { flex: 1 1 220px; min-width: 0; padding: 8px 10px; border: 1px solid var(--c-line); border-radius: 8px; background: var(--c-bg-soft); color: var(--c-text); font: inherit; }
+.import__note { margin: 6px 0 0; color: var(--c-text-dim); font-size: 0.86rem; }
+.import__status { margin-top: 12px; padding: 10px 12px; border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-bg-soft); }
+.import__status[hidden] { display: none; }
+.import__line { margin: 2px 0; font-size: 0.9rem; color: var(--c-text); }
+.import__line:first-child { font-weight: 600; }

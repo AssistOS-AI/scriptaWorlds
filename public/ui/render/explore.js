@@ -7,6 +7,7 @@
  */
 import { closePopup } from '../overlays.js';
 import { customPanel } from './custom.js';
+import { importPanel } from '../importer.js';
 import { bindIngredients, renderIngredientsPanel } from './ingredients.js';
 import { bindTableInfo } from './tableinfo.js';
 import { renderLibraryTab } from './library.js';
@@ -26,6 +27,7 @@ export function welcomePanel() {
   const body = elem('div', { className: 'newbody' });
   const ingredients = ingredientsPanel();
   body.append(customPanel());
+  body.append(importPanel());
   body.append(libraryPanel());
   body.append(ingredients);
   panel.append(body);
@@ -34,7 +36,7 @@ export function welcomePanel() {
   return panel;
 }
 
-export const NEW_TABS = [['custom', 'Custom'], ['library', 'Library'], ['ingredients', 'Ingredients']];
+export const NEW_TABS = [['custom', 'Custom'], ['import', 'Import'], ['library', 'Library'], ['ingredients', 'Ingredients']];
 
 function tabBar() {
   const tabs = elem('div', { className: 'newtabs', attrs: { id: 'newtabs', role: 'tablist' } });

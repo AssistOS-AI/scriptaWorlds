@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-11-counterexample-added-conflict",
+  "language": "ro",
+  "title": "Cina de marți",
+  "kind": "counterexample",
+  "target_distinction": "counterexample_added_conflict",
+  "distinction_statement": "Contraexemplu: scena reținută are deja conflictul în telefonul la care nimeni nu răspunde, iar adăugarea unei certe deschise slăbește efectul.",
+  "intention": "Presiunea nespusă a unei mese de familie să rămână efectul principal, iar adăugarea unui conflict deschis să fie văzută ca o pierdere.",
+  "change": {
+    "feature": "conflict_addition",
+    "description": "Paragraful 2 adaugă o ceartă cu țipete, o farfurie spartă și acuzații, înlocuind gesturile mărunte care purtau presiunea.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "withheld_pressure",
+    "text": "Marți seara, mama a pus ciorbă de burtă pe masă și a tăiat pâinea în felii subțiri, cum făcea când voia să nu se discute nimic. Fratele a întins farfuria, iar sora a mutat solnița mai aproape de el, fără să spună nimic.\n\nAu mâncat încet. Fratele a cerut pâine și mama i-a dat capătul de la margine, care era mai ars, iar el l-a luat fără comentariu. Când a sunat telefonul, toți trei s-au uitat la aparatul de pe hol; nimeni nu s-a ridicat. Sora a adunat firimiturile în palmă și le-a dus la chiuvetă, apoi s-a întors și a turnat apă în paharele tuturor, inclusiv în al fratelui, care nu băuse.\n\nA doua zi dimineață, fața de masă fusese schimbată și farfuria lipsă nu mai era nicăieri."
+  },
+  "after": {
+    "label": "conflict_added",
+    "text": "Marți seara, mama a pus ciorbă de burtă pe masă și a tăiat pâinea în felii subțiri, cum făcea când voia să nu se discute nimic. Fratele a întins farfuria, iar sora a mutat solnița mai aproape de el, fără să spună nimic.\n\nAu început să se certe aproape imediat. Fratele a izbit palma în masă și ciorba s-a vărsat pe fața de masă. Tu ne-ai distrus familia, a strigat sora, iar el i-a răspuns că ea nu știe nimic despre nimic. Mama a plâns și le-a spus că nu mai suportă, că pleacă, că vinde casa. Farfuria a căzut și s-a spart în trei bucăți. Toată furia adunată în ani a ieșit la suprafață, iar cina s-a terminat în țipete care s-au auzit până în stradă.\n\nA doua zi dimineață, fața de masă fusese schimbată și farfuria lipsă nu mai era nicăieri."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Au început să se certe aproape imediat.",
+      "start": 239,
+      "end": 280,
+      "expectation": "citată ca adăugare care declară conflictul în loc să îl lase să lucreze"
+    },
+    {
+      "side": "before",
+      "quote": "Când a sunat telefonul, toți trei s-au uitat la aparatul de pe hol; nimeni nu s-a ridicat.",
+      "start": 375,
+      "end": 467,
+      "expectation": "citată ca gest reținut care duce presiunea scenei"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Conflictul deschis poate fi potrivit în altă carte, cu alte mize stabilite mai devreme.",
+    "Reținerea poate fi citită ca răceală, nu ca presiune; textul nu exclude această citire."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-11-counterexample-added-conflict",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

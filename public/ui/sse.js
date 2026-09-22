@@ -3,8 +3,10 @@
  */
 import { api } from './api.js';
 import { showError } from './errors.js';
+import { feedbackChanged } from './responses.js';
 import { renderMenuItems } from './render/menu.js';
 import { patchActivity } from './render/reader.js';
+import { runsChanged } from './review.js';
 import { LIVE_STATUSES, state } from './state.js';
 import { refreshDetail, upsertLive } from './universe.js';
 
@@ -173,6 +175,8 @@ export async function pollStatuses() {
   if (structural) {
     try {
       await refreshDetail({ targetIndex: 'keep' });
+      runsChanged();
+      feedbackChanged();
       return;
     } catch { /* retry next tick */ }
   }
@@ -184,6 +188,13 @@ export async function pollStatuses() {
 export function handleEvent(payload, streamJobId = null) {
   if (!payload || typeof payload !== 'object') return;
   const id = payload.job?.id ?? payload.jobId ?? streamJobId;
+  if (payload.type === 'refresh') {
+    // The aggregate stream announces that a turn settled and the universe should be read again; the job
+    // event itself has already been delivered with its final state.
+    runsChanged();
+    feedbackChanged();
+    return;
+  }
   if (payload.type === 'job' && payload.job) {
     const { created } = upsertLive(payload.job);
     if (created) {
@@ -223,6 +234,11 @@ export function handleEvent(payload, streamJobId = null) {
 export function finishJob(jobId) {
   unwatchJob(jobId);
   refreshDetail({ targetIndex: 'keep' }).catch((error) => showError(error.message));
+  // A finished turn can move the accepted version, which makes earlier reviews historical — and a
+  // response about the version it replaced historical with them. Both lists are refreshed from this
+  // event instead of from a timer of their own.
+  runsChanged();
+  feedbackChanged();
 }
 
 /* ------------------------------------------------------------- actions */

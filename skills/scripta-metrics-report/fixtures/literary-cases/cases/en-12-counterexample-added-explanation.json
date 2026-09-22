@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-12-counterexample-added-explanation",
+  "language": "en",
+  "title": "The folded map",
+  "kind": "counterexample",
+  "target_distinction": "counterexample_added_explanation",
+  "distinction_statement": "Counterexample: folding the map wrongly works unexplained, and the paragraph that explains it psychologically and addresses the reader weakens the scene.",
+  "intention": "A repeated gesture should stay with the reader, and the narrator’s explanation should be visible as a loss of restraint.",
+  "change": {
+    "feature": "explanation_addition",
+    "description": "Paragraph 2 adds a childhood explanation and a sentence addressed directly to the reader, replacing the gesture left unexplained.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "unexplained_gesture",
+    "text": "Margaret folded the map wrong every time, so that the motorway came out on the inside and the coast on the outside, and she would not let anyone else fold it. She did this in lay-by fourteen, in the rain, with her husband waiting in the car.\n\nThis time it was an Ordnance Survey sheet borrowed from the man in the next caravan, and she folded it along a crease that did not exist, pressing the paper down with her thumbnail. Her husband watched her through the windscreen and did not knock. When she got back in, she put the map in the door pocket the wrong way round, with the corner sticking out, and he started the car without asking about it.\n\nThey drove on to the next town, and in the evening she asked the caravan man whether he wanted his map back, and he said he did not."
+  },
+  "after": {
+    "label": "explained_gesture",
+    "text": "Margaret folded the map wrong every time, so that the motorway came out on the inside and the coast on the outside, and she would not let anyone else fold it. She did this in lay-by fourteen, in the rain, with her husband waiting in the car.\n\nThe habit had an old explanation: as a child she had been scolded by her father whenever a map came back folded the wrong way, and the shame of it had become, over the years, a way of forgiving herself. That is why she still folded the map wrongly at seventy, with her husband waiting: she wanted to be, in front of every borrowed thing, a woman who had not been scolded. The reader understands from this that her care for other people’s property was really a fear of being judged.\n\nThey drove on to the next town, and in the evening she asked the caravan man whether he wanted his map back, and he said he did not."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "The habit had an old explanation",
+      "start": 243,
+      "end": 275,
+      "expectation": "quoted as an explanation that replaces the gesture"
+    },
+    {
+      "side": "before",
+      "quote": "she put the map in the door pocket the wrong way round",
+      "start": 513,
+      "end": 567,
+      "expectation": "quoted as the gesture left unexplained for the reader"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The explanation could belong in an essay or another section, not in the scene.",
+    "The crease may be ordinary clumsiness with no hidden meaning."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-12-counterexample-added-explanation",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

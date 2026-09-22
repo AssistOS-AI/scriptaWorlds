@@ -1,0 +1,35 @@
+{
+  "id": "humanity-s-megatext",
+  "title": "One Shelf Left Unsorted",
+  "summary": "Kesh discovers that a good taxonomy can compress human imagination enormously, and that the success of classification worsens Aster's White Hunger",
+  "autoTitle": false,
+  "law": "Prohibition that holds in this world: no one was allowed to solve the problem before they could describe who would pay for the solution\n\nThe world is built from the following speculative operations of the Periodic Table of Ideas:\n- World Grammar: a universe where elements combine as a language of design (science fantasy and meta-reality, inversion).\n- Self-Referential Table: a universe where the catalog of ideas is itself an idea (science fantasy and meta-reality, loop).",
+  "premise": "Millions of books are projected as a relief map of recurring questions: other worlds, other bodies, other times, other societies. Kesh discovers that a good taxonomy can compress human imagination enormously, and that the success of classification worsens Aster's White Hunger",
+  "elements": [
+    {
+      "symbol": "RI",
+      "name": "World Grammar",
+      "family": "META-REALITY",
+      "operator": "INVERSION",
+      "gist": "elements combine as a language of design",
+      "ingredient": "World Grammar: a universe where elements combine as a language of design (science fantasy and meta-reality, inversion).",
+      "custom": false
+    },
+    {
+      "symbol": "RL",
+      "name": "Self-Referential Table",
+      "family": "META-REALITY",
+      "operator": "LOOP",
+      "gist": "the catalog of ideas is itself an idea",
+      "ingredient": "Self-Referential Table: a universe where the catalog of ideas is itself an idea (science fantasy and meta-reality, loop).",
+      "custom": false
+    }
+  ],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T15:56:06.896Z",
+  "updatedAt": "2026-09-22T15:57:44.236Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

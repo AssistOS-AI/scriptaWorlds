@@ -1,0 +1,13 @@
+{
+  "schema_version": "model-agreement-record.v1",
+  "status": "unperformed",
+  "summary": "No model or evaluator has been run against this library. No agreement figure, no per-case outcome and no failure list exist yet; they are recorded only from a real run, never estimated.",
+  "performed_at": null,
+  "runs": [],
+  "failures": [],
+  "honesty_note": "A model-agreement figure may be added only from a recorded run: model identity, prompt and rubric versions, the input hashes and the per-case outcome, with every observed disagreement written out. Nothing here is a human reading, and a future agreement number would still not make this library a human benchmark.",
+  "human_study": {
+    "status": "not_performed",
+    "note": "No independent readers have judged these cases. Task C39 authoring supplies teaching and regression material; a study that asks whether a rubric agrees with readers is separate optional research with its own consent, sample and recorded disagreements."
+  }
+}

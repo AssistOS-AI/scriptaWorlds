@@ -1,0 +1,246 @@
+{
+  "schema_version": "literary-case-index.v1",
+  "library_id": "scripta-metrics-report-literary-cases",
+  "version": "1.0.0",
+  "label": "synthetic",
+  "human_benchmark": false,
+  "label_statement": "Every case in this library is synthetic teaching and regression material written for this repository by the executor of task C39. The cases are not collected reader data, not a human benchmark and not an independent evaluation set; no person outside the authoring session has judged them.",
+  "purpose": "Give the review phase reproducible examples of the distinctions the literary rubric and the metric catalogue have to tell apart, so a reading, an annotation prompt or a rule can be checked against text whose intended effect and expected evidence are both known.",
+  "created": "2026-09-22",
+  "languages": [
+    "ro",
+    "en"
+  ],
+  "case_count": 24,
+  "coverage": {
+    "required_distinctions": [
+      "flat_versus_specific_emotion",
+      "interchangeable_versus_distinct_voices",
+      "unsupported_versus_motivated_choice",
+      "exposition_in_dialogue",
+      "meaningful_versus_empty_repetition",
+      "quiet_scene",
+      "nonlinear_chronology",
+      "static_character",
+      "unreliable_narration",
+      "intentional_ambiguity",
+      "counterexample_added_conflict",
+      "counterexample_added_explanation"
+    ],
+    "cases_per_language": 12,
+    "note": "The twelve target distinctions are covered once in Romanian and once in English; the two counterexample distinctions are covered once per language."
+  },
+  "regression_subset": {
+    "declared": true,
+    "min_cases": 6,
+    "case_ids": [
+      "ro-01-flat-versus-specific-emotion",
+      "ro-03-unsupported-versus-motivated-choice",
+      "ro-05-meaningful-versus-empty-repetition",
+      "ro-07-nonlinear-chronology",
+      "en-02-interchangeable-versus-distinct-voices",
+      "en-04-exposition-in-dialogue",
+      "en-09-unreliable-narration",
+      "en-12-counterexample-added-explanation"
+    ],
+    "use": "Prompt and evaluator regression checks: these eight cases are the declared subset a later run may send to an evaluator with a recorded prompt version to see whether a change in wording or model still separates the weaker half from the stronger half. The subset is not a benchmark, its size is chosen for cost, and a disagreement inside it is a question for a person to read."
+  },
+  "model_agreement": {
+    "record": "model-agreement.json",
+    "status": "unperformed"
+  },
+  "cases": [
+    {
+      "id": "ro-01-flat-versus-specific-emotion",
+      "file": "cases/ro-01-flat-versus-specific-emotion.json",
+      "language": "ro",
+      "target_distinction": "flat_versus_specific_emotion",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "ro-02-interchangeable-versus-distinct-voices",
+      "file": "cases/ro-02-interchangeable-versus-distinct-voices.json",
+      "language": "ro",
+      "target_distinction": "interchangeable_versus_distinct_voices",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-03-unsupported-versus-motivated-choice",
+      "file": "cases/ro-03-unsupported-versus-motivated-choice.json",
+      "language": "ro",
+      "target_distinction": "unsupported_versus_motivated_choice",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "ro-04-exposition-in-dialogue",
+      "file": "cases/ro-04-exposition-in-dialogue.json",
+      "language": "ro",
+      "target_distinction": "exposition_in_dialogue",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-05-meaningful-versus-empty-repetition",
+      "file": "cases/ro-05-meaningful-versus-empty-repetition.json",
+      "language": "ro",
+      "target_distinction": "meaningful_versus_empty_repetition",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "ro-06-quiet-scene",
+      "file": "cases/ro-06-quiet-scene.json",
+      "language": "ro",
+      "target_distinction": "quiet_scene",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-07-nonlinear-chronology",
+      "file": "cases/ro-07-nonlinear-chronology.json",
+      "language": "ro",
+      "target_distinction": "nonlinear_chronology",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "ro-08-static-character",
+      "file": "cases/ro-08-static-character.json",
+      "language": "ro",
+      "target_distinction": "static_character",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-09-unreliable-narration",
+      "file": "cases/ro-09-unreliable-narration.json",
+      "language": "ro",
+      "target_distinction": "unreliable_narration",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-10-intentional-ambiguity",
+      "file": "cases/ro-10-intentional-ambiguity.json",
+      "language": "ro",
+      "target_distinction": "intentional_ambiguity",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "ro-11-counterexample-added-conflict",
+      "file": "cases/ro-11-counterexample-added-conflict.json",
+      "language": "ro",
+      "target_distinction": "counterexample_added_conflict",
+      "kind": "counterexample",
+      "regression": false
+    },
+    {
+      "id": "ro-12-counterexample-added-explanation",
+      "file": "cases/ro-12-counterexample-added-explanation.json",
+      "language": "ro",
+      "target_distinction": "counterexample_added_explanation",
+      "kind": "counterexample",
+      "regression": false
+    },
+    {
+      "id": "en-01-flat-versus-specific-emotion",
+      "file": "cases/en-01-flat-versus-specific-emotion.json",
+      "language": "en",
+      "target_distinction": "flat_versus_specific_emotion",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-02-interchangeable-versus-distinct-voices",
+      "file": "cases/en-02-interchangeable-versus-distinct-voices.json",
+      "language": "en",
+      "target_distinction": "interchangeable_versus_distinct_voices",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "en-03-unsupported-versus-motivated-choice",
+      "file": "cases/en-03-unsupported-versus-motivated-choice.json",
+      "language": "en",
+      "target_distinction": "unsupported_versus_motivated_choice",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-04-exposition-in-dialogue",
+      "file": "cases/en-04-exposition-in-dialogue.json",
+      "language": "en",
+      "target_distinction": "exposition_in_dialogue",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "en-05-meaningful-versus-empty-repetition",
+      "file": "cases/en-05-meaningful-versus-empty-repetition.json",
+      "language": "en",
+      "target_distinction": "meaningful_versus_empty_repetition",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-06-quiet-scene",
+      "file": "cases/en-06-quiet-scene.json",
+      "language": "en",
+      "target_distinction": "quiet_scene",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-07-nonlinear-chronology",
+      "file": "cases/en-07-nonlinear-chronology.json",
+      "language": "en",
+      "target_distinction": "nonlinear_chronology",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-08-static-character",
+      "file": "cases/en-08-static-character.json",
+      "language": "en",
+      "target_distinction": "static_character",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-09-unreliable-narration",
+      "file": "cases/en-09-unreliable-narration.json",
+      "language": "en",
+      "target_distinction": "unreliable_narration",
+      "kind": "pair",
+      "regression": true
+    },
+    {
+      "id": "en-10-intentional-ambiguity",
+      "file": "cases/en-10-intentional-ambiguity.json",
+      "language": "en",
+      "target_distinction": "intentional_ambiguity",
+      "kind": "pair",
+      "regression": false
+    },
+    {
+      "id": "en-11-counterexample-added-conflict",
+      "file": "cases/en-11-counterexample-added-conflict.json",
+      "language": "en",
+      "target_distinction": "counterexample_added_conflict",
+      "kind": "counterexample",
+      "regression": false
+    },
+    {
+      "id": "en-12-counterexample-added-explanation",
+      "file": "cases/en-12-counterexample-added-explanation.json",
+      "language": "en",
+      "target_distinction": "counterexample_added_explanation",
+      "kind": "counterexample",
+      "regression": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-10-intentional-ambiguity",
+  "language": "ro",
+  "title": "Scrisoarea de pe masă",
+  "kind": "pair",
+  "target_distinction": "intentional_ambiguity",
+  "distinction_statement": "Varianta slabă deschide două citiri care se exclud prin fapte; varianta puternică lasă două citiri, fiecare cu obiectele ei.",
+  "intention": "Finalul să rămână deschis pentru cititor, fără să se sprijine pe fapte imposibile.",
+  "change": {
+    "feature": "interpretive_openness",
+    "description": "Paragraful 2 înlocuiește plicul sigilat și nedeschis în același timp cu haina lipsă, papucii rămași și colțul rupt de sub solniță.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "evidenced_openness",
+    "text": "Scrisoarea stătea pe masa din bucătărie, cu colțul ridicat de la umezeală. Fusese acolo toată noaptea. Ceașca de ceai de lângă ea era plină și rece.\n\nHaina de pe scaun lipsea, dar papucii erau la locul lor, lângă pat. Pe fundul ceștii se vedeau urme de frunze, ca și cum cineva ar fi băut ceaiul până la capăt și apoi ar fi pus ceașca jos, plină din nou, cu apă. Scrisoarea era scoasă din plic și împăturită la loc, iar colțul rupt de pe plic stătea sub solniță. Se putea citi că plecase înainte de lumină sau că citise scrisoarea și hotărâse să rămână; amândouă variantele au câte un obiect al lor.\n\nLa ora șapte a sunat clopoțelul de la ușă și nimeni nu a răspuns."
+  },
+  "after": {
+    "label": "unmotivated_gap",
+    "text": "Scrisoarea stătea pe masa din bucătărie, cu colțul ridicat de la umezeală. Fusese acolo toată noaptea. Ceașca de ceai de lângă ea era plină și rece.\n\nScrisoarea era sigilată cu ceară, exact cum o lăsase el. Totuși, ea o citise de trei ori înainte să adoarmă, apoi o deschisese și o sigilase la loc, iar plicul fusese găsit nedeschis dimineață, deși nimeni nu intrase în casă. Dacă plecase sau nu nu se putea ști, fiindcă nu era nicio urmă în niciun sens.\n\nLa ora șapte a sunat clopoțelul de la ușă și nimeni nu a răspuns."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "nu era nicio urmă în niciun sens",
+      "start": 449,
+      "end": 483,
+      "expectation": "citată ca lipsă de probe care nu susține niciuna dintre citiri"
+    },
+    {
+      "side": "before",
+      "quote": "Haina de pe scaun lipsea, dar papucii erau la locul lor",
+      "start": 161,
+      "end": 216,
+      "expectation": "citată ca obiect care susține o citire anume"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Cele două citiri se reduc la una dacă cititorul hotărăște că haina lipsește din alt motiv.",
+    "Textul nu confirmă niciodată dacă Ana este sau nu în casă; ambele citiri rămân deschise."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-10-intentional-ambiguity",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

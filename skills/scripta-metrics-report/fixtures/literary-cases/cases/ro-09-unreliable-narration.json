@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-09-unreliable-narration",
+  "language": "ro",
+  "title": "Lupul de la treizeci de pași",
+  "kind": "pair",
+  "target_distinction": "unreliable_narration",
+  "distinction_statement": "Varianta slabă se contrazice fără direcție; varianta puternică se contrazice mereu în același sens, iar probele rămân recuperabile.",
+  "intention": "Naratorul să pară nesigur fără ca textul să piardă posibilitatea de a reconstrui ce s-a întâmplat.",
+  "change": {
+    "feature": "narrator_reliability_signal",
+    "description": "Paragraful 2 înlocuiește contradicțiile aleatorii cu o exagerare constantă, contrazisă de un cartuș, două rânduri de urme și un câine.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "consistent_slant",
+    "text": "Vasile povestea, la fiecare masă de Paști, că împușcase lupul singur, în zăpadă, la treizeci de pași, cu un singur cartuș. Nimeni nu-l contrazicea; unchiul Mihai se uita în farfurie și tăcea.\n\nVasile îl așeză mereu pe lup la treizeci de pași, niciodată mai aproape, fiindcă la douăzeci de pași ar fi fost prea ușor. Zăpada era mereu până la genunchi, deși bătrânul spunea că iarna aceea nu căzuse zăpadă până în ianuarie. În buzunarul hainei s-a găsit, când a fost spălată, un singur cartuș și jumătate; pe locul de la marginea pădurii erau două rânduri de urme, iar câinele vecinului lătra la colibă, nu la lup.\n\nUnchiul Mihai a tăiat din cozonac, a pus o felie în farfuria nepotului și a spus, ca în fiecare an, că vinul e prea dulce."
+  },
+  "after": {
+    "label": "inconsistent_claims",
+    "text": "Vasile povestea, la fiecare masă de Paști, că împușcase lupul singur, în zăpadă, la treizeci de pași, cu un singur cartuș. Nimeni nu-l contrazicea; unchiul Mihai se uita în farfurie și tăcea.\n\nEra lup. Erau doi lupi. Era vară, la Rusalii. Era o cățea cu pui. Lupul fugise, dar îl nimerise; apoi căzuse pe loc; apoi nu fusese acolo deloc. Zăpada era până la genunchi și nu era zăpadă. Împușcase de la trei pași, de la treizeci, de la o sută. Uneori era la vânătoare cu unchiul, alteori singur pe marginea drumului, alteori nici nu se născuse.\n\nUnchiul Mihai a tăiat din cozonac, a pus o felie în farfuria nepotului și a spus, ca în fiecare an, că vinul e prea dulce."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Zăpada era până la genunchi și nu era zăpadă.",
+      "start": 356,
+      "end": 407,
+      "expectation": "citată ca negație care nu poate fi reconciliată cu nimic din scenă"
+    },
+    {
+      "side": "before",
+      "quote": "erau două rânduri de urme, iar câinele vecinului lătra la colibă",
+      "start": 580,
+      "end": 649,
+      "expectation": "citată ca probă recuperabilă care contrazice o singură dată, în același sens"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Cititorul poate alege să creadă povestea și să citească detaliile ca răutate a familiei.",
+    "Textul nu stabilește cine a împușcat lupul; sugerează doar că naratorul nu a fost singur."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-09-unreliable-narration",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

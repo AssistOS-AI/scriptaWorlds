@@ -1,0 +1,350 @@
+/*
+ * scriptaWorlds — the control surface of a review: the chapter action toolbar, the review panel and the
+ * run list both panels share. The report itself is styled by report.css.
+ */
+
+/* ---------------- the chapter action toolbar ---------------- */
+/* Six controls share the head of a chapter — what it was asked for, rewriting it, its scene log, what a
+ * reader says about the book, a review of it and the reports of the book — so the strip is wide: it keeps
+ * a readable gap on a wide screen and tightens it rather than squeezing the chapter title away. */
+.toolbar {
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .bubble__actions.toolbar {
+    gap: 2px;
+  }
+}
+
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.iconbtn:hover {
+  border-color: var(--accent-line);
+  color: var(--accent-strong);
+  background: var(--accent-tint);
+}
+
+.iconbtn[aria-expanded="true"] {
+  background: var(--accent-tint);
+  border-color: var(--accent-line);
+  color: var(--accent-strong);
+}
+
+.iconbtn--small {
+  width: 28px;
+  height: 28px;
+}
+
+/* ---------------- the panels ---------------- */
+.popup__panel--analysis {
+  width: min(96vw, 1000px);
+  max-height: 92vh;
+  padding: 18px 20px 22px;
+}
+
+.analysis {
+  display: grid;
+  gap: 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.analysis__form {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.analysis__hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.analysis__set {
+  margin: 0;
+  padding: 10px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.analysis__set > legend {
+  padding: 0 6px;
+  font-size: 12.5px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.analysis__choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-height: var(--tap);
+  padding: 6px 2px;
+  cursor: pointer;
+}
+
+.analysis__choice input {
+  margin: 4px 0 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.analysis__choice-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.analysis__choice-label {
+  font-size: 14px;
+}
+
+.analysis__choice-hint {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.analysis__arc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 2px 4px 26px;
+}
+
+.analysis__inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.analysis__select,
+.analysis__input {
+  min-height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.analysis__select {
+  min-height: var(--tap);
+}
+
+.analysis__input {
+  width: 100%;
+}
+
+.analysis__input:disabled {
+  background: var(--paper-soft);
+  color: var(--muted);
+}
+
+.analysis__error {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-sm);
+  background: var(--danger-tint);
+  color: var(--danger);
+  font-size: 13.5px;
+}
+
+.analysis__subtitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.analysis__subtitle > span:first-child {
+  flex: 0 0 auto;
+}
+
+.analysis__count {
+  flex: 1 1 auto;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12.5px;
+}
+
+.analysis__runs {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------------- the run list ---------------- */
+.runlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.runlist__empty {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.runrow {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.runrow--current {
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+
+.runrow__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.runrow__phase {
+  font-size: 12.5px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-strong);
+}
+
+.runrow__note {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.runrow__meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.runrow__error {
+  margin: 0;
+  font-size: 13px;
+  color: var(--danger);
+  overflow-wrap: anywhere;
+}
+
+.runrow__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.runrow__log {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.runrow__pre {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  max-height: 220px;
+  overflow: auto;
+  border-left: 3px solid var(--accent-line);
+  background: var(--paper-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--mono-font);
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.btn--small {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper-soft);
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.badge--done,
+.badge--judged,
+.badge--computed,
+.badge--requested {
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+  color: var(--accent-strong);
+}
+
+.badge--queued,
+.badge--not_applicable {
+  color: var(--muted);
+}
+
+.badge--running {
+  border-color: var(--accent-line);
+  color: var(--accent-strong);
+}
+
+.badge--error,
+.badge--interrupted,
+.badge--severity-major {
+  border-color: var(--danger);
+  background: var(--danger-tint);
+  color: var(--danger);
+}
+
+.badge--historical,
+.badge--severity-local {
+  border-color: var(--line-strong);
+  background: var(--paper-soft);
+  color: var(--ink-soft);
+}

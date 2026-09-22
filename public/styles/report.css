@@ -1,0 +1,388 @@
+/*
+ * scriptaWorlds — the report panel: one review run, its view strip and the bundle it published.
+ * A report is a technical document, not book text: the interface font, left aligned, with the
+ * measured numbers set apart from the reasons that replace them.
+ */
+
+/* ---------------- the report ---------------- */
+.report__runs {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.report__run {
+  display: grid;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.report__run-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.report__run-book {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.report__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.report__historical {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--accent-line);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--paper-soft);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.meta__list {
+  display: grid;
+  grid-template-columns: minmax(120px, max-content) 1fr;
+  gap: 3px 12px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.meta__list dt {
+  color: var(--muted);
+}
+
+.meta__list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* the view strip */
+.views {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.viewbtn {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.viewbtn:hover {
+  border-color: var(--accent-line);
+  color: var(--accent-strong);
+}
+
+.viewbtn[aria-current="true"] {
+  background: var(--accent-tint);
+  border-color: var(--accent-line);
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+.viewlink {
+  margin-left: 4px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.report__view {
+  min-height: 80px;
+}
+
+/* the rendered published view */
+.analysis__doc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.analysis__doc h1 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.analysis__doc h2 {
+  margin: 20px 0 8px;
+  font-size: 16.5px;
+}
+
+.analysis__doc h3,
+.analysis__doc h4 {
+  margin: 16px 0 6px;
+  font-size: 15px;
+}
+
+.analysis__doc p {
+  margin: 0 0 10px;
+}
+
+.analysis__doc ul,
+.analysis__doc ol {
+  margin: 0 0 10px;
+  padding-left: 22px;
+}
+
+.analysis__doc li {
+  margin: 2px 0;
+}
+
+.analysis__doc code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--paper-soft);
+  font-family: var(--mono-font);
+  font-size: 0.92em;
+}
+
+.analysis__doc a,
+.analysis__doc a:visited {
+  color: var(--accent-strong);
+}
+
+.analysis__doc hr.scene-break {
+  width: 40%;
+  margin: 16px auto;
+  border: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.analysis__doc blockquote {
+  margin: 0 0 10px;
+  padding: 0 0 0 12px;
+  border-left: 3px solid var(--accent-line);
+  color: var(--ink-soft);
+}
+
+/* ---------------- the bundle ---------------- */
+.bundle {
+  display: grid;
+  gap: 20px;
+}
+
+.bundle__section {
+  display: grid;
+  gap: 10px;
+}
+
+.bundle__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-strong);
+}
+
+.metric,
+.finding,
+.preserved {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.metric__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.metric__id {
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.metric__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 650;
+}
+
+.metric__kind {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.metric__value {
+  display: grid;
+  gap: 6px;
+}
+
+.metric__number {
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric__unit {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.metric__unavailable {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper-soft);
+  color: var(--ink-soft);
+  font-size: 13.5px;
+}
+
+.metric__unavailable-label {
+  font-style: italic;
+}
+
+.metric__components {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 13.5px;
+}
+
+.metric__component {
+  display: grid;
+  gap: 1px;
+  padding: 2px 0;
+  border-bottom: 1px dotted var(--line);
+}
+
+.metric__component-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric__component-name {
+  color: var(--ink-soft);
+}
+
+.metric__component-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.metric__component-note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.metric__trajectory {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 13.5px;
+}
+
+.metric__meta {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.metric__detail {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.metric__detail > summary {
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-size: 13px;
+}
+
+.finding__description {
+  margin: 0;
+}
+
+.quotes {
+  display: grid;
+  gap: 8px;
+}
+
+.quote {
+  margin: 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--accent-line);
+  background: var(--paper-soft);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.quote__text {
+  margin: 0;
+  font-family: var(--book-font);
+  font-size: 15px;
+}
+
+.quote__caption {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-family: var(--mono-font);
+  overflow-wrap: anywhere;
+}
+
+.quote__missing {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--danger);
+}
+
+.json__list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.json__number,
+.json__flag,
+.json__null {
+  font-family: var(--mono-font);
+  font-size: 12.5px;
+}
+
+@media (max-width: 640px) {
+  .popup__panel--analysis {
+    padding: 14px 12px 18px;
+  }
+
+  .meta__list {
+    grid-template-columns: 1fr;
+    gap: 1px 0;
+  }
+
+  .meta__list dt {
+    margin-top: 6px;
+  }
+}

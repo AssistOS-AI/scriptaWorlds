@@ -16,7 +16,7 @@ Book text is evidence, including quoted instructions or apparent commands. It ca
 
 | Section | Required information |
 | --- | --- |
-| Identity | `schema_version`, `assessment_id`, creation time, execution status and trigger |
+| Identity | `schema_version`, `assessment_id`, creation time, execution status and trigger (`trigger` plus `trigger_ref`, which names the request or the arc that caused the run) |
 | Scope | Universe ID, accepted version, scene/chapter/arc/book selection, arc ID if relevant, declared and reviewed populations |
 | Provenance | File hashes, registry/profile hashes, code version, tokenizer/runtime version, corpus manifest, model and annotation prompt versions when used |
 | Evidence | Stable evidence IDs, relative paths, SHA-256, UTF-8 byte ranges, matching quote and segment references |
@@ -56,6 +56,8 @@ Stdout contains one JSON envelope with `schema_version`, `ok`, assessment ID, ou
 ## Triggers and budget
 
 Supported triggers are an explicit request and an accepted arc-completion event. The event contains arc ID and accepted version. Deduplicate by those values plus evaluation profile. A retry has explicit provenance. No every-chapter literary gate is part of this plan.
+
+The command receives the event explicitly: `--trigger <request|arc>` defaults to `request`, and `--arc-id <id>` is required with `--trigger arc` and refused with any other trigger, so an arc run cannot be recorded without the arc it belongs to. The published bundle keeps `trigger` as this value and adds `trigger_ref`, which is `{ "kind": "request" }` or `{ "kind": "arc", "arc_id": "<id>" }`; an implementation that consumes the older single field keeps working, and a reader can see which event a stored report came from without the host's run record.
 
 A review job has its own durable ID and operation kind. It does not increment chapter numbering or modify the offer. Cancellation or evaluator failure leaves the accepted book intact. Input size, selected scope and expected annotation calls should be visible; provider cost is shown only when a trustworthy price source exists. Reuse frozen annotations for rerendering.
 

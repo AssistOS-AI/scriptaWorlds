@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-12-counterexample-added-explanation",
+  "language": "ro",
+  "title": "Șorțul de la ușă",
+  "kind": "counterexample",
+  "target_distinction": "counterexample_added_explanation",
+  "distinction_statement": "Contraexemplu: gestul de a dezlega șorțul funcționează nesplicat, iar paragraful care îl explică psihologic și se adresează cititorului slăbește scena.",
+  "intention": "Un gest repetat să rămână al cititorului, iar explicația naratorului să fie văzută ca o pierdere de reținere.",
+  "change": {
+    "feature": "explanation_addition",
+    "description": "Paragraful 2 adaugă o explicație psihologică din copilărie și o frază care se adresează direct cititorului.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "unexplained_gesture",
+    "text": "Mătușa Vera deschidea ușa de la intrare doar după ce își dezlegea șorțul și îl atârna de cuier, chiar dacă tocmai scosese pâinea din cuptor. A făcut asta cu poștașul, cu vecina, cu nepotul care venea o dată pe an.\n\nDe data asta a fost un om pe care nu-l mai văzuse. A dezlegat șorțul, l-a pus pe cuier, a aranjat cu două degete un colț al feței de masă din hol și abia apoi a deschis. Omul a spus că a greșit etajul și a plecat; ea a rămas cu mâna pe clanță, fără să-l cheme înapoi, apoi a luat șorțul de pe cuier și l-a pus la loc, peste rochie.\n\nSeara, vecina a întrebat-o cine fusese la ușă, iar ea a răspuns că nimeni, doar un om care greșise etajul."
+  },
+  "after": {
+    "label": "explained_gesture",
+    "text": "Mătușa Vera deschidea ușa de la intrare doar după ce își dezlegea șorțul și îl atârna de cuier, chiar dacă tocmai scosese pâinea din cuptor. A făcut asta cu poștașul, cu vecina, cu nepotul care venea o dată pe an.\n\nGestul avea o explicație veche: în copilărie fusese mustrată de tatăl ei de fiecare dată când răspundea la ușă cu șorțul pe ea, iar rușinea aceea devenise, cu timpul, o formă de a-și cere iertare de la sine. Așa se explică de ce dezlega șorțul chiar și acum, la șaptezeci de ani: voia să fie, în fața fiecărui străin, o femeie care nu era prinsă la mijloc de treburi. Cititorul înțelege astfel că respectul pentru ceilalți era, de fapt, o teamă de judecată.\n\nSeara, vecina a întrebat-o cine fusese la ușă, iar ea a răspuns că nimeni, doar un om care greșise etajul."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Gestul avea o explicație veche",
+      "start": 232,
+      "end": 263,
+      "expectation": "citată ca explicație care ia locul gestului"
+    },
+    {
+      "side": "before",
+      "quote": "a luat șorțul de pe cuier și l-a pus la loc, peste rochie",
+      "start": 524,
+      "end": 584,
+      "expectation": "citată ca gest lăsat nesplicat, pe care cititorul îl poate citi singur"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Explicația poate fi utilă într-un eseu sau într-o altă secțiune, nu în scenă.",
+    "Aranjarea feței de masă poate fi citită ca simplă ordine, fără nicio semnificație ascunsă."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-12-counterexample-added-explanation",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

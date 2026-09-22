@@ -1,0 +1,23 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC FIXTURE — no human readers, no participants and no real book. These labels were written by hand for the skill's tests, so they can prove that a study artifact is verified locally and never that a production NQS is calibrated on people.",
+  "held_out": true,
+  "labels": [
+    {
+      "pair_id": "syn-en-001",
+      "language": "en",
+      "preferred": "A",
+      "criterion": "causal_support",
+      "rater": "synthetic-rater-1",
+      "uncertainty": "none recorded; the fixture has no disagreement data"
+    },
+    {
+      "pair_id": "syn-en-002",
+      "language": "en",
+      "preferred": "B",
+      "criterion": "referential_clarity",
+      "rater": "synthetic-rater-1",
+      "uncertainty": "none recorded; the fixture has no disagreement data"
+    }
+  ]
+}

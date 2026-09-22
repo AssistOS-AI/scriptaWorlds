@@ -9,12 +9,14 @@ import { renderCustomError } from './render/custom.js';
 import { ingredientPayload } from './render/ingredients.js';
 import { renderMenuItems } from './render/menu.js';
 import { render } from './render/reader.js';
+import { resetAssessmentState } from './review.js';
 import { openJobStream, stopEvents } from './sse.js';
 import { dom, state } from './state.js';
 import { refreshDetail, selectUniverse, upsertLive } from './universe.js';
 
 export function openExploration() {
   stopEvents();
+  resetAssessmentState();
   state.universeId = null;
   state.universe = null;
   state.detail = null;

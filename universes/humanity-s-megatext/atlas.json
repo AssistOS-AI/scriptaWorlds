@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "axes": [
+    {
+      "id": "knowledge-truth",
+      "name": "Knowledge & truth",
+      "nodes": [
+        {
+          "id": "compressive-taxonomy",
+          "label": "Compressive taxonomy",
+          "state": "decision",
+          "chapters": [1]
+        },
+        {
+          "id": "survey-terrain",
+          "label": "The Survey's relief terrain",
+          "state": "dramatized",
+          "chapters": [1]
+        },
+        {
+          "id": "self-classifying-catalog",
+          "label": "The catalog's entry for itself",
+          "state": "mentioned",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "body-evolution",
+      "name": "Body & evolution",
+      "nodes": [
+        {
+          "id": "white-hunger",
+          "label": "White Hunger",
+          "state": "dramatized",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "abundance-scarcity",
+      "name": "Abundance & scarcity",
+      "nodes": [
+        {
+          "id": "payer-column",
+          "label": "The payer column",
+          "state": "dramatized",
+          "chapters": [1]
+        },
+        {
+          "id": "three-removals",
+          "label": "The Three Removals",
+          "state": "mentioned",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "culture-meaning",
+      "name": "Culture & meaning",
+      "nodes": [
+        {
+          "id": "unsorted-shelf",
+          "label": "The unsorted shelf",
+          "state": "decision",
+          "chapters": [1]
+        }
+      ]
+    }
+  ]
+}

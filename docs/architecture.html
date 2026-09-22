@@ -23,7 +23,7 @@
 
       <section>
         <h2>Components</h2>
-        <p>The runtime is eighteen modules under <code>src/</code>, and each one owns a single responsibility. Nothing in the runtime holds persistent state of its own: it reads and writes the universe folders and the data files of the repository, and those files are the state.</p>
+        <p>The runtime is the modules under <code>src/</code>, and each one owns a single responsibility. Nothing in the runtime holds persistent state of its own: it reads and writes the universe folders and the data files of the repository, and those files are the state. The table below names the modules the store, the data sources and the turn pipeline are built from; the separate design and review phases, described in the contract reference, and the import pipeline, described below, add modules of their own that follow the same rule.</p>
         <table>
           <thead>
             <tr>
@@ -255,6 +255,11 @@
               <td>Links that make the product skills visible inside the universe folder.</td>
             </tr>
             <tr>
+              <td><code>.agents/<wbr>import/<wbr>extracted.json</code>, <code>.agents/<wbr>import/<wbr>book.md</code></td>
+              <td>Server</td>
+              <td>The <a href="wiki.html#definition-extraction">extraction</a> of an uploaded book, copied into the universe from the upload outside <code>universes/</code> so the <a href="wiki.html#definition-import-turn">import turn</a> reads its only source of prose from its own folder.</td>
+            </tr>
+            <tr>
               <td><code>universe-title.txt</code></td>
               <td>Agent</td>
               <td>The <a href="wiki.html#definition-short-name">short name</a> the agent writes while the title is still provisional; the server adopts it after the first successful chapter, keeps the earlier descriptive line as the summary and removes this hand-off file once the name is taken.</td>
@@ -292,6 +297,46 @@
           </tbody>
         </table></div>
         <p>The file formats, the naming rules and the derived fields are specified in <a href="specsLoader.html?spec=DS004-universe-storage.md">DS004-universe-storage</a> and in the contract reference <code>docs/contracts.md</code>.</p>
+      </section>
+
+      <section>
+        <h2>The import pipeline</h2>
+        <p>A book that was not written here enters the same store through the import pipeline: the upload is kept outside <code>universes/</code>, its text is extracted without a model, and the universe it becomes is written by an <a href="wiki.html#definition-import-turn">import turn</a> under <code>scripta-import</code>. The pipeline is a second, cheaper path into the same book folder, and its dividing line is the same one the turn pipeline draws: the host reads and records, the agent writes narrative state, and no host component writes a chapter.</p>
+        <div class="table-wrap"><table>
+          <thead>
+            <tr>
+              <th scope="col">Component</th>
+              <th scope="col">Responsibility and files</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/import.mjs</code></td>
+              <td>The entry point of extraction, and the one place chapter segmentation is decided. It decides the format from the bytes first and the file name second, bounds itself with the byte limit before it reads, dispatches to a format reader, and refuses what it cannot read with <code>IMPORT_UNSUPPORTED</code>, <code>IMPORT_TOO_LARGE</code>, <code>IMPORT_NO_TEXT</code> or <code>IMPORT_UNREADABLE</code>. It writes nothing; its result is the <code>book-import.v1</code> object the pipeline stages.</td>
+            </tr>
+            <tr>
+              <td><code>src/import-docx.mjs</code>, <code>src/import-pdf.mjs</code>, <code>src/import-pdf-text.mjs</code></td>
+              <td>The format readers, all built on <code>node:zlib</code> and nothing else. The DOCX reader walks the ZIP central directory of the package and inflates only the parts the text needs; the PDF reader reads the indirect objects, inflates the content streams and walks the page tree, and the text reader interprets the operators into lines and paragraphs, warning about what it could not decode. None of them writes a file.</td>
+            </tr>
+            <tr>
+              <td><code>src/imports.mjs</code></td>
+              <td>The host half of the pipeline. It receives the upload into the workspace while hashing and counting it, writes the import record <code>import.json</code> beside the file, runs the extraction and writes <code>extracted.json</code> and <code>book.md</code> beside the upload, copies the extraction into <code>.agents/import/</code> of the universe, creates the universe for it, reads where the import continues from the <a href="wiki.html#definition-import-record">import record</a> the skill writes, and plans the next window within the limits the skill publishes in <code>skills/scripta-import/schema/import.v1.json</code>.</td>
+            </tr>
+            <tr>
+              <td>The import turn, prompted by <code>src/prompts.mjs</code> and queued by <code>src/jobs.mjs</code></td>
+              <td>The only writer of the book. One process per window, reading <code>skill://scripta-import</code> and the staged extraction, it writes <code>chapters/NNNN-slug.md</code>, <code>canon.md</code>, <code>threads.json</code>, <code>atlas.json</code> and <code>drafts/import-progress.json</code>, and nothing else in the folder.</td>
+            </tr>
+            <tr>
+              <td><code>src/turn.mjs</code></td>
+              <td>Verification of an import turn: the chapters of the range must be on disk, and the skill's validator is run over exactly that range (<code>--chapters &lt;from&gt;-&lt;to&gt;</code>). A missing chapter fails the turn with <code>NO_CHAPTER</code>, a refused set with the validator's own code, and the warnings it reports are copied onto the turn record.</td>
+            </tr>
+            <tr>
+              <td><code>skills/scripta-import/</code></td>
+              <td>The skill itself: the instructions and six references that bound one turn, the published contract <code>schema/import.v1.json</code> the host plans a window from, and the validator <code>scripts/validate-import.mjs</code>, which reads the universe and the extraction and writes nothing.</td>
+            </tr>
+          </tbody>
+        </table></div>
+        <p>Only three files inside a universe come from this pipeline, and each has one writer: <code>.agents/import/extracted.json</code> and <code>.agents/import/book.md</code> are staged by <code>src/imports.mjs</code>, and <code>drafts/import-progress.json</code> is written by the import turn. The upload itself and its record live in the workspace beside the assessment workspace, never in the store of books. Nothing in the host writes <code>chapters/</code>: the text of an imported book reaches the store only through an import turn, which is what makes an import as reviewable, rewritable and printable as a written book.</p>
       </section>
 
       <section>

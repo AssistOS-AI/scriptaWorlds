@@ -195,6 +195,13 @@
   text-align: left;
 }
 
+/* A passage a reader drags over the book is the passage the feedback surface quotes: it is marked in
+ * the reading area as a quotation of this text, not as a selection to be copied out of it. */
+.prose ::selection {
+  background: var(--accent-tint);
+  color: var(--ink);
+}
+
 .prose hr.scene-break {
   width: 7ch; margin: 1.7em auto; border: 0; border-top: 2px solid var(--line-strong);
 }

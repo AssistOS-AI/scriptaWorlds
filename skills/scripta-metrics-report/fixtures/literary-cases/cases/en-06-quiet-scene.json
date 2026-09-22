@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-06-quiet-scene",
+  "language": "en",
+  "title": "Closed on Mondays",
+  "kind": "pair",
+  "target_distinction": "quiet_scene",
+  "distinction_statement": "The weak version announces hatred and a silent war; the strong version leaves the pressure in two brooms meeting in the middle of the floor.",
+  "intention": "A quiet scene should stay charged through small acts and numbers, without the text declaring the conflict.",
+  "change": {
+    "feature": "quiet_scene_pressure",
+    "description": "Paragraph 2 replaces the declared hatred with the two brooms, the swept pile and the eleven pounds against the nine-pound rent.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "restrained_scene",
+    "text": "The barber’s was shut on Mondays, and the two brothers used the morning to sweep hair off the floor and count the week’s takings. The radio was on low, tuned to a station that came and went behind the hill.\n\nThey swept towards each other, meeting in the middle of the floor, and neither of them stopped to let the other finish. When the pile reached the door, the elder brother held the pan and the younger one swept into it without looking, the way they had done since they were boys. Then the elder put the broom against the wall and said the takings were down eleven pounds; the younger said the rent was up nine, and went to fill the kettle.\n\nThey drank the tea standing up, and at noon the elder turned the sign to OPEN, although nobody came in until Wednesday."
+  },
+  "after": {
+    "label": "declared_tension",
+    "text": "The barber’s was shut on Mondays, and the two brothers used the morning to sweep hair off the floor and count the week’s takings. The radio was on low, tuned to a station that came and went behind the hill.\n\nThe tension between them was unbearable. Hatred hung in the air and every word hid a threat. It was a silent war, terrible, ready to explode at the least wrong movement. Neither of them dared say what he really thought, because the truth would have destroyed everything they had built.\n\nThey drank the tea standing up, and at noon the elder turned the sign to OPEN, although nobody came in until Wednesday."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Hatred hung in the air and every word hid a threat.",
+      "start": 253,
+      "end": 304,
+      "expectation": "quoted as declared pressure that the scene no longer performs"
+    },
+    {
+      "side": "before",
+      "quote": "the younger one swept into it without looking, the way they had done since they were boys",
+      "start": 399,
+      "end": 488,
+      "expectation": "quoted as the gesture that carries the pressure by itself"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "A reader may miss the conflict in the restrained version; the text never underlines it.",
+    "The eleven pounds may be a plain business fact rather than a reproach."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-06-quiet-scene",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

@@ -162,6 +162,14 @@ export function runCli(args, options = {}) {
   }
 }
 
+/** Run the report CLI against a fixture built by tests/report-fixture.mjs. */
+export function runReport(fx, out, extra = {}) {
+  const args = ['--input', fx.packetDir, '--out', out, '--profile', fx.profilePath];
+  if (extra.annotations !== null) args.push('--annotations', fx.annotationsPath);
+  if (extra.corpus !== null) args.push('--corpus', fx.corpusPath);
+  return runCli(args);
+}
+
 export function readJson(file) {
   return JSON.parse(readFileSync(file, 'utf8'));
 }

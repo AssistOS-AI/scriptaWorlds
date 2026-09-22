@@ -1,0 +1,50 @@
+{
+  "open": [
+    {
+      "id": "thread-0001",
+      "kind": "mystery",
+      "question": "What will the Survey make of the unnamed peak it grew over the small bench's exception?",
+      "created_chapter": 1,
+      "due_chapter": 4,
+      "status": "open"
+    },
+    {
+      "id": "thread-0002",
+      "kind": "decision",
+      "question": "The sector's lights now rest on Aster's house and on twelve whitened shelves; what happens when that column can no longer be paid?",
+      "created_chapter": 1,
+      "due_chapter": 5,
+      "status": "open"
+    }
+  ],
+  "closed": [
+    {
+      "id": "prom-0003",
+      "kind": "promise",
+      "question": "Will Kesh leave the small bench out of the arrival node, as Aster asked him to?",
+      "created_chapter": 1,
+      "closed_chapter": 1,
+      "resolution": "Kesh filed the small bench's two hundred and seventeen books as unsorted and unresolved, accepted the Survey's rating penalty, and the bench's print stayed black."
+    }
+  ],
+  "promises": [
+    {
+      "id": "prom-0004",
+      "to": "Aster",
+      "promise": "The small bench stays unsorted for as long as Kesh holds the relief table, whatever the Survey's rating says.",
+      "created_chapter": 1,
+      "due_chapter": 6,
+      "status": "open"
+    }
+  ],
+  "deferred_answers": [
+    {
+      "id": "def-0001",
+      "question": "Who signed the Earth-Library sector's payer column before Aster's house, and why is the first line under the name in no hand Dorel has been trained on?",
+      "reason": "The name is the load-bearing fact of the book; answering it in the first episode would spend the whole column before the reader has seen what the column costs.",
+      "asked_chapter": 1,
+      "due_chapter": 3,
+      "status": "deferred"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-02-interchangeable-versus-distinct-voices",
+  "language": "ro",
+  "title": "Formularul de la debarcader",
+  "kind": "pair",
+  "target_distinction": "interchangeable_versus_distinct_voices",
+  "distinction_statement": "În varianta slabă replicile pot fi schimbate între vorbitori; în varianta puternică sintaxa și substantivele concrete identifică fiecare om.",
+  "intention": "Cititorul să audă doi oameni diferiți fără ca textul să le atribuie etichete.",
+  "change": {
+    "feature": "voice_distinctness",
+    "description": "Paragraful 2 înlocuiește un schimb de replici cu registru identic printr-o confruntare cu ritm, substantive și tactici proprii fiecărui vorbitor.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "distinct_voices",
+    "text": "La debarcader, sub un acoperiș de tablă, doi bărbați stăteau de o parte și de alta a unei lăzi de scule. Ceasul de pe perete era oprit la ora șapte și un sfert. Afară, o barcă se legăna, legată cu o frânghie prea lungă.\n\n— Formularul e în două exemplare. Fără el nu-ți dau lada, chiar dacă te știu de douăzeci de ani.\n— Douăzeci de ani ți-am cărat pește în lada asta, nea Vasile. Mâinile mele: uită-te la ele. Aici e apă, aici e sare, aici ești dumneata cu ștampila.\n— Aici este lada. Semnează.\n— Semnez. Dar să știi că nu pentru mine semnez.\n\nBătrânul a pus ștampila în buzunarul de la piept și a ieșit să tragă frânghia mai scurtă."
+  },
+  "after": {
+    "label": "interchangeable_voices",
+    "text": "La debarcader, sub un acoperiș de tablă, doi bărbați stăteau de o parte și de alta a unei lăzi de scule. Ceasul de pe perete era oprit la ora șapte și un sfert. Afară, o barcă se legăna, legată cu o frânghie prea lungă.\n\n— Cred că ar fi bine să verificăm documentele, pentru că situația este neplăcută.\n— Da, cred că ar fi bine să verificăm documentele, fiindcă situația este neplăcută.\n— Atunci să căutăm o soluție acceptabilă, pentru amândoi.\n— Sunt de acord, să căutăm o soluție acceptabilă, pentru amândoi.\n\nBătrânul a pus ștampila în buzunarul de la piept și a ieșit să tragă frânghia mai scurtă."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "— Da, cred că ar fi bine să verificăm documentele, fiindcă situația este neplăcută.",
+      "start": 327,
+      "end": 419,
+      "expectation": "citată ca replică ce repetă aproape cuvânt cu cuvânt vorba celuilalt"
+    },
+    {
+      "side": "before",
+      "quote": "Mâinile mele: uită-te la ele.",
+      "start": 412,
+      "end": 443,
+      "expectation": "citată ca dovadă a unei voci care nu poate fi pusă în gura celuilalt"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Registrul uniform poate fi realist pentru un canal de comunicare formal; perechea judecă pagina scrisă, nu protocolul.",
+    "Pescarul poate fi citit ca sentimental; textul nu hotărăște cât vorbește la figurat."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-02-interchangeable-versus-distinct-voices",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-03-unsupported-versus-motivated-choice",
+  "language": "en",
+  "title": "The discharge sheet",
+  "kind": "pair",
+  "target_distinction": "unsupported_versus_motivated_choice",
+  "distinction_statement": "The weak version asserts that signing was decent; the strong version shows the bed, the transfer and the scan that make the signature expensive.",
+  "intention": "A reader should be able to weigh the nurse’s decision because its cost is visible, not because the text approves of it.",
+  "change": {
+    "feature": "choice_motivation",
+    "description": "Paragraph 2 replaces a decision asserted as right with the promised bed, the Thursday scan and the note written in the margin.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "motivated_choice",
+    "text": "Nadia had the discharge sheet in front of her before the shift meeting, with the patient’s name typed at the top and the box for the nurse’s signature still empty. Her badge photograph was nine years old and showed her hair a colour she no longer had.\n\nShe read the note twice: the man had been brought in at four in the morning by his neighbour, and the night team had written that the home situation was unsuitable. Upstairs the bed was already promised to a transfer from Windsor. If she refused to sign, the man would wait until Thursday’s round, and Thursday was the day her own mother’s scan came back; she could not be in two hospitals at once. She signed, wrote the time, and then sat for a moment with the pen still in her hand.\n\nThe meeting started at eight. Nobody asked her about the sheet, and she did not mention it."
+  },
+  "after": {
+    "label": "declared_choice",
+    "text": "Nadia had the discharge sheet in front of her before the shift meeting, with the patient’s name typed at the top and the box for the nurse’s signature still empty. Her badge photograph was nine years old and showed her hair a colour she no longer had.\n\nShe thought about it for a long while and then she understood what she had to do. It was the right decision, and she felt that in her whole body. She signed the sheet without hesitating, because it was the decent thing.\n\nThe meeting started at eight. Nobody asked her about the sheet, and she did not mention it."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "It was the right decision, and she felt that in her whole body.",
+      "start": 339,
+      "end": 402,
+      "expectation": "quoted as a verdict with no stated cost or reason"
+    },
+    {
+      "side": "before",
+      "quote": "Thursday was the day her own mother’s scan came back",
+      "start": 561,
+      "end": 615,
+      "expectation": "quoted as the cost that makes the signature a real choice"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Self-interest can be read as a poor reason; the text offers it as the real one.",
+    "The neighbour’s note may be wrong; nothing in the scene verifies it."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-03-unsupported-versus-motivated-choice",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

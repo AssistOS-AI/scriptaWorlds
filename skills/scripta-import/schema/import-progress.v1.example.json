@@ -1,0 +1,53 @@
+{
+  "schema_version": "book-import.v1",
+  "import_id": "20260922T155732-ab12",
+  "source": {
+    "filename": "book.pdf",
+    "format": "pdf",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bytes": 123456,
+    "pages": 210
+  },
+  "detected": {
+    "title": "The Ash Archive",
+    "author": "A. Writer",
+    "language": "ro"
+  },
+  "language": {
+    "book": "ro",
+    "state": "ro",
+    "universe": "ro",
+    "match": true
+  },
+  "segmentation": "host",
+  "start_chapter": 1,
+  "next_source_chapter": 3,
+  "complete": false,
+  "chapters": [
+    {
+      "chapter": 1,
+      "source_chapter": 1,
+      "segment": null,
+      "file": "chapters/0001-the-ash-archive.md",
+      "title": "The Ash Archive"
+    },
+    {
+      "chapter": 2,
+      "source_chapter": 2,
+      "segment": null,
+      "file": "chapters/0002-the-blind-librarian.md",
+      "title": "The Blind Librarian"
+    }
+  ],
+  "skipped": [],
+  "turns": [
+    {
+      "number": 1,
+      "from_source_chapter": 1,
+      "to_source_chapter": 2,
+      "chapters": [1, 2],
+      "imported_at": "2026-09-22T16:30:00.000Z"
+    }
+  ],
+  "updated_at": "2026-09-22T16:30:00.000Z"
+}

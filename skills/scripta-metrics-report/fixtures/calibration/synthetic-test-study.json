@@ -1,0 +1,25 @@
+{
+  "schema_version": "calibration-study.v1",
+  "study_id": "synthetic-test-only-nqs-pilot",
+  "test_only": true,
+  "held_out": true,
+  "bindings": {
+    "rubric_version": "rubric-anchors.v1",
+    "profile_version": "nqs-profile.v1",
+    "language": "ro",
+    "scope": "chapter 1"
+  },
+  "provenance": "SYNTHETIC TEST FIXTURE. There is no human study behind this document: the labels and the preference counts were written by hand for the test suite, which uses them to prove that a study artifact is verified locally (existence, sha256, bindings) and that a test-only study cannot back a production claim without the explicit opt-in.",
+  "evidence": [
+    {
+      "id": "held-out-labels",
+      "path": "synthetic-held-out-labels.json",
+      "sha256": "45bc77db351739bbf577fc9f3300f418a0191361a9b682bfa661cf876aa1e313"
+    },
+    {
+      "id": "preference-summary",
+      "path": "synthetic-preference-summary.json",
+      "sha256": "c7fad5fc850f214bb8b423b8c20f6ed11afe19aa781c0964f4813b9e63548bbc"
+    }
+  ]
+}

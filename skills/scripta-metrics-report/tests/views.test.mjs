@@ -93,7 +93,7 @@ test('the metric view lists every metric and indicator with status, scope and un
       'a negative efficiency gain renders as a real value',
     );
     assert.ok(
-      view.includes('| `NQS` | not_assessable | not assessable — NQS is disabled by default'),
+      view.includes('| `NQS` | not_assessable | not assessable — NQS is optional and off by default'),
       'an unavailable metric renders differently from zero, with its reason',
     );
     assert.ok(view.includes('| `EAP` | judged | trajectory of 2 ordered segments'), 'a trajectory is not shown as a number');

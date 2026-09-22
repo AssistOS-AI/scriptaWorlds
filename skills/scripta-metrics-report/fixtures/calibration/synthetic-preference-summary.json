@@ -1,0 +1,10 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC FIXTURE — fabricated preference counts with no respondents. A real study would record the reader count, the presentation order and the disagreement between readers; this file exists only so the test suite can verify a declared hash.",
+  "preference_counts": {
+    "system_versions_preferred": 6,
+    "baseline_versions_preferred": 4,
+    "no_preference": 0
+  },
+  "order": "synthetic; no randomization was performed"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-01-flat-versus-specific-emotion",
+  "language": "ro",
+  "title": "Cafeaua de dimineață",
+  "kind": "pair",
+  "target_distinction": "flat_versus_specific_emotion",
+  "distinction_statement": "Varianta slabă numește durerea; varianta puternică o lasă să se vadă în gesturi rămase după moarte.",
+  "intention": "Cititorul să simtă pierderea unei persoane prin obiectele și gesturile care au rămas, nu prin numele emoției.",
+  "change": {
+    "feature": "emotional_specificity",
+    "description": "Paragraful 2 înlocuiește declararea suferinței cu două căni și cu a doua cană golită la chiuvetă.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "specific_grief",
+    "text": "Dimineața după înmormântare, Irina a deschis toate ferestrele din bucătărie, deși afară era încă rece. Vecinul își aprinsese țigara pe balcon, iar fumul urca drept, fără vânt.\n\nA scos două căni, cum făcea în fiecare dimineață, și a turnat cafea în amândouă. Cea de-a doua a rămas pe masă, aburind, până s-a răcit. Apoi a dus-o la chiuvetă, a turnat-o și a spălat cana încet, ca și cum cineva ar fi putut să o certe.\n\nPe la amiază a sunat cineva de la primărie. A răspuns scurt, a notat o dată pe marginea unui plic și a pus plicul sub solniță, la locul unde stăteau actele."
+  },
+  "after": {
+    "label": "declared_grief",
+    "text": "Dimineața după înmormântare, Irina a deschis toate ferestrele din bucătărie, deși afară era încă rece. Vecinul își aprinsese țigara pe balcon, iar fumul urca drept, fără vânt.\n\nSe simțea cumplit de tristă. Durerea era peste tot și nu știa ce să facă mai departe. Totul părea gol și fără sens, iar ea nu putea să spună nimic. Pur și simplu era sfâșiată de suferință.\n\nPe la amiază a sunat cineva de la primărie. A răspuns scurt, a notat o dată pe marginea unui plic și a pus plicul sub solniță, la locul unde stăteau actele."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Se simțea cumplit de tristă. Durerea era peste tot",
+      "start": 193,
+      "end": 245,
+      "expectation": "citată ca emoție declarată, pe care cititorul nu are cum să o verifice în scenă"
+    },
+    {
+      "side": "before",
+      "quote": "Cea de-a doua a rămas pe masă, aburind, până s-a răcit.",
+      "start": 284,
+      "end": 344,
+      "expectation": "citată ca detaliu situat care duce singur pierderea"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Scena poate fi citită ca o simplă rutină întreruptă, fără ca doliul să fie numit vreodată.",
+    "A doua cană poate aparține cuiva plecat, nu neapărat cuiva mort; textul nu o spune."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-01-flat-versus-specific-emotion",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

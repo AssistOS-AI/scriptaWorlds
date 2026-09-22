@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-06-quiet-scene",
+  "language": "ro",
+  "title": "Duminica, în bucătărie",
+  "kind": "pair",
+  "target_distinction": "quiet_scene",
+  "distinction_statement": "Varianta slabă declară tensiunea și ura; varianta puternică lasă presiunea în lingura lăsată în borcan.",
+  "intention": "O scenă liniștită să rămână tensionată prin gesturi mici, fără ca textul să anunțe conflictul.",
+  "change": {
+    "feature": "quiet_scene_pressure",
+    "description": "Paragraful 2 înlocuiește declarațiile despre ură și război mut cu lingura lăsată în borcan și cu vremea de mâine.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "restrained_scene",
+    "text": "Duminica după-amiază, cele două surori fierbeau dulceață în bucătăria mamei, cu radioul dat încet pe un post care nu se prinde bine. Borcanul stătea între ele, pe masă, cu o lingură de lemn înăuntru.\n\nAu uns felia de pâine pe rând, cu aceeași lingură. Când a ajuns la marginea borcanului, cea mare a lăsat lingura înăuntru, exact cum făcea mama, iar cea mică a scos-o imediat și a șters-o pe marginea străchinii. Niciuna n-a spus nimic despre lingură. Radioul a dat vremea de mâine.\n\nPe la cinci, cea mică a spălat borcanele și le-a pus pe pervaz, cu gura în jos."
+  },
+  "after": {
+    "label": "declared_tension",
+    "text": "Duminica după-amiază, cele două surori fierbeau dulceață în bucătăria mamei, cu radioul dat încet pe un post care nu se prinde bine. Borcanul stătea între ele, pe masă, cu o lingură de lemn înăuntru.\n\nTensiunea dintre ele era de nesuportat. Ura plutea în aer și fiecare cuvânt ascundea o amenințare. Era un război mut, cumplit, gata să explodeze la orice gest greșit. Niciuna nu îndrăznea să spună ce gândea cu adevărat, pentru că adevărul ar fi distrus totul.\n\nPe la cinci, cea mică a spălat borcanele și le-a pus pe pervaz, cu gura în jos."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Ura plutea în aer și fiecare cuvânt ascundea o amenințare.",
+      "start": 256,
+      "end": 318,
+      "expectation": "citată ca presiune declarată, pe care scena nu o mai arată"
+    },
+    {
+      "side": "before",
+      "quote": "a lăsat lingura înăuntru, exact cum făcea mama, iar cea mică a scos-o imediat",
+      "start": 318,
+      "end": 400,
+      "expectation": "citată ca gest care duce singur tensiunea scenei"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Cititorul poate rata conflictul din varianta reținută; textul nu îl subliniază nicăieri.",
+    "Lingura poate însemna doar obiceiuri diferite, fără miză afectivă."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-06-quiet-scene",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

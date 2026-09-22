@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-04-exposition-in-dialogue",
+  "language": "ro",
+  "title": "Actele morii",
+  "kind": "pair",
+  "target_distinction": "exposition_in_dialogue",
+  "distinction_statement": "Varianta slabă istorisește trecutul unui interlocutor care îl știe; varianta puternică scoate aceleași fapte dintr-o ceartă despre o scrisoare.",
+  "intention": "Istoria familiei să ajungă la cititor fără ca personajele să recunoască informații pe care le au deja.",
+  "change": {
+    "feature": "dialogue_exposition",
+    "description": "Paragraful 2 înlocuiește rezumatul monologat al anilor 1962-2003 cu o dispută despre clauza de asigurare și despre calul vândut.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "argued_history",
+    "text": "Moara stătea la capătul uliței, cu acoperișul lăsat pe o parte, și nimeni nu mai măcinase nimic în ea de cincisprezece ani. Pe masă, între cei doi frați, era o scrisoare de la asigurări, cu colțul îndoit.\n\n— Scrie aici că valoarea a scăzut pentru că nu s-a făcut întreținere din 1974.\n— Păi, din șaptezeci și patru moara nu mai e a noastră, ci a statului. Ce să întrețină tata? Rădăcinile de sub tălpici?\n— Bunicul a cărat mașinăria aia de la Sibiu cu carul, două săptămâni. Și-a vândut calul ca să ajungă.\n— Și după aia i-au luat-o. Da. Unde semnez?\n\nFratele mai mic a semnat pe ultima pagină și a împins scrisoarea spre celălalt capăt al mesei."
+  },
+  "after": {
+    "label": "recited_history",
+    "text": "Moara stătea la capătul uliței, cu acoperișul lăsat pe o parte, și nimeni nu mai măcinase nimic în ea de cincisprezece ani. Pe masă, între cei doi frați, era o scrisoare de la asigurări, cu colțul îndoit.\n\n— După cum știi, moara a fost construită în 1962 de bunicul nostru, care a venit din Ardeal cu o mașină de măcinat adusă de la Sibiu; în 1974 a fost naționalizată, iar în 2003 ne-a fost retrocedată după un proces care a durat șapte ani, proces în care am cheltuit toți banii.\n— Da, știu toate acestea, frate. Le știu de mult.\n\nFratele mai mic a semnat pe ultima pagină și a împins scrisoarea spre celălalt capăt al mesei."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "După cum știi, moara a fost construită în 1962 de bunicul nostru",
+      "start": 224,
+      "end": 292,
+      "expectation": "citată ca expunere adresată cuiva care știe deja totul"
+    },
+    {
+      "side": "before",
+      "quote": "din șaptezeci și patru moara nu mai e a noastră, ci a statului",
+      "start": 317,
+      "end": 382,
+      "expectation": "citată ca fapt istoric livrat ca replică într-o ceartă prezentă"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Rezumatul poate fi glasul unui narator, dacă este marcat ca atare, nu al unui personaj.",
+    "Cearta poate fi citită ca o simplă neînțelegere despre bani; trecutul rămâne în obiecte."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-04-exposition-in-dialogue",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

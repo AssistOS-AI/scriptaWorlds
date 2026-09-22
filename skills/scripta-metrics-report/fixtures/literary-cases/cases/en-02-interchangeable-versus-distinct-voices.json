@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-02-interchangeable-versus-distinct-voices",
+  "language": "en",
+  "title": "Unit nine, mile marker one-oh-four",
+  "kind": "pair",
+  "target_distinction": "interchangeable_versus_distinct_voices",
+  "distinction_statement": "The weak version gives both speakers the same careful middle register; the strong version identifies each of them by sentence length, idiom and tactic.",
+  "intention": "A reader should hear two different people on one radio channel without the text labelling either of them.",
+  "change": {
+    "feature": "voice_distinctness",
+    "description": "Paragraph 2 replaces an identical-register exchange with a dispatcher speaking in logs and mile markers and a driver speaking in digressions and promises.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "distinct_voices",
+    "text": "At ten past two the depot office smelled of diesel and instant coffee. Marla had the radio handset in one hand and a pen in the other, and the board above her showed eleven trucks, two of them stopped.\n\n— Unit nine, you’re showing stopped at the weighbridge. Everything all right behind you?\n— Yeah, yeah. I got a flat on the trailer and the boy here says he’s got no jack, so I’m waiting on the Lord and a fella from Sudbury. Listen, Marla, my wife’s sister is in the hospital in Barrie and I promised her I’d—\n— I can’t hear promises. I hear mile markers. Where are you?\n— Mile marker one-oh-four, and don’t you write that down like it’s my fault.\n— One-oh-four. Logged.\n\nShe put the handset down, wrote 104 in the column and drew a small circle around it, the way she marked a delay that was nobody’s fault."
+  },
+  "after": {
+    "label": "interchangeable_voices",
+    "text": "At ten past two the depot office smelled of diesel and instant coffee. Marla had the radio handset in one hand and a pen in the other, and the board above her showed eleven trucks, two of them stopped.\n\n— I think it would be good if we checked the situation, because the situation is unpleasant.\n— Yes, I think it would be good if we checked the situation, since the situation is unpleasant.\n— Then let us look for an acceptable solution for both of us.\n— I agree, let us look for an acceptable solution for both of us.\n\nShe put the handset down, wrote 104 in the column and drew a small circle around it, the way she marked a delay that was nobody’s fault."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "— Yes, I think it would be good if we checked the situation, since the situation is unpleasant.",
+      "start": 298,
+      "end": 395,
+      "expectation": "quoted as an answer that repeats the other speaker almost word for word"
+    },
+    {
+      "side": "before",
+      "quote": "I can’t hear promises. I hear mile markers.",
+      "start": 532,
+      "end": 577,
+      "expectation": "quoted as syntax and idiom that belong to one speaker only"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Uniform, careful speech can be realistic on a recorded channel; the pair judges the written page, not radio protocol.",
+    "The driver’s digression can be read as unprofessional rather than as a distinct voice."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-02-interchangeable-versus-distinct-voices",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

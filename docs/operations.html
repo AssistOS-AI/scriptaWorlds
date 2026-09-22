@@ -96,6 +96,16 @@ npm run server     # start the API and the reader interface</code></pre>
               <td>The deadline of one review run, in milliseconds. A run that passes it is terminated and recorded as an error with the reason.</td>
             </tr>
             <tr>
+              <td><code>ASSESSMENT_MODE</code></td>
+              <td><code>generic</code></td>
+              <td>Who produces the semantic observations of a review, and the default for the <code>mode</code> field of an assessment request. <code>generic</code> makes the server run the <a href="wiki.html#definition-annotation-stage">annotation stage</a>: one <code>OMP_BIN</code> call in the run workspace with the model from <code>SCRIPTAS_MODEL</code> per metrics review, plus a single repair call when the answer is rejected. <code>deterministic</code> asks nobody, leaves those results unavailable with their reason and keeps a deployment free of model calls. Any other value falls back to <code>generic</code>.</td>
+            </tr>
+            <tr>
+              <td><code>IMPORT_MAX_BYTES</code></td>
+              <td><code>67108864</code></td>
+              <td>The largest book the server accepts as an upload, in bytes, enforced while the file is still arriving: a body over it is refused during the transfer with <code>413 IMPORT_TOO_LARGE</code> instead of after it has been stored. How much of a book one import turn carries is not configured here: the import skill publishes its turn limits in <code>skills/scripta-import/schema/import.v1.json</code>.</td>
+            </tr>
+            <tr>
               <td><code>CHAPTER_MIN_WORDS</code></td>
               <td><code>900</code></td>
               <td>The lower bound of the <a href="wiki.html#definition-word-band">word band</a> stated in the prompt and used to warn about a short chapter.</td>
@@ -136,6 +146,14 @@ npm run table -- --check     # compare the table with the book; write nothing</c
       </section>
 
       <section>
+        <h2>Checking a review against a real evaluator</h2>
+        <p>The environment check proves the review pipeline with a stand-in evaluator and spends no model budget. One bounded review against the real one is nevertheless worth running after a change to the prompt, to the reader of its answers, or to the model: it is the only way to see what the configured evaluator actually returns.</p>
+        <p>Start the server against a copy of the tree and a book with one chapter, then ask for a measurements review whose observations come from the evaluator, and watch the run rather than the request:</p>
+        <pre><code>POST /api/universes/&lt;id&gt;/assessments  {"phase":"metrics","mode":"generic","force":true}
+GET  /api/universes/&lt;id&gt;/assessments/&lt;runId&gt;</code></pre>
+        <p>The request answers at once with the run queued or already running, because the evaluator is called inside the run. What the record then shows is the evidence: <code>annotation_attempts</code> with one entry per call, each with its exit code, its answer length, how long it took and the validation errors it produced, then the published files and <code>packet_intact</code>. A first attempt that a repair call corrects is a normal outcome, not a failure — the repair prompt names the fields that failed. A run that ends with <code>annotation stage:</code> in its error published nothing and can be retried; a retry reuses the document it already accepted.</p>
+        <p>Two calls at most belong to one review, so a smoke like this costs a bounded amount of model time. Give it a book of one chapter in a throwaway copy of the tree, never the books the team reads.</p>
+
         <h2>Restarts, interruptions and recovery</h2>
         <p>A restart is safe by design. Turns recorded as <code>queued</code> are resumed automatically in turn order with their original requests, and turns recorded as <code>running</code> become <a href="wiki.html#definition-interrupted-turn">interrupted</a>: the canon, thread and atlas files are restored from the <a href="wiki.html#definition-state-snapshot">snapshot</a> taken before that turn, the partial chapter and offer files are removed, and the turn stays visible with a <a href="wiki.html#definition-retry">retry</a> action in the interface or through the retry route. Nothing else is lost; the reading position is in the browser, and the rest is on disk.</p>
         <p>An interrupted or failed turn is the operator's cue, not the reader's problem: check the agent log recorded with the turn for the tools it used and the tail of its raw output, verify that the agent still works with <code>npm run check</code>, and retry. Because the canon snapshot of every chapter is kept on disk, an interrupted turn never leaves a half-written chapter in the book, and because a retry reuses the same turn number, the numbering of the book has no holes.</p>
@@ -212,6 +230,10 @@ npm run table -- --check     # compare the table with the book; write nothing</c
             <tr>
               <td><code>NO_PROFILE</code></td>
               <td>The metrics phase was requested without an evaluation profile. Supply one (<code>profile.v1</code>), because the measurements depend on the scope and the aggregation it declares.</td>
+            </tr>
+            <tr>
+              <td><code>ANNOTATION_FAILED</code></td>
+              <td>The annotation stage of a review asked the configured evaluator for observations and received no document it could accept, so the run was recorded as an error with the reason the evaluator gave, instead of reporting an invented judgement. The run record names the attempts, their exit codes and the validation errors; check that the agent binary and the model work, retry the run, bring an <code>annotations</code> document yourself, or set <code>ASSESSMENT_MODE=deterministic</code> to run the review without a model.</td>
             </tr>
             <tr>
               <td><code>NOT_CANCELLABLE</code></td>

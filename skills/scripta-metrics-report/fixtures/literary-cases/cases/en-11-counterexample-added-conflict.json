@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-11-counterexample-added-conflict",
+  "language": "en",
+  "title": "Supper on a Tuesday",
+  "kind": "counterexample",
+  "target_distinction": "counterexample_added_conflict",
+  "distinction_statement": "Counterexample: the restrained supper already contains its conflict in the unanswered telephone, and adding an open quarrel weakens the intended effect.",
+  "intention": "The unsaid pressure of a family meal should remain the effect, and adding open conflict should be visible as a loss.",
+  "change": {
+    "feature": "conflict_addition",
+    "description": "Paragraph 2 adds a shouting quarrel, a broken bowl and accusations, replacing the small acts that carried the pressure.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "withheld_pressure",
+    "text": "On Tuesday evening Mrs Aylward put the soup on the table and cut the bread into thin slices, the way she did when she wanted nothing discussed. Her son held out his bowl, and her daughter moved the salt closer to him without saying anything.\n\nThey ate slowly. The son asked for bread and she gave him the end of the loaf, the burnt corner, and he took it without comment. When the phone rang, all three of them looked at the set on the wall; nobody got up. The daughter gathered the crumbs into her palm and carried them to the sink, then came back and filled everyone’s glass, including her brother’s, which he had not touched.\n\nIn the morning the cloth had been changed and the missing bowl was nowhere in the house."
+  },
+  "after": {
+    "label": "conflict_added",
+    "text": "On Tuesday evening Mrs Aylward put the soup on the table and cut the bread into thin slices, the way she did when she wanted nothing discussed. Her son held out his bowl, and her daughter moved the salt closer to him without saying anything.\n\nThey started shouting almost at once. The son slammed his palm on the table and the soup went across the cloth. You ruined this family, the daughter shouted, and he told her she knew nothing about anything. Mrs Aylward cried and said she could not stand it any longer, that she would leave, that she would sell the house. A bowl went over the edge and broke into three pieces. All the anger saved up over the years came up at once, and the meal ended in shouting that carried out into the street.\n\nIn the morning the cloth had been changed and the missing bowl was nowhere in the house."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "They started shouting almost at once.",
+      "start": 243,
+      "end": 280,
+      "expectation": "quoted as an addition that states the conflict instead of letting it work"
+    },
+    {
+      "side": "before",
+      "quote": "When the phone rang, all three of them looked at the set on the wall; nobody got up.",
+      "start": 372,
+      "end": 456,
+      "expectation": "quoted as the withheld gesture that carries the pressure"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Open conflict can suit another book with other stakes established earlier.",
+    "Restraint can be read as coldness rather than pressure; the text does not exclude that reading."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-11-counterexample-added-conflict",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

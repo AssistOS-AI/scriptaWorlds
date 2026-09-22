@@ -3,9 +3,12 @@
 // the omp prerequisite, the universe store, skill symlinks, the chapter validator and the book renderer.
 // Usage: npm run check
 
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { config, probeOmp } from '../src/config.mjs';
 import { listProjectSkills, publicDir, rootDir, skillsDir, universeDir, universesDir } from '../src/paths.mjs';
 import { listUniverses, readUniverseDetail, setUniverseStatus } from '../src/universe.mjs';
@@ -14,7 +17,24 @@ import { runTurnChecks } from './check-turns.mjs';
 import { runRuntimeChecks } from './check-runtime.mjs';
 import { runPhaseChecks } from './check-phases.mjs';
 import { runAssessmentChecks } from './check-assessments.mjs';
+import { runImportTurnChecks } from './check-import-turns.mjs';
+import { runFeedbackChecks } from './check-feedback.mjs';
+import { runFeedbackExportChecks } from './check-feedback-export.mjs';
+import { runFeedbackFinalChecks } from './check-feedback-final.mjs';
+import { runImportChecks } from './check-imports.mjs';
 import { runDataChecks } from './check-data.mjs';
+
+// The assessment workspace is shared by every process that runs this suite, and two suites at once would
+// interleave their runs in it: the second one re-executes itself with a workspace of its own, so a
+// developer and a background run can check the same tree without racing.
+if (!process.env.ASSESSMENT_WORKSPACE) {
+  const workspace = mkdtempSync(join(tmpdir(), 'scripta-check-'));
+  const again = spawnSync(process.execPath, [fileURLToPath(import.meta.url), ...process.argv.slice(2)], {
+    stdio: 'inherit',
+    env: { ...process.env, ASSESSMENT_WORKSPACE: workspace }
+  });
+  process.exit(again.status ?? 1);
+}
 
 const failures = [];
 let step = 0;
@@ -444,6 +464,11 @@ try {
   await runPhaseChecks({ ok, fail, run });
   // The requested and arc-end orchestration around those phases.
   await runAssessmentChecks({ ok, fail, checkSeed, tempDirs });
+  await runImportChecks({ ok, fail });
+  await runImportTurnChecks({ ok, fail, checkSeed, tempDirs });
+  await runFeedbackChecks({ ok, fail, checkSeed, tempDirs });
+  await runFeedbackExportChecks({ ok, fail, checkSeed, tempDirs });
+  await runFeedbackFinalChecks({ ok, fail, checkSeed, tempDirs });
   // The runtime group stops the job manager on purpose, so it runs after every check that queues a turn.
   await runRuntimeChecks({ ok, fail, checkSeed, tempDirs, run });
 } catch (error) {

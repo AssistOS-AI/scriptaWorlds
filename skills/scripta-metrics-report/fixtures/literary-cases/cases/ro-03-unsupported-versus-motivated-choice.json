@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-03-unsupported-versus-motivated-choice",
+  "language": "ro",
+  "title": "Autocarul de șase și un sfert",
+  "kind": "pair",
+  "target_distinction": "unsupported_versus_motivated_choice",
+  "distinction_statement": "Varianta slabă declară că alegerea era corectă; varianta puternică arată costul ei în bani, rețetă și orar.",
+  "intention": "Cititorul să poată cântări alegerea pentru că îi sunt date miza și prețul, nu verdictul.",
+  "change": {
+    "feature": "choice_motivation",
+    "description": "Paragraful 2 înlocuiește o hotărâre afirmată printr-o numărătoare de bani, o rețetă și un orar care nu mai oprește.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "motivated_choice",
+    "text": "Ilie își făcuse bagajul cu trei zile înainte și îl pusese pe dulap, ca să nu-l mai desfacă. Biletul stătea între paginile unui calendar de la farmacie. Autocarul spre Cluj pleca la șase și un sfert, de la capătul străzii.\n\nA numărat banii de trei ori: nouăzeci și doi de lei, exact cât îi rămăsese după analizele surorii. Pe peron, femeia de la chioșc striga că autocarul de șase și un sfert nu mai oprește la Câmpul lui Neag până în octombrie. A rupt biletul în două și a pus jumătatea mică în buzunarul de la piept, lângă rețetă.\n\nSeara a coborât bagajul de pe dulap și l-a pus sub pat, unde stătea haina de iarnă."
+  },
+  "after": {
+    "label": "declared_choice",
+    "text": "Ilie își făcuse bagajul cu trei zile înainte și îl pusese pe dulap, ca să nu-l mai desfacă. Biletul stătea între paginile unui calendar de la farmacie. Autocarul spre Cluj pleca la șase și un sfert, de la capătul străzii.\n\nA stat mult pe gânduri și, la un moment dat, a înțeles ce trebuie să facă. Era alegerea corectă și simțea asta în tot corpul. A renunțat la drum fără nicio ezitare, pentru că așa era drept.\n\nSeara a coborât bagajul de pe dulap și l-a pus sub pat, unde stătea haina de iarnă."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Era alegerea corectă și simțea asta în tot corpul.",
+      "start": 318,
+      "end": 372,
+      "expectation": "citată ca verdict fără motive și fără cost"
+    },
+    {
+      "side": "before",
+      "quote": "nouăzeci și doi de lei, exact cât îi rămăsese după analizele surorii",
+      "start": 267,
+      "end": 342,
+      "expectation": "citată ca dovadă a costului care motivează hotărârea"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Suma poate fi citită ca o coincidență; oricum plata fusese făcută mai devreme.",
+    "Renunțarea poate fi lașitate, nu devotament; textul lasă ambele explicații deschise."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-03-unsupported-versus-motivated-choice",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

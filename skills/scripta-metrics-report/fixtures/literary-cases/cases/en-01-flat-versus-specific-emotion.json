@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-01-flat-versus-specific-emotion",
+  "language": "en",
+  "title": "The tide book",
+  "kind": "pair",
+  "target_distinction": "flat_versus_specific_emotion",
+  "distinction_statement": "The weak version names the feeling; the strong version shows it in the tide book, the pencil and the initials.",
+  "intention": "A reader should feel a brother’s absence through the objects he left behind rather than through a named emotion.",
+  "change": {
+    "feature": "emotional_specificity",
+    "description": "Paragraph 2 replaces the declared loneliness with the tide book, the folded pages and the brother’s initials written beside the numbers.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "specific_grief",
+    "text": "The week after the yard changed hands, Tom still came down to the slip at half past five and stood where the Aster used to lie. The new owner had painted the bollards white, a job nobody had asked for.\n\nHe unlocked the shed with the key he had never handed over and took the tide book off its nail. December’s pages were still folded at the corner where his brother marked the neap tides. He copied the morning’s numbers onto the fresh page in pencil and then wrote his brother’s initials beside them, as the old record did, before he closed the book and hung it back on the nail.\n\nAt six the ferry bell rang twice and he walked back up the hill without looking at the water."
+  },
+  "after": {
+    "label": "declared_grief",
+    "text": "The week after the yard changed hands, Tom still came down to the slip at half past five and stood where the Aster used to lie. The new owner had painted the bollards white, a job nobody had asked for.\n\nHe felt terribly lonely. The loss was enormous and he had no idea what to do with himself. Everything seemed meaningless, and there was nothing he could say about it. He was simply devastated.\n\nAt six the ferry bell rang twice and he walked back up the hill without looking at the water."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "He felt terribly lonely. The loss was enormous",
+      "start": 203,
+      "end": 249,
+      "expectation": "quoted as a declared emotion that the scene gives the reader no way to verify"
+    },
+    {
+      "side": "before",
+      "quote": "wrote his brother’s initials beside them, as the old record did",
+      "start": 464,
+      "end": 529,
+      "expectation": "quoted as the situated detail that carries the loss"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The scene can be read as an interrupted routine, with no mourning named at all.",
+    "The initials may belong to a brother who moved away rather than died; the text never says."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-01-flat-versus-specific-emotion",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

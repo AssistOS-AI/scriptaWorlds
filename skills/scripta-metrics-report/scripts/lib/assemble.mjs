@@ -38,7 +38,7 @@ import {
 import { TOKENIZER_METHOD, TOKENIZER_VERSION } from './tokenize.mjs';
 import { INDICATOR_IDS, METRIC_IDS, REGISTRY_VERSION } from './registry.mjs';
 
-export const CODE_VERSION = 'scripta-metrics-report/1.2.0';
+export const CODE_VERSION = 'scripta-metrics-report/1.3.0';
 export const ASSESSMENT_SCHEMA_VERSION = 'assessment.v1';
 
 /* ------------------------------ helpers ------------------------------ */
@@ -194,7 +194,17 @@ export function assess({
   corpus,
   corpusRaw,
   annotationsDir,
+  trigger = 'request',
+  arcId = null,
+  studyRoot = null,
+  allowTestOnlyStudies = false,
 }) {
+  if (!['request', 'arc'].includes(trigger)) {
+    fail(`trigger must be "request" or "arc", got ${JSON.stringify(trigger)}`, 'INVALID_TRIGGER');
+  }
+  if (trigger === 'arc' && (typeof arcId !== 'string' || arcId.length === 0)) {
+    fail('an arc-triggered assessment needs a non-empty arc id', 'INVALID_TRIGGER');
+  }
   const { manifest, files } = packet;
   const language = manifest.book.language;
 
@@ -264,6 +274,9 @@ export function assess({
     scope: metricScope,
     baseMetricFor: baseMetric,
     annotatedValue: isPlainObject(annMetrics.NQS) && typeof annMetrics.NQS.value === 'number' ? annMetrics.NQS.value : null,
+    language,
+    studyRoot,
+    allowTestOnlyStudies,
   });
 
   const car = computeCar(ruleSet, selection.outputIds);
@@ -298,7 +311,8 @@ export function assess({
     schema_version: ASSESSMENT_SCHEMA_VERSION,
     assessment_id: assessmentId,
     created_at: manifest.captured_at,
-    trigger: 'request',
+    trigger,
+    trigger_ref: trigger === 'arc' ? { kind: 'arc', arc_id: arcId } : { kind: 'request' },
     book: {
       universe_id: manifest.universe_id,
       title: manifest.book.title,

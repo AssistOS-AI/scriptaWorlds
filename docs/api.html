@@ -166,7 +166,7 @@
           <tbody>
             <tr>
               <td><code>POST /api/universes/:id/assessments</code></td>
-              <td>Starts one separate-phase review of a frozen accepted version: the body carries <code>phase</code> (<code>continuity</code> or <code>metrics</code>), the <code>profile</code> the metrics phase needs, optional <code>annotations</code> and <code>corpus</code>, and optionally <code>fromTurn</code> to capture from the snapshot of a finished turn. A turn that is queued or running makes the capture answer <code>409 UNSTABLE_VERSION</code>; a missing profile answers <code>NO_PROFILE</code>. The answer is <code>202</code> with the run record, or with the existing run and <code>deduplicated: true</code> when the same phase, version, profile and trigger were already reviewed.</td>
+              <td>Starts one separate-phase review of a frozen accepted version. The body carries <code>phase</code> (<code>continuity</code> or <code>metrics</code>); a <code>profile</code> is optional, because a <a href="wiki.html#definition-generic-review">generic review</a> uses the host's own profile and needs no hand-authored JSON. Optional <code>annotations</code> reach both phases; <code>mode</code> says who produces the semantic observations of the run — <code>generic</code>, <code>deterministic</code> or <code>supplied</code> — and defaults to the operator's <code>ASSESSMENT_MODE</code>; a <code>corpus</code> of <code>{manifest, files}</code> reaches the metrics phase with the text of every reference it names; <code>scope</code>, <code>chapters</code>, <code>aggregate</code>, <code>intention</code> and <code>weights</code> shape a generic run; <code>fromTurn</code> captures from the snapshot of a finished turn. A turn that is queued or running makes the capture answer <code>409 UNSTABLE_VERSION</code>; a missing profile answers <code>NO_PROFILE</code>. The answer is <code>202</code> with the run record, or with the existing run and <code>deduplicated: true</code> when the same phase, version, profile and trigger were already reviewed.</td>
             </tr>
             <tr>
               <td><code>GET /api/universes/:id/assessments</code></td>
@@ -174,7 +174,7 @@
             </tr>
             <tr>
               <td><code>GET /api/universes/:id/assessments/:runId</code></td>
-              <td>One run: phase, trigger, version, scope, profile hash, status, outputs and the envelope the phase printed.</td>
+              <td>One run: phase, trigger, version, scope, profile hash, status, outputs and the envelope the phase printed. When the run asked a model for its observations, the record also carries <code>annotation_mode</code>, <code>annotation_model</code>, <code>annotation_prompt_version</code>, <code>annotation_attempts</code>, <code>annotation_errors</code>, <code>generated_annotations</code> and <code>packet_intact</code>.</td>
             </tr>
             <tr>
               <td><code>POST /api/universes/:id/assessments/:runId</code></td>
@@ -198,9 +198,47 @@
             </tr>
           </tbody>
         </table>
+        <p>The <code>mode</code> field decides who produces the semantic observations of a review — the judgements a model can make about the text. <code>supplied</code> means the caller brought an <code>annotations</code> document, <code>generic</code> means the host asks the configured evaluator for the observations, and <code>deterministic</code> means nobody does, so the model-only results stay unavailable with their reason. Supplied annotations and a generated mode are mutually exclusive and answer <code>400 BAD_MODE</code>, as does a value outside the three, so a request that carries <code>annotations</code> is a <code>supplied</code> run and a request that names <code>generic</code> cannot bring them as well.</p>
+        <p>In <code>generic</code> mode the host runs the <a href="wiki.html#definition-annotation-stage">annotation stage</a> before the phase: it writes the prompt from the vocabulary the report skill publishes at <code>skills/scripta-metrics-report/schema/annotations.v1.json</code>, runs <code>OMP_BIN</code> once in the run workspace with the model from <code>SCRIPTAS_MODEL</code>, and validates the answer itself — the schema version, the source version it claims, evidence that resolves to the exact bytes of the frozen packet, and the bounds on evidence and segments. A rejected answer gets exactly one repair call whose prompt names the fields that failed; a model that still produces no usable document fails the run with <code>an <code>annotation stage:</code> error on the run</code>, and the run is recorded as failed with its reason before the caller hears about it, so the cause survives a restart.</p>
+        <p>The accepted document is stored at <code>generated/annotations.json</code> beside the run and never inside the frozen packet, and it is passed to the metrics phase by absolute path; the packet keeps exactly the bytes the review was asked about, which <code>packet_intact</code> records. The model work belongs to the run rather than to the request: this route captures the packet, writes the run record and answers at once with the run queued or already running, and the annotation stage then runs before the phase, so no caller holds an HTTP request open for the minutes an evaluator may take and the interface can show the state from the first moment. A stage that produces no usable document ends the <em>run</em> as an error whose message begins <code>annotation stage:</code>, with every attempt, its exit code, its answer length and the validation errors kept on the record, and nothing published; a retry reuses the document it already accepted rather than paying for another reading. The annotation stage itself never changes the book, and the metrics phase never calls a model: it is spawned as a plain Node.js process which reads the packet, the profile, the corpus and the annotations and nothing else, so a reported number can be re-rendered without spending model budget.</p>
       </section>
 
       <section>
+        <h2>Book import</h2>
+        <p>These routes take a book the team uploaded — a PDF or a DOCX — into a universe of its own. The upload is stored outside <code>universes/</code>, its text is extracted without a model, and the store receives its chapters through bounded import turns guided by the import skill, so an imported book can afterwards be reviewed, analysed, rewritten chapter by chapter and exported exactly like a book written here.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Method and path</th>
+              <th scope="col">Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>POST /api/imports</code></td>
+              <td>Uploads one book. The body is the file itself with <code>Content-Type: application/octet-stream</code>, its name in the <code>X-Filename</code> header and optionally <code>X-format: pdf|docx</code>. The bytes are hashed and counted as they arrive, and a body over <code>IMPORT_MAX_BYTES</code> answers <code>413 IMPORT_TOO_LARGE</code> during the transfer. Answers <code>202 {"import":Import}</code> with the record in state <code>received</code>.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/imports</code></td>
+              <td>Every import, newest first, with the size limit and the word bound this deployment accepts.</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/imports/:id</code></td>
+              <td>One import with its progress: how many of the book's chapters are already in the store, which range the next turn will carry and whether the import is complete.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/imports/:id/extract</code></td>
+              <td>Starts the extraction and answers <code>202 {"import":Import}</code>; the reader follows the record's <code>state</code> (<code>received</code>, <code>extracting</code>, <code>ready</code> or <code>error</code>) instead of holding a request open. A PDF with no text layer answers <code>IMPORT_NO_TEXT</code> on the record.</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/imports/:id/universe</code></td>
+              <td>Creates the universe for a ready import — or continues the import when it already has one — and queues the next bounded import turn. The body may carry <code>title</code> and <code>language</code>. Answers <code>202 {"universe":…,"turn":…,"range":…,"progress":…}</code>; <code>turn</code> is <code>null</code> when every chapter is already imported.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>An import record is <code>book-import.v1</code>: <code>import_id</code>, <code>filename</code>, <code>format</code>, <code>sha256</code>, <code>bytes</code>, <code>state</code>, <code>source</code>, <code>created_at</code>, <code>extracted_at</code>, <code>universe_id</code>, <code>detected</code> (title, author, language and whether the title came from the file or from the uploaded name), <code>chapters</code> with their word counts, <code>words</code>, <code>warnings</code> and <code>error</code>. A record whose file is gone answers <code>410 IMPORT_MISSING</code>, and a step that needs an extraction which never succeeded answers <code>409 NOT_EXTRACTED</code>.</p>
+        <p>The import turn is a normal turn of the store: it is queued, streamed like any other, retried when it fails, and its chapters are verified by the import skill's own validator before the turn counts as done. Nothing about the pipeline writes a chapter itself — the text of an uploaded book reaches the store only through that turn.</p>
+
         <h2>Live events</h2>
         <p><code>GET /api/universes/:id/events</code> answers <code>text/event-stream</code>. Without a <code>job</code> query it covers the whole universe: it replays the buffered events of the running turn and then forwards the events of every turn of that universe, including turns queued later, and every payload carries its <code>jobId</code>. With <code>?job=&lt;jobId&gt;</code> it covers that job only and validates that the job belongs to the universe.</p>
         <table>

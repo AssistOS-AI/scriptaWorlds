@@ -1,0 +1,37 @@
+{
+  "title": "Scripta Import",
+  "family": "scriptaworlds",
+  "summary": "Turns an uploaded foreign book into a scriptaWorlds universe: a bounded range of the host's extraction per turn, the book's own prose cleaned and segmented into chapters/, canon, threads and atlas derived from that prose, an import record that says how far the import has come, and a dependency-free validator the host runs after every turn without spending model budget.",
+  "aliases": [
+    "scripta-import"
+  ],
+  "dependsOn": [],
+  "outputs": [
+    "chapters/NNNN-slug.md — the book's own prose, cleaned, segmented and titled, never rewritten",
+    "canon.md, threads.json and atlas.json derived from the imported chapters",
+    "drafts/import-progress.json — the import record and the machine-readable marker that this universe was imported",
+    "One JSON validation envelope on stdout from scripts/validate-import.mjs, with ok, code, errors and warnings"
+  ],
+  "entrypoints": [
+    "SKILL.md",
+    "references/extraction-format.md",
+    "references/turn-discipline.md",
+    "references/segmentation.md",
+    "references/prose-cleaning.md",
+    "references/state-files.md",
+    "references/validator-contract.md",
+    "schema/import.v1.json",
+    "schema/import-progress.v1.example.json",
+    "scripts/validate-import.mjs",
+    "scripts/lib/limits.mjs",
+    "scripts/lib/problems.mjs",
+    "scripts/lib/text.mjs",
+    "scripts/lib/extraction.mjs",
+    "scripts/lib/record.mjs",
+    "scripts/lib/turns.mjs",
+    "scripts/lib/chapters.mjs",
+    "scripts/lib/state.mjs",
+    "scripts/lib/validate.mjs"
+  ],
+  "selfContained": true
+}

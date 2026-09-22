@@ -1,0 +1,142 @@
+{
+  "$comment": "The vocabulary an `annotations.v1` document may use. The validators under scripts/lib are the authority on what is accepted; this file publishes the same lists so an outside producer, such as the review host that asks a model for observations, can build a document the validators accept instead of guessing. tests/vocabulary.test.mjs fails whenever the two disagree.",
+  "schema_version": "annotations.v1",
+  "ratings": {
+    "min": 0,
+    "max": 4
+  },
+  "metric_statuses": [
+    "judged",
+    "not_assessable",
+    "not_applicable"
+  ],
+  "indicator_statuses": [
+    "judged",
+    "not_assessable",
+    "not_applicable"
+  ],
+  "indicator_fields": [
+    "id",
+    "status",
+    "category",
+    "evaluator",
+    "rationale",
+    "evidence",
+    "counterevidence",
+    "intended_effect_fit",
+    "missing_reason"
+  ],
+  "indicators": {
+    "narrative_coherence": {
+      "categories": [
+        "Low",
+        "Medium",
+        "High"
+      ]
+    },
+    "thematic_depth": {
+      "categories": [
+        "Superficial",
+        "Moderate",
+        "Profound"
+      ]
+    },
+    "character_complexity": {
+      "categories": [
+        "Simple",
+        "Moderate",
+        "Complex"
+      ]
+    },
+    "originality": {
+      "categories": [
+        "Low",
+        "Partial",
+        "High"
+      ]
+    },
+    "stylistic_quality": {
+      "categories": [
+        "Poor",
+        "Acceptable",
+        "Excellent"
+      ]
+    },
+    "emotional_impact": {
+      "categories": [
+        "Weak",
+        "Moderate",
+        "Strong"
+      ]
+    },
+    "interpretive_openness": {
+      "categories": [
+        "Closed",
+        "Partially open",
+        "Open"
+      ]
+    },
+    "cultural_value": {
+      "categories": [
+        "Local",
+        "Regional",
+        "Universal"
+      ]
+    }
+  },
+  "segment_kinds": [
+    "scene",
+    "sequence",
+    "chapter",
+    "arc"
+  ],
+  "segment_provenance": [
+    "declared",
+    "inferred"
+  ],
+  "eap_orderings": [
+    "disclosure",
+    "story"
+  ],
+  "findings": {
+    "kinds": [
+      "integrity",
+      "contradiction",
+      "unsupported_change",
+      "future_reference",
+      "editorial"
+    ],
+    "severities": [
+      "major",
+      "local",
+      "editorial"
+    ],
+    "certainties": [
+      "deterministic",
+      "tentative"
+    ],
+    "statuses": [
+      "confirmed",
+      "unresolved",
+      "dismissed"
+    ],
+    "temporal_keys": [
+      "baseline",
+      "later"
+    ]
+  },
+  "departures": {
+    "statuses": [
+      "deliberate",
+      "unresolved",
+      "accepted"
+    ]
+  },
+  "preserved_qualities": {
+    "passage_fields": [
+      "id",
+      "rationale",
+      "evidence"
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scripta-import skill - scriptaWorlds Documentation</title>
+  <link rel="icon" href="assets/scriptaworlds-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  <main class="page">
+    <div class="page__panel">
+      <p class="breadcrumb"><a href="index.html">Home</a> › scripta-import</p>
+      <p class="kicker">Skills</p>
+      <h1>scripta-import</h1>
+
+      <p class="lead"><a href="wiki.html#definition-scripta-import">scripta-import</a> is the import skill: it turns a book the team uploaded as a PDF or a DOCX into a <a href="wiki.html#definition-universe">universe</a> that is structurally identical to one written here. It reads the host's <a href="wiki.html#definition-extraction">extraction</a> of the uploaded file and, in <a href="wiki.html#definition-import-turn">import turns</a>, copies the book's own prose into chapter files and derives the state files from that prose. It writes no narrative content of its own — importing is archiving — and what it makes is a book that can afterwards be read, continued, reviewed, measured, rewritten chapter by chapter and printed like any other.</p>
+
+      <section>
+        <h2>What the import is for</h2>
+        <p>A reader can upload a book instead of writing one, and the product then owes the same experience: a book that can be read <a href="wiki.html#definition-chapter">chapter</a> by chapter, continued by <a href="wiki.html#definition-ala">ALA</a>, analysed by the separate-phase skills, revisited chapter by chapter and produced as an edition. That is possible only when the imported book is indistinguishable in structure from a written one — the same <code>chapters/NNNN-slug.md</code> files with <code># Title</code> on the first line, the same <code>canon.md</code>, <code>threads.json</code> and <code>atlas.json</code>, the same vocabulary — and factually faithful to the file that was uploaded.</p>
+        <p>The skill therefore has two halves. The instructions in <code>SKILL.md</code> and its six reference documents tell an agent how to import one bounded range of an extraction, and how far it may go in cleaning, segmenting and describing it. The executable <code>scripts/validate-import.mjs</code> is what the host runs after every import turn: with no model and no budget it checks that the chapters of that range are on disk in one contiguous run, that their words are plausible against the extraction they came from, that the state files parse and cite real chapters, and that the universe carries the machine-readable mark of an import.</p>
+        <p>An import is not a summary and not a rewrite. The prose is the book's own words, in the book's own order, in the book's own language; cleaning may remove what a page has — running heads, page numbers, scanner artefacts, hard wraps — and add nothing, and it may never rewrite, translate, shorten, extend, reorder or annotate. A chapter the extraction declares with prose is always imported; only a chapter it declares with no words, such as a part title or a blank page, may be passed over, and each one is named in the record's <code>skipped</code> list with its reason.</p>
+        <p>An imported book also has no authorial law. The universe the host creates for it carries the law that the text is the law and that canon records what it establishes, so a later chapter turn or rewrite is bound by the same rule the import followed. An imported chapter has no <code>drafts/NNNN-plan.md</code> and no <code>chapters/NNNN-offer.json</code>: a plan is how an episode is invented and an <a href="wiki.html#definition-offer">offer</a> is ALA's voice about what could happen next, and both appear only once the chapter is continued or rewritten.</p>
+      </section>
+
+      <section>
+        <h2>What one import produces</h2>
+        <p>The skill writes only what an agent may write inside a universe, and only the part of it an import owns: the chapter files of the range it imported, the three state files, and the record that describes the import itself. Everything the host owns — the universe metadata, the charter, the turn records, the staged extraction and the editions — is outside its reach.</p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">What the import writes there</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>chapters/NNNN-slug.md</code></td>
+              <td>The book's own prose, one file per chapter, four-digit numbering without a gap from the import's first chapter number, the chapter title on the first line after <code>#</code>. No plan, no offer and no commentary accompanies them.</td>
+            </tr>
+            <tr>
+              <td><a href="wiki.html#definition-canon"><code>canon.md</code></a></td>
+              <td>The six fixed sections a written universe uses — <code>## Fundamental laws</code>, <code>## World</code>, <code>## Recurring characters</code>, <code>## Timeline</code>, <code>## Stable facts</code> and <code>## Mysteries with a fixed cause</code> — with every line traceable to the chapter that shows it as <code>(ch. N)</code>. The law is copied from the universe metadata; the rest is what the imported chapters establish and nothing else.</td>
+            </tr>
+            <tr>
+              <td><a href="wiki.html#definition-threads"><code>threads.json</code></a></td>
+              <td>What the book leaves open at the frontier — promises unpaid, mysteries unsolved, decisions untaken, questions unanswered — in the documented lists and vocabulary, with the chapters that created, close and owe each entry. A later turn moves what its new chapters pay into <code>closed</code> with a one-sentence resolution.</td>
+            </tr>
+            <tr>
+              <td><a href="wiki.html#definition-atlas"><code>atlas.json</code></a></td>
+              <td>The axes and nodes the imported chapters work, with the state the prose shows (<code>mentioned</code>, <code>dramatized</code>, <code>decision</code> or <code>recontextualized</code>) and the chapters that show it.</td>
+            </tr>
+            <tr>
+              <td><a href="wiki.html#definition-import-record"><code>drafts/import-progress.json</code></a></td>
+              <td>The import record: the machine-readable mark that this universe was imported, the identity of the upload it came from, the chapters it has written so far, the chapters it skipped, the turns it ran and the chapter the next turn starts at.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>The rule that governs all four files is that the import invents nothing: no fact the imported chapters do not show, no character who has not appeared, no date the book does not give, no axis, no node for an idea the book never touches, no thread for a promise nobody made, and no mystery with a cause the book has not given. An honest gap is part of the book; an invented fact is a defect a reader will find.</p>
+      </section>
+
+      <section>
+        <h2>How the book arrives and how it is read</h2>
+        <p>An upload enters through <code>POST /api/imports</code>, where the body is the file itself and its name travels in the <code>X-Filename</code> header, with an optional <code>X-format: pdf|docx</code>. The bytes are streamed to the workspace outside <code>universes/</code> while they are hashed and counted, so the size limit is enforced while the upload is still arriving rather than after it was accepted: a body larger than <code>IMPORT_MAX_BYTES</code>, 64 MiB unless the environment says otherwise, is refused during the transfer with <code>413 IMPORT_TOO_LARGE</code>. <code>GET /api/imports</code> lists the imports with the size limit the deployment accepts and the turn limits the skill publishes, and <code>GET /api/imports/:id</code> reports one import together with how much of it has been imported.</p>
+        <p>Extraction is a separate step, <code>POST /api/imports/:id/extract</code>, which starts in the background and answers immediately: a long book must not hold a request open, and the caller follows the record's <code>state</code> — <code>received</code>, <code>extracting</code>, <code>ready</code> or <code>error</code> — instead of waiting. Extraction runs without a model and is deterministic: the same file always yields the same text, which is what the import turn, a later review and a later rewrite all read. The result is written beside the upload as <code>extracted.json</code>, with <code>book.md</code> as its readable twin, and the universe receives a copy under <code>.agents/import/</code> so the import turn reads its input from inside its own folder.</p>
+        <p>The extraction is a <code>book-import.v1</code> document: the <code>source</code> (file name, format, sha256, byte count and page count), the <code>detected</code> metadata (title, author, language) and the <code>chapters</code>, each with a number, a title, a word count and its text, paragraphs separated by blank lines and headings kept out of the text. A file that names itself keeps its title; a file that does not is named by the name the uploader gave it, and the field <code>detected.title_source</code> says which of the two it is instead of passing one off as the other. The format is decided from the bytes first and from the file name second, so a wrong extension is caught as unreadable rather than parsed as prose.</p>
+        <p>Two readers do the work, both dependency-free and both derived from the bytes alone. A DOCX is a ZIP package, so the container's own central directory is read and only the parts the text needs — <code>word/document.xml</code>, <code>docProps/core.xml</code> and <code>docProps/app.xml</code> — are inflated with <code>node:zlib</code>; media, styles and headers are listed but never expanded. A PDF has no text of its own, so its indirect objects are read, its content streams inflated, its page tree walked and its text operators interpreted into lines and paragraphs. A PDF whose text cannot be read because it has no text layer is refused with <code>IMPORT_NO_TEXT</code>, naming the pages that were examined: a scanned book must be recognised by OCR before it is imported, because the importer never guesses text and never returns an empty book.</p>
+        <p>A book whose boundaries the file itself shows is segmented while it is extracted — a DOCX heading style, or a short standalone heading line such as <code>Chapter 7</code> or a standalone number in a PDF — and each chapter arrives with its own title. When no boundary can be detected, the book arrives as one large chapter and a warning that says so, and the segmentation then belongs to the import turn, which declares which method it used. Where the extraction could not read everything — a content stream under an unsupported filter, a page set in a subset font whose character map is not decoded — the extraction reports it as a warning rather than hiding it, so a partial result says so.</p>
+      </section>
+
+      <section>
+        <h2>Segmenting a book that arrives without boundaries</h2>
+        <p>A book that arrives as one chapter is cut by the import itself, and the record declares in <code>segmentation</code> which of the three methods was used. <code>host</code> means the extraction had already found the boundaries and the import only followed them. <code>scene</code> means the prose has scene breaks and no headings, so the scenes are grouped into chapters and the cut falls where the scene changes. <code>word_count</code> means neither exists, so the text is cut at a paragraph boundary around 2,000 words, never before 1,500 and never after 2,500, so an imported chapter reads like a written one; a segment outside that band is reported as the warning <code>SEGMENT_OFF_BAND</code>.</p>
+        <p>A <code>word_count</code> segmentation is a declared approximation rather than a discovery of the book's own structure, and the record says so. The cut segments of one source chapter occupy consecutive chapter numbers and carry their <code>segment</code> index <code>1..k</code>, so the division stays visible and a later reader can always see how a chapter was arrived at.</p>
+      </section>
+
+      <section>
+        <h2>How a turn is bounded, and how the next one continues</h2>
+        <p>An import is a sequence of turns, because a book is far larger than one turn. One turn covers at most three extraction chapters and at most 6,000 words of their prose, whichever comes first, and always at least one chapter, so that a single chapter longer than the word bound is still importable. Whichever bound is reached first ends the window; a recorded turn above the bound is reported as the warning <code>TURN_OVERSIZE</code> and does not refuse the import. The window is always a prefix of the extraction from the continuation pointer, in order, with no chapter repeated and none skipped forward.</p>
+        <p>The bound is not configured on the server. The skill publishes it in <code>schema/import.v1.json</code> under <code>turn_limits</code>, and the host plans the next window with exactly the function the skill uses, <code>planTurnWindow(chapters, fromSourceChapter, { maxChapters, maxWords })</code> in <code>scripts/lib/record.mjs</code>, so a window the host plans is a window the skill's validator agrees with. Chapter files on disk do not carry the number of the extraction chapter they came from, so the store alone cannot say what has been imported; the <a href="wiki.html#definition-import-record">import record</a> is authoritative, and its <code>next_source_chapter</code> is the continuation pointer — the extraction chapter the next turn starts at, or <code>null</code> when every extraction chapter has been imported or skipped.</p>
+        <p>The record's <code>complete</code> flag is <code>true</code> exactly when that pointer is <code>null</code>. <code>POST /api/imports/:id/universe</code> creates the universe for an extracted upload and queues the first bounded window; called again for the same import it continues where the record stopped and queues the next window, and when the import is complete it answers with the universe and no turn. Each step is therefore an ordinary queued <a href="wiki.html#definition-turn">turn</a> of that universe — kind <code>import</code>, with its own <a href="wiki.html#definition-turn-record">turn record</a>, its place in the <a href="wiki.html#definition-queue">queue</a> and its progress in the <a href="wiki.html#definition-event-stream">event stream</a> — which is what lets a long import be watched, retried or refused step by step. An import turn of a closed universe is refused with <code>CLOSED</code>.</p>
+        <p>Before a turn is accepted, the host verifies what it produced against the range it was given: the chapters of that range must be on disk, and the skill's validator must accept them with <code>--chapters</code> set to the range. A chapter that is missing fails the turn with <code>NO_CHAPTER</code>, and a set the validator refuses fails it with the validator's own code and the first of its errors, so a turn that wrote nothing stale or invented is not accepted on the agent's word.</p>
+      </section>
+
+      <section>
+        <h2>Refusals</h2>
+        <p>An unusable extraction is refused and nothing is written, because an import that invents what it could not read produces a book that is wrong in a way no later reader can repair. The skill stops on an extraction that is absent, empty or wordless (<code>NO_EXTRACTION</code>), on one that does not parse or whose schema version is unknown or whose chapter entry carries no <code>text</code> field (<code>UNPARSEABLE_JSON</code>, <code>INVALID_IMPORT</code>), on prose that arrives in a script that cannot be copied faithfully or as replacement characters, and on an import that is already finished, where there is simply nothing left to do.</p>
+        <p>A record is never repaired by guessing: one that names another upload — a different <code>import_id</code> or a different <code>source.sha256</code> than the extraction it was given — is refused with <code>INVALID_IMPORT</code> rather than merged or edited. The extraction has its own refusals, produced by the host before the import ever starts: <code>IMPORT_UNSUPPORTED</code> for a format the importers do not read, <code>IMPORT_EMPTY</code> for an empty upload, <code>IMPORT_UNREADABLE</code> for a file that is not a readable PDF or DOCX, <code>IMPORT_NO_TEXT</code> for a PDF with no text layer and <code>IMPORT_TOO_LARGE</code> for an upload or a document past the byte limit. A failed extraction keeps its reason on the import record, answers <code>410 IMPORT_MISSING</code> when the uploaded file has disappeared from the workspace, and <code>409 NOT_EXTRACTED</code> when a later step asks for an extraction that never succeeded.</p>
+      </section>
+
+      <section>
+        <h2>The validator</h2>
+        <pre><code>node skills/scripta-import/scripts/validate-import.mjs \
+  --universe &lt;universe-folder&gt; --import &lt;extracted.json&gt; [--chapters &lt;from&gt;-&lt;to&gt;]</code></pre>
+        <p>Inside a universe the same script is reachable through the <a href="wiki.html#definition-skill-symlink">skill link</a>, so the documented form for an agent is <code>node .agents/skills/scripta-import/scripts/validate-import.mjs --universe . --import .agents/import/extracted.json --chapters N-M</code>. <code>--universe</code> is required and <code>--import</code> defaults to the extraction staged inside that universe; <code>--chapters</code> bounds the check to the universe chapter numbers one import turn wrote, which is how a twelve-chapter book is accepted turn by turn while the later chapters do not exist yet, and without it the whole import is checked.</p>
+        <p>Standard output carries exactly one JSON envelope, printed as the last line and nothing else: <code>{"schema_version":"book-import-validation.v1","ok":…,"code":…,"errors":[…],"warnings":[…], …}</code> with the import's identity, the range and pointer that were checked and the counts that were compared. <code>ok</code> is true only when <code>errors</code> is empty, warnings never change it, and the exit status is <code>0</code> when <code>ok</code> is true and <code>2</code> in every other case, including bad arguments.</p>
+        <p>The code is decided in a fixed order, the first present naming the envelope: <code>NO_EXTRACTION</code>, <code>UNPARSEABLE_JSON</code>, <code>INVALID_IMPORT</code>, <code>MISSING_CHAPTER</code>, <code>WORD_COVERAGE</code>, with <code>USAGE</code> for bad arguments. A missing or unreadable extraction stops the run because there is no text to check against, and a record that does not parse or does not hold together stops it too; chapter and state defects are collected into one answer instead. <code>MISSING_CHAPTER</code> covers every defect of the chapter set — an absent file, a gap in the numbering from the import's first chapter, two files for one number, a file whose name the record contradicts, or a checked range that names a chapter the import has not reached. <code>WORD_COVERAGE</code> covers the two measures of plausibility: a chapter whose word count falls outside 0.8×–1.2× of its extraction chapter with twenty words of slack, or whose eight-word run overlap with that chapter is below 85% in either direction. Prose that was written rather than copied fails both.</p>
+        <p>The validator is the machine-readable proof that the universe was imported rather than written: it proves that the extraction exists and holds prose, that the record agrees with it on the upload, that the chapters it names exist once in a contiguous run with their titles, that the words are plausible in quantity and in sequence, that the state files parse and cite chapters that exist, and that <code>drafts/import-progress.json</code> marks the book as an import — a universe without that record is <code>INVALID_IMPORT</code> however ordinary its chapters look. It does not prove that the cleaning kept every sentence, that a canon line is true of the book, that a thread is the right thread, or that the segmentation of a boundaryless book is the one a human would have chosen; those are readings of prose, and no deterministic check settles them.</p>
+      </section>
+
+      <section>
+        <h2>What the imported book can do afterwards</h2>
+        <p>After the last turn the imported book is an ordinary universe. It is read in the reader interface like any other, continued or rewritten by <a href="wiki.html#definition-scripta-ala">scripta-ala</a> — which is what supplies the plan and the offer an imported chapter never had — reviewed by <a href="wiki.html#definition-scripta-continuity-review">scripta-continuity-review</a>, measured by <a href="wiki.html#definition-scripta-metrics-report">scripta-metrics-report</a>, and produced as an edition by <a href="wiki.html#definition-scripta-book-export">scripta-book-export</a>.</p>
+        <p>The prose stays in the book's language whatever the universe metadata says, and the state files are written in that language too, because they describe the book; only the schema vocabulary — file names, section names, JSON keys, thread kinds and statuses, atlas axes and states — stays English. A detected language that differs from the universe's is recorded in the record's <code>language</code> block and reported as the warning <code>LANGUAGE_MISMATCH</code>; the import never translates the book and never edits the universe metadata, which belongs to the server, so settling that difference is an operator's decision rather than a silent rewrite.</p>
+      </section>
+
+      <section>
+        <h2>Dependencies and boundaries</h2>
+        <p>The folder requires Node.js 20 or later and uses built-in <code>node:</code> modules only — <code>node:fs</code>, <code>node:path</code>, <code>node:url</code> — with no npm package, no vendored code, no external command and no network access at runtime; the extraction is an input contract rather than a dependency, and <code>dependencies.md</code> records that position. Its tests use the built-in <code>node --test</code> runner and cover the five failure codes end to end through the real command line, the precedence between them, the incremental range of a twelve-chapter book, the plausible word band, the run-overlap measure, segmentation inside and outside its band, the skipped-chapter rule, the turn journal and the oversize warning, the language decision and the record's continuation.</p>
+        <p>The boundary of the skill is that it imports and describes. It does not write prose, does not judge whether the cleaning read well, does not settle a language mismatch in the metadata and does not decide that a book is finished: a host that wants the whole book imported runs the turns until the record says <code>complete: true</code>, and everything written afterwards belongs to <a href="wiki.html#definition-scripta-ala">scripta-ala</a> and to the separate-phase skills. The complete contract is specified in <a href="specsLoader.html?spec=DS014-scripta-import-skill.md">DS014-scripta-import-skill</a>; the pipeline that feeds it is described on <a href="architecture.html">Architecture</a> and its routes on <a href="api.html">API</a>.</p>
+      </section>
+    </div>
+  </main>
+  <div data-include="partials/footer.html"></div>
+  <script src="partials-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-09-unreliable-narration",
+  "language": "en",
+  "title": "The stag at ninety yards",
+  "kind": "pair",
+  "target_distinction": "unreliable_narration",
+  "distinction_statement": "The weak version contradicts itself in every direction; the strong version contradicts itself in one direction, and the evidence stays recoverable.",
+  "intention": "The narrator should seem unreliable without the text losing the possibility of reconstructing what happened.",
+  "change": {
+    "feature": "narrator_reliability_signal",
+    "description": "Paragraph 2 replaces random contradictions with a constant exaggeration contradicted by one dented round, two sets of prints and a dog barking at the shed.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "consistent_slant",
+    "text": "Every Christmas, Frank told the table that he had taken the stag alone, in the snow, at ninety yards, with one round. Nobody argued with him; his sister-in-law looked at her plate and let it stand.\n\nFrank always put the stag at ninety yards, never closer, because at sixty it would have been too easy. The snow was always knee-deep, though the gamekeeper said that year there had been no snow until January. When the coat was washed, one round was found in the pocket and the brass was dented, as if it had been dropped on stone rather than fired. At the edge of the plantation there were two sets of prints, and the neighbour’s dog barked at the shed, not at the deer.\n\nHis sister-in-law cut the cake, put a slice on her nephew’s plate and said, as she did every year, that the brandy was too sweet."
+  },
+  "after": {
+    "label": "inconsistent_claims",
+    "text": "Every Christmas, Frank told the table that he had taken the stag alone, in the snow, at ninety yards, with one round. Nobody argued with him; his sister-in-law looked at her plate and let it stand.\n\nIt was a stag. It was two stags. It was summer, at haymaking. It was a doe with a fawn. The stag ran off, but he hit it; then it dropped where it stood; then it was never there at all. The snow was knee-deep and there was no snow. He shot from ten yards, from ninety, from three hundred. Sometimes he was out with his brother, sometimes alone on the road, sometimes not yet born.\n\nHis sister-in-law cut the cake, put a slice on her nephew’s plate and said, as she did every year, that the brandy was too sweet."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "The snow was knee-deep and there was no snow.",
+      "start": 384,
+      "end": 429,
+      "expectation": "quoted as a contradiction that nothing in the scene can reconcile"
+    },
+    {
+      "side": "before",
+      "quote": "At the edge of the plantation there were two sets of prints",
+      "start": 548,
+      "end": 607,
+      "expectation": "quoted as recoverable evidence that contradicts him once, in one direction"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "A reader may choose to believe the story and read the details as family spite.",
+    "The text never settles who shot the stag; it only suggests that he was not alone."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-09-unreliable-narration",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "evaluation-profile.v1",
+  "profile_id": "synthetic-calibration-profile",
+  "scope": {
+    "kind": "chapter",
+    "chapters": [1],
+    "context_chapters": [2]
+  },
+  "rubric": {
+    "version": "rubric-anchors.v1",
+    "scale": 4
+  },
+  "aggregation": {
+    "enabled": true,
+    "policy": "production",
+    "profile_version": "nqs-profile.v1",
+    "scope": "chapter 1",
+    "corpus_version": "corpus.v1",
+    "rubric_version": "rubric-anchors.v1",
+    "weights": { "cs": 0.4, "oi": 0.35, "emotional_fit": 0.25 },
+    "emotional_fit": {
+      "procedure": "separate-judgement",
+      "intent": "a quiet elegiac aftermath"
+    },
+    "calibration": {
+      "study": "synthetic-test-study.json",
+      "study_id": "synthetic-test-only-nqs-pilot"
+    }
+  }
+}

@@ -3,9 +3,9 @@
 ## Scope
 
 This record covers the full `scripta-metrics-report` skill: instructions (`SKILL.md`),
-the four planning references under `references/`, catalog metadata (`skill.json`), the
-deterministic engine and Markdown renderers under `scripts/`, and the
-`node --test` suites under `tests/`.
+the five references under `references/`, catalog metadata (`skill.json`), the deterministic
+engine and Markdown renderers under `scripts/`, the synthetic literary case library under
+`fixtures/`, and the `node --test` suites under `tests/`.
 
 ## Runtime prerequisites
 
@@ -34,6 +34,12 @@ documented in that module and summarized in `SKILL.md`.
 External embeddings, NLP packages, language classifiers, plotting libraries and datasets
 remain deferred. Before adopting any of them, record the exact dependency, purpose,
 alternatives, license, source, entry-point probe and removal opportunity.
+
+The literary cases under `fixtures/literary-cases/` are original synthetic text written for
+this repository, so they carry no third-party rights, no license obligation and no corpus
+download. They are validated by `scripts/validate-cases.mjs` with Node.js built-ins only, and
+the model-agreement record they contain is a data file rather than a dependency: it changes
+only when a real evaluator run is recorded.
 
 ## Maintenance
 

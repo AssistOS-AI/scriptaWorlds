@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-08-static-character",
+  "language": "en",
+  "title": "Four minutes past four",
+  "kind": "pair",
+  "target_distinction": "static_character",
+  "distinction_statement": "The weak version replaces the man with the label \"strict\"; the strong version keeps him unchanged and shows what the same rule costs in three different situations.",
+  "intention": "A character who does not change should stay complex through the different situations in which he repeats one rule.",
+  "change": {
+    "feature": "character_stasis_function",
+    "description": "Paragraph 2 replaces the repeated label of strictness with the clarinet, the bus fare and the grandson at the open gate.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "stasis_with_depth",
+    "text": "Mr Pascoe had locked the school gate at four minutes past four for thirty-one years, from the same ring of keys, and had never once been late for it. He was not a teacher and had never wanted to be one.\n\nHe told the girl with the broken clarinet that the gate was the gate, and then walked her round to the side door and waited while she collected it. He told the boy who had lost his bus fare the same sentence, word for word, and then paid the fare out of the tin where the lost-property money went. With his own grandson he said it more quietly and turned the key in the lock with his body between the boy and the road, so that nobody in the office could see the gate standing open.\n\nAt ten past four he walked home along the canal, where the swans were, and fed them the crusts his wife put out for him in a paper bag."
+  },
+  "after": {
+    "label": "flattened_label",
+    "text": "Mr Pascoe had locked the school gate at four minutes past four for thirty-one years, from the same ring of keys, and had never once been late for it. He was not a teacher and had never wanted to be one.\n\nMr Pascoe was a strict man. At the gate, Mr Pascoe was strict. When someone was late, Mr Pascoe was strict. When someone forgot a bag, Mr Pascoe was strict. The whole school knew him as a strict man, and he was strict, day after day, in the same way.\n\nAt ten past four he walked home along the canal, where the swans were, and fed them the crusts his wife put out for him in a paper bag."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "When someone was late, Mr Pascoe was strict.",
+      "start": 267,
+      "end": 311,
+      "expectation": "quoted as a repeated label that takes the place of the character"
+    },
+    {
+      "side": "before",
+      "quote": "paid the fare out of the tin where the lost-property money went",
+      "start": 437,
+      "end": 500,
+      "expectation": "quoted as an exception that shows what the rule costs him"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The labelled version can be read as comic convention if the rest of the text supports it.",
+    "The grandson may be simple favouritism; the text does not judge it."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-08-static-character",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

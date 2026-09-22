@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-04-exposition-in-dialogue",
+  "language": "en",
+  "title": "The 1936 deed",
+  "kind": "pair",
+  "target_distinction": "exposition_in_dialogue",
+  "distinction_statement": "The weak version recites the family history to someone who knows it; the strong version delivers the same facts as arguments about a damp clause.",
+  "intention": "The house’s history should reach the reader through a present disagreement rather than through characters telling each other what they already know.",
+  "change": {
+    "feature": "dialogue_exposition",
+    "description": "Paragraph 2 replaces the recited 1936-1988 summary with a dispute over the damp clause, the flood and the strip of land taken for the road.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "argued_history",
+    "text": "The two cousins sat at opposite ends of the kitchen table with the deed between them and the insurance letter on top of it. Outside, the gutter had come loose in the night and water was ticking onto the sill.\n\n— This says the back wall was rebuilt in the fifties, so the damp clause does not cover it.\n— The wall was rebuilt because the flood took it. That is not neglect, that is weather.\n— Grandfather carried the stone up from the shore himself. Three pounds in his pocket and a barrow he borrowed from the priest.\n— And in 1971 they took the strip for the road and paid us for a wall that was already ours. Sign it, or do not.\n— I will sign. I only want it written down that we know what the wall cost.\n\nEileen signed first and pushed the letter across the table; her cousin signed a minute later, without reading the middle page again."
+  },
+  "after": {
+    "label": "recited_history",
+    "text": "The two cousins sat at opposite ends of the kitchen table with the deed between them and the insurance letter on top of it. Outside, the gutter had come loose in the night and water was ticking onto the sill.\n\n— As you know, the house was bought in 1936 by our grandfather, who came over from County Mayo with three pounds and a trade; then the flood of 1954 took the back wall, the council bought the strip of land for the road in 1971, and our fathers shared the title until the falling-out of 1988.\n— Yes, I know all of that, Eileen. I have known it since I was a child.\n\nEileen signed first and pushed the letter across the table; her cousin signed a minute later, without reading the middle page again."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "As you know, the house was bought in 1936 by our grandfather",
+      "start": 214,
+      "end": 274,
+      "expectation": "quoted as exposition addressed to a listener who already knows it"
+    },
+    {
+      "side": "before",
+      "quote": "The wall was rebuilt because the flood took it. That is not neglect, that is weather.",
+      "start": 308,
+      "end": 393,
+      "expectation": "quoted as the same history delivered as an argument in the present"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The recited history can work as a framed narrative opening if a narrator, not a character, speaks it.",
+    "The cousins’ argument can be read as being about money alone; the family history is carried by the objects."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-04-exposition-in-dialogue",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

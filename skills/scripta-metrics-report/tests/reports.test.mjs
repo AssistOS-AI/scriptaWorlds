@@ -6,16 +6,9 @@ import { join } from 'node:path';
 
 import { renderViews, VIEW_FILES } from '../scripts/lib/render.mjs';
 import { buildReportFixture } from './report-fixture.mjs';
-import { cleanup, readJson, runCli, sha256, tempDir } from './helpers.mjs';
+import { cleanup, readJson, runCli, runReport, sha256, tempDir } from './helpers.mjs';
 
 const OUTPUT_FILES = ['assessment.json', 'index.md', ...VIEW_FILES];
-
-function run(fx, out, extra = {}) {
-  const args = ['--input', fx.packetDir, '--out', out, '--profile', fx.profilePath];
-  if (extra.annotations !== null) args.push('--annotations', fx.annotationsPath);
-  if (extra.corpus !== null) args.push('--corpus', fx.corpusPath);
-  return runCli(args);
-}
 
 function hashFile(file) {
   return sha256(readFileSync(file));
@@ -40,7 +33,7 @@ test('builds all views deterministically, records the packet version and scope, 
     const out1 = join(root, 'out1');
     const out2 = join(root, 'out2');
 
-    const env = run(fx, out1);
+    const env = runReport(fx, out1);
     assert.equal(env.status, 0, env.stdout);
     assert.equal(env.envelope.ok, true);
     assert.equal(env.envelope.schema_version, 'assessment-result.v1');
@@ -51,7 +44,7 @@ test('builds all views deterministically, records the packet version and scope, 
       assert.ok(existsSync(join(out1, name)), `missing ${name}`);
     }
 
-    const second = run(fx, out2);
+    const second = runReport(fx, out2);
     assert.equal(second.status, 0);
     for (const name of OUTPUT_FILES) {
       assert.deepEqual(readFileSync(join(out2, name)), readFileSync(join(out1, name)), `${name} differs between runs`);
@@ -139,7 +132,7 @@ test('a tampered packet, a malformed complete packet and a superseded manifest e
     manifest.files[0].bytes += 1;
     writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
     const out = join(root, 'out-bytes');
-    const env = run(fx, out);
+    const env = runReport(fx, out);
     assert.equal(env.status, 2);
     assert.equal(env.envelope.ok, false);
     assert.equal(env.envelope.code, 'BYTE_MISMATCH');
@@ -157,7 +150,7 @@ test('a tampered packet, a malformed complete packet and a superseded manifest e
     manifest2.files[0].bytes = tampered.length;
     writeFileSync(join(fx2.packetDir, 'manifest.json'), JSON.stringify(manifest2, null, 2));
     const staleOut = join(root2, 'out');
-    const stale = run(fx2, staleOut);
+    const stale = runReport(fx2, staleOut);
     assert.equal(stale.status, 2);
     assert.equal(stale.envelope.code, 'VERSION_MISMATCH');
     assert.ok(!existsSync(staleOut));
@@ -172,7 +165,7 @@ test('a tampered packet, a malformed complete packet and a superseded manifest e
       omitted: [],
     });
     const gapOut = join(root3, 'out');
-    const gap = run(fx3, gapOut);
+    const gap = runReport(fx3, gapOut);
     assert.equal(gap.status, 2);
     assert.equal(gap.envelope.code, 'SCOPE_INCOMPLETE');
     assert.ok(gap.envelope.error.includes('interior chapter 2'), gap.envelope.error);
@@ -195,7 +188,7 @@ test('a tampered packet, a malformed complete packet and a superseded manifest e
         annotations.source_version = `sha256:${'0'.repeat(64)}`;
       },
     });
-    const staleAnn = run(fx5, join(root5, 'out'));
+    const staleAnn = runReport(fx5, join(root5, 'out'));
     assert.equal(staleAnn.status, 2);
     assert.equal(staleAnn.envelope.code, 'STALE_ANNOTATION');
   } finally {
@@ -262,7 +255,7 @@ test('a declared partial packet is accepted and every view names what was omitte
       },
     });
     const out = join(root, 'out');
-    const env = run(fx, out);
+    const env = runReport(fx, out);
     assert.equal(env.status, 0, env.stdout);
     const bundle = readJson(join(out, 'assessment.json'));
     assert.equal(bundle.coverage.packet_scope, 'partial');
@@ -289,7 +282,7 @@ test('a textual_only packet reports that no continuity context was available', (
       profile: { scope: { kind: 'chapter', chapters: [1], context_chapters: [] } },
     });
     const out = join(root, 'out');
-    const env = run(fx, out);
+    const env = runReport(fx, out);
     assert.equal(env.status, 0, env.stdout);
     const bundle = readJson(join(out, 'assessment.json'));
     assert.equal(bundle.coverage.packet_scope, 'textual_only');
@@ -315,11 +308,11 @@ test('an output equal to, nested under or aliased into an input is refused befor
     const fx = buildReportFixture(root);
     const before = snapshot(fx);
 
-    const equal = run(fx, fx.packetDir);
+    const equal = runReport(fx, fx.packetDir);
     assert.equal(equal.status, 2);
     assert.equal(equal.envelope.code, 'OUTPUT_INSIDE_INPUT');
 
-    const nested = run(fx, join(fx.packetDir, 'result'));
+    const nested = runReport(fx, join(fx.packetDir, 'result'));
     assert.equal(nested.status, 2);
     assert.equal(nested.envelope.code, 'OUTPUT_INSIDE_INPUT');
     assert.ok(!existsSync(join(fx.packetDir, 'result')));
@@ -328,13 +321,13 @@ test('an output equal to, nested under or aliased into an input is refused befor
     // destination is the packet itself even though the path string is not.
     const alias = join(root, 'alias');
     symlinkSync(fx.packetDir, alias);
-    const aliased = run(fx, join(alias, 'result'));
+    const aliased = runReport(fx, join(alias, 'result'));
     assert.equal(aliased.status, 2);
     assert.ok(['OUTPUT_INSIDE_INPUT', 'OUTPUT_CONTAINS_INPUT', 'PATH_ESCAPE'].includes(aliased.envelope.code), aliased.envelope.code);
     assert.ok(!existsSync(join(fx.packetDir, 'result')), 'no write may reach the packet through the alias');
 
     // A collision with a supplied input file rather than a directory.
-    const collision = run(fx, fx.annotationsPath);
+    const collision = runReport(fx, fx.annotationsPath);
     assert.equal(collision.status, 2);
     assert.ok(['OUTPUT_INSIDE_INPUT', 'OUTPUT_CONTAINS_INPUT'].includes(collision.envelope.code), collision.envelope.code);
 
@@ -351,7 +344,7 @@ test('a new or empty destination is published atomically and a non-empty one is 
 
     // Not-yet-existing destination.
     const fresh = join(root, 'fresh');
-    const created = run(fx, fresh);
+    const created = runReport(fx, fresh);
     assert.equal(created.status, 0, created.stdout);
     assert.deepEqual(readdirSync(fresh).sort(), [...OUTPUT_FILES].sort());
     assert.equal(created.envelope.output_dir, fresh);
@@ -359,7 +352,7 @@ test('a new or empty destination is published atomically and a non-empty one is 
     // Existing empty destination.
     const empty = join(root, 'empty');
     mkdirSync(empty);
-    const reused = run(fx, empty);
+    const reused = runReport(fx, empty);
     assert.equal(reused.status, 0, reused.stdout);
 
     // An existing accepted assessment is never overwritten file by file.
@@ -367,7 +360,7 @@ test('a new or empty destination is published atomically and a non-empty one is 
     mkdirSync(nonEmpty);
     writeFileSync(join(nonEmpty, 'index.md'), '# previous accepted assessment\n');
     const previous = hashFile(join(nonEmpty, 'index.md'));
-    const refused = run(fx, nonEmpty);
+    const refused = runReport(fx, nonEmpty);
     assert.equal(refused.status, 2);
     assert.equal(refused.envelope.code, 'OUTPUT_NOT_EMPTY');
     assert.equal(hashFile(join(nonEmpty, 'index.md')), previous);
@@ -376,7 +369,7 @@ test('a new or empty destination is published atomically and a non-empty one is 
     // A destination that is a file, not a directory.
     const fileOut = join(root, 'file-out');
     writeFileSync(fileOut, 'not a directory\n');
-    const notDirectory = run(fx, fileOut);
+    const notDirectory = runReport(fx, fileOut);
     assert.equal(notDirectory.status, 2);
     assert.equal(notDirectory.envelope.code, 'OUTPUT_NOT_DIRECTORY');
 
@@ -387,7 +380,7 @@ test('a new or empty destination is published atomically and a non-empty one is 
       },
     });
     const badOut = join(root, 'bad-out');
-    const failed = run(failing, badOut);
+    const failed = runReport(failing, badOut);
     assert.equal(failed.status, 2);
     assert.equal(failed.envelope.code, 'UNKNOWN_RULE');
     assert.ok(!existsSync(badOut), 'a failed run publishes nothing at all');

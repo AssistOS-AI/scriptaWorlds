@@ -7,7 +7,7 @@ import { config } from './config.mjs';
 import { nowIso, pad, readJson, readText } from './io.mjs';
 import { UniverseError } from './errors.mjs';
 import { skillsDir, universeDir } from './paths.mjs';
-import { buildChapterPrompt, buildExportPrompt, buildRewritePrompt } from './prompts.mjs';
+import { buildChapterPrompt, buildExportPrompt, buildImportPrompt, buildRewritePrompt } from './prompts.mjs';
 import {
   acceptedChapters,
   archiveChapter,
@@ -130,9 +130,23 @@ export async function prepareRewrite({ universeId, chapterNumber, dropLater, anc
   return previous.text;
 }
 
-/** The prompt of this turn: a rewrite, a new chapter or the printed edition. */
+/** The prompt of this turn: a rewrite, a new chapter, an import or the printed edition. */
 export function turnPrompt({ meta, job, chapterNumber, chapterFiles, contextChapters = [], omittedChapters = [], directions = [], findings = [], preserve = [] }) {
   const elements = Array.isArray(meta.elements) ? meta.elements : [];
+  if (job.kind === 'import') {
+    return buildImportPrompt({
+      title: meta.title,
+      language: meta.language,
+      extractionFile: '.agents/import/extracted.json',
+      bookFile: '.agents/import/book.md',
+      range: job.importRange ?? { from: 1, to: 1 },
+      totalChapters: job.importInfo?.totalChapters ?? 1,
+      minWords: config.chapterMinWords,
+      maxWords: config.chapterMaxWords,
+      detected: job.importInfo?.detected ?? null,
+      warnings: job.importInfo?.warnings ?? []
+    });
+  }
   if (job.kind === 'rewrite') {
     return buildRewritePrompt({
       title: meta.title,
@@ -229,6 +243,101 @@ export async function verifyChapterTurn({ universeId, chapterNumber, chapterFile
   const offerPath = join(universeDir(universeId), 'chapters', `${pad(chapterNumber)}-offer.json`);
   const offer = normalizeOffer(await readJson(offerPath, null));
   if (offer) record.offer = offer;
+}
+
+/** Run the import skill's validator over one import turn and return its JSON report. */
+function runImportValidator(universeId, range) {
+  return new Promise((resolve) => {
+    const args = [
+      join(skillsDir, 'scripta-import', 'scripts', 'validate-import.mjs'),
+      '--universe',
+      universeDir(universeId),
+      '--import',
+      join(universeDir(universeId), '.agents', 'import', 'extracted.json')
+    ];
+    if (range) args.push('--chapters', `${range.from}-${range.to}`);
+    const child = spawn(process.execPath, args, { stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '';
+    let stderr = '';
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
+    child.stdout.on('data', (chunk) => { stdout += chunk; });
+    child.stderr.on('data', (chunk) => { stderr += chunk; });
+    child.on('error', (error) => resolve({ ok: false, code: null, stdout, stderr: String(error.message), report: null }));
+    child.on('close', (code) => {
+      const line = stdout.trim().split('\n').pop();
+      let report = null;
+      try {
+        report = line ? JSON.parse(line) : null;
+      } catch {
+        report = null;
+      }
+      resolve({ ok: code === 0, code, stdout, stderr, report });
+    });
+  });
+}
+
+/**
+ * What an import turn must have produced: exactly the universe chapters the turn recorded it wrote for
+ * the extraction window it was given, and a universe the import skill's validator accepts.
+ *
+ * The window is counted in *extraction* chapters, and the universe chapters a turn writes are not that
+ * range: an extraction chapter that carries no prose is skipped, and one that the skill had to segment
+ * becomes several chapter files. So the authority is the import record the turn wrote — its last turn
+ * entry lists the universe chapters of this very turn, and the validator checks the same list — rather
+ * than an arithmetic guess about numbering that the store cannot confirm.
+ */
+export async function verifyImportTurn({ universeId, range, record }) {
+  const window = range ?? { from: 1, to: 1 };
+  const progress = await readJson(join(universeDir(universeId), 'drafts', 'import-progress.json'), null);
+  const turns = Array.isArray(progress?.turns) ? progress.turns : [];
+  const last = turns[turns.length - 1] ?? null;
+  // The turn's own range covers the extraction chapters it wrote, so a window whose later chapters were
+  // skipped (a heading with no prose is legitimately passed over) ends up shorter than the plan. What must
+  // hold is that this turn worked inside the window it was given, and that the record accounts for every
+  // extraction chapter up to its pointer: imported as a chapter or declared in `skipped`. The validator
+  // below proves that accounting; this only refuses a record that is about some other window.
+  const startedInsideWindow = last && Number.isInteger(last.from_source_chapter)
+    && last.from_source_chapter >= window.from && last.from_source_chapter <= window.to;
+  if (!startedInsideWindow) {
+    throw new UniverseError(
+      'NO_IMPORT_RECORD',
+      `The import turn was to carry extraction chapters ${window.from}-${window.to}, but the import record does not say that it did (${turns.length} turn${turns.length === 1 ? '' : 's'} recorded${last ? `, last from extraction chapter ${last.from_source_chapter}` : ''}).`,
+      502
+    );
+  }
+  const written = Array.isArray(last.chapters) ? last.chapters.filter(Number.isInteger) : [];
+  if (written.length === 0) {
+    throw new UniverseError(
+      'NO_CHAPTER',
+      `The import turn for extraction chapters ${window.from}-${window.to} recorded no chapter of this universe as written.`,
+      502
+    );
+  }
+  const accepted = new Set((await acceptedChapters(universeId)).map((chapter) => chapter.number));
+  const missing = written.filter((number) => !accepted.has(number));
+  if (missing.length > 0) {
+    throw new UniverseError(
+      'NO_CHAPTER',
+      `The import record says this turn wrote chapters ${written.join(', ')} but ${missing.join(', ')} ${missing.length === 1 ? 'is' : 'are'} not in the book.`,
+      502
+    );
+  }
+  const validated = await runImportValidator(universeId, window);
+  if (!validated.ok) {
+    const problems = Array.isArray(validated.report?.errors) ? validated.report.errors : [];
+    throw new UniverseError(
+      validated.report?.code ?? 'INVALID_IMPORT',
+      `The imported chapters were refused: ${problems.slice(0, 3).join('; ') || validated.stderr.trim().slice(0, 200) || `validator exit ${validated.code}`}`,
+      502
+    );
+  }
+  record.chapterFile = null;
+  record.chapterTitle = `extraction chapters ${window.from}-${window.to} as chapters ${written.join(', ')}`;
+  for (const warning of validated.report?.warnings ?? []) {
+    if (!record.warnings.includes(warning)) record.warnings.push(warning);
+  }
+  return validated.report;
 }
 
 /**

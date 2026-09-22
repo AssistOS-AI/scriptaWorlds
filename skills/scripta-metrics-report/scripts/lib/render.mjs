@@ -28,12 +28,18 @@ export const VIEW_FILES = [
 function renderIndex(bundle) {
   const errors = bundle.execution.errors.length;
   const chapters = bundle.scope.chapters.length ? bundle.scope.chapters.join(', ') : 'none';
+  const reference = bundle.trigger_ref;
+  const trigger =
+    reference && reference.kind === 'arc'
+      ? `accepted arc completion \`${esc(reference.arc_id)}\``
+      : 'reader request';
   const lines = [
     `# Metrics Report — ${esc(bundle.book.title)}`,
     '',
     `Universe \`${esc(bundle.book.universe_id)}\` · version \`${bundle.version}\` · language ${esc(bundle.book.language)} · ` +
       `assessment \`${bundle.assessment_id}\``,
     '',
+    `- Trigger: ${trigger}`,
     `- Scope: ${esc(bundle.scope.kind)} (chapters ${chapters})`,
     `- Profile: \`${esc(bundle.profile.profile_id)}\``,
     `- Frozen at: ${esc(bundle.created_at)}`,

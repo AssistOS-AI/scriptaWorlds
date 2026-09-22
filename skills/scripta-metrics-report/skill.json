@@ -9,7 +9,8 @@
   "outputs": [
     "<result-dir>/assessment.json — the validated bundle (identity, scope, provenance, evidence, metrics, indicators, requirements, findings, preserved qualities, execution)",
     "<result-dir>/index.md plus 01-stg-compliance.md, 02-specification-adherence.md, 03-metrics-and-indicators.md, 04-score-justification.md, 05-detected-issues.md",
-    "One JSON result envelope on stdout with the assessment id and output paths"
+    "One JSON result envelope on stdout with the assessment id and output paths",
+    "One JSON validation envelope on stdout from scripts/validate-cases.mjs for the synthetic case library under fixtures/literary-cases/"
   ],
   "entrypoints": [
     "SKILL.md",
@@ -18,11 +19,15 @@
     "references/report-contract.md",
     "references/literary-rubric.md",
     "references/calibration.md",
+    "references/literary-cases.md",
     "scripts/build-report.mjs",
+    "scripts/validate-cases.mjs",
     "scripts/lib/errors.mjs",
     "scripts/lib/input.mjs",
     "scripts/lib/workspace.mjs",
     "scripts/lib/evidence.mjs",
+    "scripts/lib/cases.mjs",
+    "scripts/lib/case-library.mjs",
     "scripts/lib/segments.mjs",
     "scripts/lib/selection.mjs",
     "scripts/lib/candidate.mjs",
@@ -35,13 +40,16 @@
     "scripts/lib/rubric.mjs",
     "scripts/lib/timing.mjs",
     "scripts/lib/contamination.mjs",
+    "scripts/lib/study.mjs",
     "scripts/lib/aggregate.mjs",
     "scripts/lib/annotations.mjs",
     "scripts/lib/metrics.mjs",
     "scripts/lib/assemble.mjs",
     "scripts/lib/markdown.mjs",
     "scripts/lib/views.mjs",
-    "scripts/lib/render.mjs"
+    "scripts/lib/render.mjs",
+    "schema/study.v1.json",
+    "fixtures/literary-cases/index.json"
   ],
   "selfContained": true
 }

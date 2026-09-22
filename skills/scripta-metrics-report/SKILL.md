@@ -18,7 +18,8 @@ the book, change canon, or block publication.
 
 ```
 node scripts/build-report.mjs --input <packet-dir> --out <result-dir> --profile <profile.json> \
-  [--annotations <annotations.json>] [--corpus <manifest.json>]
+  [--annotations <annotations.json>] [--corpus <manifest.json>] [--study-root <dir>] \
+  [--allow-test-only-studies] [--trigger <request|arc>] [--arc-id <id>]
 ```
 
 - `--input` — a validated `assessment-input.v2` packet directory (manifest + referenced files).
@@ -35,6 +36,18 @@ node scripts/build-report.mjs --input <packet-dir> --out <result-dir> --profile 
   optional `timing-study.v1` block, findings, departures and preserved qualities.
 - `--corpus` — optional `corpus.v1` manifest. The corpus is read only from this explicit file;
   it is never downloaded. Without it, SI and TOP are `not_assessable`.
+- `--study-root` — the local directory the profile's calibration artifacts resolve against.
+  It is required as soon as `profile.aggregation.calibration` names a study, and a declared
+  root that is not a readable directory is refused before anything is read.
+- `--allow-test-only-studies` — the explicit opt-in that lets a study declaring
+  `test_only: true` back a production claim. Without it such a study is refused as support;
+  with it the computed NQS states that its support is a test-only study and is labelled a
+  limited finding. It never changes the bindings, hashes or existence checks.
+- `--trigger` — the event that caused the run: `request` (the default, an explicit reader
+  request) or `arc` (an accepted arc-completion event). The host maps its own
+  `requested`/`arc` vocabulary onto these values and passes the flag on every run.
+- `--arc-id` — the arc identifier, required with `--trigger arc` and refused with any other
+  trigger. It becomes the `arc_id` of `trigger_ref` in the bundle.
 
 Output on stdout is exactly ONE JSON envelope:
 
@@ -53,6 +66,34 @@ Exit codes: `0` completed (unavailable metrics are results, not failures),
 `2` invalid input/arguments/schema/contract violation (nothing is written),
 `1` execution failure. A refusal names a machine-readable `code`; the codes are shared with
 the other packet consumers (see below). A missing `--out` is a usage error.
+
+Inside the published `assessment.json`, the identity block carries the event that produced
+the report: `trigger` is `request` or `arc`, and `trigger_ref` is `{ "kind": "request" }` or
+`{ "kind": "arc", "arc_id": "<id>" }`; `index.md` states the same event on one line under
+`Trigger`, so a reader of a stored report can tell an explicit request from an accepted
+arc-completion event without consulting the host's run record.
+
+## Synthetic literary case library
+
+`fixtures/literary-cases/` holds 24 paired short texts — twelve Romanian and twelve English —
+written for this repository as teaching and regression material, with `index.json` as their
+machine-checkable inventory. Each pair changes exactly one literary feature, keeps the rest of
+the text, and anchors its expected evidence at real UTF-8 byte offsets in both halves; the
+cases also record their intention, the distinction under test, acceptable alternative readings
+and an explicit synthetic provenance. A declared subset is reserved for prompt-regression
+checks, and the library is never described as an independent human benchmark. The
+`model-agreement.json` record currently reports `status: "unperformed"`, because no evaluator
+has been run against the library; its figures may only be added from a real recorded run.
+
+```sh
+node scripts/validate-cases.mjs [--fixtures <literary-cases-dir>]
+```
+
+The command validates every case, prints one JSON envelope with the counts, the language split,
+the reserved subset and the agreement status, and exits `2` with one `{ file, message }`
+problem per defect when a case is malformed, changes more than one feature or carries an
+unanchored quote. `references/literary-cases.md` explains the library for a reader who has
+never seen it.
 
 ## Inputs
 
@@ -97,8 +138,24 @@ duplicate, nonexistent or invalid chapter identifier is a contract violation.
 `rubric` is optional and defaults to the anchored 0–4 scale of `rubric-anchors.v1`.
 `aggregation` gates NQS and is off by default; an enabled profile must declare
 `weights` for `cs`, `oi` and `emotional_fit` that sum to one, an `emotional_fit.procedure`,
-a `scope`, the corpus and rubric versions and any `calibration` record. A `production` policy
-stays unavailable without calibration evidence.
+a `scope`, the corpus and rubric versions and, for a `production` policy, a `calibration`
+record naming the study artifact the claim rests on:
+
+```json
+"calibration": { "study": "c34-pilot.json", "study_id": "c34-pilot" }
+```
+
+`calibration.study` resolves against `--study-root`; `study_id` is optional and must match
+the document. Any other field — notably `held_out` or an inline `evidence` list — is refused
+as `INVALID_PROFILE`, because a profile cannot declare its own support. The study document
+itself is a `calibration-study.v1` record, published in `schema/study.v1.json` and verified
+locally: the artifact exists, its bytes hash to the declared sha256, and its `bindings`
+(`rubric_version`, `profile_version`, `language`, `scope`) equal the profile being computed
+and the accepted book's language. A missing artifact, a hash mismatch, a missing binding or a
+contradicted binding leaves NQS `not_assessable` with that reason — never zero, and without
+blocking the other metrics. A study declaring `test_only: true` is refused as production
+support unless `--allow-test-only-studies` is passed, and the computed metric then says its
+support is a test-only study. `tests/calibration.test.mjs` drives every one of these paths.
 
 ### `annotations.v1`
 
@@ -271,10 +328,13 @@ unavailable reason, evidence, rationale, counterevidence, intended-effect fit an
 
 ```
 scripts/build-report.mjs      CLI entry point and argument/input validation
+scripts/validate-cases.mjs    CLI that validates the synthetic literary case library
 scripts/lib/errors.mjs        exit codes, CliError, path, hash and UTF-8 helpers
 scripts/lib/input.mjs         assessment-input.v2 loading and validation (§8.2, §8.3)
 scripts/lib/workspace.mjs     output separation on real paths and atomic publication
 scripts/lib/evidence.mjs      evidence.v1 verification on byte and quote level
+scripts/lib/cases.mjs         literary-case vocabulary, quote anchoring and case rules
+scripts/lib/case-library.mjs  index, regression subset and model-agreement validation
 scripts/lib/segments.mjs      scene, sequence, chapter and arc boundaries
 scripts/lib/selection.mjs     scope resolution against the accepted inventory
 scripts/lib/candidate.mjs     selected byte ranges to contiguous candidate units
@@ -288,12 +348,16 @@ scripts/lib/rubric.mjs        component metrics (CS, OI, NCS) and the EAP trajec
 scripts/lib/timing.mjs        AEG from opt-in timing-study.v1 records
 scripts/lib/contamination.mjs CR from a verifiable training-dataset record
 scripts/lib/aggregate.mjs     NQS profile, dependency graph and component aggregation
+scripts/lib/study.mjs         calibration-study.v1 verification for the production policy
 scripts/lib/annotations.mjs   semantic annotation validation and normalization
 scripts/lib/metrics.mjs       metric result builders and CCI/CAD arithmetic
 scripts/lib/assemble.mjs      bundle assembly (provenance, coverage, evidence)
 scripts/lib/markdown.mjs      escaping and shared rendering helpers
 scripts/lib/views.mjs         the five view renderers
 scripts/lib/render.mjs        index plus the renderViews entry point
+schema/                       the published vocabularies: annotations.v1 and the study format
+fixtures/literary-cases/      index, paired cases and the model-agreement record
+fixtures/calibration/         the synthetic test-only study that proves the verified path
 tests/                        node --test suites and their fixtures
 ```
 

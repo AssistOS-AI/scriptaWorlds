@@ -1,0 +1,135 @@
+{
+  "schema_version": "book-import.v1",
+  "skill": "scripta-import",
+  "summary": "The vocabulary of one book import: where the host's extraction lives, the shape of the import record this skill writes, the bound of one import turn, the segmentation methods and the vocabulary of the state files an imported universe must carry. A host reads this file to plan the window of the next import turn, so a window it plans is always a window scripts/lib/record.mjs agrees with.",
+  "extraction": {
+    "path": ".agents/import/extracted.json",
+    "text_path": ".agents/import/book.md",
+    "schema_version": "book-import.v1",
+    "written_by": "host",
+    "required_fields": ["schema_version", "import_id", "source", "detected", "chapters", "warnings"],
+    "source_fields": ["filename", "format", "sha256", "bytes", "pages"],
+    "detected_fields": ["title", "author", "language"],
+    "chapter_fields": ["number", "title", "words", "text"],
+    "note": "A chapter entry may carry an empty text when the source has a heading with no body; those chapters are recorded in `skipped` and are not written as chapters. An extraction whose chapters all carry no prose is refused as NO_EXTRACTION rather than invented."
+  },
+  "record": {
+    "path": "drafts/import-progress.json",
+    "schema_version": "book-import.v1",
+    "written_by": "scripta-import",
+    "purpose": "The machine-readable mark that this universe was imported, the proof of which upload it came from, and the only place a later turn learns where to continue.",
+    "complete_example": "schema/import-progress.v1.example.json",
+    "required_fields": [
+      "schema_version",
+      "import_id",
+      "source",
+      "detected",
+      "language",
+      "segmentation",
+      "start_chapter",
+      "next_source_chapter",
+      "complete",
+      "chapters",
+      "skipped",
+      "turns",
+      "updated_at"
+    ],
+    "chapter_entry_fields": ["chapter", "source_chapter", "segment", "file", "title"],
+    "skipped_entry_fields": ["source_chapter", "reason"],
+    "turn_entry_fields": ["number", "from_source_chapter", "to_source_chapter", "chapters", "imported_at"],
+    "turn_entry_note": "`from_source_chapter` and `to_source_chapter` are the window the turn covered, including an extraction chapter it passed over (a heading with no prose, recorded in `skipped` and absent from `chapters`). `chapters` lists the universe chapters the turn wrote, and every extraction chapter of the window is either written by that turn or recorded in `skipped`.",
+    "language_fields": ["book", "state", "universe", "match"],
+    "continuation": {
+      "pointer_field": "next_source_chapter",
+      "authoritative": "next_source_chapter",
+      "note": "The pointer is the number of the extraction chapter the next turn starts at, or null when every extraction chapter is imported or skipped. Chapters already on disk do not carry their extraction number, so the record is authoritative; a host plans the next window as planTurnWindow(extraction.chapters, next_source_chapter)."
+    }
+  },
+  "turn_limits": {
+    "max_chapters": 3,
+    "max_words": 6000,
+    "minimum_chapters": 1,
+    "note": "One import turn carries at most max_chapters extraction chapters and at most max_words of their prose, whichever comes first, and always at least one chapter: a single chapter longer than max_words is imported alone. A turn above this bound is reported as the warning TURN_OVERSIZE and does not refuse the import."
+  },
+  "segmentations": ["host", "scene", "word_count"],
+  "segment_words": {
+    "target": 2000,
+    "min": 1500,
+    "max": 2500,
+    "note": "Used only when the skill cuts a boundaryless book by word count: a cut lands at the paragraph boundary closest to target, never before min and never after max. Every non-final segment outside min–max is reported as the warning SEGMENT_OFF_BAND."
+  },
+  "word_band": {
+    "ratio_min": 0.8,
+    "ratio_max": 1.2,
+    "slack": 20,
+    "note": "An imported chapter is plausible when its word count is at least min(ratio_min x source, source - slack) and at most max(ratio_max x source, source + slack)."
+  },
+  "prose_overlap": {
+    "run": 8,
+    "min": 0.85,
+    "note": "At least this fraction of the imported chapter's eight-token runs must occur in its extraction chapter, and the same fraction of that chapter's runs must occur in the imported text. Cleaning removes page furniture and rejoins hyphenated words, which breaks the runs that straddled each removal, so the bound is a plausibility test rather than a proof."
+  },
+  "chapter_file": {
+    "pattern": "chapters/NNNN-slug.md",
+    "slug": "[a-z0-9-]",
+    "title_line": "# Title",
+    "offers": "none: an import writes no chapters/NNNN-offer.json and no drafts/NNNN-plan.md"
+  },
+  "canon_sections": [
+    "## Fundamental laws",
+    "## World",
+    "## Recurring characters",
+    "## Timeline",
+    "## Stable facts",
+    "## Mysteries with a fixed cause"
+  ],
+  "thread_collections": ["open", "closed", "promises", "deferred_answers"],
+  "thread_kinds": ["promise", "mystery", "decision", "question"],
+  "thread_statuses": ["open", "deferred", "closed", "abandoned"],
+  "thread_id_pattern": "^[a-z]{2,8}-\\d{4}$",
+  "atlas_axes": [
+    "mind-identity",
+    "life-death",
+    "time-causality",
+    "ai-autonomy",
+    "civilization-power",
+    "abundance-scarcity",
+    "alien-alterity",
+    "reality-simulation",
+    "body-evolution",
+    "knowledge-truth",
+    "cosmos-scale",
+    "culture-meaning"
+  ],
+  "atlas_states": ["mentioned", "dramatized", "decision", "recontextualized"],
+  "validator": {
+    "command": "node skills/scripta-import/scripts/validate-import.mjs --universe <universe-folder> --import <extracted.json> [--chapters <from>-<to>]",
+    "schema_version": "book-import-validation.v1",
+    "envelope_fields": [
+      "schema_version",
+      "ok",
+      "code",
+      "errors",
+      "warnings",
+      "universe",
+      "extraction",
+      "import_id",
+      "source",
+      "segmentation",
+      "start_chapter",
+      "last_imported_chapter",
+      "range",
+      "complete",
+      "next_source_chapter",
+      "chapters_checked",
+      "words_checked"
+    ],
+    "codes": ["NO_EXTRACTION", "UNPARSEABLE_JSON", "INVALID_IMPORT", "MISSING_CHAPTER", "WORD_COVERAGE"],
+    "usage_code": "USAGE",
+    "warnings": ["TURN_OVERSIZE", "SEGMENT_OFF_BAND", "LANGUAGE_MISMATCH", "EXTRACTION_WORD_MISMATCH", "UNIVERSE_UNREADABLE"],
+    "errors_format": "<CODE>: <message>",
+    "range": "The optional --chapters <from>-<to> bounds the check to a range of extraction chapter numbers, which is the window one import turn covered and the range its entry in `turns` carries. `chapters_checked` counts the universe chapters those extraction chapters produced.",
+    "exit_ok": 0,
+    "exit_failed": 2
+  }
+}

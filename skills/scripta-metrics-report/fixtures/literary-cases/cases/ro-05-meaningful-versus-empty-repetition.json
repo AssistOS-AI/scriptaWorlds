@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "ro-05-meaningful-versus-empty-repetition",
+  "language": "ro",
+  "title": "Nu-i nimic",
+  "kind": "pair",
+  "target_distinction": "meaningful_versus_empty_repetition",
+  "distinction_statement": "Varianta slabă repetă o formulă fără ca ceva să se schimbe în jurul ei; varianta puternică o readuce de trei ori, cu alt obiect de fiecare dată.",
+  "intention": "Repetiția să însemne ceva prin schimbarea situației, nu prin numărul de repetări.",
+  "change": {
+    "feature": "repetition_function",
+    "description": "Paragraful 2 înlocuiește repetarea goalei formule cu trei momente în care aceeași propoziție costă din ce în ce mai mult.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "changed_meaning",
+    "text": "Mama spunea mereu același lucru, cu o voce pe care nu o ridica niciodată. Nu conta ce se întâmpla în cameră; ea zicea propoziția și trecea mai departe.\n\nÎn sala de așteptare, cu bandajul pe mână, a spus propoziția și a cerut un pahar cu apă. Acasă, când a văzut scaunul de la capul mesei rămas gol, a spus-o din nou și a tras scaunul la perete. La înmormântare, când a văzut haina atârnată în cuier, a spus-o a treia oară, dar de data asta a luat haina și a dus-o în dormitor, ca să nu o mai vadă nimeni.\n\nVerișoara a notat propoziția pe marginea unui plic, ca pe un lucru de păstrat."
+  },
+  "after": {
+    "label": "empty_repetition",
+    "text": "Mama spunea mereu același lucru, cu o voce pe care nu o ridica niciodată. Nu conta ce se întâmpla în cameră; ea zicea propoziția și trecea mai departe.\n\nNu-i nimic, nu-i nimic. Nu-i nimic, nu-i nimic. Nu-i nimic. Cuvintele se repetau, mereu aceleași, fără să se schimbe ceva. Repetiția nu însemna nimic; era doar un obicei de-al ei, o formulă pe care o spunea tuturor, la fel, oricând.\n\nVerișoara a notat propoziția pe marginea unui plic, ca pe un lucru de păstrat."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "Repetiția nu însemna nimic; era doar un obicei de-al ei",
+      "start": 288,
+      "end": 345,
+      "expectation": "citată ca repetiție fără schimbare de situație și fără miză"
+    },
+    {
+      "side": "before",
+      "quote": "a luat haina și a dus-o în dormitor, ca să nu o mai vadă nimeni",
+      "start": 468,
+      "end": 535,
+      "expectation": "citată ca dovadă că aceeași propoziție înseamnă altceva a treia oară"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "Formula poate suna ca resemnare în ambele variante, dacă cititorul ignoră schimbarea obiectelor.",
+    "Repetiția mai lungă poate produce ea însăși un efect de ritm; textul nu se bazează pe acesta."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case ro-05-meaningful-versus-empty-repetition",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": true,
+  "label": "synthetic_teaching_and_regression"
+}

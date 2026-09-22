@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-05-meaningful-versus-empty-repetition",
+  "language": "en",
+  "title": "It is fine, it is fine",
+  "kind": "pair",
+  "target_distinction": "meaningful_versus_empty_repetition",
+  "distinction_statement": "The weak version repeats the phrase with nothing changing around it; the strong version returns it three times, each time against a different object.",
+  "intention": "The repetition should mean something because the situation changes, not because the sentence appears several times.",
+  "change": {
+    "feature": "repetition_function",
+    "description": "Paragraph 2 replaces the bare repeated formula with three occasions on which the same words cost more each time.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "changed_meaning",
+    "text": "Aunt Ruth said the same four words in every room of that house, in the same tone, whether she was holding a teacup or a hospital form.\n\nIn the corridor outside the ward she said, It is fine, it is fine, and asked the nurse for a glass of water. At home, when she saw the coat still on the hook by the door, she said it again and took the coat into the back room, where nobody would walk past it. On the morning of the funeral she said it a third time, with her hand flat on the lid of the case, and then closed the case and put it on the shelf above the boiler.\n\nHer nephew wrote the phrase on the back of an envelope, as if it were something worth keeping."
+  },
+  "after": {
+    "label": "empty_repetition",
+    "text": "Aunt Ruth said the same four words in every room of that house, in the same tone, whether she was holding a teacup or a hospital form.\n\nIt is fine, it is fine. It is fine, it is fine. It is fine. The words came back, always the same, and nothing changed around them. The repetition meant nothing; it was only a habit of hers, a phrase she used for everyone, in the same way, at any hour.\n\nHer nephew wrote the phrase on the back of an envelope, as if it were something worth keeping."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "The repetition meant nothing; it was only a habit of hers",
+      "start": 267,
+      "end": 324,
+      "expectation": "quoted as repetition with no change of situation and no stake"
+    },
+    {
+      "side": "before",
+      "quote": "took the coat into the back room, where nobody would walk past it",
+      "start": 329,
+      "end": 394,
+      "expectation": "quoted as evidence that the same words mean something else the second time"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The habit itself can be read as a tic rather than a ritual.",
+    "The longer flat repetition may produce its own rhythm; the text does not rely on that effect."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-05-meaningful-versus-empty-repetition",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

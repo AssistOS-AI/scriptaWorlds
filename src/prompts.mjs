@@ -205,3 +205,66 @@ ${truncate(previousText, 20_000).trim()}
 
 FINAL REPLY (3-6 lines, in English): what you changed, what stayed the same, which thread stays open.`;
 }
+
+/**
+ * One import turn: ALA reads the extracted book and writes the universe files for a bounded range of its
+ * chapters. The text of the book is data — it is what the store must contain afterwards — so the prompt
+ * states the two conflicting duties explicitly: keep the prose, and describe it in the universe's own
+ * files. A range keeps one turn bounded, which is the only reason a long book can be imported at all.
+ */
+export function buildImportPrompt({
+  title,
+  language = DEFAULT_LANGUAGE,
+  extractionFile,
+  bookFile,
+  range,
+  totalChapters,
+  minWords,
+  maxWords,
+  detected = null,
+  warnings = []
+}) {
+  const languageName = languageLabel(language);
+  const from = range.from;
+  const to = range.to;
+  const detectedBlock = detected
+    ? `The extraction detected: title ${detected.title ? `"${detected.title}"` : 'unknown'}, author ${detected.author ? `"${detected.author}"` : 'unknown'}, language ${detected.language ?? 'unknown'}.`
+    : 'The extraction detected nothing about the book beyond its text.';
+  const warningsBlock = warnings.length
+    ? `WARNINGS FROM THE EXTRACTION\n${warnings.map((warning) => `- ${warning}`).join('\n')}\n\n`
+    : '';
+  return `You are importing a finished, published book into this universe. The book was not written here: it
+exists, and your task is to make this store contain it, chapter by chapter, in the shape this project uses.
+The book's own words are the record. Your own words describe that record.
+
+THE BOOK
+${detectedBlock} It arrived as ${totalChapters} chapter${totalChapters === 1 ? '' : 's'} after extraction; this turn covers
+chapters ${from} to ${to}.
+
+${warningsBlock}MANDATORY STEPS
+1. Read \`skill://scripta-import\` and follow it. It contains this workflow in full, including how to segment a
+   book that arrived as one piece.
+2. Read the extraction in this folder: \`${bookFile}\` is the readable text and \`${extractionFile}\` is the same
+   content as data (chapter titles, word counts, the source file's hash). Read only what this turn covers,
+   plus whatever earlier text you need for continuity.
+3. Write the chapters this turn covers to \`chapters/${pad(from)}-<slug>.md\` … \`chapters/${pad(to)}-<slug>.md\`,
+   numbered exactly as the extraction numbers them. The prose is the book's own, in its language: keep it
+   faithful, and confine yourself to what importing requires — segmenting a chapter the extractor could not
+   segment, joining a word broken across a line, dropping a running head or a page number. Never invent a
+   scene, never summarise in place of the text, never translate.
+4. If the extracted prose is in a different language than the book's declared language, keep the prose as it
+   is and say so in your final reply.
+5. Write \`canon.md\`, \`threads.json\` and \`atlas.json\` so they describe this book: the law the world obeys,
+   the facts it establishes, the threads it opens and leaves open, the places and agents it names. These are
+   your words, in English, and they must be true of the text you just read — never of the book's reputation
+   or of anything you know from outside it.
+6. Write \`drafts/${pad(from)}-plan.md\` … \`drafts/${pad(to)}-plan.md\`: for each chapter, what it does, what it
+   establishes and what it leaves open. A later rewrite reads these.
+7. Do not write \`universe.json\`, \`charter.md\` or \`turns/\`. Do not run \`git\`. Do not touch another universe.
+8. A chapter of this book is expected to be ${minWords}–${maxWords} words when the book's own chapters are that
+   long; a chapter that is longer or shorter is imported as it is, and you say so in your final reply.
+
+FINAL REPLY (3-6 lines, in English): which chapters you imported, what you wrote in the state files, anything
+the extraction got wrong that a later reader should know.
+`;
+}

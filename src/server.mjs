@@ -6,13 +6,22 @@ import { pathToFileURL } from 'node:url';
 import { LANGUAGES, config, requireOmp } from './config.mjs';
 import { SseConnection, readJsonBody, sendError, sendJson, serveFile, serveStatic } from './http.mjs';
 import { jobs } from './jobs.mjs';
-import { publicDir, syncUniverseSkills, universesDir } from './paths.mjs';
+import { publicDir, skillsDir, syncUniverseSkills, universesDir } from './paths.mjs';
 import { findTemplate, listTemplates } from './templates.mjs';
 import { cellDetail, tableForClient } from './periodic.mjs';
 import { acquireStoreLock } from './lock.mjs';
 import { creationFromTemplate, readLibraryIndex, readTemplate } from './library.mjs';
 import { firstChapterRequest } from './universe-prompts.mjs';
 import { recoverAllUniverses } from './universe-state.mjs';
+import {
+  createUniverseFromImport,
+  extractImport,
+  listImports,
+  loadImportContract,
+  readImport,
+  readImportStatus,
+  receiveImport
+} from './imports.mjs';
 import {
   cancelAssessment,
   listApprovals,
@@ -21,6 +30,7 @@ import {
   listArcEvents,
   listAssessments,
   readAssessment,
+  runOutputPath,
   recoverAssessments,
   retryAssessment,
   startAssessment
@@ -37,6 +47,7 @@ import {
   setUniverseStatus,
 } from './universe.mjs';
 import { UniverseError } from './errors.mjs';
+import { handleFeedbackRoutes } from './feedback-routes.mjs';
 
 const startedAt = Date.now();
 let ompInfo = { version: '', command: config.ompBin };
@@ -247,13 +258,28 @@ async function handleUniverses(req, res, segments, url) {
           corpus: body.corpus ?? null,
           fromTurn: Number.isInteger(body.fromTurn) ? body.fromTurn : null,
           trigger: 'requested',
-          force: body.force === true
+          force: body.force === true,
+          scope: body.scope ?? null,
+          chapters: Array.isArray(body.chapters) ? body.chapters : null,
+          aggregate: body.aggregate === true,
+          intention: body.intention ?? null,
+          weights: body.weights ?? null,
+          // Who produces the semantic observations: the caller's document, the configured evaluator, or
+          // nobody. The operator default is `ASSESSMENT_MODE`, so the interface sends nothing at all.
+          mode: body.mode ?? null
         });
         console.log(`[assess] ${run.run_id} ${run.phase} ${run.status} for ${id}${run.deduplicated ? ' (deduplicated)' : ''}`);
         sendJson(res, 202, { run });
         return true;
       }
       throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+    }
+    if (segments[5] === 'report') {
+      // The files one run published, served from its own result directory: the bundle and the views the
+      // interface renders. Only names the run itself lists are readable, so a path cannot escape it.
+      if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+      await serveFile(res, await runOutputPath(id, extra, segments[6]), { download: false });
+      return true;
     }
     if (req.method === 'GET') {
       // `/assessments` on an existing book: `GET /api/universes/:id/assessments` is the list above.
@@ -310,7 +336,9 @@ async function handleUniverses(req, res, segments, url) {
         arcId: body.arcId,
         note: body.note ?? null,
         phase: body.phase ?? 'metrics',
-        profile: body.profile ?? null
+        profile: body.profile ?? null,
+        aggregate: body.aggregate === true,
+        intention: body.intention ?? null
       });
       console.log(`[assess] arc ${declared.event.arc_id} complete at ${declared.event.version.slice(0, 18)}… for ${id}${declared.run ? '' : ' (no profile, no run)'}`);
       sendJson(res, 202, declared);
@@ -393,8 +421,80 @@ async function handleUniverses(req, res, segments, url) {
     req.on('close', unsubscribe);
     return true;
   }
+  // The reader-feedback surface of §8.7 lives in its own module, so this router stays a readable
+  // sequence of routes inside its size gate; it answers every feedback and reader route itself.
+  if (await handleFeedbackRoutes({ req, res, segments, id, sub, extra, url })) return true;
 
   throw new UniverseError('NOT_FOUND', 'Unknown route.', 404);
+}
+
+/**
+ * The book import: an uploaded PDF or DOCX becomes a universe the team can review, analyse and rewrite
+ * like any other book. The bytes are streamed to the workspace outside `universes/`, the extraction is
+ * deterministic, and the universe itself is written by an import turn under `scripta-import`.
+ */
+async function handleImports(req, res, segments, url) {
+  const importId = segments[2] ? decodeURIComponent(segments[2]) : null;
+  const action = segments[3] ?? null;
+
+  if (importId === null) {
+    if (req.method === 'GET') {
+      // The turn limits belong to the import skill, so the list reports the published ones rather than a
+      // number the server keeps for itself.
+      const contract = await loadImportContract(skillsDir).catch(() => null);
+      sendJson(res, 200, {
+        imports: await listImports(),
+        maxBytes: config.importMaxBytes,
+        turnLimits: contract ? contract.limits : null
+      });
+      return;
+    }
+    if (req.method === 'POST') {
+      const record = await receiveImport({
+        stream: req,
+        filename: req.headers['x-filename'] ?? url.searchParams.get('filename'),
+        format: req.headers['x-format'] ?? null
+      });
+      console.log(`[import] ${record.import_id} ${record.filename} ${Math.round(record.bytes / 1024)} KiB`);
+      sendJson(res, 202, { import: record });
+      return;
+    }
+    throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+  }
+
+  if (req.method === 'GET' && action === null) {
+    // The record carries how far the import has come: an imported book is written into the store one
+    // bounded turn at a time, so the reader needs both what arrived and what is left.
+    sendJson(res, 200, await readImportStatus(importId));
+    return;
+  }
+
+  if (req.method === 'POST' && action === 'universe') {
+    const body = await readJsonBody(req, config.maxBodyBytes).catch(() => ({}));
+    const created = await createUniverseFromImport({
+      importId,
+      title: typeof body.title === 'string' ? body.title : null,
+      language: typeof body.language === 'string' ? body.language : null
+    });
+    console.log(`[import] ${importId} → ${created.universe.id}${created.turn ? ` turn ${created.turn.turnNumber} chapters ${created.range.from}-${created.range.to}` : ' (complete)'}`);
+    sendJson(res, 202, { universe: created.universe, turn: created.turn, range: created.range, progress: created.progress });
+    return;
+  }
+
+  if (req.method === 'POST' && action === 'extract') {
+    const record = await readImport(importId);
+    if (record.state === 'received' || record.state === 'error') {
+      // Extraction runs in the background: a long book must not hold an HTTP request open, and the
+      // reader watches the record's state instead.
+      void extractImport(importId).catch((error) => {
+        console.log(`[import] ${importId} extraction failed: ${error?.code ?? error?.message}`);
+      });
+    }
+    sendJson(res, 202, { import: await readImport(importId) });
+    return;
+  }
+
+  throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
 }
 
 async function handleRequest(req, res) {
@@ -460,6 +560,11 @@ async function handleRequest(req, res) {
     const language = String(url.searchParams.get('language') ?? 'ro').slice(0, 2).toLowerCase();
     const templates = await listTemplates(language);
     sendJson(res, 200, { templates, count: templates.length });
+    return;
+  }
+
+  if (segments[1] === 'imports') {
+    await handleImports(req, res, segments, url);
     return;
   }
 

@@ -9,6 +9,8 @@ import { renderUniverseList } from './render/explore.js';
 import { renderHeader } from './render/header.js';
 import { renderMenuItems } from './render/menu.js';
 import { renderTrack } from './render/reader.js';
+import { resetAssessmentState } from './review.js';
+import { resetFeedbackState } from './responses.js';
 import { applyTransform, buildSlides, ensureChapterMarkdown, renderChapNav, updateNav } from './slides.js';
 import { stopEvents, syncEvents, unwatchJob, watchJob } from './sse.js';
 import { LIVE_STATUSES, UNIVERSE_KEY, chapterKey, clamp, dom, state } from './state.js';
@@ -30,6 +32,8 @@ export async function selectUniverse(id, { initial = false, targetIndex = null }
   state.live.clear();
   state.watched.clear();
   state.requests.clear();
+  resetAssessmentState();
+  resetFeedbackState();
   state.chapters.clear();
   state.turns.clear();
   state.ideas.delete(id);

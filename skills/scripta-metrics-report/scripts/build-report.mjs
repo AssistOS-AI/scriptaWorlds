@@ -19,7 +19,7 @@
  *             2 invalid input/arguments/schema, 1 execution failure.
  */
 
-import { realpathSync } from 'node:fs';
+import { existsSync, realpathSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -52,14 +52,28 @@ const ANNOTATIONS_SCHEMA_VERSION = 'annotations.v1';
 
 const USAGE =
   'Usage: node build-report.mjs --input <packet-dir> --out <result-dir> --profile <profile.json> ' +
-  '[--annotations <annotations.json>] [--corpus <manifest.json>]';
+  '[--annotations <annotations.json>] [--corpus <manifest.json>] [--study-root <dir>] [--allow-test-only-studies] ' +
+  '[--trigger <request|arc>] [--arc-id <id>]';
+
+/** The events that may cause a run. The host maps its own `requested` to `request`. */
+const TRIGGERS = ['request', 'arc'];
 
 function emit(payload) {
   process.stdout.write(`${JSON.stringify(payload)}\n`);
 }
 
 function parseArgs(argv) {
-  const options = { input: null, out: null, profile: null, annotations: null, corpus: null };
+  const options = {
+    input: null,
+    out: null,
+    profile: null,
+    annotations: null,
+    corpus: null,
+    studyRoot: null,
+    allowTestOnlyStudies: false,
+    trigger: 'request',
+    arcId: null,
+  };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     const need = (name) => {
@@ -73,11 +87,24 @@ function parseArgs(argv) {
     else if (arg === '--profile') options.profile = need(arg);
     else if (arg === '--annotations') options.annotations = need(arg);
     else if (arg === '--corpus') options.corpus = need(arg);
+    else if (arg === '--study-root') options.studyRoot = need(arg);
+    else if (arg === '--allow-test-only-studies') options.allowTestOnlyStudies = true;
+    else if (arg === '--trigger') options.trigger = need(arg);
+    else if (arg === '--arc-id') options.arcId = need(arg);
     else fail(`unknown argument: ${arg}. ${USAGE}`, 'USAGE');
   }
   if (!options.input) fail(`missing --input. ${USAGE}`, 'USAGE');
   if (!options.out) fail(`missing --out. ${USAGE}`, 'USAGE');
   if (!options.profile) fail(`missing --profile. ${USAGE}`, 'USAGE');
+  if (!TRIGGERS.includes(options.trigger)) {
+    fail(`--trigger must be one of ${TRIGGERS.join('|')}, got ${JSON.stringify(options.trigger)}. ${USAGE}`, 'USAGE');
+  }
+  if (options.trigger === 'arc' && !options.arcId) {
+    fail(`--trigger arc requires --arc-id <id>. ${USAGE}`, 'USAGE');
+  }
+  if (options.trigger !== 'arc' && options.arcId) {
+    fail(`--arc-id is only valid with --trigger arc. ${USAGE}`, 'USAGE');
+  }
   return options;
 }
 
@@ -155,6 +182,13 @@ function main(argv) {
   const packetDir = resolve(options.input);
   const outDir = resolve(options.out);
   const profilePath = resolve(options.profile);
+  const studyRoot = options.studyRoot === null ? null : resolve(options.studyRoot);
+  // A declared study root is where the profile's calibration artifacts must
+  // resolve; a typo must not silently turn a production claim into an
+  // unverifiable one.
+  if (studyRoot !== null && !(existsSync(studyRoot) && statSync(studyRoot).isDirectory())) {
+    fail(`--study-root is not a readable directory: ${options.studyRoot}. ${USAGE}`, 'USAGE');
+  }
 
   const packet = loadPacket(packetDir);
 
@@ -179,7 +213,20 @@ function main(argv) {
     corpus = loadCorpusManifest(corpusPath);
   }
 
-  const bundle = assess({ packet, profile, profileRaw, annotations, annotationsRaw, corpus, corpusRaw, annotationsDir });
+  const bundle = assess({
+    packet,
+    profile,
+    profileRaw,
+    annotations,
+    annotationsRaw,
+    corpus,
+    corpusRaw,
+    annotationsDir,
+    trigger: options.trigger,
+    arcId: options.arcId,
+    studyRoot,
+    allowTestOnlyStudies: options.allowTestOnlyStudies,
+  });
   const views = renderViews(bundle);
 
   const files = [

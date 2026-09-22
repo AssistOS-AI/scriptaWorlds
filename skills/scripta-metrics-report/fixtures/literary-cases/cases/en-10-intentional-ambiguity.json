@@ -1,0 +1,57 @@
+{
+  "schema_version": "literary-case.v1",
+  "id": "en-10-intentional-ambiguity",
+  "language": "en",
+  "title": "The parcel on the step",
+  "kind": "pair",
+  "target_distinction": "intentional_ambiguity",
+  "distinction_statement": "The weak version opens two readings that exclude each other in fact; the strong version leaves two readings, each with its own objects.",
+  "intention": "The ending should stay open for a reader without resting on facts that cannot both be true.",
+  "change": {
+    "feature": "interpretive_openness",
+    "description": "Paragraph 2 replaces the sealed-and-opened parcel with the missing coat, the boots still by the door and the cut strip of tape under the keys.",
+    "changed_paragraphs": [
+      2
+    ]
+  },
+  "before": {
+    "label": "evidenced_openness",
+    "text": "The parcel had been on the step since the day before, with the rain having lifted one corner of the tape. The tea beside it in the mug had gone cold and the mug was full.\n\nThe coat was gone from the hook by the door, but her boots were still there, side by side, with mud on the heels. There were tea leaves at the bottom of the mug, as if someone had drunk it to the end and then filled it again with water and set it down, full. The parcel had been opened and taped shut again, and the strip of tape that had been cut away was folded on the hall table under the keys. It could be read that she left before light, or that she read the papers inside and chose to stay; both readings have an object of their own.\n\nAt seven the doorbell rang, and nobody answered it."
+  },
+  "after": {
+    "label": "unmotivated_gap",
+    "text": "The parcel had been on the step since the day before, with the rain having lifted one corner of the tape. The tea beside it in the mug had gone cold and the mug was full.\n\nThe parcel was sealed with tape, exactly as the courier had left it. Yet she had opened it three times before she slept, and then sealed it again, and the seal was found unbroken in the morning, although nobody had come into the house. Whether she had left could not be known, because there was no trace in either direction.\n\nAt seven the doorbell rang, and nobody answered it."
+  },
+  "weaker_side": "after",
+  "expected_evidence": [
+    {
+      "side": "after",
+      "quote": "there was no trace in either direction",
+      "start": 457,
+      "end": 495,
+      "expectation": "quoted as an absence of evidence that supports neither reading"
+    },
+    {
+      "side": "before",
+      "quote": "The coat was gone from the hook by the door, but her boots were still there",
+      "start": 172,
+      "end": 247,
+      "expectation": "quoted as an object that supports one reading in particular"
+    }
+  ],
+  "acceptable_alternative_readings": [
+    "The two readings collapse into one if the reader decides the coat is gone for another reason.",
+    "The text never confirms whether she is inside the house; both readings stay open."
+  ],
+  "provenance": {
+    "author": "scriptaWorlds executor session (task C39)",
+    "created": "2026-09-22",
+    "origin": "authored for task C39 of astra_tasks.md; case en-10-intentional-ambiguity",
+    "material": "original_synthetic",
+    "rights": "written for this repository; no third-party text is quoted or adapted",
+    "model_calls": "none"
+  },
+  "synthetic": true,
+  "regression": false,
+  "label": "synthetic_teaching_and_regression"
+}

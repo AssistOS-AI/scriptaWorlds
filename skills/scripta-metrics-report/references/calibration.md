@@ -32,7 +32,40 @@ Use multiple runs when generation is stochastic and report their spread. Save ou
 
 Keep initial reports descriptive. Tune rubrics on development examples, freeze the version, then evaluate on held-out examples. Choose any future alert threshold from observed false-positive/false-negative tradeoffs and the intended use. Literary scores remain advisory under the user's decision regardless of the threshold.
 
-Before enabling NQS, test whether its weighting changes align with human preferences and whether one duplicated flaw dominates several components. Test whether low SI rewards incoherent variation. Examine language/genre-specific failures rather than hiding them in a global average. Keep EAP as a profile and validate any separate emotional-fit annotation.
+NQS has two policies. `research` names an experimental formula: it may be used in ordinary reports with declared weights, an explicit advisory note and a stated emotional intention, and it claims nothing about readers. `production` claims calibration support, and that claim needs a completed study bound to the rubric and profile versions, the language and the scope — so it stays refused until verifiable study artifacts exist. A study that wants to turn a research aggregate into a production one tests whether its weighting changes align with human preferences, whether one duplicated flaw dominates several components, and whether low SI rewards incoherent variation; it examines language and genre specific failures rather than hiding them in a global average, keeps EAP as a profile and validates any separate emotional-fit annotation.
+
+### What a production claim must prove
+
+A self-declaration is not evidence. Writing `held_out: true` and an evidence list into a profile proves nothing: the strings are whatever the profile's author typed, so the profile cannot declare its own support. The record may only name a study artifact, and everything else is read from that artifact and from the files on disk:
+
+```json
+"aggregation": {
+  "enabled": true,
+  "policy": "production",
+  "scope": "chapter 1",
+  "rubric_version": "rubric-anchors.v1",
+  "weights": { "cs": 0.4, "oi": 0.35, "emotional_fit": 0.25 },
+  "emotional_fit": { "procedure": "separate-judgement", "intent": "..." },
+  "calibration": { "study": "c34-pilot.json" }
+}
+```
+
+`calibration.study` resolves against the run's declared study root (`--study-root <dir>` on `scripts/build-report.mjs`), and only `study` and an optional `study_id` are accepted there; `held_out` or an inline `evidence` list in the profile is refused as an invalid profile. The study artifact is a `calibration-study.v1` document, published in `schema/study.v1.json` and verified against the filesystem:
+
+```json
+{
+  "schema_version": "calibration-study.v1",
+  "study_id": "c34-pilot",
+  "test_only": false,
+  "held_out": true,
+  "bindings": { "rubric_version": "rubric-anchors.v1", "profile_version": "nqs-profile.v1", "language": "ro", "scope": "chapter 1" },
+  "evidence": [ { "id": "held-out-labels", "path": "labels.json", "sha256": "<64 hex>" } ]
+}
+```
+
+Verification is local and re-derivable: every evidence path resolves inside the study document's own directory (no traversal, no symlink escape), exists, and its bytes hash to the declared sha256. The claim fails — NQS stays unavailable with the reason, and the rest of the report is still computed — when an artifact is absent, when a hash mismatches, when a binding is missing, or when a binding contradicts this assessment: a study that measured another language, another rubric version, another scope or another profile version cannot support this claim, and neither can one with no held-out evaluation.
+
+`test_only: true` marks a synthetic or test fixture. Such a study is refused as production support unless the caller passes the documented `--allow-test-only-studies` opt-in, and even then the computed metric states that its support is a test-only study and is labelled a limited finding, so the fixture label cannot be laundered into a human result. The synthetic fixture shipped with the skill (`fixtures/calibration/`) exists exactly to demonstrate that path and is marked synthetic in its own name and content; no real human-study data is invented anywhere in this repository.
 
 ## Operational cost and reproducibility
 

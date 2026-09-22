@@ -9,9 +9,13 @@ import { config } from './config.mjs';
 import { nowIso, readJson, writeJson } from './io.mjs';
 import { UniverseError } from './errors.mjs';
 import { skillsDir } from './paths.mjs';
+import { annotationsFile, corpusFile, profileFile, resolveAssessmentInputs } from './assessment-inputs.mjs';
+import { acceptedChapters } from './universe-chapters.mjs';
+import { genericProfile } from './generic-profile.mjs';
+import { ANNOTATION_MODES, generateAnnotations, loadAnnotationExamples } from './annotation-stage.mjs';
 import {
-  EXTRA_ROLES,
   PHASES,
+  inputFingerprint,
   acceptedVersion,
   assessmentsRoot,
   capturePacket,
@@ -30,26 +34,42 @@ const arcEventFile = (universeId, arcId, version) => join(universeWorkspace(univ
 const MAX_APPROVAL_DIRECTIONS = 8;
 const MAX_APPROVAL_DIRECTION_CHARS = 400;
 /** The phase command of one skill: arguments only, no model, no working directory that matters. */
-function phaseCommand(phase, { inputDir, resultDir, profilePath }) {
+function phaseCommand(phase, { inputDir, resultDir, paths, annotationsPath = null, trigger = 'requested', arcId = null }) {
+  const annotations = annotationsPath
+    ? ['--annotations', annotationsPath]
+    : paths.annotations ? ['--annotations', join(inputDir, paths.annotations)] : [];
   if (phase === 'continuity') {
     return {
       script: join(skillsDir, 'scripta-continuity-review', 'scripts', 'review-continuity.mjs'),
-      args: ['--input', inputDir, '--out', resultDir]
+      args: ['--input', inputDir, '--out', resultDir, ...annotations]
     };
   }
   if (phase === 'metrics') {
-    if (!profilePath) throw new UniverseError('NO_PROFILE', 'The metrics phase needs a profile.', 400);
+    if (!paths.profile) throw new UniverseError('NO_PROFILE', 'The metrics phase needs a profile.', 400);
+    const corpus = paths.corpus ? ['--corpus', join(inputDir, paths.corpus)] : [];
+    // The report names the event that caused it: the host says `requested|arc`, the bundle says
+    // `request|arc`, and this is the one place the mapping happens.
+    const triggerArgs = trigger === 'arc' && arcId
+      ? ['--trigger', 'arc', '--arc-id', arcId]
+      : ['--trigger', 'request'];
     return {
       script: join(skillsDir, 'scripta-metrics-report', 'scripts', 'build-report.mjs'),
-      args: ['--input', inputDir, '--out', resultDir, '--profile', profilePath]
+      args: ['--input', inputDir, '--out', resultDir, '--profile', join(inputDir, paths.profile), ...annotations, ...corpus, ...triggerArgs]
     };
   }
   throw new UniverseError('BAD_PHASE', `Unknown assessment phase (${PHASES.join('|')}).`, 400);
 }
 
+/**
+ * A frozen version's directory inside a universe's workspace. Anything else that lives there — the arc
+ * events, the feedback targets and entries of the team's readers — is not a run and is never walked as
+ * one, so a `run.json` written by some other feature can never be mistaken for a review.
+ */
+const isVersionDir = (name) => /^sha256-[0-9a-f]{8,}$/.test(name);
+
 async function readRun(universeId, runId) {
   for (const versionDir of await readdir(universeWorkspace(universeId)).catch(() => [])) {
-    if (versionDir === 'arc-events') continue;
+    if (!isVersionDir(versionDir)) continue;
     for (const name of await readdir(join(universeWorkspace(universeId), versionDir)).catch(() => [])) {
       const record = await readJson(join(universeWorkspace(universeId), versionDir, name, 'run.json'), null);
       if (record?.run_id === runId) return { record, versionDir };
@@ -59,10 +79,17 @@ async function readRun(universeId, runId) {
 }
 
 /** Every run of a universe, newest first, with its freshness against the current accepted version. */
+/** The hash of a continuity result supplied inside an annotations bundle, or `null`. */
+function annotationsContinuitySha256(annotations) {
+  if (!annotations || typeof annotations !== 'object') return null;
+  const continuity = annotations.continuity ?? annotations.continuity_result ?? null;
+  return continuity ? sha256(JSON.stringify(continuity)) : null;
+}
+
 export async function listAssessments(universeId) {
   const runs = [];
   for (const versionDir of await readdir(universeWorkspace(universeId)).catch(() => [])) {
-    if (versionDir === 'arc-events') continue;
+    if (!isVersionDir(versionDir)) continue;
     for (const name of await readdir(join(universeWorkspace(universeId), versionDir)).catch(() => [])) {
       const record = await readJson(join(universeWorkspace(universeId), versionDir, name, 'run.json'), null);
       if (record) runs.push(record);
@@ -71,11 +98,21 @@ export async function listAssessments(universeId) {
   const current = await currentVersion(universeId);
   return runs
     .map((record) => ({ ...record, historical: current !== null && record.version !== current }))
-    .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+    .sort((a, b) => String(b.created_at ?? '').localeCompare(String(a.created_at ?? '')) || String(b.run_id).localeCompare(String(a.run_id)));
 }
 
 const running = new Map();
 const pending = new Map();
+// Creations are serialized per universe: the duplicate scan and the record write must not interleave,
+// or two simultaneous requests would each find nothing and each write a run.
+const creationChains = new Map();
+
+function serializeCreation(universeId, work) {
+  const previous = creationChains.get(universeId) ?? Promise.resolve();
+  const next = previous.then(work, work);
+  creationChains.set(universeId, next.then(() => undefined, () => undefined));
+  return next;
+}
 
 /**
  * Run a phase in the background and remember the task, so `settleAssessments` cannot miss a run that
@@ -97,35 +134,125 @@ function launch(universeId, record) {
 }
 
 /** Start one review of one frozen version. The universe is never written by a phase. */
-export async function startAssessment({ universeId, phase = 'metrics', profile = null, annotations = null, corpus = null, fromTurn = null, trigger = 'requested', arcId = null, force = false }) {
+export async function startAssessment({
+  universeId,
+  phase = 'metrics',
+  profile = null,
+  annotations = null,
+  corpus = null,
+  fromTurn = null,
+  trigger = 'requested',
+  arcId = null,
+  force = false,
+  scope = null,
+  chapters = null,
+  aggregate = false,
+  intention = null,
+  weights = null,
+  mode = null,
+  request = null,
+  brief = null,
+  annotationModel = config.model
+}) {
   if (!PHASES.includes(phase)) {
     throw new UniverseError('BAD_PHASE', `Unknown assessment phase (${PHASES.join('|')}).`, 400);
   }
+  // A metrics review without a profile is the ordinary case: the host uses its own generic profile, so a
+  // reader never has to author JSON. A caller who brings a profile keeps it untouched.
+  const profileSource = profile ? 'supplied' : (phase === 'metrics' ? 'generic' : 'none');
   if (phase === 'metrics' && !profile) {
-    throw new UniverseError('NO_PROFILE', 'The metrics phase needs a profile (schema_version profile.v1).', 400);
+    // The generic scope has to be decided before the packet exists (the profile is a packet file), so it
+    // is derived from the accepted chapters: a contiguous book is a whole-book review, and a book with
+    // gaps is reviewed chapter by chapter instead of pretending to cover chapters it does not have.
+    const accepted = (await acceptedChapters(universeId)).map((chapter) => chapter.number).sort((a, b) => a - b);
+    const contiguous = accepted.length > 0 && accepted.every((number, index) => number === index + 1);
+    profile = genericProfile({
+      scope,
+      chapters,
+      aggregate,
+      intention,
+      weights,
+      packetScope: contiguous
+        ? { kind: 'complete', chapters: accepted }
+        : { kind: 'partial', chapters: accepted, omitted: [] }
+    });
   }
+  // The vocabulary of the host is `requested|arc`; the report bundle says `request|arc`. The mapping is
+  // explicit here and in `docs/contracts.md` §8.5 so a reader of either side knows the other word.
+  const requestedTrigger = trigger ?? 'requested';
+  if (!['requested', 'arc'].includes(requestedTrigger)) {
+    throw new UniverseError('BAD_TRIGGER', 'A run is `requested` or `arc`.', 400);
+  }
+  // Who writes the semantic observations: the caller (`supplied`), the model in this workspace
+  // (`generic`, the default), or nobody (`deterministic`, which leaves those results unavailable and
+  // says so). Supplied annotations always win, because the caller brought evidence.
+  const annotationMode = annotations ? 'supplied' : (mode ?? config.assessmentMode);
+  if (annotations && mode && mode !== 'supplied') {
+    throw new UniverseError('BAD_MODE', 'Supplied annotations and a generated mode are mutually exclusive.', 400);
+  }
+  if (!ANNOTATION_MODES.includes(annotationMode)) {
+    throw new UniverseError('BAD_MODE', `A review mode is ${ANNOTATION_MODES.join('|')}.`, 400);
+  }
+  if (annotationMode === 'deterministic' && phase === 'continuity') {
+    // Continuity has no model stage: it reviews the frozen state and whatever the caller supplies.
+    // `deterministic` is therefore the only honest description of its default.
+    // (Kept explicit so a caller who asks for the impossible hears about it.)
+    if (mode && mode !== 'deterministic' && mode !== 'supplied') {
+      throw new UniverseError('BAD_MODE', 'The continuity phase takes supplied annotations or none; it has no model stage.', 400);
+    }
+  }
+  const declared = resolveAssessmentInputs(phase, {
+    profile,
+    annotations: annotationMode === 'supplied' ? annotations : null,
+    corpus
+  });
   const runId = `${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}-${phase}-${randomBytes(2).toString('hex')}`;
   const captured = await capturePacket(universeId, {
     runId,
     fromTurn,
-    extras: {
-      ...(profile ? { profile } : {}),
-      ...(annotations ? { annotations } : {}),
-      ...(corpus ? { corpus } : {})
-    }
+    extraFiles: declared.files
   });
-  const profilePath = profile ? join(captured.dir, 'input', EXTRA_ROLES.profile) : null;
+  const profilePath = declared.paths.profile ? join(captured.dir, 'input', declared.paths.profile) : null;
+  // The scope this run was asked for: the profile declares it, and the packet's coverage is recorded beside
+  // it. It is part of the identity, because the same profile on another scope is another review.
+  const requestedScope = profile && typeof profile === 'object' && profile.scope && typeof profile.scope === 'object'
+    ? { kind: profile.scope.kind ?? null, chapters: Array.isArray(profile.scope.chapters) ? profile.scope.chapters : [], omitted: [] }
+    : { kind: captured.manifest.scope.kind, chapters: captured.manifest.scope.chapters, omitted: captured.manifest.scope.omitted };
   const record = {
     schema_version: RUN_SCHEMA,
     run_id: runId,
     universe_id: universeId,
     phase,
-    trigger,
+    trigger: requestedTrigger,
     arc_id: arcId ?? null,
     version: captured.manifest.version,
     scope: captured.manifest.scope,
+    requested_scope: requestedScope,
+    profile_source: profileSource,
+    annotation_mode: annotationMode,
+    annotation_prompt_version: null,
+    annotation_model: annotationMode === 'generic' ? annotationModel : null,
+    annotation_attempts: null,
+    annotation_errors: null,
+    generated_annotations: null,
+    packet_intact: true,
+    request_text: request ? String(request).slice(0, 2000) : null,
+    intention_text: intention ? String(intention).slice(0, 1000) : null,
+    brief_text: brief ? String(brief).slice(0, 2000) : null,
     profile_sha256: profilePath ? sha256(await readFile(profilePath)) : null,
     annotations: annotations ? true : false,
+    // What the review actually consumed, with hashes: the declared inputs are part of the packet, so
+    // provenance can name them exactly.
+    inputs: captured.manifest.files
+      .filter((file) => !['chapter', 'offer', 'canon', 'threads', 'atlas'].includes(file.role))
+      .map((file) => ({ path: file.path, role: file.role, artifact_id: file.artifact_id, sha256: file.sha256, bytes: file.bytes })),
+    // Resources the packet carries beside its inventory (the texts a declared corpus compares against),
+    // with their hashes: the manifest of the input declares the same hashes, and the review recomputes them.
+    resources: captured.resources.map((resource) => ({ path: resource.path, role: resource.role, sha256: resource.sha256, bytes: resource.bytes })),
+    annotations_sha256: declared.paths.annotations
+      ? captured.manifest.files.find((file) => file.path === annotationsFile)?.sha256 ?? null
+      : null,
+    corpus_manifest_sha256: declared.paths.corpus ? captured.manifest.files.find((file) => file.path === corpusFile)?.sha256 ?? null : null,
     input_dir: relative(assessmentsRoot(), captured.inputDir),
     result_dir: relative(assessmentsRoot(), join(captured.dir, 'result')),
     status: 'queued',
@@ -137,34 +264,138 @@ export async function startAssessment({ universeId, phase = 'metrics', profile =
     outputs: [],
     historical: false
   };
-  if (!force) {
-    const duplicate = (await listAssessments(universeId)).find((run) => run.phase === phase
-      && run.version === record.version
-      && (run.profile_sha256 ?? null) === record.profile_sha256
-      && Boolean(run.annotations) === Boolean(record.annotations)
-      && run.arc_id === record.arc_id
-      && (run.status === 'done' || run.status === 'running' || run.status === 'queued'));
-    if (duplicate) {
-      await rm(captured.dir, { recursive: true, force: true });
-      return { ...duplicate, deduplicated: true };
+  const fingerprint = inputFingerprint({
+    phase,
+    version: record.version,
+    scope: requestedScope,
+    trigger: requestedTrigger,
+    arcId: record.arc_id,
+    profileSha256: record.profile_sha256,
+    annotationsSha256: record.annotations_sha256,
+    corpusManifestSha256: record.corpus_manifest_sha256,
+    resources: record.resources,
+    continuitySha256: annotationsContinuitySha256(annotations),
+    mode: 'deterministic'
+  });
+  record.input_fingerprint = fingerprint;
+  return serializeCreation(universeId, async () => {
+    if (!force) {
+      // Only a record that carries the same fingerprint is a duplicate: one written before fingerprints
+      // existed cannot prove that it reviewed the same evidence.
+      const duplicate = (await listAssessments(universeId)).find((run) => run.input_fingerprint
+        && run.input_fingerprint === fingerprint
+        && ['done', 'running', 'queued'].includes(run.status));
+      if (duplicate) {
+        await rm(captured.dir, { recursive: true, force: true });
+        return { ...duplicate, deduplicated: true };
+      }
     }
-  }
-  await writeJson(runFile(universeId, record.version, runId), record);
-  launch(universeId, record);
-  return record;
+    await writeJson(runFile(universeId, record.version, runId), record);
+    launch(universeId, record);
+    return record;
+  });
 }
 
 /** Run the phase as a child process, record the outcome, and never touch the store. */
+/** Whether this run already holds the observations it was asked for, so a retry does not pay twice. */
+async function hasGeneratedAnnotations(directory, record) {
+  if (!record.generated_annotations) return false;
+  const path = join(directory, record.generated_annotations);
+  const info = await stat(path).catch(() => null);
+  if (!info || !info.isFile()) return false;
+  const bytes = await readFile(path, 'utf8').catch(() => null);
+  if (bytes === null) return false;
+  record.annotations_sha256 = sha256(bytes);
+  return true;
+}
+
+/**
+ * The annotation stage of one queued run: read the frozen packet, ask the configured evaluator for a
+ * document, validate it against the packet, and keep it beside the run. The record is updated in place so
+ * that the attempt history survives a restart, and the phase that follows reads the accepted document from
+ * outside the packet — the evidence the review was asked about is never touched.
+ */
+async function generateAnnotationsForRun(universeId, record) {
+  const dir = runDir(universeId, record.version, record.run_id);
+  const inputDir = join(dir, 'input');
+  const manifest = await readJson(join(inputDir, 'manifest.json'), null);
+  if (!manifest) return { ok: false, reason: 'the frozen packet of this run is gone' };
+  const files = [];
+  for (const file of manifest.files) {
+    const text = await readFile(join(inputDir, file.path), 'utf8').catch(() => null);
+    if (text !== null) files.push({ path: file.path, role: file.role, sha256: file.sha256, bytes: file.bytes, text });
+  }
+  const examples = await loadAnnotationExamples(skillsDir).catch(() => []);
+  const generated = await generateAnnotations({
+    skillsDir,
+    runDir: dir,
+    inputDir,
+    manifest,
+    files,
+    scope: record.scope ?? { kind: 'book' },
+    book: manifest.book,
+    request: record.request_text,
+    intention: record.intention_text,
+    brief: record.brief_text,
+    examples,
+    timeoutMs: config.assessmentTimeoutMs,
+    model: record.annotation_model ?? config.model
+  });
+  record.annotation_attempts = generated.attempts;
+  record.annotation_errors = (generated.validation?.errors ?? []).slice(0, 12);
+  record.annotation_prompt_version = generated.prompt_version;
+  record.packet_intact = generated.packet_intact;
+  if (!generated.ok) {
+    return {
+      ok: false,
+      reason: (generated.validation?.errors ?? []).slice(0, 3).join('; ') || 'the annotation stage produced no usable document'
+    };
+  }
+  record.generated_annotations = generated.relativePath;
+  record.annotations_sha256 = generated.sha256;
+  record.annotation_model = generated.model ?? record.annotation_model;
+  await writeJson(runFile(universeId, record.version, record.run_id), record);
+  return { ok: true, generated };
+}
+
 export async function executeAssessment(universeId, record) {
   const directory = runDir(universeId, record.version, record.run_id);
   const inputDir = join(directory, 'input');
   const resultDir = join(directory, 'result');
-  const profilePath = record.profile_sha256 ? join(inputDir, EXTRA_ROLES.profile) : null;
-  const command = phaseCommand(record.phase, { inputDir, resultDir, profilePath });
   record.status = 'running';
   record.started_at = nowIso();
   await writeJson(runFile(universeId, record.version, record.run_id), record);
   await mkdir(resultDir, { recursive: true });
+
+  // Who produces the semantic observations is decided at request time, but the work happens here: a review
+  // whose observations come from the configured evaluator spends one or two model calls, and a caller must
+  // not be made to hold an HTTP request open for that. The run exists from the start, so the interface
+  // shows it as running while the evaluator reads, and a retry that already holds an accepted document
+  // reuses it instead of paying for another reading.
+  if (record.annotation_mode === 'generic' && !(await hasGeneratedAnnotations(directory, record))) {
+    const staged = await generateAnnotationsForRun(universeId, record);
+    if (!staged.ok) {
+      record.status = 'error';
+      record.error = `annotation stage: ${staged.reason}`;
+      record.finished_at = nowIso();
+      await writeJson(runFile(universeId, record.version, record.run_id), record);
+      return record;
+    }
+  }
+  // The phase is only told about the document once it exists: generated observations live beside the run,
+  // never inside the frozen packet, and the packet stays exactly the input the review was asked about.
+  const command = phaseCommand(record.phase, {
+    inputDir,
+    resultDir,
+    paths: {
+      profile: record.profile_sha256 ? profileFile : null,
+      annotations: record.annotations ? annotationsFile : null,
+      corpus: record.corpus_manifest_sha256 ? corpusFile : null
+    },
+    annotationsPath: record.generated_annotations ? join(directory, record.generated_annotations) : null,
+    trigger: record.trigger,
+    arcId: record.arc_id
+  });
   const outcome = await new Promise((resolve) => {
     const child = spawn(process.execPath, [command.script, ...command.args], {
       cwd: directory,
@@ -213,6 +444,23 @@ export async function executeAssessment(universeId, record) {
   record.log = { stdout: outcome.stdout.slice(-20_000), stderr: outcome.stderr.slice(-8_000) };
   await writeJson(runFile(universeId, record.version, record.run_id), record);
   return record;
+}
+
+/**
+ * The absolute path of one file a run published. Only the names that run lists can be read, and only as
+ * plain file names, so a request cannot name a path into the result directory or outside it. The route
+ * that serves reports uses this rather than building a path of its own.
+ */
+export async function runOutputPath(universeId, runId, name) {
+  const wanted = String(name ?? '');
+  if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,120}$/.test(wanted) || wanted.includes('..')) {
+    throw new UniverseError('BAD_FILE', 'A report file is a plain file name, not a path.', 400);
+  }
+  const run = await readAssessment(universeId, runId);
+  if (!Array.isArray(run.outputs) || !run.outputs.includes(wanted)) {
+    throw new UniverseError('NOT_FOUND', `This run published no file named ${JSON.stringify(wanted)}.`, 404);
+  }
+  return join(assessmentsRoot(), run.result_dir, wanted);
 }
 
 export async function readAssessment(universeId, runId) {
@@ -267,7 +515,7 @@ export async function retryAssessment(universeId, runId) {
  * Record that an arc is complete in a specific accepted version, and offer the assessment that the
  * event implies. A planned `completed` flag in a design proposal is not an event; this is.
  */
-export async function declareArcCompletion({ universeId, arcId, note = null, phase = 'metrics', profile = null }) {
+export async function declareArcCompletion({ universeId, arcId, note = null, phase = 'metrics', profile = null, aggregate = false, intention = null, mode = null }) {
   const cleanId = String(arcId ?? '').trim();
   if (!/^[a-z0-9][a-z0-9-]{1,63}$/.test(cleanId)) {
     throw new UniverseError('BAD_ARC', 'An arc identifier is lowercase letters, digits and hyphens.', 400);
@@ -286,9 +534,18 @@ export async function declareArcCompletion({ universeId, arcId, note = null, pha
   };
   await mkdir(join(universeWorkspace(universeId), 'arc-events'), { recursive: true });
   await writeFile(arcEventFile(universeId, cleanId, version), JSON.stringify(event, null, 2), 'utf8');
-  // The event is the durable fact. The assessment it implies starts when the host supplies a profile,
-  // because the metrics phase cannot run without one.
-  const run = profile ? await startAssessment({ universeId, phase, profile, trigger: 'arc', arcId: cleanId }) : null;
+  // The event is the durable fact, and it schedules the generic report by default: a team does not have
+  // to hand-author a profile for an arc review. A supplied profile is used as it is.
+  const run = await startAssessment({
+    universeId,
+    phase,
+    profile: profile ?? null,
+    trigger: 'arc',
+    arcId: cleanId,
+    aggregate: aggregate === true,
+    intention: intention ?? null,
+    mode
+  });
   return { event, run };
 }
 

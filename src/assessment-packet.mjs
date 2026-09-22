@@ -19,16 +19,6 @@ const STATE_FILES = [
   { path: 'threads.json', role: 'threads' },
   { path: 'atlas.json', role: 'atlas' }
 ];
-// Files a caller may hand to the phase as declared inputs, each with its own role.
-export const EXTRA_ROLES = {
-  annotations: 'annotations.json',
-  corpus: 'corpus.json',
-  rules: 'rules.json',
-  timing: 'timing.json',
-  design: 'design.json',
-  profile: 'profile.json'
-};
-
 export const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 export const versionSlug = (version) => String(version ?? '').replace(/^sha256:/, 'sha256-');
 
@@ -46,7 +36,49 @@ export function acceptedVersion(entries) {
   return `sha256:${sha256(lines)}`;
 }
 
+/**
+ * The identity of what a run consumed: phase, accepted version, the resolved scope, and the hash of
+ * every effective input — profile, annotations, the corpus manifest and each resource it references,
+ * any supplied continuity result, and (once the host calls a model) the evaluator and prompt versions
+ * and the mode. Two requests with the same fingerprint are the same assessment; a request that changes
+ * any evidence is a different one. A record written before fingerprints existed carries none, so it can
+ * never be proven identical to a new request.
+ */
+export function inputFingerprint({
+  phase,
+  version,
+  scope = null,
+  trigger = 'requested',
+  arcId = null,
+  profileSha256 = null,
+  annotationsSha256 = null,
+  corpusManifestSha256 = null,
+  resources = [],
+  continuitySha256 = null,
+  evaluator = null,
+  prompt = null,
+  mode = null
+} = {}) {
+  const payload = [
+    'assessment-input.v1',
+    `phase:${phase ?? 'none'}`,
+    `version:${version ?? 'none'}`,
+    `scope:${scope ? `${scope.kind}:${(scope.chapters ?? []).join(',')}:${(scope.omitted ?? []).join(',')}` : 'none'}`,
+    `trigger:${trigger}${arcId ? `:${arcId}` : ''}`,
+    `profile:${profileSha256 ?? 'none'}`,
+    `annotations:${annotationsSha256 ?? 'none'}`,
+    `corpus:${corpusManifestSha256 ?? 'none'}`,
+    ...[...resources].sort((a, b) => String(a.path).localeCompare(String(b.path))).map((resource) => `resource:${resource.path}\t${resource.sha256}`),
+    `continuity:${continuitySha256 ?? 'none'}`,
+    `evaluator:${evaluator ?? 'none'}`,
+    `prompt:${prompt ?? 'none'}`,
+    `mode:${mode ?? 'deterministic'}`
+  ].join('\n');
+  return `sha256:${sha256(payload)}`;
+}
+
 const artifactId = (entry) => {
+  if (entry.artifact_id) return entry.artifact_id;
   if (entry.role === 'chapter' || entry.role === 'offer') return `${entry.role}-${String(entry.chapter).padStart(4, '0')}`;
   return entry.role;
 };
@@ -94,7 +126,7 @@ async function packetSources(universeId, { fromTurn = null } = {}) {
  * A version is stable only when no turn of that universe is queued or running, unless the caller
  * captures from the immutable snapshot of a finished turn instead.
  */
-export async function capturePacket(universeId, { runId, fromTurn = null, extras = {} } = {}) {
+export async function capturePacket(universeId, { runId, fromTurn = null, extraFiles = [] } = {}) {
   if (fromTurn === null) {
     const busy = (await scanTurns(universeId)).find((turn) => turn.status === 'queued' || turn.status === 'running');
     if (busy) {
@@ -106,12 +138,17 @@ export async function capturePacket(universeId, { runId, fromTurn = null, extras
     }
   }
   const sources = await packetSources(universeId, { fromTurn });
-  for (const [role, name] of Object.entries(EXTRA_ROLES)) {
-    const body = extras[role];
-    if (body === undefined) continue;
-    sources.push({ path: name, role, inline: typeof body === 'string' ? body : JSON.stringify(body, null, 2) });
+  for (const file of extraFiles) {
+    sources.push({
+      path: file.path,
+      role: file.role,
+      inline: file.content,
+      artifact_id: file.artifact_id,
+      declared: file.declared !== false
+    });
   }
   const entries = [];
+  const resources = [];
   const staged = [];
   for (const source of sources) {
     let bytes;
@@ -120,6 +157,13 @@ export async function capturePacket(universeId, { runId, fromTurn = null, extras
     if (!bytes) {
       if (source.role === 'offer') continue;
       throw new UniverseError('MISSING_FILE', `The packet cannot include ${source.path}: it does not exist.`, 409);
+    }
+    if (source.declared === false) {
+      // A captured resource: it travels inside the packet but the packet's own inventory does not name
+      // it, because the file that declares it (a corpus manifest) is the artifact of its role.
+      resources.push({ path: source.path, sha256: sha256(bytes), bytes: bytes.length, role: source.role });
+      staged.push({ entry: { path: source.path, role: source.role }, bytes });
+      continue;
     }
     entries.push({
       path: source.path,
@@ -169,7 +213,7 @@ export async function capturePacket(universeId, { runId, fromTurn = null, extras
   await mkdir(join(directory, 'result'), { recursive: true }).catch(() => {});
   await rm(inputDir, { recursive: true, force: true });
   await rename(staging, inputDir);
-  return { dir: directory, inputDir, manifest };
+  return { dir: directory, inputDir, manifest, resources };
 }
 
 /**

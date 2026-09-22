@@ -4,6 +4,7 @@
 import { sendFromInput } from './ui/actions.js';
 import { loadConfig, loadUniverses } from './ui/api.js';
 import { showError } from './ui/errors.js';
+import { rememberSelection } from './ui/feedback.js';
 import { PANELS, POPUPS, closeOverlays, closePanel, closePopup, openPopup, rewriteTarget, sendRewrite } from './ui/overlays.js';
 import { autosize, bindInputResize } from './ui/render/composer.js';
 import { renderUniverseList } from './ui/render/explore.js';
@@ -19,6 +20,9 @@ export function bindEvents() {
   bindLanguage();
   bindInputResize();
   bindTableInfo();
+  // A passage a reader selects in the book is remembered as it is selected, so the feedback surface can
+  // quote it: the dialog covers the reading area, so the selection cannot be made while it is open.
+  document.addEventListener('selectionchange', rememberSelection);
   dom['btn-universes'].addEventListener('click', () => openPopup('universes'));
   dom['btn-more'].addEventListener('click', () => openPopup('more'));
   dom['universes-close'].addEventListener('click', closePopup);
@@ -43,6 +47,9 @@ export function bindEvents() {
   }
   dom['requests-hide'].addEventListener('click', closePanel);
   dom['rewrite-hide'].addEventListener('click', closePanel);
+  dom['review-close'].addEventListener('click', closePanel);
+  dom['report-close'].addEventListener('click', closePanel);
+  dom['feedback-close'].addEventListener('click', closePanel);
   dom['rewrite-cancel'].addEventListener('click', closePanel);
   dom['rewrite-submit'].addEventListener('click', () => sendRewrite({ dropLater: rewriteTarget()?.later != null }));
   dom['nav-prev'].addEventListener('click', () => navigate(state.index - 1));

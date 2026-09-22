@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="styles/explore.css">
 <link rel="stylesheet" href="styles/composer.css">
 <link rel="stylesheet" href="styles/overlays.css">
+<link rel="stylesheet" href="styles/analysis.css">
+<link rel="stylesheet" href="styles/report.css">
+<link rel="stylesheet" href="styles/feedback.css">
 </head>
 <body>
 <div class="app" id="app">
@@ -89,6 +92,36 @@
         <button type="button" class="btn btn--accent" id="rewrite-submit">Rewrite chapter</button>
         <button type="button" class="btn btn--quiet" id="rewrite-cancel">Cancel</button>
       </div>
+    </div>
+  </div>
+
+  <div class="popup" id="review" role="dialog" aria-modal="true" aria-label="Review the book" hidden>
+    <div class="popup__panel popup__panel--analysis">
+      <div class="popup__head">
+        <h2 class="popup__title" id="review-title">Review</h2>
+        <button type="button" class="popup__close" id="review-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="analysis" id="review-body"></div>
+    </div>
+  </div>
+
+  <div class="popup" id="report" role="dialog" aria-modal="true" aria-label="Review reports" hidden>
+    <div class="popup__panel popup__panel--analysis">
+      <div class="popup__head">
+        <h2 class="popup__title" id="report-title">Reports</h2>
+        <button type="button" class="popup__close" id="report-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="analysis" id="report-body"></div>
+    </div>
+  </div>
+
+  <div class="popup" id="feedback" role="dialog" aria-modal="true" aria-label="Reader feedback" hidden>
+    <div class="popup__panel popup__panel--analysis">
+      <div class="popup__head">
+        <h2 class="popup__title" id="feedback-title">Reader feedback</h2>
+        <button type="button" class="popup__close" id="feedback-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="analysis" id="feedback-body"></div>
     </div>
   </div>
 

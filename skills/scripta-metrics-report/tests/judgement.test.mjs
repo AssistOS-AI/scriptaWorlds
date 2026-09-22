@@ -55,10 +55,13 @@ const enabledProfile = (overrides = {}) => ({
   ...overrides,
 });
 
-test('NQS is disabled by default', () => {
+test('NQS is off by default and its reason says how to turn it on', () => {
   const result = checkNqs({ enabled: false, values: { CS: 80, OI: 80, EMOTIONAL_FIT: 80 } });
   assert.equal(result.status, 'not_assessable');
-  assert.ok(result.reason.includes('disabled by default'));
+  // The reason is what a reader sees instead of a number: it must name the switch, not a study the
+  // report cannot verify.
+  assert.ok(/off by default/.test(result.reason), `reason: ${result.reason}`);
+  assert.ok(/research profile/.test(result.reason), `reason: ${result.reason}`);
 });
 
 test('NQS never redistributes weights around missing inputs', () => {
@@ -121,23 +124,31 @@ test('an absent emotional intention, an incompatible version or a missing input 
   assert.ok(incompatible.missing_reason.includes('incompatible'), incompatible.missing_reason);
 });
 
-test('a production profile stays unavailable until calibration evidence exists', () => {
+test('a production profile stays unavailable until a study artifact verifies, never on a declaration', () => {
   const production = parseAggregation(enabledProfile({ policy: 'production' }));
   const uncalibrated = buildNqs({ aggregation: production, values: { CS: 75, OI: 50, EMOTIONAL_FIT: 55 }, scope, baseMetricFor: baseMetric });
   assert.equal(uncalibrated.status, 'not_assessable');
+  assert.equal(uncalibrated.value, null);
   assert.ok(uncalibrated.missing_reason.includes('calibration'), uncalibrated.missing_reason);
 
-  const calibrated = buildNqs({
-    aggregation: parseAggregation(
-      enabledProfile({ policy: 'production', calibration: { study_id: 'c34-pilot', held_out: true, evidence: ['ev1'] } }),
-    ),
+  // The record may only name a study artifact: `held_out` and an evidence list
+  // written into the profile are a self-declaration, and are refused outright.
+  assertCode(
+    () => parseAggregation(enabledProfile({ policy: 'production', calibration: { study_id: 'c34-pilot', held_out: true, evidence: ['ev1'] } })),
+    'INVALID_PROFILE',
+  );
+
+  // Naming a study is not enough either: with no study root there is no local
+  // artifact to verify. The artifact, hash and binding cases live in
+  // tests/calibration.test.mjs.
+  const named = buildNqs({
+    aggregation: parseAggregation(enabledProfile({ policy: 'production', calibration: { study: 'c34-pilot.json' } })),
     values: { CS: 75, OI: 50, EMOTIONAL_FIT: 55 },
     scope,
     baseMetricFor: baseMetric,
   });
-  assert.equal(calibrated.status, 'computed');
-  assert.equal(calibrated.qualified, false);
-  assert.ok(calibrated.detail.note.includes('calibration evidence'));
+  assert.equal(named.status, 'not_assessable');
+  assert.ok(named.missing_reason.includes('no study root'), named.missing_reason);
 });
 
 test('the aggregation profile requires non-negative weights that sum to one', () => {

@@ -1,0 +1,32 @@
+{
+  "$comment": "A `calibration-study.v1` document is the artifact that lets an NQS `production` profile be computed. The verifier in scripts/lib/study.mjs is the authority on what is accepted; this file publishes the same format so a study author or an outside producer can build a document the verifier accepts instead of guessing. tests/vocabulary.test.mjs fails whenever the two disagree. A study is verified locally: the profile's calibration record names it relative to --study-root, its evidence paths resolve inside the study's own directory, and every declared sha256 is recomputed.",
+  "schema_version": "calibration-study.v1",
+  "required_fields": [
+    "schema_version",
+    "study_id",
+    "test_only",
+    "held_out",
+    "bindings",
+    "evidence"
+  ],
+  "optional_fields": [
+    "provenance"
+  ],
+  "binding_fields": [
+    "rubric_version",
+    "profile_version",
+    "language",
+    "scope"
+  ],
+  "evidence_required_fields": [
+    "id",
+    "path",
+    "sha256"
+  ],
+  "held_out_requirement": "held_out must be true: a study without a held-out evaluation has no evidence about generalization",
+  "test_only_field": "test_only",
+  "opt_in_flag": "--allow-test-only-studies",
+  "test_only_meaning": "test_only true marks a synthetic or test fixture. Such a study is refused as production support unless the caller passes opt_in_flag, and when it is passed the computed metric says its support is a test-only study.",
+  "bindings_meaning": "Every binding must be declared and must equal the profile being computed (profile_version from profile.aggregation.profile_version, rubric_version from profile.aggregation.rubric_version, scope from profile.aggregation.scope) and the accepted book's language (manifest.book.language). A study in another language, another rubric version, another scope or another profile version cannot support the claim; a missing binding or a missing profile declaration leaves the claim unverified.",
+  "evidence_meaning": "Each evidence item names a real artifact of the study (annotations, held-out labels, timing records, agreement statistics). id is unique inside the study, path is relative to the study document's own directory, and sha256 is recomputed from the local bytes. An absent artifact, a hash mismatch or a path escaping the study directory leaves the claim unverified."
+}

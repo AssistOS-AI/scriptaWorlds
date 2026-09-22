@@ -35,6 +35,21 @@ export function sendJson(res, status, payload) {
   res.end(body);
 }
 
+/**
+ * Sends a document the client keeps instead of rendering: a body that was built in memory, so there is
+ * no file to stream (an export of the feedback store is never written to disk).
+ */
+export function sendDownload(res, filename, body) {
+  const bytes = Buffer.isBuffer(body) ? body : Buffer.from(String(body), 'utf8');
+  res.writeHead(200, {
+    'Content-Type': contentTypeFor(filename),
+    'Content-Length': bytes.length,
+    'Content-Disposition': `attachment; filename="${encodeURIComponent(filename)}"`,
+    'Cache-Control': 'no-store'
+  });
+  res.end(bytes);
+}
+
 export function sendError(res, error) {
   const status = Number.isInteger(error?.status) ? error.status : 500;
   const code = error?.code ?? 'INTERNAL';

@@ -8,16 +8,51 @@
  * versions and a calibration identity. A free-standing annotated NQS never
  * overrides those components, a missing input is never redistributed over the
  * others, and an incompatible or uncalibrated profile stays unavailable: a
- * production profile is enabled only after the calibration study supplies its
- * evidence, which no code change can substitute for.
+ * production profile is enabled only after a locally verified calibration study
+ * (see study.mjs) declares the bindings and evidence artifacts that back it,
+ * which no profile field and no code change can substitute for.
  */
 
 import { fail, isPlainObject } from './errors.mjs';
+import { TEST_ONLY_OPT_IN_FLAG, verifyCalibrationSupport } from './study.mjs';
 
 export const NQS_REQUIRES = ['CS', 'OI', 'EMOTIONAL_FIT'];
 export const NQS_PROFILE_VERSION = 'nqs-profile.v1';
 export const NQS_POLICIES = ['research', 'production'];
 const EPSILON = 1e-9;
+
+/**
+ * A calibration record names the study artifact the claim rests on. It cannot
+ * carry `held_out` or an inline `evidence` list: those belong to the study
+ * document, which is verified against the filesystem, so a profile cannot
+ * declare its own support into existence.
+ */
+function parseCalibration(raw) {
+  if (raw === undefined || raw === null) return null;
+  if (!isPlainObject(raw)) {
+    fail('profile.aggregation.calibration must be an object naming the study artifact it rests on', 'INVALID_PROFILE');
+  }
+  for (const field of Object.keys(raw)) {
+    if (field !== 'study' && field !== 'study_id') {
+      fail(
+        `profile.aggregation.calibration has unknown field ${JSON.stringify(field)}; held-out status and evidence ` +
+          'belong to the study artifact, which is verified against the filesystem — a profile cannot declare its own support',
+        'INVALID_PROFILE',
+      );
+    }
+  }
+  if (typeof raw.study !== 'string' || raw.study.length === 0) {
+    fail(
+      'profile.aggregation.calibration must name a `study` artifact path (resolved against --study-root); a study_id, ' +
+        'a held_out flag or an evidence list is a self-declaration, not evidence',
+      'INVALID_PROFILE',
+    );
+  }
+  if (raw.study_id !== undefined && (typeof raw.study_id !== 'string' || raw.study_id.length === 0)) {
+    fail('profile.aggregation.calibration.study_id must be a non-empty string when present', 'INVALID_PROFILE');
+  }
+  return { study: raw.study, study_id: typeof raw.study_id === 'string' ? raw.study_id : null };
+}
 
 /** Parse `profile.aggregation`; `enabled` is the only required field. */
 export function parseAggregation(raw) {
@@ -37,7 +72,7 @@ export function parseAggregation(raw) {
     scope: typeof raw.scope === 'string' && raw.scope.length > 0 ? raw.scope : null,
     corpus_version: typeof raw.corpus_version === 'string' ? raw.corpus_version : null,
     rubric_version: typeof raw.rubric_version === 'string' ? raw.rubric_version : null,
-    calibration: isPlainObject(raw.calibration) ? raw.calibration : null,
+    calibration: parseCalibration(raw.calibration),
   };
   if (!raw.enabled) return aggregation;
 
@@ -132,7 +167,7 @@ export function checkNqs({ enabled, values }) {
     return {
       status: 'not_assessable',
       missing: [],
-      reason: 'NQS is disabled by default; enable aggregation with a validated research profile to compute it',
+      reason: 'NQS is optional and off by default; enable aggregation with a declared research profile to compute it, or supply verifiable study artifacts for a production claim',
     };
   }
   const missing = NQS_REQUIRES.filter((key) => typeof values[key] !== 'number' || values[key] === null);
@@ -146,24 +181,27 @@ export function checkNqs({ enabled, values }) {
   return { status: 'eligible', missing: [], reason: null };
 }
 
-function calibrationProblem(aggregation) {
-  const calibration = aggregation.calibration;
-  if (!calibration) return 'no calibration study is recorded';
-  if (typeof calibration.study_id !== 'string' || calibration.study_id.length === 0) {
-    return 'the calibration record names no study';
-  }
-  if (calibration.held_out !== true) return `study ${calibration.study_id} has no held-out evidence`;
-  if (!Array.isArray(calibration.evidence) || calibration.evidence.length === 0) {
-    return `study ${calibration.study_id} records no evidence`;
-  }
-  return null;
-}
-
 /**
  * Build NQS from the saved components. `values` are the CS/OI scalars (null when
  * the metric could not be scored) and the separately judged emotional fit.
+ *
+ * A `production` policy additionally needs a verified calibration study: the
+ * profile's record names a study artifact, `studyRoot` says where that artifact
+ * lives, `language` is the accepted book's language, and
+ * `allowTestOnlyStudies` is the caller's explicit opt-in for a study that
+ * declares itself a fixture. Failing verification leaves NQS unavailable with
+ * the reason, never computed and never zero.
  */
-export function buildNqs({ aggregation, values, scope, baseMetricFor, annotatedValue }) {
+export function buildNqs({
+  aggregation,
+  values,
+  scope,
+  baseMetricFor,
+  annotatedValue,
+  language = null,
+  studyRoot = null,
+  allowTestOnlyStudies = false,
+}) {
   const m = baseMetricFor('NQS', scope);
   m.value_kind = 'scalar';
   const enabled = aggregation ? aggregation.enabled : false;
@@ -199,14 +237,35 @@ export function buildNqs({ aggregation, values, scope, baseMetricFor, annotatedV
       'the aggregation profile declares no emotional intention; emotional fit cannot be interpreted without it';
     return m;
   }
+  let study = null;
   if (aggregation.policy === 'production') {
-    const problem = calibrationProblem(aggregation);
-    if (problem) {
+    const verification = verifyCalibrationSupport({
+      calibration: aggregation.calibration,
+      profileVersion,
+      rubricVersion: aggregation.rubric_version,
+      language,
+      scope: aggregation.scope,
+      studyRoot,
+      allowTestOnlyStudies,
+    });
+    m.detail.calibration_verification = verification.ok
+      ? {
+          status: 'verified',
+          study_id: verification.study_id,
+          test_only: verification.test_only,
+          provenance: verification.provenance,
+          bindings: verification.bindings,
+          evidence: verification.evidence,
+        }
+      : { status: 'unverified', problem: verification.problem };
+    if (!verification.ok) {
       m.missing_reason =
-        `a production NQS profile requires calibration evidence (${problem}); the result stays unavailable until ` +
-        'the calibration study supplies it';
+        `a production NQS profile requires calibration support verified against local study artifacts ` +
+        `(${verification.problem}); supply the study artifact, or keep the research policy, or pass ` +
+        `${TEST_ONLY_OPT_IN_FLAG} only for a fixture`;
       return m;
     }
+    study = verification;
   }
   const weights = aggregation.weights;
   m.status = 'computed';
@@ -214,16 +273,22 @@ export function buildNqs({ aggregation, values, scope, baseMetricFor, annotatedV
     100 *
     ((weights.cs * values.CS) / 100 + (weights.oi * values.OI) / 100 + (weights.emotional_fit * values.EMOTIONAL_FIT) / 100);
   m.coverage = 1;
-  m.qualified = aggregation.policy === 'research';
+  const testOnly = Boolean(study && study.test_only);
+  m.qualified = aggregation.policy === 'research' || testOnly;
   m.detail.arithmetic =
     `100 * (${weights.cs} * ${values.CS} + ${weights.oi} * ${values.OI} + ` +
     `${weights.emotional_fit} * ${values.EMOTIONAL_FIT}) / 100 = ${m.value}`;
   m.detail.note =
     aggregation.policy === 'research'
       ? 'research profile: a weighted experiment, not an endorsed or validated formula'
-      : 'production profile with recorded calibration evidence';
+      : testOnly
+        ? `production profile whose support is the test-only study ${JSON.stringify(study.study_id)}: the opt-in ` +
+          `(${TEST_ONLY_OPT_IN_FLAG}) was passed, and the claim is bounded by a synthetic fixture, not a human study`
+        : `production profile with recorded calibration evidence (study ${JSON.stringify(study.study_id)}, ` +
+          `${study.evidence.length} verified artifacts)`;
   m.limits =
     `${m.limits} NQS fits this declared profile, not universal literary value; a duplicate flaw in two components ` +
     'still counts in both.';
   return m;
 }
+
