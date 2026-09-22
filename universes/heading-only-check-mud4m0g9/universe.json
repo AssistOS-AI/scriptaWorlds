@@ -1,0 +1,16 @@
+{
+  "id": "heading-only-check-mud4m0g9",
+  "title": "heading-only-check-mud4m0g9",
+  "summary": "",
+  "autoTitle": false,
+  "law": "This book was imported from a file the team uploaded: the text is the law, and canon records what it establishes.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "ro",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T20:28:22.808Z",
+  "updatedAt": "2026-09-22T20:28:22.895Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

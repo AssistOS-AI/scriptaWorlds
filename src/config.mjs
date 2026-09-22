@@ -62,6 +62,12 @@ export const config = Object.freeze({
   // deliberately outside `universes/`: a phase never writes into a book.
   assessmentWorkspace: process.env.ASSESSMENT_WORKSPACE ?? join(rootDir, 'assessments'),
   assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 5 * 60 * 1000),
+  // How much of a book one review reads in a single evaluator call. A reading is planned in bounded units
+  // and the plan, with these limits, is written beside the run before any evaluator exists; a selection
+  // that does not fit is read partially and says so instead of being summarised into a whole-book claim.
+  assessmentUnitBytes: positiveInt(process.env.ASSESSMENT_UNIT_BYTES, 48_000),
+  assessmentMaxUnits: positiveInt(process.env.ASSESSMENT_MAX_UNITS, 12),
+  assessmentTotalBytes: positiveInt(process.env.ASSESSMENT_TOTAL_BYTES, 400_000),
   // The largest book the server accepts: the limit is enforced while the upload streams in, so a file
   // over it is refused during the transfer rather than after.
   importMaxBytes: positiveInt(process.env.IMPORT_MAX_BYTES, 64 * 1024 * 1024),

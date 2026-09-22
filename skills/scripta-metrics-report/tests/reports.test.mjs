@@ -279,7 +279,7 @@ test('a textual_only packet reports that no continuity context was available', (
       stateRoles: [],
       scopeKind: 'textual_only',
       noContinuity: true,
-      profile: { scope: { kind: 'chapter', chapters: [1], context_chapters: [] } },
+      profile: { scope: { kind: 'chapter', chapters: [1], context_chapters: [2] } },
     });
     const out = join(root, 'out');
     const env = runReport(fx, out);

@@ -10,6 +10,8 @@
   "scripts": {
     "server": "node src/server.mjs",
     "check": "node scripts/check.mjs",
+    "smoke": "node scripts/smoke-review-ui.mjs",
+    "semantic-regression": "node scripts/semantic-regression.mjs",
     "catalog": "node scripts/build-catalog.mjs",
     "library": "node scripts/build-library.mjs",
     "table": "node scripts/build-table.mjs"

@@ -8,9 +8,11 @@
  * relative to the manifest file and are validated against traversal and symlink
  * escape; every hash is recomputed.
  *
- * A reference whose bytes are the same source version as a selected chapter is
- * excluded later (see overlap.mjs `classifyReferences`), which is a different
- * fact from genuine duplicate text in another reference.
+ * A reference may declare the corpus source it was copied from
+ * (`source: { id, version }`). The declaration is what a self-comparison is
+ * decided on later (see overlap.mjs `classifyReferences`); identical bytes
+ * alone are duplicate text in an independent reference, which is the case
+ * overlap measurement exists to find.
  */
 
 import { dirname } from 'node:path';
@@ -30,10 +32,41 @@ export const CORPUS_SCHEMA_VERSION = 'corpus.v1';
 export const DEFAULT_PERMITTED_USE = 'comparison';
 
 /**
+ * A reference's declared origin. `{ id, version }` names the corpus source the
+ * reference was copied from; both fields are required together, because half of
+ * an identity cannot be checked and must not be guessed from a hash.
+ */
+function readSourceIdentity(ref) {
+  if (ref.source === undefined || ref.source === null) return null;
+  if (!isPlainObject(ref.source)) {
+    fail(`corpus reference ${JSON.stringify(ref.id)} source must be an object with id and version`, 'INVALID_CORPUS');
+  }
+  for (const key of Object.keys(ref.source)) {
+    if (key !== 'id' && key !== 'version') {
+      fail(
+        `corpus reference ${JSON.stringify(ref.id)} source has unknown field ${JSON.stringify(key)}; ` +
+          'a declared identity is exactly { id, version }',
+        'INVALID_CORPUS',
+      );
+    }
+  }
+  for (const key of ['id', 'version']) {
+    if (typeof ref.source[key] !== 'string' || ref.source[key].length === 0) {
+      fail(
+        `corpus reference ${JSON.stringify(ref.id)} source.${key} must be a non-empty string: a declared identity ` +
+          'needs both the source and its version before it can be verified',
+        'INVALID_CORPUS',
+      );
+    }
+  }
+  return { id: ref.source.id, version: ref.source.version };
+}
+
+/**
  * Accept either a bare array of `{ id, path, sha256, language }` or a
  * corpus.v1 object `{ schema_version, references: [...] }`. Returns
  * `{ schema_version, references: [{ id, path, sha256, language, provenance,
- * permitted_use, declared_exclusions, bytes }] }`.
+ * permitted_use, declared_exclusions, source, bytes }] }`.
  */
 export function loadCorpusManifest(manifestPath) {
   const raw = readJsonChecked(manifestPath, 'corpus manifest');
@@ -108,6 +141,7 @@ export function loadCorpusManifest(manifestPath) {
       provenance: typeof ref.provenance === 'string' ? ref.provenance : null,
       permitted_use: typeof ref.permitted_use === 'string' ? ref.permitted_use : DEFAULT_PERMITTED_USE,
       declared_exclusions: Array.isArray(ref.exclusions) ? [...ref.exclusions] : [],
+      source: readSourceIdentity(ref),
       bytes: buffer,
     });
   }

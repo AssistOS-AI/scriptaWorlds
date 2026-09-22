@@ -95,6 +95,18 @@ problem per defect when a case is malformed, changes more than one feature or ca
 unanchored quote. `references/literary-cases.md` explains the library for a reader who has
 never seen it.
 
+```sh
+node scripts/select-cases.mjs --language <ro|en|...> [--max <n>] [--fixtures <literary-cases-dir>]
+```
+
+The selection command is the host's teaching-case picker (also exported as
+`selectTeachingCases` from `scripts/lib/case-selection.mjs`): given a book language and a
+maximum size it returns real cases — the paired before/after text, the changed feature, the
+expected evidence and the acceptable alternative readings — preferring cases in the book's
+language and filling the rest with English, and it never mixes in the index's
+`regression_subset`. It repeats the published rule that a quiet scene, a static character, a
+closed ending or a local cultural setting is not a defect by default.
+
 ## Inputs
 
 ### `assessment-input.v2` packet
@@ -136,6 +148,13 @@ Chapter selections are resolved against the packet inventory before any measurem
 duplicate, nonexistent or invalid chapter identifier is a contract violation.
 
 `rubric` is optional and defaults to the anchored 0–4 scale of `rubric-anchors.v1`.
+The anchored descriptions themselves are published at `schema/rubric-anchors.v1.json` and
+explained in `references/rubric-anchors.md`: a concrete 0..4 distinction, an evidence
+question and a justified exception for every dimension (CS's four, OI's three, NCS's two),
+and a contextual definition, evidence questions and intended-effect qualifications for each
+of the eight literary indicators. The published file states the rule the evaluator must
+obey: a quiet scene, a static character, a closed ending or a local cultural setting is not
+a defect by default.
 `aggregation` gates NQS and is off by default; an enabled profile must declare
 `weights` for `cs`, `oi` and `emotional_fit` that sum to one, an `emotional_fit.procedure`,
 a `scope`, the corpus and rubric versions and, for a `production` policy, a `calibration`
@@ -179,8 +198,18 @@ to this version. Contents:
   - `NCS` — the two dimensions `novelty` and `cliche_reliance`, each with its own rationale
     and evidence; there is no combined NCS scalar before calibration.
   - `EAP` — an ordered `trajectory` of `{ segment_id, focalization, valence [-2,2],
-    tension [0,4], evidence, uncertainty }` plus a separate `emotional_fit` judgement; a
-    series that mixes story time and disclosure time must declare `ordering`.
+    tension [0,4], evidence, uncertainty }` plus a separate `emotional_fit` judgement. The
+    received array order is the disclosure order and is kept on every point as
+    `disclosure_index`; the published series is ordered by the declared chronology, so
+    `ordering: "story"` must name a distinct, complete `story_order` for every point (a
+    missing or repeated one is refused) and `ordering: "disclosure"` may still record the
+    declared chronology without obeying it. One point per segment and focalization: a
+    repeated reading by the same voice is refused, and two focalizations of one segment stay
+    two trajectories. `coverage` is the fraction of the *selected* segments the trajectory
+    actually assessed; the omissions and any assessed point outside the selection are named
+    in `detail`, and a trajectory that assesses nothing inside the selection is
+    `not_assessable`, never a judgement of the selection. Low tension is a description of the
+    arc, never a defect.
   - `CR` — a `training_dataset` record (see below).
   - A bare numeric `value` for CS, OI, NCS, EAP, CR or AEG is **unsupported legacy data**:
     it is reported as such and never becomes a score.
@@ -191,15 +220,44 @@ to this version. Contents:
 - `indicators` — the eight literary indicators, validated against their source categories.
 - `requirements` — the versioned rule registry (`registry_version`, `rules`, `outcomes`,
   `aggregation_policy`); see below.
-- `continuity` — a `continuity-result.v1` object. Its counts must reconcile
-  (`consistent + contradicted + unresolved <= eligible_comparisons`) and its scope must match
-  the selection, otherwise its counts are reported as inapplicable instead of mis-attributed.
+- `continuity` — a `continuity-result.v1` object. Its authoritative version is the packet's
+  accepted version: `source_version` is authoritative and the legacy `version` is accepted
+  only as a fallback, a document naming two different versions is refused, and a stale
+  single one is refused with `STALE_ANNOTATION`. Its population is the one the counts
+  describe — `scope.chapters_reviewed` when the producer declares it, else
+  `scope.chapters`/`chapters` — and it must be exactly the selection, must lie inside the
+  packet (a chapter the packet does not contain is refused as `UNKNOWN_CHAPTER`) and must
+  agree with the `scope.coverage` it declares; otherwise its counts are reported as
+  inapplicable instead of mis-attributed. The counts must partition `eligible_comparisons`:
+  when the result carries its `comparisons` ledger the totals are recomputed from the
+  outcomes and a contradicting total is refused, and without a ledger the unattributed
+  remainder is carried as `unresolved` with `partition.unexamined` naming it, so one
+  observed success among a hundred eligible comparisons can never publish complete
+  consistency. `CAD` counts candidates from the same chapters, and a defect whose symptoms
+  disagree about their status is contested — reported as unresolved with the conflicting
+  statuses named, never resolved by whichever symptom was read first.
+- `evaluator_provenance` — optional, host-authored, carried verbatim. It is what the
+  evaluator declared about its own run: the prompt hash (and its text or path), the rubric,
+  case and resource hashes and selection, the model and its settings, the per-attempt
+  identities and the provider usage it observed. The report never completes it, and it
+  publishes `provenance.evaluator_provenance_sha256` (over canonical JSON) so a reader can
+  tell the copy did not change. Provider usage appears only where the evaluator recorded it.
 - `findings` — semantic findings; a confirmed contradiction or unsupported change needs at
   least one evidence item and a `temporal` baseline/later pair, and an unresolved reading
   keeps its limitations and alternative explanation.
 - `departures` — declared deliberate departures. A `fail` or `not_applicable` outcome never
   implies one.
 - `preserved_qualities` — evidence-backed passages and choices revision should protect.
+
+**Evidence scope.** A semantic judgement (a CS/OI/NCS dimension, an EAP trajectory point, an
+indicator, a finding or a preserved passage) must rest on passages from the selected text. A
+quotation outside the selection — a chapter the selection does not cover, or a byte range
+outside a declared scene — is refused with `EVIDENCE_OUT_OF_SCOPE` and nothing is written.
+Declared context chapters may be cited to *explain* a selected claim, but a judgement whose
+evidence lies entirely in context chapters is `not_assessable` with that reason, never a
+score. Component completeness (all four CS dimensions supplied) stays distinct from textual
+coverage: a judged metric's `coverage` is the fraction of selected chapters its own evidence
+actually touches, so one quote in chapter 1 does not establish that a whole book was assessed.
 
 ### `corpus.v1`
 
@@ -214,9 +272,27 @@ to this version. Contents:
 ```
 
 Paths resolve relative to the manifest and are validated against traversal and symlink
-escape; every hash is recomputed. A reference whose bytes are the candidate's own source
-version is excluded (`same_source_version`); genuine duplicate text in another reference
-stays eligible and is flagged. `permitted_use: none` or `prohibited` excludes a reference.
+escape; every hash is recomputed.
+
+**Source identity is declared, never inferred from bytes.** A reference that is a copy of the
+book the report assessed declares where it came from:
+
+```json
+{ "id": "self", "path": "book/chapter-0001.md", "sha256": "<64 hex>", "language": "ro",
+  "source": { "id": "<universe_id>", "version": "sha256:<64 hex>" } }
+```
+
+A reference is the candidate's own source version — and therefore excluded as
+`same_source_version` — only when that declaration names both the packet's `universe_id` and
+its accepted `version`. A declaration naming another source or another version stays
+eligible and is labelled (`independent`, `same_source_other_version`); a half-declared
+identity is refused as `INVALID_CORPUS`; a reference that declares nothing is `unknown`, and
+when its bytes nevertheless equal a selected chapter it stays eligible and is labelled
+`duplicate_text` — an independent copy is exactly what overlap measurement exists to find.
+`permitted_use: none` or `prohibited` excludes a reference. The bundle's
+`provenance.corpus` states the candidate identity and every reference's own identity, so a
+reader can see which references were compared and which were removed.
+
 
 ## Metrics
 
@@ -310,12 +386,38 @@ Generated deterministically from one validated `assessment.json` bundle:
 | `02-specification-adherence.md` | this request and brief mapped to the observed fulfilment, the request's own requirements, editorial preferences and declared departures |
 | `03-metrics-and-indicators.md` | all twelve metrics and eight indicators with status, scope, unit and missing reason, plus segments, boundaries, chronology and coverage |
 | `04-score-justification.md` | per-result method, components, trajectory, arithmetic, bounds, coverage, qualification and limits, plus the profile and provenance |
-| `05-detected-issues.md` | prioritized findings with affected passages, alternatives and repairs, and the passages worth retaining |
+| `05-detected-issues.md` | the review in brief (strengths, supported problems, passages, revision options), then prioritized findings with affected passages, alternatives and repairs, and the passages worth retaining |
+
+`index.md` and `05-detected-issues.md` lead with the same review summary, and the reader
+interface renders it first too: what was assessed, the intention the selection was read
+against, the strengths the record observed, the most consequential supported problems with
+the exact passages they rest on, the alternative reading that was preserved and the bounded
+revision options the record itself proposed. `bundle.review.reading_status` distinguishes
+four results — `not_evaluated` (no judgement was produced), `insufficient_evidence` (part of
+the selection was not read), `no_supported_issue_found` (all of it was read without a
+supported problem) and `problems_recorded` — so an empty findings list is never rendered as a
+clean bill of literary health. Every metric keeps its diagnostics in the default view: the
+status and the reason it is unavailable, coverage, bounds, the evaluator, and the whole
+`detail` record, including an aggregate's declared weights, its arithmetic and its
+calibration qualification.
 
 `index.md` is navigation only, not a sixth evaluation. A renderer reads the bundle and never
 changes a score or re-judges: re-rendering a stored bundle is byte-identical. Text supplied
 by an author (quotes, rationales, requests) is escaped so it can never break a table cell, a
 code span, a link, raw HTML or a heading.
+
+## What another session can check
+
+The bundle is portable evidence, not a private log. `provenance` carries the accepted version
+and every packet file with its hash and byte count; `provenance.resources` carries every input
+the run read (`profile`, `annotations`, `corpus`) with the sha256 and byte count of the exact
+bytes consumed; `provenance.annotations.sha256` is the hash of the judgement document this run
+was given; `provenance.evaluation` hashes the skill's own published vocabulary, rubric anchors,
+study schema and case index, and lists the evaluator labels that authored the judgements with
+the model and settings the evaluator declared. Re-rendering a stored bundle calls no model and
+produces byte-identical views, so a later session can reproduce the report and establish which
+judgement produced each result.
+
 
 ## Literary indicators
 
@@ -329,14 +431,16 @@ unavailable reason, evidence, rationale, counterevidence, intended-effect fit an
 ```
 scripts/build-report.mjs      CLI entry point and argument/input validation
 scripts/validate-cases.mjs    CLI that validates the synthetic literary case library
+scripts/select-cases.mjs      CLI that selects teaching cases (language, size, holdout)
 scripts/lib/errors.mjs        exit codes, CliError, path, hash and UTF-8 helpers
 scripts/lib/input.mjs         assessment-input.v2 loading and validation (§8.2, §8.3)
 scripts/lib/workspace.mjs     output separation on real paths and atomic publication
 scripts/lib/evidence.mjs      evidence.v1 verification on byte and quote level
 scripts/lib/cases.mjs         literary-case vocabulary, quote anchoring and case rules
 scripts/lib/case-library.mjs  index, regression subset and model-agreement validation
+scripts/lib/case-selection.mjs bounded teaching-case selection for the host
 scripts/lib/segments.mjs      scene, sequence, chapter and arc boundaries
-scripts/lib/selection.mjs     scope resolution against the accepted inventory
+scripts/lib/selection.mjs     scope resolution and evidence-scope classification
 scripts/lib/candidate.mjs     selected byte ranges to contiguous candidate units
 scripts/lib/tokenize.mjs      versioned UTF-8 tokenizer with byte mappings
 scripts/lib/corpus.mjs        corpus.v1 loading and verification
@@ -352,10 +456,12 @@ scripts/lib/study.mjs         calibration-study.v1 verification for the producti
 scripts/lib/annotations.mjs   semantic annotation validation and normalization
 scripts/lib/metrics.mjs       metric result builders and CCI/CAD arithmetic
 scripts/lib/assemble.mjs      bundle assembly (provenance, coverage, evidence)
+scripts/lib/review.mjs        the leading review summary (status, strengths, problems, revisions)
+scripts/lib/provenance.mjs    the portable provenance record (resources, evaluation, evaluator declaration)
 scripts/lib/markdown.mjs      escaping and shared rendering helpers
 scripts/lib/views.mjs         the five view renderers
 scripts/lib/render.mjs        index plus the renderViews entry point
-schema/                       the published vocabularies: annotations.v1 and the study format
+schema/                       the published vocabularies: annotations.v1, rubric-anchors.v1 and the study format
 fixtures/literary-cases/      index, paired cases and the model-agreement record
 fixtures/calibration/         the synthetic test-only study that proves the verified path
 tests/                        node --test suites and their fixtures

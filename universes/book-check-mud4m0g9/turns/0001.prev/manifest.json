@@ -1,0 +1,31 @@
+{
+  "schema_version": "state-snapshot.v1",
+  "turn": 1,
+  "kind": "import",
+  "created_at": "2026-09-22T20:28:21.868Z",
+  "accepted_version": "sha256:bfbbb5d5d4860e401ea4e873daa19e56b577b084be3b0b3fefe6d1cd43ccbda6",
+  "complete": true,
+  "files": [
+    {
+      "path": "atlas.json",
+      "kind": "state",
+      "role": "atlas",
+      "sha256": "d7b4df14da9c52f24144f54ce5ccce2144695ec5bfc98ba86712ebe431a7b177",
+      "bytes": 33
+    },
+    {
+      "path": "canon.md",
+      "kind": "state",
+      "role": "canon",
+      "sha256": "e371717a732c0d41c43d0de5ae8464daf13b75a75c1d6fe3c36702b94c19d89c",
+      "bytes": 797
+    },
+    {
+      "path": "threads.json",
+      "kind": "state",
+      "role": "threads",
+      "sha256": "91b6c2104de7308abea27d130bd54223e3e7980a18beba071c1d7f5ebf7000a1",
+      "bytes": 77
+    }
+  ]
+}

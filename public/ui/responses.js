@@ -14,6 +14,7 @@ import {
   loadFeedback,
   loadFeedbackReaders,
   readFeedbackTarget,
+  readFrozenChapter,
   renameFeedbackReader,
   withdrawReaderFeedback
 } from './api.js';
@@ -55,6 +56,11 @@ export function adopt(target, prefill = null) {
   }
   model.frozen = target.historical !== true;
   model.questions = target.questionnaire?.questions ?? [];
+  // The reactions the target was frozen with are the only ones it can receive: they are read from its
+  // own copy of the questionnaire, not from the interface.
+  model.reactionsDeclared = target.questionnaire?.reactions ?? [];
+  model.exposure = prefill?.exposure ?? model.exposure ?? { model_scores: null, other_comments: null };
+  model.reactions = prefill?.reactions ?? model.reactions ?? {};
   model.answers = new Map(model.questions.map((question) => {
     const found = (prefill?.answers ?? []).find((answer) => answer.question_id === question.id);
     return [question.id, { value: found?.value ?? null }];
@@ -82,14 +88,17 @@ function firstRange(evidence) {
 }
 
 /**
- * What a reader already wrote, carried across a re-freeze: the answers and the words, never the
- * quotations — a quotation is a range in one frozen copy and means nothing in another.
+ * What a reader already wrote, carried across a re-freeze: the answers, the words and the declarations
+ * of what they had seen, never the quotations — a quotation is a range in one frozen copy and means
+ * nothing in another.
  */
 export function carryOver(model) {
   return {
     answers: model.questions.map((question) => ({ question_id: question.id, value: model.answers.get(question.id)?.value ?? null })),
     comments: model.comments.map((comment) => ({ text: comment.text, evidence: [] })),
-    quotations: model.comments.filter((comment) => comment.evidence).length
+    quotations: model.comments.filter((comment) => comment.evidence).length,
+    exposure: { ...(model.exposure ?? {}) },
+    reactions: { ...(model.reactions ?? {}) }
   };
 }
 
@@ -101,6 +110,40 @@ export function chapterPath(model, number) {
 /** The text of one chapter of the frozen copy, as this browser displayed it. */
 export function copyText(model, number) {
   return model?.copy?.get(number) ?? null;
+}
+
+/**
+ * Complete the frozen copy of a target from the store. The pane quotes the words the reader saw, so a
+ * chapter whose browser copy is missing — this reader is on another machine — or whose hash is not the
+ * one the target recorded — the book was rewritten since — is read from the target's own frozen text
+ * rather than from the chapter on screen. A chapter the store cannot reproduce stays unquotable.
+ */
+export async function loadFrozenCopy(model) {
+  const target = model?.target;
+  if (!target) return;
+  for (const chapter of target.chapters ?? []) {
+    const cached = state.chapters.get(chapter.number);
+    const stored = await sha256Hex(cached?.markdown ?? null);
+    if (stored !== null && stored === chapter.sha256) continue;
+    const name = String(chapter.path ?? '').split('/').pop();
+    if (!name) continue;
+    try {
+      const text = await readFrozenChapter(target.target_id, name);
+      if (state.feedback !== model || model.target?.target_id !== target.target_id) return;
+      model.copy.set(chapter.number, text);
+      model.copiedFromStore = new Set([...(model.copiedFromStore ?? []), chapter.number]);
+    } catch {
+      // The frozen text is not reproducible any more: the pane says so instead of inventing a passage.
+      model.copy.delete(chapter.number);
+    }
+  }
+}
+
+/** The sha256 in hexadecimal of the text this browser holds, or `null` when it holds none. */
+async function sha256Hex(text) {
+  if (typeof text !== 'string') return null;
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
 }
 
 /** Which chapter of the frozen copy a passage is picked in. */
@@ -262,6 +305,7 @@ export function resetFeedbackState() {
   state.feedbackTargets = [];
   state.feedbackCounts = null;
   state.feedbackLoaded = false;
+  state.feedbackVersion = null;
   state.readers = [];
   state.readersLoaded = false;
   state.selection = null;
@@ -330,6 +374,9 @@ export async function correctResponse(response) {
       model.reader = reader ? { reader_id: reader.reader_id, display_name: reader.display_name } : null;
     }
     adopt(target, { answers: response.answers, comments: response.comments });
+    // A correction answers the copy the corrected response answered, so its own words are shown here even
+    // when this browser no longer holds that version of the text.
+    await loadFrozenCopy(model);
     model.notice = `Correcting ${response.feedback_id}: the response below is the one it replaces, and a correction is revision ${(response.revision ?? 1) + 1}.`;
   } catch (error) {
     model.error = explain(error);
@@ -342,7 +389,7 @@ export async function correctResponse(response) {
 /* ----------------------------------------------------------------- words */
 
 const ERROR_HINTS = {
-  STALE_TARGET: 'The frozen copy cannot be reproduced any more: freeze the version you are reading and answer that one.',
+  STALE_TARGET: 'The frozen copy is not the text you were reading any more: nothing was frozen, your answers stay here, and freezing the accepted version again answers the text the book holds today.',
   READER_NOT_FOUND: 'That identity is not a reader of this book any more; type your name to be listed under.',
   INVALID_FEEDBACK: 'The host refused the response; a quotation has to match the frozen copy word for word, and a comment has a length limit.',
   CONFLICT: 'This submission identifier was already used for different content; send again to write a new response.',

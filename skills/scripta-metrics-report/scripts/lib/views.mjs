@@ -25,6 +25,97 @@ import {
   valueText,
 } from './markdown.mjs';
 
+/**
+ * The leading section of every view: what was assessed, the intention the text was
+ * read against, the recorded strengths, the most consequential supported problems
+ * with their passages and bounded revision options, and the honest meaning of an
+ * empty findings list. It reads `bundle.review` and adds nothing to it.
+ */
+export function reviewLines(bundle, { title = 'Review summary', problems = 5 } = {}) {
+  const review = bundle.review;
+  if (!review) return [];
+  const evidence = evidenceMap(bundle);
+  const lines = [`## ${title}`, ''];
+  lines.push(`**${esc(review.reading_status.replace(/_/g, ' '))}** — ${esc(review.statement)}`, '');
+  lines.push(`- Assessed scope: ${esc(scopeText(review.scope))}`);
+  const measures = review.assessment.measures;
+  lines.push(
+    `- Evidence coverage: ${review.assessment.measures.evidence_coverage === null ? 'not measurable' : fmtNumber(measures.evidence_coverage)} ` +
+      `of the selected chapters; segment coverage: ${measures.segment_coverage === null ? 'no segment population' : fmtNumber(measures.segment_coverage)}`,
+  );
+  if (measures.continuity_partition && measures.continuity_partition.complete === false) {
+    lines.push(
+      `- Continuity population: ${measures.continuity_partition.unexamined} eligible comparisons carry no outcome, so ` +
+        'the index is bounded rather than published',
+    );
+  }
+  lines.push(`- Intention: ${esc(review.intention.statement)}`);
+  if (review.assessment.unavailable.length > 0) {
+    lines.push(
+      `- Not available: ${review.assessment.unavailable.map((entry) => `\`${esc(entry.id)}\` (${esc(entry.status)}: ${esc(entry.reason ?? 'no reason recorded')})`).join('; ')}`,
+    );
+  } else {
+    lines.push('- Not available: nothing; every metric carries a result');
+  }
+  lines.push('');
+
+  lines.push('### Strengths observed', '');
+  if (review.strengths.length === 0) {
+    lines.push(review.strengths_note ?? 'Nothing was recorded as worth preserving.', '');
+  } else {
+    for (const strength of review.strengths) {
+      lines.push(`- \`${esc(strength.id)}\` — ${esc(strength.statement)}`);
+      lines.push(`  - Passages: ${evidenceText(evidence, strength.passages)}`);
+    }
+    lines.push('');
+  }
+
+  lines.push('### Most consequential problems', '');
+  if (review.problems.length === 0) {
+    lines.push(review.problems_note ?? 'No finding was recorded.', '');
+  } else {
+    for (const problem of review.problems.slice(0, problems)) {
+      lines.push(
+        `- \`${esc(problem.id)}\` (${esc(problem.severity)}, ${esc(problem.status)}, from ${esc(problem.origin)}): ` +
+          `${esc(problem.statement)}`,
+      );
+      lines.push(`  - Passages: ${evidenceText(evidence, problem.passages)}`);
+      lines.push(`  - Scope: ${esc(problem.relates_to)}`);
+      lines.push(`  - Intention: ${esc(problem.intention_link)}`);
+      if (problem.alternative_reading) {
+        lines.push(`  - Alternative reading (preserved): ${esc(problem.alternative_reading)}`);
+      }
+      if (problem.revision_options.length === 0) {
+        lines.push(`  - Revision: ${esc(problem.revision_note)}`);
+      }
+      for (const option of problem.revision_options) {
+        lines.push(`  - Revision option (${esc(option.from)}): ${esc(option.statement)}`);
+        if (option.preserved_in_the_same_scope.length > 0) {
+          lines.push(
+            `    - Passages recorded as worth preserving in the same scope: ` +
+              `${option.preserved_in_the_same_scope.map((id) => `\`${esc(id)}\``).join(', ')}`,
+          );
+        }
+      }
+    }
+    if (review.problems.length > problems) {
+      lines.push(
+        `- ${review.problems.length - problems} further observation${review.problems.length - problems === 1 ? '' : 's'} ` +
+          'are listed in full in the detected-issues view.',
+      );
+    }
+    lines.push('');
+  }
+  if (review.departures.length > 0) {
+    lines.push('### Deliberate departures', '');
+    for (const departure of review.departures) {
+      lines.push(`- \`${esc(departure.id)}\` (${esc(departure.status)}): ${esc(departure.statement)}`);
+    }
+    lines.push('');
+  }
+  return lines;
+}
+
 function coverageLines(bundle) {
   const coverage = bundle.coverage;
   const lines = [];
@@ -410,13 +501,21 @@ export function renderIssues(bundle) {
   const evidence = evidenceMap(bundle);
   const lines = [];
   lines.push(heading(bundle), '# Detected Issues Report', '');
-  const findings = sortedFindings(bundle);
   lines.push(
     'Findings are prioritized by severity; each keeps its alternative explanation and a bounded repair suggestion.',
     '',
   );
+  lines.push(...reviewLines(bundle, { title: 'The review in brief' }));
+  lines.push('## Findings in full', '');
+  const findings = sortedFindings(bundle);
   if (findings.length === 0) {
-    lines.push('No findings recorded.', '');
+    lines.push(
+      bundle.review
+        ? `${esc(bundle.review.problems_note ?? 'No finding was recorded.')} The reading status is ` +
+          `\`${esc(bundle.review.reading_status)}\`, which is what an empty list means here.`
+        : 'No findings recorded.',
+      '',
+    );
   }
   for (const finding of findings) {
     lines.push(`## ${esc(finding.id)} — ${esc(finding.kind)}`, '');

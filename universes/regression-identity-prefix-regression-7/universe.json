@@ -1,0 +1,16 @@
+{
+  "id": "regression-identity-prefix-regression-7",
+  "title": "regression-identity prefix-regression",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Cities exist only as long as someone tells them; silence dissolves them into stone.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T20:15:57.340Z",
+  "updatedAt": "2026-09-22T20:15:57.340Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

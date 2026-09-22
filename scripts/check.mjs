@@ -17,11 +17,13 @@ import { runTurnChecks } from './check-turns.mjs';
 import { runRuntimeChecks } from './check-runtime.mjs';
 import { runPhaseChecks } from './check-phases.mjs';
 import { runAssessmentChecks } from './check-assessments.mjs';
+import { runReportViewChecks } from './check-report-views.mjs';
 import { runImportTurnChecks } from './check-import-turns.mjs';
 import { runFeedbackChecks } from './check-feedback.mjs';
 import { runFeedbackExportChecks } from './check-feedback-export.mjs';
 import { runFeedbackFinalChecks } from './check-feedback-final.mjs';
 import { runImportChecks } from './check-imports.mjs';
+import { runRegressionChecks } from './check-regressions.mjs';
 import { runDataChecks } from './check-data.mjs';
 
 // The assessment workspace is shared by every process that runs this suite, and two suites at once would
@@ -464,11 +466,15 @@ try {
   await runPhaseChecks({ ok, fail, run });
   // The requested and arc-end orchestration around those phases.
   await runAssessmentChecks({ ok, fail, checkSeed, tempDirs });
+  // The published bundle as the reader interface renders it (no browser and no model call needed).
+  await runReportViewChecks({ ok, fail, checkSeed, tempDirs });
   await runImportChecks({ ok, fail });
   await runImportTurnChecks({ ok, fail, checkSeed, tempDirs });
   await runFeedbackChecks({ ok, fail, checkSeed, tempDirs });
   await runFeedbackExportChecks({ ok, fail, checkSeed, tempDirs });
   await runFeedbackFinalChecks({ ok, fail, checkSeed, tempDirs });
+  // The boundaries the review of the review subsystem named, over the report CLI and the host records.
+  await runRegressionChecks({ ok, fail, checkSeed, tempDirs });
   // The runtime group stops the job manager on purpose, so it runs after every check that queues a turn.
   await runRuntimeChecks({ ok, fail, checkSeed, tempDirs, run });
 } catch (error) {

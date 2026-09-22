@@ -4,6 +4,12 @@
  * A response is about a version of the text, never about the book as it keeps changing: opening the
  * questionnaire freezes the accepted version into a target outside `universes/` (docs/contracts.md
  * §8.7), and every answer, comment and quotation the reader writes is anchored to that frozen copy.
+ * The capture names the version and the chapter hashes this browser actually displayed, so a rewrite
+ * that landed while the reader was reading cannot attach their answers to prose they never saw: the
+ * host refuses with `STALE_TARGET`, the draft stays in the form, and freezing again — explicitly, on
+ * the version now on screen — is the reader's own act. What one session saw of a report, of model
+ * scores or of other readers' comments, and the usefulness and defect reactions, travel with the
+ * response they belong to instead of with the frozen copy every reader shares.
  * Nothing here edits a chapter, nothing is averaged with anyone else's answers, and the identity the
  * host issues is the only thing a submission needs.
  *
@@ -20,6 +26,7 @@ import {
   copyText,
   ensureReader,
   explain,
+  loadFrozenCopy,
   repaint,
   refreshFeedback,
   storedReader,
@@ -27,11 +34,15 @@ import {
   upsertResponse
 } from './responses.js';
 import { dom, state } from './state.js';
+import { refreshDetail } from './universe.js';
 
 /** The limits of §8.7 the form respects before the server has to refuse anything. */
 export const QUOTE_CHARS = 600;
 
 export const COMMENT_CHARS = 4000;
+
+/** §8.7: the comment of a single answer — and of a single reaction — is at most 1 200 characters. */
+export const ANSWER_COMMENT_CHARS = 1200;
 
 export const WHERE_CHARS = 200;
 
@@ -67,6 +78,14 @@ export function openFeedback({ chapter = null } = {}) {
     answers: new Map(),
     comments: [blankComment()],
     where: '',
+    // What this session saw before answering: `null` is "not declared", never a silent "no".
+    exposure: { model_scores: null, other_comments: null },
+    reactions: {},
+    // The report surface the reader had open, if any: the response, not the target, names it.
+    reportRunId: state.report?.runId ?? null,
+    findingIds: [],
+    displayedVersion: state.feedbackVersion ?? null,
+    comparisonOpen: false,
     reader: known,
     name: known?.display_name ?? '',
     nameOpen: known === null,
@@ -82,8 +101,9 @@ export function openFeedback({ chapter = null } = {}) {
   };
   openPanel('feedback');
   dom['feedback-close'].focus();
-  freeze().catch(() => {});
-  refreshFeedback({ force: true }).catch(() => {});
+  // The version the store holds is read before the capture: what the reader displayed is sent with it,
+  // so the freeze can say whether the text on screen is still the text of that version.
+  refreshFeedback({ force: true }).catch(() => {}).then(() => freeze()).catch(() => {});
 }
 
 /** Switch between answering the questionnaire and reading what the team already said. */
@@ -97,12 +117,42 @@ export function showFeedback(view) {
 
 /* ------------------------------------------------------------- the target */
 
+/** `sha256:` — the identity §8.2 gives a version — and the hash of the chapter text as this browser has it. */
+async function sha256Hex(text) {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * The chapters this browser displayed, each with the sha256 of the text it fetched, so the host can
+ * tell whether the accepted text is still the text that was on screen. A chapter whose fetched length
+ * does not match the byte count the book reports is left out: this browser cannot claim that hash.
+ */
+async function displayedChapters() {
+  const displayed = [];
+  for (const number of acceptedChapterNumbers()) {
+    const cached = state.chapters.get(number);
+    const markdown = cached?.markdown ?? null;
+    if (typeof markdown !== 'string') continue;
+    const bytes = new TextEncoder().encode(markdown).length;
+    if (cached.bytes != null && cached.bytes !== bytes) continue;
+    displayed.push({ number, sha256: await sha256Hex(markdown) });
+  }
+  return displayed;
+}
+
 /**
  * Freeze the accepted version of the displayed book as a reading target, or open the target a reader of
  * the same version already made. The questionnaire is the target's, not the interface's: what a reader
  * answers is read against exactly the questions and the text their own target carries.
+ *
+ * The capture names the version and the chapter hashes this browser displayed. When the host answers
+ * `STALE_TARGET`, the version the reader read is no longer the accepted one: nothing was frozen, the
+ * draft stays in the form, and `current: true` — the reader pressing the button that says so — fetches
+ * the accepted text first and freezes that instead.
  */
-export async function freeze() {
+export async function freeze({ current = false } = {}) {
   const model = state.feedback;
   if (!model || model.busy || !state.universeId) return;
   const numbers = acceptedChapterNumbers();
@@ -116,14 +166,28 @@ export async function freeze() {
   model.error = null;
   renderPanels();
   try {
+    if (current) {
+      // Freezing "the version on screen" means reading it again: the accepted text is fetched before it
+      // is frozen, so the hashes this browser sends are the hashes of what it has just displayed.
+      await refreshDetail({ targetIndex: 'keep' });
+      model.displayedVersion = state.feedbackVersion ?? null;
+    }
     const carried = model.target ? carryOver(model) : null;
     const wasCorrecting = model.revisionOf != null;
-    const { target } = await freezeFeedbackTarget({ scope: { kind: 'book' }, runId: null, note: null, findingIds: [] });
+    const { target, reopened } = await freezeFeedbackTarget({
+      scope: { kind: 'book' },
+      sourceVersion: model.displayedVersion,
+      displayed: await displayedChapters()
+    });
     if (!target) throw new Error('The host answered without a target to answer against.');
     model.revisionOf = null;
     adopt(target, carried);
+    // The copy this form quotes is the target's own frozen text, so a reader who opened a historical
+    // target — or is on another machine — is shown and quotes the words the target holds, not today's.
+    await loadFrozenCopy(model);
     const parts = [];
-    if (wasCorrecting) parts.push('the correction was dropped, because a response about the version on screen is a new response and not a correction of one about an earlier copy');
+    if (reopened) parts.push('the version you read is no longer the accepted one, so this form answers the frozen copy of that version, kept exactly as it was');
+    if (wasCorrecting) parts.push('the correction was dropped, because a response about another copy is a new response and not a correction of one about an earlier copy');
     if (carried?.quotations) {
       parts.push(carried.quotations === 1
         ? 'the quotation you made belongs to the earlier copy and was left behind'
@@ -135,9 +199,68 @@ export async function freeze() {
     }
   } catch (error) {
     model.freezeError = explain(error);
+    const acceptedVersion = error?.details?.accepted_version;
+    if (error?.code === 'STALE_TARGET' && typeof acceptedVersion === 'string') {
+      // The reader keeps every answer they wrote; only the version they are answering moves forward.
+      model.displayedVersion = acceptedVersion;
+      model.notice = 'Your answers are still here. The book changed since you read it, so this form froze nothing; press "Freeze the version on screen now" to answer the text the book holds today.';
+    }
   } finally {
     model.busy = false;
     repaint();
+  }
+}
+
+/** What the reader had already seen before answering: recorded as declared, or left undeclared. */
+export function setExposure(name, value) {
+  const model = state.feedback;
+  if (!model || !(name in model.exposure)) return;
+  model.exposure[name] = value;
+  touched(model);
+  renderPanels();
+}
+
+/** One reaction of the response — usefulness of the report, presence of a defect — or its removal. */
+export function chooseReaction(reactionId, value) {
+  const model = state.feedback;
+  if (!model) return;
+  const declared = model.reactionsDeclared?.find((reaction) => reaction.id === reactionId);
+  if (!declared) return;
+  const chosen = declared.options.find((option) => String(option) === String(value));
+  if (chosen === undefined) return;
+  const current = model.reactions[reactionId];
+  model.reactions[reactionId] = current?.value === chosen ? null : { value: chosen, comment: current?.comment ?? null };
+  touched(model);
+  renderPanels();
+}
+
+export function setReactionComment(reactionId, value) {
+  const model = state.feedback;
+  if (!model) return;
+  const reaction = model.reactions[reactionId];
+  if (!reaction) return;
+  reaction.comment = String(value ?? '').slice(0, ANSWER_COMMENT_CHARS);
+  touched(model);
+}
+
+/**
+ * Open, or close, the two-text comparison session of §8.7. Its own surface lives in `./comparison.js`,
+ * which is mounted into the container this form renders; nothing of it is drawn here.
+ */
+export async function toggleComparison() {
+  const model = state.feedback;
+  if (!model) return;
+  model.comparisonOpen = !model.comparisonOpen;
+  model.error = null;
+  repaint();
+  if (!model.comparisonOpen) return;
+  const container = document.getElementById('feedback-comparison');
+  if (!container) return;
+  try {
+    const { mountComparison } = await import('./comparison.js');
+    await mountComparison(container, { universeId: state.universeId, readerId: model.reader?.reader_id ?? null });
+  } catch (error) {
+    container.textContent = `The comparison session could not be opened: ${error?.message ?? error}`;
   }
 }
 
@@ -414,7 +537,16 @@ export async function sendFeedback() {
         text: comment.text.trim(),
         evidence: comment.evidence ? [{ ...comment.evidence }] : []
       })),
-      conditions: { where: model.where.trim() || null },
+      // What this reading session looked at and had already seen: it belongs to this response, and a
+      // report of another version or another scope is refused by the host rather than stored.
+      run_id: model.reportRunId ?? null,
+      finding_ids: model.findingIds ?? [],
+      note: null,
+      conditions: { where: model.where.trim() || null, exposure: { ...model.exposure } },
+      reactions: Object.fromEntries(Object.entries(model.reactions ?? {}).map(([id, reaction]) => [
+        id,
+        reaction ? { value: reaction.value, comment: reaction.comment?.trim() ? reaction.comment.trim() : null } : null
+      ])),
       revision_of: model.revisionOf ?? null
     };
     const { feedback, deduplicated } = await submitReaderFeedback(body);
@@ -424,7 +556,7 @@ export async function sendFeedback() {
     model.revisionOf = null;
     model.notice = deduplicated
       ? `This response was already recorded as ${feedback.feedback_id}; nothing was written twice.`
-      : `Your answer is recorded as ${feedback.feedback_id}. It is listed with the others, under your name, exactly as you gave it.`;
+      : `Your answer is recorded as ${feedback.feedback_id}. It is listed with the others, under your name, exactly as you gave it, and what you declared about having seen a report beforehand is recorded with it — the store never claims a reading was unaided on your behalf. What the others said is under "See what readers said".`;
     upsertResponse(feedback);
     await refreshFeedback({ force: true }).catch(() => {});
   } catch (error) {

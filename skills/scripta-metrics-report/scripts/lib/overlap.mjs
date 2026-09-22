@@ -60,28 +60,99 @@ export function candidateShingles(units) {
 }
 
 /**
- * Split references into the ones eligible for comparison and the ones excluded,
- * with the reason preserved. Excluding a reference whose bytes are the same
- * source version as a selected chapter (`same_source_version`) is a different
- * fact from a reference that merely repeats the candidate's words (which stays
- * eligible and is flagged `duplicate_text`).
+ * Decide what each reference is to the candidate, from what it declares.
+ *
+ * `candidate` is `{ id, version, hashes }`: the candidate source identity the
+ * packet declares (`universe_id`, accepted version) and the hashes of the
+ * selected files. A reference is the candidate's own source version — a
+ * self-comparison that must not be compared with itself — only when it declares
+ * `source: { id, version }` and both match the candidate. Bytes are never
+ * promoted into an identity: a reference whose bytes equal a selected chapter
+ * while declaring nothing stays eligible and is reported as duplicate text with
+ * an unknown identity, because an independent copy is exactly what overlap
+ * measurement is for. `same_source_other_version` and `independent` are kept
+ * for the same reason; a declaration is recorded even when it cannot be checked.
+ *
+ * Returns `{ eligible, exclusions, classified }`: `classified` records what every
+ * reference was decided to be, in input order, so the bundle can name each
+ * reference's identity and its exclusion reason instead of only listing the
+ * removed ones.
  */
-export function classifyReferences(references, candidateHashes) {
+export function classifyReferences(references, candidate) {
   const eligible = [];
   const exclusions = [];
+  const classified = [];
   for (const reference of references) {
-    if (candidateHashes.has(reference.sha256)) {
-      exclusions.push({ id: reference.id, sha256: reference.sha256, reason: 'same_source_version' });
+    const identity = classifyIdentity(reference, candidate);
+    if (identity.status === 'self_comparison') {
+      exclusions.push({ id: reference.id, sha256: reference.sha256, reason: 'same_source_version', identity });
+      classified.push({ id: reference.id, identity, eligible: false, reason: 'same_source_version' });
       continue;
     }
     const permitted = reference.permitted_use ?? 'comparison';
     if (permitted === 'none' || permitted === 'prohibited') {
-      exclusions.push({ id: reference.id, sha256: reference.sha256, reason: `permitted_use:${permitted}` });
+      const reason = `permitted_use:${permitted}`;
+      exclusions.push({ id: reference.id, sha256: reference.sha256, reason, identity });
+      classified.push({ id: reference.id, identity, eligible: false, reason });
       continue;
     }
-    eligible.push(reference);
+    eligible.push({ ...reference, identity });
+    classified.push({ id: reference.id, identity, eligible: true, reason: null });
   }
-  return { eligible, exclusions };
+  return { eligible, exclusions, classified };
+}
+
+/** The identity of one reference against the candidate, as a record a report can state. */
+function classifyIdentity(reference, candidate) {
+  const declared = reference.source ?? null;
+  const bytesMatch = Boolean(candidate && candidate.hashes && candidate.hashes.has(reference.sha256));
+  const base = { declared, bytes_match_candidate: bytesMatch, verified: false, note: null };
+  if (declared === null) {
+    return {
+      ...base,
+      status: 'unknown',
+      note: bytesMatch
+        ? 'the reference declares no source identity; its bytes equal a selected chapter, so it is retained and ' +
+          'labelled as duplicate text rather than assumed to be the same source version'
+        : 'the reference declares no source identity, so it is treated as an independent reference',
+    };
+  }
+  if (!candidate || typeof candidate.id !== 'string' || typeof candidate.version !== 'string') {
+    return {
+      ...base,
+      status: 'unverified_declaration',
+      note: `the reference declares the source ${JSON.stringify(declared.id)} at ${JSON.stringify(declared.version)}, ` +
+        'but the candidate has no declared identity to check it against, so the declaration is recorded unverified',
+    };
+  }
+  const sameSource = declared.id === candidate.id;
+  const sameVersion = declared.version === candidate.version;
+  if (sameSource && sameVersion) {
+    return {
+      ...base,
+      status: 'self_comparison',
+      verified: true,
+      note: bytesMatch
+        ? 'the reference declares the candidate source and version, and its bytes are a selected chapter'
+        : 'the reference declares the candidate source and version, though its bytes differ from the selected chapters',
+    };
+  }
+  if (sameSource) {
+    return {
+      ...base,
+      status: 'same_source_other_version',
+      verified: true,
+      note: `the reference declares the candidate source at ${JSON.stringify(declared.version)}, not the assessed ` +
+        `${JSON.stringify(candidate.version)}; another version of the same book stays comparable`,
+    };
+  }
+  return {
+    ...base,
+    status: 'independent',
+    verified: true,
+    note: `the reference declares the source ${JSON.stringify(declared.id)}, which is not the candidate source ` +
+      `${JSON.stringify(candidate.id)}`,
+  };
 }
 
 /**
@@ -102,6 +173,7 @@ export function computeSi(candidate, references) {
       duplicate_text: reference.duplicate_text === true,
       duplicate_of: reference.duplicate_of ?? null,
       provenance: reference.provenance ?? null,
+      identity: reference.identity ?? null,
     });
   }
   if (candidate.size === 0 || pairs.length === 0) {

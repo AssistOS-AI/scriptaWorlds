@@ -1,0 +1,11 @@
+{
+  "number": 1,
+  "createdAt": "2026-09-22T19:13:56.893Z",
+  "kind": "chapter",
+  "status": "recovery_required",
+  "request": "interrupted request",
+  "chapterNumber": 2,
+  "startedAt": "2026-09-22T19:13:56.893Z",
+  "finishedAt": "2026-09-22T19:13:56.894Z",
+  "error": "the snapshot taken before this turn is missing (missing); the accepted state of this book must be established by hand before it is written again"
+}

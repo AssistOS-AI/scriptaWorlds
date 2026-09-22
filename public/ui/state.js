@@ -107,6 +107,7 @@ export const state = {
   feedbackTargets: [],
   feedbackCounts: null,
   feedbackLoaded: false,
+  feedbackVersion: null,
   readers: [],
   readersLoaded: false,
   selection: null,

@@ -1,0 +1,16 @@
+{
+  "id": "feedback-sessions-c78-mud3acf9",
+  "title": "feedback-sessions c78-mud3acf9",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Cities exist only as long as someone tells them; silence dissolves them into stone.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T19:51:02.841Z",
+  "updatedAt": "2026-09-22T19:51:02.841Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

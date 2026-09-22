@@ -15,6 +15,7 @@ import {
   renderMetrics,
   renderSpecification,
   renderStg,
+  reviewLines,
 } from './views.mjs';
 
 export const VIEW_FILES = [
@@ -56,6 +57,10 @@ function renderIndex(bundle) {
       '',
     );
   }
+  // What the review found comes before how it was measured: an author reads the
+  // strengths, the supported problems and the passages first.
+  const review = reviewLines(bundle);
+  if (review.length > 0) lines.push(...review);
   lines.push(
     '## Views',
     '',

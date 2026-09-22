@@ -26,12 +26,98 @@ export function statusWords(status) {
 export function bundleReport(bundle) {
   const root = elem('div', { className: 'bundle' });
   const evidence = new Map((bundle?.evidence ?? []).map((item) => [item.id, item]));
+  root.append(reviewSection(bundle, evidence));
   root.append(scopeBlock(bundle));
   root.append(metricsSection(bundle?.metrics ?? {}, evidence));
   root.append(indicatorsSection(bundle?.indicators ?? {}, evidence));
-  root.append(findingsSection(bundle?.findings ?? [], evidence));
+  root.append(findingsSection(bundle?.findings ?? [], evidence, bundle?.review));
   root.append(preservedSection(bundle?.preserved_qualities ?? {}, evidence));
   return root;
+}
+
+/* --------------------------------------------------------------- review */
+
+/**
+ * What the review found, before any number: the reading status, the intention the
+ * text was read against, the strengths the record observed, the most consequential
+ * supported problems with their passages and bounded revision options. An empty
+ * findings list is never rendered as a clean report: the status says whether the
+ * text was not evaluated, only partly evaluated, or read without a supported issue.
+ */
+function reviewSection(bundle, evidence) {
+  const review = bundle?.review;
+  if (!review) return elem('span');
+  const section = elem('section', { className: 'bundle__section bundle__section--review' },
+    elem('h4', { className: 'bundle__title' }, elem('span', { text: 'The review in brief' })),
+    elem('p', { className: `bundle__verdict bundle__verdict--${review.reading_status}` },
+      elem('strong', { text: statusWords(review.reading_status) }),
+      document.createTextNode(` — ${review.statement}`)
+    ),
+    elem('p', { className: 'metric__meta', text: `assessed scope: ${scopeText(review.scope)} · ${review.intention.statement}` })
+  );
+
+  section.append(elem('h5', { className: 'bundle__subtitle', text: 'Strengths observed' }));
+  if (review.strengths.length === 0) {
+    section.append(elem('p', { className: 'analysis__hint', text: review.strengths_note ?? 'Nothing was recorded as worth preserving.' }));
+  } else {
+    const list = elem('ul', { className: 'strengths' });
+    for (const strength of review.strengths) {
+      const item = elem('li', {},
+        elem('span', { className: 'metric__id', text: strength.id }),
+        document.createTextNode(` ${strength.statement}`)
+      );
+      const quotes = evidenceList(strength.passages, evidence);
+      if (quotes) item.append(quotes);
+      list.append(item);
+    }
+    section.append(list);
+  }
+
+  section.append(elem('h5', { className: 'bundle__subtitle', text: 'Most consequential problems' }));
+  if (review.problems.length === 0) {
+    section.append(elem('p', { className: 'analysis__hint', text: `${review.problems_note ?? 'No finding was recorded.'} The reading status above is what that means.` }));
+  } else {
+    for (const problem of review.problems) {
+      const card = elem('article', { className: 'problem' },
+        elem('header', { className: 'metric__head' },
+          elem('span', { className: 'metric__id', text: problem.id }),
+          elem('span', { className: `badge badge--severity-${problem.severity}`, text: `${problem.severity} severity` }),
+          elem('span', { className: `badge badge--${problem.status}`, text: statusWords(problem.status) }),
+          elem('span', { className: 'metric__kind', text: problem.origin })
+        ),
+        elem('p', { className: 'finding__description', text: problem.statement }),
+        elem('p', { className: 'metric__meta', text: problem.relates_to }),
+        elem('p', { className: 'metric__meta', text: problem.intention_link })
+      );
+      const quotes = evidenceList(problem.passages, evidence);
+      if (quotes) card.append(quotes);
+      if (problem.alternative_reading) {
+        card.append(elem('p', {}, elem('strong', { text: 'Alternative reading. ' }), document.createTextNode(String(problem.alternative_reading))));
+      }
+      if (problem.revision_options.length === 0) {
+        card.append(elem('p', { className: 'analysis__hint', text: problem.revision_note ?? '' }));
+      }
+      for (const option of problem.revision_options) {
+        card.append(elem('p', {},
+          elem('strong', { text: 'Revision option. ' }),
+          document.createTextNode(`${option.statement} (${option.from})`)
+        ));
+        if (option.preserved_in_the_same_scope.length) {
+          card.append(elem('p', { className: 'metric__meta', text: `passages worth preserving in the same scope: ${option.preserved_in_the_same_scope.join(', ')}` }));
+        }
+      }
+      section.append(card);
+    }
+  }
+  if (review.assessment.unavailable.length) {
+    section.append(elem('h5', { className: 'bundle__subtitle', text: 'Not available' }));
+    const list = elem('ul', { className: 'gaps' });
+    for (const entry of review.assessment.unavailable) {
+      list.append(elem('li', { text: `${entry.id} (${statusWords(entry.status)}): ${entry.reason ?? 'no reason recorded'}` }));
+    }
+    section.append(list);
+  }
+  return section;
 }
 
 /* ------------------------------------------------------------- coverage */
@@ -113,6 +199,54 @@ function metricsSection(metrics, evidence) {
   return section;
 }
 
+/**
+ * Everything a reader needs to interpret one result, rendered in the card body rather than hidden
+ * behind a collapsed control: the value kind, coverage, bounds, the qualification of an experimental
+ * aggregate, the evaluator, and every field of the metric's own `detail` — the declared weights and
+ * arithmetic of an NQS, the calibration verification, the continuity partition, the assessed segment
+ * population, the tension profile. A default view that hides those is the defect this list exists for.
+ */
+function diagnosticRows(metric) {
+  const rows = [];
+  rows.push(['status', statusWords(metric.status)]);
+  if (metric.missing_reason) rows.push(['why unavailable', metric.missing_reason]);
+  rows.push(['scope', scopeText(metric.scope)]);
+  if (metric.value_kind) rows.push(['value kind', metric.value_kind]);
+  if (metric.unit) rows.push(['unit', metric.unit]);
+  if (metric.direction) rows.push(['direction', statusWords(metric.direction)]);
+  rows.push(['coverage', metric.coverage === null || metric.coverage === undefined ? '—' : fmtNumber(metric.coverage)]);
+  rows.push([
+    'bounds',
+    metric.bounds ? `[${fmtNumber(metric.bounds.lower)}, ${fmtNumber(metric.bounds.upper)}]` : '—',
+  ]);
+  if (metric.qualified !== undefined) {
+    rows.push(['qualification', metric.qualified === true ? 'limited or experimental finding' : String(metric.qualified)]);
+  }
+  if (metric.rubric_version) rows.push(['rubric version', metric.rubric_version]);
+  if (metric.evaluator) rows.push(['evaluator', metric.evaluator]);
+  if (metric.comparison_scope) rows.push(['comparison scope', metric.comparison_scope]);
+  if (metric.purpose) rows.push(['purpose', metric.purpose]);
+  if (metric.method) rows.push(['method', metric.method]);
+  if (metric.limits) rows.push(['limits', metric.limits]);
+  if (metric.rationale) rows.push(['rationale', metric.rationale]);
+  for (const [key, value] of Object.entries(metric.detail ?? {})) rows.push([statusWords(key), value]);
+  return rows;
+}
+
+/** A detail value as readable text: lists and small records are never printed as `[object Object]`. */
+function detailText(value) {
+  if (value === null || value === undefined) return '—';
+  if (Array.isArray(value)) return value.length ? value.map((entry) => detailText(entry)).join(', ') : 'none';
+  if (typeof value === 'object') {
+    const pairs = Object.entries(value);
+    if (!pairs.length) return 'none';
+    return pairs.map(([key, entry]) => `${statusWords(key)} ${detailText(entry)}`).join(' · ');
+  }
+  if (typeof value === 'boolean') return value ? 'yes' : 'no';
+  if (typeof value === 'number') return fmtNumber(value) ?? String(value);
+  return String(value);
+}
+
 function metricCard(metric, evidence) {
   const card = elem('article', { className: 'metric' },
     elem('header', { className: 'metric__head' },
@@ -123,23 +257,13 @@ function metricCard(metric, evidence) {
     ),
     valueBlock(metric)
   );
-  const facts = [`scope: ${scopeText(metric.scope)}`];
-  if (metric.unit) facts.push(`unit: ${metric.unit}`);
-  if (metric.direction) facts.push(`direction: ${statusWords(metric.direction)}`);
-  card.append(elem('p', { className: 'metric__meta', text: facts.join(' · ') }));
-  const detail = [];
-  if (metric.purpose) detail.push(elem('p', {}, elem('strong', { text: 'Purpose. ' }), document.createTextNode(String(metric.purpose))));
-  if (metric.method) detail.push(elem('p', {}, elem('strong', { text: 'Method. ' }), document.createTextNode(String(metric.method))));
-  if (metric.limits) detail.push(elem('p', {}, elem('strong', { text: 'Limits. ' }), document.createTextNode(String(metric.limits))));
-  if (metric.rationale) detail.push(elem('p', {}, elem('strong', { text: 'Rationale. ' }), document.createTextNode(String(metric.rationale))));
-  const quotes = evidenceList(metric.evidence, evidence);
-  if (quotes) detail.push(quotes);
-  if (detail.length) {
-    card.append(elem('details', { className: 'metric__detail' },
-      elem('summary', { text: 'Method, limits and evidence' }),
-      ...detail
-    ));
+  const diagnostics = elem('dl', { className: 'metric__diagnostics' });
+  for (const [label, value] of diagnosticRows(metric)) {
+    diagnostics.append(elem('dt', { text: label }), elem('dd', { text: detailText(value) }));
   }
+  card.append(diagnostics);
+  const quotes = evidenceList(metric.evidence, evidence);
+  if (quotes) card.append(quotes);
   return card;
 }
 
@@ -241,7 +365,7 @@ function indicatorsSection(indicators, evidence) {
 
 /* ------------------------------------------------------------- findings */
 
-function findingsSection(findings, evidence) {
+function findingsSection(findings, evidence, review) {
   const section = elem('section', { className: 'bundle__section' },
     elem('h4', { className: 'bundle__title' },
       elem('span', { text: 'Findings' }),
@@ -249,7 +373,12 @@ function findingsSection(findings, evidence) {
     )
   );
   if (!findings.length) {
-    section.append(elem('p', { className: 'analysis__hint', text: 'The review recorded no finding.' }));
+    // An empty list is not a clean bill: the reading status says whether nothing was evaluated,
+    // only part of the selection was evaluated, or all of it was read without a supported issue.
+    const meaning = review
+      ? `${review.statement} (reading status: ${statusWords(review.reading_status)})`
+      : 'no finding was recorded, and this bundle carries no reading status to say what that means';
+    section.append(elem('p', { className: 'analysis__hint', text: meaning }));
     return section;
   }
   for (const finding of findings) {

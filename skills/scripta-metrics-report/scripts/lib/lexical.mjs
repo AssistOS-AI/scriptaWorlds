@@ -48,29 +48,37 @@ function unavailableTop(reason, eligible, exclusions) {
 }
 
 /**
- * `candidate` is the built candidate-unit set. Returns
+ * `candidate` is the built candidate-unit set and `candidateIdentity` is
+ * `{ id, version, hashes }`, the source identity the packet declares. Returns
  * `{ si, top, corpusReason, exclusions, references }`; `si` and `top` are null
  * when no corpus was supplied at all.
  */
-export function computeLexical({ candidate, corpus, candidateHashSet }) {
+export function computeLexical({ candidate, corpus, candidateIdentity }) {
   const exclusions = [];
   const references = [];
   if (!corpus) {
     return { si: null, top: null, corpusReason: 'no --corpus manifest supplied', exclusions, references };
   }
   const unitShingles = candidate.units.map((unit) => shingleSet(unit.tokens));
-  const classified = classifyReferences(corpus.references, candidateHashSet);
+  const classified = classifyReferences(corpus.references, candidateIdentity);
+  const byId = new Map(classified.classified.map((entry) => [entry.id, entry]));
   for (const exclusion of classified.exclusions) exclusions.push({ ...exclusion, declared: false });
   references.push(
-    ...corpus.references.map((reference) => ({
-      id: reference.id,
-      path: reference.path,
-      sha256: reference.sha256,
-      language: reference.language,
-      provenance: reference.provenance,
-      permitted_use: reference.permitted_use,
-      declared_exclusions: reference.declared_exclusions,
-    })),
+    ...corpus.references.map((reference) => {
+      const decision = byId.get(reference.id);
+      return {
+        id: reference.id,
+        path: reference.path,
+        sha256: reference.sha256,
+        language: reference.language,
+        provenance: reference.provenance,
+        permitted_use: reference.permitted_use,
+        declared_exclusions: reference.declared_exclusions,
+        source: reference.source ?? null,
+        identity: decision ? decision.identity : null,
+        excluded_reason: decision && !decision.eligible ? decision.reason : null,
+      };
+    }),
   );
   for (const reference of corpus.references) {
     for (const declared of reference.declared_exclusions) {
@@ -92,6 +100,7 @@ export function computeLexical({ candidate, corpus, candidateHashSet }) {
         language: reference.language,
         provenance: reference.provenance,
         permitted_use: reference.permitted_use,
+        identity: reference.identity,
         tokens: tokenized.tokens,
         spans: tokenized.spans,
         shingles: shingleSet(tokenized.tokens),
@@ -102,7 +111,7 @@ export function computeLexical({ candidate, corpus, candidateHashSet }) {
   }
   // Genuine duplicate text in another reference is a fact about the corpus and
   // stays eligible; it is never confused with excluding the candidate's own
-  // source version.
+  // source version, which only a verified declaration can establish.
   for (const reference of eligible) {
     if (reference.shingles.size === 0) continue;
     for (const other of eligible) {

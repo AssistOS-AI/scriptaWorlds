@@ -22,6 +22,7 @@ import {
   readImportStatus,
   receiveImport
 } from './imports.mjs';
+import { stopAssessmentChildren } from './assessments.mjs';
 import {
   cancelAssessment,
   listApprovals,
@@ -30,6 +31,7 @@ import {
   listArcEvents,
   listAssessments,
   readAssessment,
+  reassessAssessment,
   runOutputPath,
   recoverAssessments,
   retryAssessment,
@@ -264,6 +266,11 @@ async function handleUniverses(req, res, segments, url) {
           aggregate: body.aggregate === true,
           intention: body.intention ?? null,
           weights: body.weights ?? null,
+          // The words the review is asked about. A caller that sends them overrides what the host would
+          // otherwise read from the turns that wrote the selected chapters; a caller that sends neither
+          // leaves the absence recorded, with its reason, rather than guessed at.
+          request: body.request ?? null,
+          brief: body.brief ?? null,
           // Who produces the semantic observations: the caller's document, the configured evaluator, or
           // nobody. The operator default is `ASSESSMENT_MODE`, so the interface sends nothing at all.
           mode: body.mode ?? null
@@ -279,6 +286,20 @@ async function handleUniverses(req, res, segments, url) {
       // interface renders. Only names the run itself lists are readable, so a path cannot escape it.
       if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
       await serveFile(res, await runOutputPath(id, extra, segments[6]), { download: false });
+      return true;
+    }
+    if (segments[5] === 'reassess') {
+      // A published result is kept as it was: re-evaluating it is a new run over the same frozen packet,
+      // linked to the one it replaces, so reactions and findings that named the old report keep meaning.
+      if (req.method !== 'POST') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+      const body = await readJsonBody(req, config.maxBodyBytes).catch(() => ({}));
+      const mode = body.annotations === 'regenerate' ? 'regenerate' : 'reuse';
+      if (body.annotations !== undefined && body.annotations !== null && !['reuse', 'regenerate'].includes(body.annotations)) {
+        throw new UniverseError('BAD_ANNOTATIONS', 'Re-evaluation reuses or regenerates the stored annotations (reuse|regenerate).', 400);
+      }
+      const run = await reassessAssessment(id, extra, { annotations: mode });
+      console.log(`[assess] ${run.run_id} reassesses ${extra} for ${id} (annotations ${mode})`);
+      sendJson(res, 202, { run });
       return true;
     }
     if (req.method === 'GET') {
@@ -667,6 +688,9 @@ async function main() {
     if (stopped.stopped > 0) {
       console.log(`[stop] stopped ${stopped.stopped} running turn(s)${stopped.killed > 0 ? `, killed ${stopped.killed}` : ''}`);
     }
+    // The review children are stopped the same way: a server must not release the store while an
+    // annotation or a report phase of its own is still alive and writing.
+    stopAssessmentChildren();
     await new Promise((resolve) => server.close(resolve));
     await lock.release();
     console.log('[stop] store lock released; the server is gone');

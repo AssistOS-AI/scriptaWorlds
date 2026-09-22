@@ -19,6 +19,7 @@ import {
   listAssessments,
   readAssessment,
   recoverAssessments,
+  reassessAssessment,
   retryAssessment,
   settleAssessments,
   startAssessment
@@ -112,7 +113,7 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
 
     // A phase that fails never touches the book: the run records the error and the store is unchanged.
     {
-      const failed = await startAssessment({ universeId: universe.id, phase: 'metrics', profile: { schema_version: 'profile.v1', profile_id: 'broken', scope: { kind: 'chapter', chapters: [999], context_chapters: [] } }, force: true, mode: 'deterministic' });
+      const failed = await startAssessment({ universeId: universe.id, phase: 'metrics', profile: { schema_version: 'profile.v1', profile_id: 'broken', scope: { kind: 'chapter', chapters: [1], context_chapters: [] } }, force: true, mode: 'deterministic' });
       await settleAssessments();
       const settled = await readAssessment(universe.id, failed.run_id);
       const after = await inventory(universe.id);
@@ -121,6 +122,24 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
         ok(`assessments: a failing phase is recorded as an error (\`${String(settled.error).slice(0, 48)}…\`) and never writes into the book`);
       } else {
         fail(`assessments/failure: status=${settled.status}, error=${settled.error}, universe additions=${JSON.stringify(diff)}`);
+      }
+    }
+
+    // A scope naming a chapter the captured version does not have is refused at request time, before any
+    // packet or run exists, and nothing is written anywhere.
+    {
+      const runsBefore = (await listAssessments(universe.id)).length;
+      let refusedCode = null;
+      try {
+        await startAssessment({ universeId: universe.id, phase: 'metrics', mode: 'deterministic', scope: { kind: 'chapter', chapters: [999] } });
+      } catch (error) {
+        refusedCode = error.code;
+      }
+      const runsAfter = await listAssessments(universe.id);
+      if (refusedCode === 'BAD_SCOPE' && runsAfter.length === runsBefore) {
+        ok('assessments/scope: a selection naming a chapter the captured version does not have is refused with BAD_SCOPE before anything is created');
+      } else {
+        fail(`assessments/scope: code=${refusedCode}, runs before/after=${runsBefore}/${runsAfter.length}`);
       }
     }
 
@@ -173,7 +192,18 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
               expression: { rating: 2, rationale: 'the voice is consistent', evidence: ['g1'] }
             }
           },
-          NQS: { emotional_fit: 70 }
+          EAP: {
+            status: 'judged',
+            evaluator: 'annotator-2',
+            emotional_fit: {
+              status: 'judged',
+              evaluator: 'annotator-2',
+              fit: 70,
+              rationale: 'the quiet register answers the stated intention',
+              evidence: ['g1'],
+              intention_binding: 'restraint over escalation in a quiet aftermath'
+            }
+          }
         }
       };
       const aggregated = await startAssessment({
@@ -279,22 +309,71 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
       }
     }
 
-    // A rewrite of the book makes the older result historical, and a retry reuses the same frozen packet.
+    // A published result is kept as it was published: an intervening rewrite makes it historical, and
+    // re-evaluating it is a new run over the same frozen packet that names the run it re-evaluates. The
+    // published bytes and the revision a reader reacted to do not change under that reader.
     {
       await writeFile(join(universeDir(universe.id), 'chapters', '0002-two.md'), '# Two\n\nA different second chapter, written by hand after the assessment.\n', 'utf8');
       const listed = await listAssessments(universe.id);
       const older = listed.find((run) => run.run_id === metricsRun.run_id);
-      const retried = await retryAssessment(universe.id, continuityRun.run_id);
-      await settleAssessments();
-      const afterRetry = await readAssessment(universe.id, continuityRun.run_id);
-      const packet = await readFile(join(workspaceUniverse, continuityRun.input_dir.replace(`${universe.id}/`, ''), 'manifest.json'), 'utf8').then(JSON.parse, () => null);
-      if (older?.historical === true && retried.attempts === 2 && afterRetry.status === 'done' && afterRetry.version === continuityRun.version && packet?.version === continuityRun.version) {
-        ok('assessments: an intervening rewrite marks the older result historical, and a retry re-runs the same frozen packet');
-      } else {
-        fail(`assessments/freshness: historical=${older?.historical}, attempts=${retried.attempts}, status=${afterRetry.status}, packet=${packet?.version}`);
+      const published = await readAssessment(universe.id, continuityRun.run_id);
+      const digest = (name) => readFile(join(assessmentsRoot(), published.result_dir, name))
+        .then((bytes) => sha256hex(bytes), () => null);
+      const digests = async () => Promise.all((published.outputs ?? []).map(digest));
+      const beforeBytes = await digests();
+      let retryRefusal = null;
+      try {
+        await retryAssessment(universe.id, continuityRun.run_id);
+      } catch (error) {
+        retryRefusal = error.code;
       }
-      await retryAssessment(universe.id, metricsRun.run_id).catch(() => null);
+      const reassessed = await reassessAssessment(universe.id, continuityRun.run_id)
+        .catch((error) => ({ run_id: null, reassesses_run_id: null, refused: error.code, error: error.message }));
       await settleAssessments();
+      const newRun = reassessed.run_id ? await readAssessment(universe.id, reassessed.run_id) : { status: 'error', outputs: [], error: reassessed.error };
+      const afterBytes = await digests();
+      const packet = await readFile(join(workspaceUniverse, published.input_dir.replace(`${universe.id}/`, ''), 'manifest.json'), 'utf8').then(JSON.parse, () => null);
+      const stillPublished = await readAssessment(universe.id, continuityRun.run_id);
+      if (older?.historical === true && retryRefusal === 'ALREADY_PUBLISHED'
+        && beforeBytes.join(',') === afterBytes.join(',') && stillPublished.status === 'done'
+        && stillPublished.result_revision === published.result_revision
+        && newRun.run_id !== continuityRun.run_id && newRun.reassesses_run_id === continuityRun.run_id
+        && newRun.status === 'done' && newRun.version === continuityRun.version
+        && (newRun.outputs ?? []).includes('continuity-result.json')
+        && packet?.version === continuityRun.version) {
+        ok('assessments: an intervening rewrite marks the older result historical; the published result answers ALREADY_PUBLISHED and keeps its bytes and revision, and re-evaluation is a new run (reassesses_run_id) over the same frozen packet');
+      } else {
+        fail(`assessments/freshness: historical=${older?.historical}, retry=${retryRefusal}, bytesKept=${beforeBytes.join(',') === afterBytes.join(',')}, published=${stillPublished.status}/${stillPublished.result_revision === published.result_revision}, new=${newRun.run_id}/${newRun.reassesses_run_id}, status=${newRun.status}, version=${newRun.version}, outputs=${JSON.stringify(newRun.outputs)}, packet=${packet?.version}, error=${newRun.error}`);
+      }
+    }
+
+    // An unfinished run is still retried with the same identity: the same run id and frozen packet, one more
+    // attempt, and the earlier attempt records kept instead of erased.
+    {
+      const unusable = {
+        schema_version: 'annotations.v1',
+        source_version: await currentVersion(universe.id),
+        metrics: {
+          CS: {
+            status: 'judged',
+            evaluator: 'annotator-1',
+            dimensions: { referential_clarity: { rating: 3, rationale: 'cites evidence that was never declared', evidence: ['ev-missing'] } }
+          }
+        }
+      };
+      const failed = await startAssessment({ universeId: universe.id, phase: 'metrics', profile: PROFILE, annotations: unusable, force: true });
+      await settleAssessments();
+      const first = await readAssessment(universe.id, failed.run_id);
+      const retried = await retryAssessment(universe.id, failed.run_id);
+      await settleAssessments();
+      const second = await readAssessment(universe.id, failed.run_id);
+      if (first.status === 'error' && retried.run_id === failed.run_id && retried.attempts === 2
+        && second.status === 'error' && second.input_dir === first.input_dir
+        && (second.outputs ?? []).length === 0 && second.error) {
+        ok('assessments/retry: a failed run is retried with the same run id and the same frozen packet, one more attempt recorded and nothing published');
+      } else {
+        fail(`assessments/retry: first=${first.status}, retried=${retried.run_id}/${retried.attempts}, second=${second.status}/${second.input_dir}/${JSON.stringify(second.outputs)}, error=${second.error}`);
+      }
     }
 
   // C36: the inputs a caller declares reach the phase that consumes them. The packet carries them with
@@ -432,6 +511,92 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
       ok(`assessments/inputs: invalid annotations (${String(brokenSettled.error).slice(0, 40)}…) and a corpus whose text does not match its declared hash are refused, not reported as reviews`);
     } else {
       fail(`assessments/inputs/invalid: annotations=${brokenSettled.status}/${String(brokenSettled.error).slice(0, 40)}, corpus=${brokenCorpusRun.error ?? brokenCorpusSettled?.status}`);
+    }
+
+    // C73: a corpus reference's source identity is what its declaration says, never what its bytes look like.
+    // Three references carry the very same bytes as chapter 1: one declares another book (independent, and the
+    // case overlap measurement exists to find), one declares this packet's own universe and version (the only
+    // thing that makes it a self-comparison) and one declares nothing (retained and labelled duplicate text,
+    // with its identity reported as unknown). The host captures the declarations verbatim and records what was
+    // declared; the report decides from the declaration.
+    {
+      const chapterOneBytes = await readFile(join(universeDir(universe.id), 'chapters', '0001-one.md'));
+      const chapterOneText = chapterOneBytes.toString('utf8');
+      const chapterOneSha = sha256hex(chapterOneBytes);
+      const identityVersion = await currentVersion(universe.id);
+      const references = [
+        { id: 'ref-independent', path: 'independent.txt', sha256: chapterOneSha, language: 'en', source: { id: 'another-book', version: `sha256:${'a'.repeat(64)}` } },
+        { id: 'ref-self', path: 'self.txt', sha256: chapterOneSha, language: 'en', source: { id: universe.id, version: identityVersion } },
+        { id: 'ref-undeclared', path: 'undeclared.txt', sha256: chapterOneSha, language: 'en' }
+      ];
+      const corpus = {
+        manifest: { schema_version: 'corpus.v1', references },
+        files: { 'independent.txt': chapterOneText, 'self.txt': chapterOneText, 'undeclared.txt': chapterOneText }
+      };
+      const declared = await startAssessment({ universeId: universe.id, phase: 'metrics', profile: PROFILE, corpus, mode: 'deterministic', force: true });
+      await settleAssessments();
+      const settled = await readAssessment(universe.id, declared.run_id);
+      const capturedCorpus = await readFile(join(assessmentsRoot(), settled.input_dir, 'corpus', 'corpus.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const capturedById = new Map((capturedCorpus?.references ?? []).map((reference) => [reference.id, reference]));
+      const declarationsKept = references.every((reference) => {
+        const captured = capturedById.get(reference.id);
+        if (!captured) return false;
+        return reference.source
+          ? captured.source?.id === reference.source.id && captured.source?.version === reference.source.version
+          : captured.source === undefined || captured.source === null;
+      });
+      const recorded = new Map((settled.corpus_references ?? []).map((reference) => [reference.id, reference]));
+      const recordedRight = settled.corpus_candidate_identity?.id === universe.id
+        && settled.corpus_candidate_identity?.version === identityVersion
+        && recorded.get('ref-independent')?.source?.id === 'another-book'
+        && recorded.get('ref-self')?.source?.version === identityVersion
+        && recorded.get('ref-undeclared')?.source === null;
+      const bundle = await readFile(join(assessmentsRoot(), settled.result_dir, 'assessment.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const corpusBlock = bundle?.provenance?.corpus ?? null;
+      const classified = new Map((corpusBlock?.references ?? []).map((reference) => [reference.id, reference]));
+      const independent = classified.get('ref-independent');
+      const self = classified.get('ref-self');
+      const undeclaredReference = classified.get('ref-undeclared');
+      // The same bytes as a selected chapter, in an independent reference, stay eligible: they are the case an
+      // overlap measurement exists to find. Only the verified declaration makes a reference a self-comparison.
+      const independentKept = independent?.identity?.status === 'independent' && independent?.excluded_reason === null
+        && independent?.identity?.verified === true && independent?.identity?.bytes_match_candidate === true;
+      const selfExcluded = self?.excluded_reason === 'same_source_version'
+        && self?.identity?.status === 'self_comparison' && self?.identity?.verified === true;
+      const undeclaredKept = undeclaredReference?.identity?.status === 'unknown' && undeclaredReference?.excluded_reason === null
+        && undeclaredReference?.identity?.declared === null && /duplicate text/.test(String(undeclaredReference?.identity?.note));
+      const compared = bundle?.metrics?.SI?.status === 'computed' && bundle?.metrics?.TOP?.status === 'computed'
+        && typeof bundle?.metrics?.TOP?.value === 'number' && bundle.metrics.TOP.value > 0
+        && corpusBlock?.candidate_identity?.id === universe.id && corpusBlock?.candidate_identity?.version === identityVersion;
+      if (settled.status === 'done' && declarationsKept && recordedRight && independentKept && selfExcluded && undeclaredKept && compared) {
+        ok(`assessments/corpus: three references with the same bytes as chapter 1 are told apart by what they declare — ${independent.id} stays eligible as an independent source (identity ${independent.identity.status}, TOP ${bundle.metrics.TOP.value.toFixed(2)}), ref-self is the only one excluded (${self.excluded_reason}), ref-undeclared is kept as duplicate text with an unknown identity — and the host captured every declaration verbatim and recorded the candidate identity ${settled.corpus_candidate_identity.id}`);
+      } else {
+        fail(`assessments/corpus/identity: status=${settled.status}, declarationsKept=${declarationsKept}, recorded=${JSON.stringify(settled.corpus_references)}, candidate=${JSON.stringify(settled.corpus_candidate_identity)}, corpusBlockKeys=${JSON.stringify(Object.keys(corpusBlock ?? {}))}, independent=${JSON.stringify(independent?.identity)}/${independent?.excluded_reason}, self=${JSON.stringify(self?.identity?.status)}/${self?.excluded_reason}, undeclared=${JSON.stringify(undeclaredReference?.identity)}/${undeclaredReference?.excluded_reason}, compared=${compared}, error=${settled.error}`);
+      }
+
+      // A declaration that names half an identity cannot be verified, so it is refused at the boundary, before
+      // any packet exists: identity is never guessed, and it is never completed from a hash.
+      {
+        const runsBefore = (await listAssessments(universe.id)).length;
+        let refusedCode = null;
+        try {
+          await startAssessment({
+            universeId: universe.id,
+            phase: 'metrics',
+            profile: PROFILE,
+            corpus: { manifest: { schema_version: 'corpus.v1', references: [{ id: 'ref-half', path: 'half.txt', sha256: chapterOneSha, language: 'en', source: { id: 'another-book' } }] }, files: { 'half.txt': chapterOneText } },
+            force: true
+          });
+        } catch (error) {
+          refusedCode = error.code;
+        }
+        const runsAfter = await listAssessments(universe.id);
+        if (refusedCode === 'INVALID_CORPUS' && runsAfter.length === runsBefore) {
+          ok('assessments/corpus: a reference that declares half a source identity is refused with INVALID_CORPUS before any packet is captured, and no run is created');
+        } else {
+          fail(`assessments/corpus/half-identity: code=${refusedCode}, runs before/after=${runsBefore}/${runsAfter.length}`);
+        }
+      }
     }
 
     // Continuity accepts its own annotations.
@@ -677,6 +842,93 @@ export async function runAssessmentChecks({ ok, fail, checkSeed, tempDirs }) {
         ok('assessments: an arc-completion event records the stable arc id and the accepted version, its report names that event rather than a reader request, and the assessment is deduplicated by arc, version and profile');
       } else {
         fail(`assessments/arc: version=${first.event.version}, events=${events.length}, runs=${runsForArc.length}, second=${second.run?.deduplicated}, arc=${arcBundle?.trigger}/${arcBundle?.trigger_ref?.arc_id}, requested=${requestedBundle?.trigger}/${requestedBundle?.trigger_ref?.kind}`);
+      }
+    }
+
+    // C66 — the continuity substage: a metrics review of chapter 1 runs the continuity skill itself, over the
+    // same frozen packet, into a result directory of its own, and scopes its population to the chapters the
+    // review was asked about. The comparison is data for the metrics phase, never a gate on it: the review
+    // publishes, and the continuity-derived metrics state that this scope left nothing to compare.
+    {
+      const scopedRun = await startAssessment({
+        universeId: universe.id,
+        phase: 'metrics',
+        mode: 'deterministic',
+        force: true,
+        scope: { kind: 'chapter', chapters: [1] },
+        request: 'the scoped continuity run'
+      });
+      await settleAssessments();
+      const run = await readAssessment(universe.id, scopedRun.run_id);
+      const directory = dirname(join(assessmentsRoot(), run.result_dir));
+      const document = await readFile(join(directory, 'generated', 'continuity.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const substageResult = await readFile(join(directory, 'continuity', 'continuity-result.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const bundle = await readFile(join(assessmentsRoot(), run.result_dir, 'assessment.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      // The same packet reviewed as its own continuity phase, unconstrained: the population it reports is the
+      // whole book, which is what makes the substage's scoped population a real narrowing rather than a copy.
+      const whole = await startAssessment({ universeId: universe.id, phase: 'continuity', mode: 'deterministic', force: true });
+      await settleAssessments();
+      const wholeRun = await readAssessment(universe.id, whole.run_id);
+      const wholeResult = await readFile(join(assessmentsRoot(), wholeRun.result_dir, 'continuity-result.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const scopedPopulation = document?.scope?.chapters_reviewed ?? null;
+      const wholePopulation = wholeResult?.scope?.chapters_reviewed ?? null;
+      const cci = bundle?.metrics?.CCI ?? null;
+      const cad = bundle?.metrics?.CAD ?? null;
+      const scoped = run.status === 'done'
+        && substageResult !== null
+        && run.continuity_substage?.ok === true
+        && (run.continuity_substage?.population ?? []).join(',') === '1'
+        && run.continuity_source?.source === 'substage'
+        && run.continuity_source?.source_version === run.version
+        && document !== null
+        && (scopedPopulation ?? []).join(',') === '1'
+        && (document.scope?.omitted ?? []).join(',') === '2'
+        && (document.scoped_from?.selection ?? []).join(',') === '1'
+        && document.source_version === run.version
+        && (wholePopulation ?? []).join(',') === '1,2'
+        // The consequence of consuming the substage, rather than a shape: a scope with no comparison of its
+        // own reports no eligible comparisons, which is a different statement from a review that was given no
+        // continuity result at all.
+        && cci?.status === 'not_applicable' && /no eligible continuity comparison/.test(String(cci?.missing_reason))
+        && cad !== null
+        && cad.status !== 'error';
+      if (scoped) {
+        ok(`assessments/continuity-substage: the metrics review runs the continuity skill over the same packet (${substageResult.schema_version}) in its own result directory, scopes its population to the reviewed chapters (${scopedPopulation} of ${wholePopulation}) and reports CCI as unavailable for that scope while the review still publishes`);
+      } else {
+        fail(`assessments/continuity-substage: status=${run.status}, substage=${JSON.stringify(run.continuity_substage)}, source=${JSON.stringify(run.continuity_source)}, document=${JSON.stringify(document && { reviewed: document.scope?.chapters_reviewed, omitted: document.scope?.omitted, from: document.scoped_from })}, whole=${JSON.stringify(wholePopulation)}, bundleCoverage=${JSON.stringify(bundle?.coverage)}, cci=${JSON.stringify(cci)}, cad=${JSON.stringify(cad && { status: cad.status, value: cad.value })}, error=${run.error}`);
+      }
+    }
+
+    // C66 — a book that was imported here: it has a charter but no authoring request, no approved brief and no
+    // accepted directions, and the review says so. Absence is recorded with its reason and never becomes a
+    // requirement the book could fail: the applicable rules are the published general set alone.
+    {
+      const imported = await bookWithTwoChapters(checkSeed, 'imported');
+      tempDirs.push(imported.id);
+      const started = await startAssessment({ universeId: imported.id, phase: 'metrics', mode: 'deterministic' });
+      await settleAssessments();
+      const run = await readAssessment(imported.id, started.run_id);
+      const bundle = await readFile(join(assessmentsRoot(), run.result_dir, 'assessment.json'), 'utf8').then((text) => JSON.parse(text), () => null);
+      const adherence = await readFile(join(assessmentsRoot(), run.result_dir, '02-specification-adherence.md'), 'utf8').then((text) => text, () => '');
+      const compliance = await readFile(join(assessmentsRoot(), run.result_dir, '01-stg-compliance.md'), 'utf8').then((text) => text, () => '');
+      const context = run.authoring_context ?? null;
+      const missing = (context?.missing ?? []).join(' | ');
+      const rules = bundle?.requirements?.rules ?? [];
+      const intact = run.status === 'done'
+        && context?.request?.present === false
+        && context?.brief?.present === false
+        && /request/.test(missing) && /brief/.test(missing) && /not a violation/.test(missing)
+        && rules.length > 0 && rules.every((rule) => rule.source === 'stg')
+        && (run.applied_rules ?? []).every((id) => id.startsWith('stg-'))
+        && bundle?.specification?.request === null
+        && bundle?.specification?.brief === null
+        && adherence.includes('(no request recorded)') && adherence.includes('(no brief recorded)')
+        && compliance.includes('stg-title-line')
+        && (bundle?.requirements?.car?.failures ?? []).length === 0;
+      if (intact) {
+        ok(`assessments/authoring-context: an imported book without a brief or a request is measured against the published general rules only (${rules.length} rule(s)), both absences are stated with their reason, and neither becomes a failed output`);
+      } else {
+        fail(`assessments/authoring-context: status=${run.status}, context=${JSON.stringify(context)}, missing=${missing}, rules=${JSON.stringify(rules.map((rule) => rule.id))}, applied=${JSON.stringify(run.applied_rules ?? null)}, specification=${JSON.stringify(bundle?.specification ?? null)}, adherence=${adherence.slice(0, 120)}, failures=${JSON.stringify(bundle?.requirements?.car?.failures ?? null)}, error=${run.error}`);
       }
     }
 

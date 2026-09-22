@@ -4,11 +4,20 @@
 //  - a response is anchored to a frozen target and to nothing else. Every quoted range is resolved
 //    against the target's own frozen files, and its character offsets (end exclusive, in the UTF-8
 //    decoded text) are resolved now, so a quote still points at the same words years later;
+//  - everything one reading session adds belongs to that session: the report and the findings the
+//    reader was looking at, the note they wrote, what they had already seen of model scores and of
+//    other readers' comments, and the usefulness or defect reactions they gave. The target keeps only
+//    the frozen text and the questionnaire, so a later reader of the same version inherits no report
+//    association they never had;
 //  - nothing is edited in place: a correction is a new entry that points at the one it replaces
 //    (`revision_of`), and the only rewrite of an entry is a withdrawal, which empties its body and
 //    flags it `withdrawn`;
 //  - a submission is durable and idempotent by identifier: the same `feedback_id` with the same
 //    content answers the entry that exists (`deduplicated`), different content answers `409 CONFLICT`;
+//  - a lineage has one current answer. The parent, its reader, its target, its questionnaire, its
+//    source version, its withdrawal state and the absence of another correction are all validated
+//    inside the same serialized transaction as the idempotency lookup and the write, so two
+//    simultaneous corrections of one response cannot both commit;
 //  - provenance is recorded, never inferred: `reader_kind` is the kind of the identity that submitted,
 //    so a model annotation or a synthetic fixture can never be counted as a team reader;
 //  - nothing here writes inside `universes/`.
@@ -24,7 +33,8 @@ import {
   feedbackRoot,
   listFeedbackTargets,
   readFeedbackTarget,
-  readFrozenText
+  readFrozenText,
+  verifyReportReference
 } from './feedback-targets.mjs';
 import { markFeedbackReaderDeleted, readFeedbackReader, touchFeedbackReader } from './feedback-readers.mjs';
 
@@ -152,6 +162,18 @@ async function normalizeComments(universeId, target, raw) {
   return comments;
 }
 
+/** What the reader had already seen when they answered: declared, or left undeclared, never assumed. */
+function normalizeExposure(raw) {
+  const source = raw && typeof raw === 'object' ? raw : {};
+  const flag = (name) => {
+    const value = source[name];
+    if (value === null || value === undefined) return null;
+    if (typeof value !== 'boolean') throw invalid(`\`${name}\` declares whether the reader had already seen it, as true or false.`);
+    return value;
+  };
+  return { model_scores: flag('model_scores'), other_comments: flag('other_comments') };
+}
+
 /** Where and how the reader read: recorded when given, never required, never invented. */
 function normalizeConditions(raw) {
   const source = raw && typeof raw === 'object' ? raw : {};
@@ -167,12 +189,54 @@ function normalizeConditions(raw) {
     where: checkText(source.where, LIMITS.whereChars, '`where`'),
     duration_minutes: duration,
     device: checkText(source.device, LIMITS.deviceChars, '`device`'),
-    read
+    read,
+    exposure: normalizeExposure(source.exposure)
   };
 }
 
-/** The correction lineage: one child per response, written by the same reader. */
-async function resolveRevision(universeId, revisionOf, reader) {
+/**
+ * The optional reactions of a response — how useful the report was, whether the reader found a defect —
+ * validated against the reactions the target's own frozen questionnaire declares. A reaction that
+ * names no declared option is refused, a reaction about a report is refused when the response names
+ * none, and a reaction the reader left empty stays `null` instead of becoming a low one.
+ */
+function normalizeReactions(raw, questionnaire, { reportId }) {
+  const declared = Array.isArray(questionnaire.reactions) ? questionnaire.reactions : [];
+  const source = raw && typeof raw === 'object' ? raw : {};
+  for (const key of Object.keys(source)) {
+    if (!declared.some((reaction) => reaction.id === key)) {
+      throw invalid(`The questionnaire does not declare the reaction ${key}.`);
+    }
+  }
+  const reactions = {};
+  for (const reaction of declared) {
+    const value = source[reaction.id];
+    if (value === null || value === undefined) {
+      reactions[reaction.id] = null;
+      continue;
+    }
+    if (typeof value !== 'object') throw invalid(`The reaction ${reaction.id} is an object with the option it names.`);
+    const chosen = checkAnswerValue(reaction, value.value);
+    if (chosen === null) throw invalid(`The reaction ${reaction.id} names one of ${JSON.stringify(reaction.options ?? [])}.`);
+    if (reaction.about === 'report' && reportId === null) {
+      throw invalid(`The reaction ${reaction.id} is about a report, so the response names the report it was about.`);
+    }
+    reactions[reaction.id] = {
+      value: chosen,
+      comment: checkText(value.comment, LIMITS.answerCommentChars, `The comment of the reaction ${reaction.id}`)
+    };
+  }
+  return reactions;
+}
+
+/**
+ * The correction lineage: one child per response, written by the same reader about the same text.
+ * `selfId` is the identifier of the submission being written, so a retried submission does not meet
+ * itself as a competing correction. Every rule here is checked inside the caller's serialized
+ * transaction, together with the write, because a check that ran beside it would let two simultaneous
+ * corrections of one response both commit.
+ */
+async function resolveRevision(universeId, revisionOf, reader, { target, questionnaire, selfId = null } = {}) {
   const parent = revisionOf === null || revisionOf === undefined || revisionOf === '' ? null : String(revisionOf);
   if (parent === null) return { parent: null, number: 1 };
   if (!isFeedbackId(parent)) throw unknownFeedback(parent);
@@ -181,8 +245,19 @@ async function resolveRevision(universeId, revisionOf, reader) {
   if (record.request !== 'response') throw invalid('A deletion request cannot be corrected.');
   if (record.withdrawn === true) throw invalid(`Feedback ${parent} was withdrawn; write a new response instead of correcting it.`);
   if (record.reader_id !== reader.reader_id) throw invalid('A correction is written by the reader whose response it corrects.');
+  // A correction answers the same reading: the same frozen target, the same questionnaire and the same
+  // source version. Without this, a correction would move an answer to a target its reader never saw.
+  if (record.target_id !== target.target_id) {
+    throw invalid(`Feedback ${parent} answered target ${record.target_id}; a correction answers the same frozen copy, not another one.`);
+  }
+  if (record.questionnaire_version !== questionnaire.version) {
+    throw invalid(`Feedback ${parent} answered questionnaire ${record.questionnaire_version}; a correction answers the same questions.`);
+  }
+  if (record.accepted_source_version !== target.source_version) {
+    throw invalid(`Feedback ${parent} was given against ${record.accepted_source_version}; a correction answers the same version of the text.`);
+  }
   for (const candidate of await readEntries(universeId)) {
-    if (candidate.feedback_id !== parent && candidate.revision_of === parent) {
+    if (candidate.feedback_id !== parent && candidate.feedback_id !== selfId && candidate.revision_of === parent) {
       throw new UniverseError('CONFLICT', `Feedback ${parent} was already corrected by ${candidate.feedback_id}.`, 409);
     }
   }
@@ -209,9 +284,22 @@ async function viewEntry(universeId, entry, current = undefined) {
   return view(entry, current === undefined ? await currentVersion(universeId) : current);
 }
 
+/** The note a reader wrote for one reading session, kept with that response and not with the target. */
+function checkNote(note) {
+  if (note === null || note === undefined) return null;
+  const value = String(note).trim();
+  if (value.length > LIMITS.noteChars) throw invalid(`A note is at most ${LIMITS.noteChars} characters.`);
+  return value.length === 0 ? null : value;
+}
+
 /**
  * Write one reader's response to a frozen target. The identifier is the server's unless the caller
  * names one, which is what makes a retried submission idempotent instead of a second opinion.
+ *
+ * Everything a response depends on — its reader, its target, the report and findings it names, its
+ * corrections — is validated inside one serialized transaction with the idempotency lookup and the
+ * write: two submissions that race cannot each read a state the other is about to change, so a lineage
+ * can never end up with two current answers.
  */
 export async function submitFeedback({
   universeId,
@@ -223,45 +311,53 @@ export async function submitFeedback({
   feedbackId = null,
   revisionOf = null,
   readerKind = null,
-  questionnaireVersion = null
+  questionnaireVersion = null,
+  runId = null,
+  findingIds = [],
+  note = null,
+  reactions = null
 }) {
-  const target = await readFeedbackTarget(universeId, targetId);
-  const reader = await readFeedbackReader(universeId, readerId);
-  if (reader.deleted_at) {
-    throw new UniverseError('READER_NOT_FOUND', `Reader ${reader.reader_id} asked for their identity to be deleted; a new reading needs a new identity.`, 404);
-  }
-  if (readerKind !== null && readerKind !== undefined && String(readerKind) !== reader.kind) {
-    throw invalid(`This reader is a ${reader.kind}; a response cannot claim to be ${readerKind}.`);
-  }
-  const questionnaire = target.questionnaire;
-  if (!questionnaire?.version) throw invalid('The target does not carry the questionnaire it was frozen with.');
-  if (questionnaireVersion !== null && questionnaireVersion !== undefined && String(questionnaireVersion) !== questionnaire.version) {
-    throw invalid(`The target was frozen with questionnaire ${questionnaire.version}, not ${questionnaireVersion}.`);
-  }
-  const revision = await resolveRevision(universeId, revisionOf, reader);
-  const normalized = {
-    target_id: target.target_id,
-    universe_id: universeId,
-    reader_id: reader.reader_id,
-    reader_kind: reader.kind,
-    questionnaire_version: questionnaire.version,
-    accepted_source_version: target.source_version,
-    scope: target.scope,
-    language: target.language,
-    run_id: target.run_id ?? null,
-    finding_ids: target.finding_ids ?? [],
-    answers: normalizeAnswers(answers, questionnaire),
-    comments: await normalizeComments(universeId, target, comments),
-    conditions: normalizeConditions(conditions),
-    revision_of: revision.parent,
-    revision: revision.number
-  };
   const id = feedbackId === null || feedbackId === undefined || feedbackId === '' ? issuedId() : String(feedbackId);
   if (!isFeedbackId(id)) throw invalid('A feedback identifier is 3 to 64 characters of letters, digits, dots, dashes or underscores.');
-  // The identity of the content: what a retry of the same submission reproduces and a different
-  // submission under the same identifier does not.
-  const submission = sha256(JSON.stringify(normalized));
   return serialize(universeId, async () => {
+    const target = await readFeedbackTarget(universeId, targetId);
+    const reader = await readFeedbackReader(universeId, readerId);
+    if (reader.deleted_at) {
+      throw new UniverseError('READER_NOT_FOUND', `Reader ${reader.reader_id} asked for their identity to be deleted; a new reading needs a new identity.`, 404);
+    }
+    if (readerKind !== null && readerKind !== undefined && String(readerKind) !== reader.kind) {
+      throw invalid(`This reader is a ${reader.kind}; a response cannot claim to be ${readerKind}.`);
+    }
+    const questionnaire = target.questionnaire;
+    if (!questionnaire?.version) throw invalid('The target does not carry the questionnaire it was frozen with.');
+    if (questionnaireVersion !== null && questionnaireVersion !== undefined && String(questionnaireVersion) !== questionnaire.version) {
+      throw invalid(`The target was frozen with questionnaire ${questionnaire.version}, not ${questionnaireVersion}.`);
+    }
+    const report = await verifyReportReference(universeId, target, runId, findingIds);
+    const revision = await resolveRevision(universeId, revisionOf, reader, { target, questionnaire, selfId: id });
+    const normalized = {
+      target_id: target.target_id,
+      universe_id: universeId,
+      reader_id: reader.reader_id,
+      reader_kind: reader.kind,
+      questionnaire_version: questionnaire.version,
+      accepted_source_version: target.source_version,
+      scope: target.scope,
+      language: target.language,
+      // What this reading session looked at. The target holds the text; a response holds its own session.
+      run_id: report.run_id,
+      finding_ids: report.finding_ids,
+      note: checkNote(note),
+      answers: normalizeAnswers(answers, questionnaire),
+      comments: await normalizeComments(universeId, target, comments),
+      conditions: normalizeConditions(conditions),
+      reactions: normalizeReactions(reactions, questionnaire, { reportId: report.run_id }),
+      revision_of: revision.parent,
+      revision: revision.number
+    };
+    // The identity of the content: what a retry of the same submission reproduces and a different
+    // submission under the same identifier does not.
+    const submission = sha256(JSON.stringify(normalized));
     const existing = await readJson(entryFile(universeId, id), null);
     if (existing) {
       if (existing.submission_sha256 === submission) return { feedback: await viewEntry(universeId, existing), deduplicated: true };
@@ -320,8 +416,10 @@ function countsOf(entries) {
 export async function listFeedback(universeId) {
   const current = await currentVersion(universeId);
   const entries = (await readEntries(universeId)).map((entry) => view(entry, current));
-  entries.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)) || String(b.feedback_id).localeCompare(String(a.feedback_id)));
-  return { feedback: entries, targets: await listFeedbackTargets(universeId), counts: countsOf(entries) };
+  entries.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)) || String(a.feedback_id).localeCompare(String(b.feedback_id)));
+  // `accepted_version` is what a reader sends back when they open the form: the version the responses
+  // are compared against, which the capture of a new target verifies against the text it displays.
+  return { feedback: entries, targets: await listFeedbackTargets(universeId), counts: countsOf(entries), accepted_version: current };
 }
 
 /** A withdrawal: the entry is kept, flagged, and its answers are no longer shown. */
@@ -368,13 +466,14 @@ export async function recordReaderDeletion({ universeId, readerId, note = null }
       language: null,
       run_id: null,
       finding_ids: [],
+      note: why,
       answers: [],
       comments: [],
-      conditions: { where: null, duration_minutes: null, device: null, read: null },
+      conditions: { where: null, duration_minutes: null, device: null, read: null, exposure: { model_scores: null, other_comments: null } },
+      reactions: { usefulness: null, defect_present: null },
       revision_of: null,
       revision: 1,
       request: 'delete_identity',
-      note: why,
       withdrawn: false,
       withdrawn_at: null,
       submission_sha256: sha256(JSON.stringify(payload))

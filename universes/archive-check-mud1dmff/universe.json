@@ -1,0 +1,16 @@
+{
+  "id": "archive-check-mud1dmff",
+  "title": "archive check-mud1dmff",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Cities exist only as long as someone tells them; silence dissolves them into stone.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T18:57:36.045Z",
+  "updatedAt": "2026-09-22T18:57:36.045Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

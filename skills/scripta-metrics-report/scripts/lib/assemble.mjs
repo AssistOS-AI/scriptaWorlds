@@ -14,16 +14,18 @@
  */
 
 import { fail, isPlainObject, sha256Hex } from './errors.mjs';
-import { parseEvidenceList } from './evidence.mjs';
 import { parseSegments, segmentOrder } from './segments.mjs';
-import { resolveSelection } from './selection.mjs';
+import { buildEvidenceScope, resolveSelection } from './selection.mjs';
 import { buildCandidateUnits } from './candidate.mjs';
 import { COMPARISON_SCOPE } from './overlap.mjs';
+import { parseEvidenceList } from './evidence.mjs';
 import { computeLexical, generateTopEvidence } from './lexical.mjs';
 import { computeCar, parseRuleSet } from './rules.mjs';
 import { buildNqs, NQS_REQUIRES, validateDependencyGraph } from './aggregate.mjs';
 import { baseMetric, buildMetrics, computeCad, computeCci } from './metrics.mjs';
 import { buildComponentMetric, buildEap } from './rubric.mjs';
+import { buildReview } from './review.mjs';
+import { buildProvenance, evaluatorLabels, readEvaluatorProvenance } from './provenance.mjs';
 import { buildAeg } from './timing.mjs';
 import { buildCr } from './contamination.mjs';
 import {
@@ -97,6 +99,59 @@ function assertEvidenceIds(ids, collector, what) {
   }
 }
 
+/** The refusal code for a citation that points outside the selected text. */
+const EVIDENCE_SCOPE_CODE = 'EVIDENCE_OUT_OF_SCOPE';
+
+/**
+ * A citation whose passages all lie in the declared context chapters can
+ * explain a selected claim but never back a judgement of the selection.
+ */
+const CONTEXT_ONLY_REASON =
+  'every cited passage lies in the declared context chapters; context can explain a selected claim ' +
+  'but never backs a judgement of the selection on its own';
+
+/**
+ * Resolve one evidence reference — a declared id or an inline evidence item —
+ * to its scope. Unknown references resolve to `unknown` and are reported by the
+ * existence check, not here.
+ */
+function evidenceScopeOf(ref, collector, scopeOf) {
+  const item =
+    typeof ref === 'string'
+      ? collector.byId.get(ref)
+      : isPlainObject(ref) && typeof ref.file === 'string'
+        ? ref
+        : null;
+  return item ? scopeOf(item) : 'unknown';
+}
+
+/** Refuse any citation outside the selection (and outside declared context). */
+function assertRefsInScope(refs, collector, scopeOf, what) {
+  for (const ref of refs) {
+    const scope = evidenceScopeOf(ref, collector, scopeOf);
+    if (scope === 'out') {
+      const id = typeof ref === 'string' ? ref : ref && ref.id;
+      fail(
+        `${what} cites evidence ${JSON.stringify(id)} from outside the selection; a quotation outside the ` +
+          `selected text (and outside a declared context chapter) cannot support a judgement`,
+        EVIDENCE_SCOPE_CODE,
+      );
+    }
+  }
+}
+
+/** True when a non-empty evidence list cites only context chapters, never the selection. */
+function contextOnlyRefs(refs, collector, scopeOf) {
+  let selected = 0;
+  let context = 0;
+  for (const ref of refs) {
+    const scope = evidenceScopeOf(ref, collector, scopeOf);
+    if (scope === 'selected') selected += 1;
+    else if (scope === 'context') context += 1;
+  }
+  return refs.length > 0 && selected === 0 && context > 0;
+}
+
 /**
  * A semantic annotation declares the accepted version it was judged against.
  * When it declares one, a mismatch is refused instead of being attributed to a
@@ -122,31 +177,105 @@ function continuityCoverage({ continuity, packet, selection }) {
     return {
       applicable: false,
       covered_chapters: null,
+      population: null,
       reason: 'no continuity-result.v1 supplied in the annotations bundle',
     };
   }
-  const covered = continuity.chapters === null ? packet.inventory : continuity.chapters;
+  // The counts describe the population the reviewed ledger reached, which the producer records as
+  // `chapters_reviewed` when its reviewed chapters are narrower than the packet.
+  const covered = continuity.population === null ? packet.inventory : continuity.population;
   if (!sameChapterSet(covered, selection.chapters)) {
     return {
       applicable: false,
       covered_chapters: covered,
+      population: continuity.population,
       reason:
-        `the supplied continuity result covers chapters ${covered.join(', ') || 'none'}, which does not match the ` +
-        `selection (${selection.chapters.join(', ') || 'none'}); its counts cannot be attributed to this scope`,
+        `the supplied continuity result was reviewed over chapters ${covered.join(', ') || 'none'}, which does not ` +
+        `match the selection (${selection.chapters.join(', ') || 'none'}); its counts cannot be attributed to this scope`,
     };
   }
-  return { applicable: true, covered_chapters: covered, reason: null };
+  return { applicable: true, covered_chapters: covered, population: continuity.population, reason: null };
 }
 
-function getEmotionalFit(annMetrics) {
-  const raw = annMetrics.EAP?.emotional_fit ?? annMetrics.NQS?.emotional_fit ?? null;
-  if (raw === undefined || raw === null) return null;
-  if (typeof raw !== 'number') fail('emotional_fit must be a number', 'INVALID_ANNOTATIONS');
-  if (raw < 0 || raw > 100) fail('emotional_fit out of range [0, 100]', 'OUT_OF_RANGE');
-  return raw;
+/**
+ * Whether a finding belongs to the counted population of the continuity ledger:
+ * at least one passage it cites has to lie inside the chapters those counts
+ * describe. A finding explained entirely by material outside them is reported,
+ * but it is not a candidate of a rate computed over that population.
+ */
+function countedPopulation(finding, collector, chapterByPath, chapters) {
+  if (chapters === null) return { in: true, reason: null };
+  const refs = Array.isArray(finding.evidence) ? finding.evidence : [];
+  const cited = [];
+  for (const ref of refs) {
+    const item =
+      typeof ref === 'string'
+        ? collector.byId.get(ref)
+        : isPlainObject(ref) && typeof ref.file === 'string'
+          ? ref
+          : null;
+    if (!item) continue;
+    const chapter = chapterByPath.get(item.file);
+    if (chapter !== undefined) cited.push(chapter);
+  }
+  if (cited.length === 0) {
+    return { in: false, reason: `no cited passage lies in the counted chapters (${chapters.join(', ') || 'none'})` };
+  }
+  if (!cited.some((chapter) => chapters.includes(chapter))) {
+    return {
+      in: false,
+      reason: `every cited passage lies outside the counted chapters (${chapters.join(', ') || 'none'})`,
+    };
+  }
+  return { in: true, reason: null };
 }
 
-function buildJudgedMetrics({ annMetrics, annotations, profile, metricScope, segmentIds, annotationsDir }) {
+/**
+ * The emotional fit of the book against its declared intention, as an input to NQS. It is a judgement of
+ * its own: assessability, scale, evaluator, rationale, evidence and the intention it is bound to all belong
+ * to the record, and a bare number is unsupported legacy data rather than an eligible value. It may be
+ * assessed separately from the EAP trajectory, so an unavailable trajectory does not take it down with it.
+ */
+export function getEmotionalFit(annMetrics) {
+  const raw = annMetrics.EAP?.emotional_fit ?? null;
+  if (raw === undefined || raw === null) {
+    return { value: null, reason: 'no emotional-fit judgement supplied', evidence: [] };
+  }
+  if (typeof raw === 'number') {
+    fail(
+      'emotional_fit must be an assessable judgement with its own evaluator, rationale, evidence and declared intention binding; a bare number is unsupported',
+      'INVALID_ANNOTATIONS',
+    );
+  }
+  if (!isPlainObject(raw)) fail('emotional_fit must be an object or null', 'INVALID_ANNOTATIONS');
+  const status = raw.status === undefined ? 'judged' : raw.status;
+  if (!['judged', 'not_assessable', 'not_applicable', 'error'].includes(status)) {
+    fail(`emotional_fit has unknown status ${JSON.stringify(status)}`, 'INVALID_ANNOTATIONS');
+  }
+  const demote = (reason) => ({ value: null, reason, evidence: [] });
+  if (status !== 'judged') return demote(`the emotional fit was not assessed (${status})`);
+  if (typeof raw.fit !== 'number' || Number.isNaN(raw.fit) || raw.fit < 0 || raw.fit > 100) {
+    fail(`emotional_fit.fit must be a number in 0..100, got ${JSON.stringify(raw.fit)}`, 'OUT_OF_RANGE');
+  }
+  // The fit cites passages by the same evidence ids the rest of the document uses; resolution against the
+  // frozen text happens with every other reference at the end of the assembly.
+  const rawEvidence = raw.evidence === undefined || raw.evidence === null ? [] : raw.evidence;
+  if (!Array.isArray(rawEvidence) || rawEvidence.some((id) => typeof id !== 'string' || id.length === 0)) {
+    fail('annotations.metrics.EAP.emotional_fit.evidence must be an array of evidence ids', 'INVALID_EVIDENCE');
+  }
+  const evidence = [...new Set(rawEvidence)];
+  const missing = [];
+  if (typeof raw.evaluator !== 'string' || raw.evaluator.length === 0) missing.push('its evaluator');
+  if (typeof raw.rationale !== 'string' || raw.rationale.length === 0) missing.push('a rationale');
+  if (evidence.length === 0) missing.push('at least one cited passage');
+  if (typeof raw.intention_binding !== 'string' || raw.intention_binding.length === 0) missing.push('the declared intention it is bound to');
+  if (missing.length > 0) {
+    return demote(`the emotional fit was judged without ${missing.join(', ')}`);
+  }
+  return { value: raw.fit, reason: null, evidence };
+}
+
+function buildJudgedMetrics({ annMetrics, annotations, profile, metricScope, segmentIds, selectedSegmentIds, annotationsDir }) {
   const rubric = profile.rubric;
   return {
     CS: buildComponentMetric('CS', annMetrics.CS, {
@@ -167,6 +296,7 @@ function buildJudgedMetrics({ annMetrics, annotations, profile, metricScope, seg
     EAP: buildEap(annMetrics.EAP, {
       scope: metricScope,
       segmentIds,
+      selectedSegmentIds,
       fallbackReason: 'no EAP annotation supplied',
     }),
     CR: buildCr(annMetrics.CR, { baseMetricFor: baseMetric, scope: metricScope, annotationsDir }),
@@ -198,6 +328,8 @@ export function assess({
   arcId = null,
   studyRoot = null,
   allowTestOnlyStudies = false,
+  resources = [],
+  evaluation = {},
 }) {
   if (!['request', 'arc'].includes(trigger)) {
     fail(`trigger must be "request" or "arc", got ${JSON.stringify(trigger)}`, 'INVALID_TRIGGER');
@@ -209,62 +341,158 @@ export function assess({
   const language = manifest.book.language;
 
   const annMetrics = normalizeAnnMetrics(annotations ? annotations.metrics : undefined);
-  const continuity = annotations && annotations.continuity ? normalizeContinuity(annotations.continuity) : null;
+  const continuity = annotations && annotations.continuity ? normalizeContinuity(annotations.continuity, { packetVersion: packet.version }) : null;
   const segments = parseSegments(annotations ? annotations.segments : undefined, packet);
   const ruleSet = parseRuleSet(annotations ? annotations.requirements : undefined);
   const selection = resolveSelection({ packet, profile, segments });
   const metricScope = { kind: selection.kind, chapters: selection.chapters, segments: selection.segmentIds };
 
-  // Every declared source version must be the packet's own accepted version.
+  // Every declared source version must be the packet's own accepted version. The continuity result
+  // is bound inside normalizeContinuity, which refuses a document naming two versions; here its
+  // declared scope is bound to the packet, so a population the packet does not contain is refused
+  // instead of being reported as a review of this book.
   assertSourceVersion(annotations ? annotations.source_version : undefined, packet.version, 'annotations');
   for (const [id, annotation] of Object.entries(annMetrics)) {
     if (isPlainObject(annotation)) assertSourceVersion(annotation.source_version, packet.version, `annotations.metrics.${id}`);
   }
-  if (continuity) assertSourceVersion(continuity.source_version, packet.version, 'annotations.continuity');
+  if (continuity) {
+    const declaredChapters = [...(continuity.chapters ?? []), ...(continuity.chapters_reviewed ?? []), ...continuity.omitted];
+    const unknown = [...new Set(declaredChapters)].filter((chapter) => !packet.inventory.includes(chapter));
+    if (unknown.length > 0) {
+      fail(
+        `annotations.continuity declares chapters ${unknown.join(', ')}, which the packet does not contain ` +
+          `(accepted chapters: ${packet.inventory.join(', ') || 'none'}); its counts cannot be attributed to this book`,
+        'UNKNOWN_CHAPTER',
+      );
+    }
+  }
 
   const chapterByPath = new Map(files.filter((f) => f.role === 'chapter').map((f) => [f.path, f.chapter]));
   const candidateFiles = new Map(files.filter((f) => f.role === 'chapter').map((f) => [f.path, f]));
   const candidate = buildCandidateUnits({ packet, selection, language });
-  const candidateHashSet = new Set(candidate.files.map((f) => f.sha256));
+  // The candidate's source identity is declared by the packet itself, so a corpus reference can
+  // only be recognised as the candidate's own copy by declaring it and matching it — never by hash.
+  const candidateIdentity = {
+    id: manifest.universe_id,
+    version: packet.version,
+    hashes: new Set(candidate.files.map((f) => f.sha256)),
+  };
 
-  const lexical = computeLexical({ candidate, corpus, candidateHashSet });
+  const lexical = computeLexical({ candidate, corpus, candidateIdentity });
+
+  // Evidence collection happens before any semantic judgement is consumed, so
+  // a citation's scope (selected, context or out) is knowable while findings,
+  // indicators and metrics are demoted or refused.
+  const collector = createEvidenceCollector(files);
+  collector.addAll(parseEvidenceList(annotations && annotations.evidence ? annotations.evidence : [], 'annotations.evidence'));
+  const evidenceScope = buildEvidenceScope({ selection, chapterByPath });
 
   // Continuity-derived metrics (consumed once, and only for the selection).
   const coverage = continuityCoverage({ continuity, packet, selection });
+  const annotationFindings = annotations && annotations.findings ? annotations.findings : [];
   const continuityFindings =
     continuity && coverage.applicable
       ? continuity.findings.filter((finding) =>
           withinScope(finding, chapterByPath, selection.chapters, selection.contextChapters),
         )
       : [];
-  const annotationFindings = annotations && annotations.findings ? annotations.findings : [];
-  const cadFindings = [...continuityFindings, ...annotationFindings];
-  const cci = continuity && coverage.applicable ? computeCci(continuity.counts) : null;
-  const cad = continuity && coverage.applicable ? computeCad(cadFindings) : null;
+  const reportFindings = [...continuityFindings, ...annotationFindings];
+  for (const finding of reportFindings) {
+    const refs = Array.isArray(finding.evidence) ? finding.evidence : [];
+    assertRefsInScope(refs, collector, evidenceScope, `finding ${finding.id}`);
+    if (finding.status === 'confirmed' && contextOnlyRefs(refs, collector, evidenceScope)) {
+      finding.status = 'unresolved';
+      finding.alternative_explanation = finding.alternative_explanation
+        ? `${finding.alternative_explanation}; ${CONTEXT_ONLY_REASON}`
+        : CONTEXT_ONLY_REASON;
+    }
+  }
+  // CAD counts the population the continuity ledger actually attributed: a finding whose every cited
+  // passage lies outside those chapters is reported, but it is not a candidate of this rate.
+  const cadPopulation = coverage.applicable ? coverage.covered_chapters : null;
+  const cadFindings = [];
+  const cadExcluded = [];
+  for (const finding of reportFindings) {
+    const membership = countedPopulation(finding, collector, chapterByPath, cadPopulation);
+    if (membership.in) cadFindings.push(finding);
+    else cadExcluded.push({ id: finding.id, reason: membership.reason });
+  }
+  const cci = continuity && coverage.applicable
+    ? computeCci(continuity.counts, {
+        partition: continuity.partition,
+        countsSource: continuity.counts_source,
+        declaredCounts: continuity.declared_counts,
+      })
+    : null;
+  const cad = coverage.applicable
+    ? computeCad(cadFindings, { populationChapters: cadPopulation, excludedFindings: cadExcluded })
+    : null;
 
-  // Evidence collection.
-  const collector = createEvidenceCollector(files);
-  collector.addAll(parseEvidenceList(annotations && annotations.evidence ? annotations.evidence : [], 'annotations.evidence'));
-  const findings = normalizeFindings(cadFindings, collector);
+  const findings = normalizeFindings(reportFindings, collector);
+  // Where each finding came from: a continuity ledger entry or the annotations document. The report
+  // states it so an observation can be traced to the document that made it.
+  const origins = new Map([
+    ...continuityFindings.map((finding) => [finding.id, 'continuity-result']),
+    ...annotationFindings.map((finding) => [finding.id, 'annotations']),
+  ]);
   const indicators = normalizeIndicators(annotations ? annotations.indicators : undefined);
   const departures = normalizeDepartures(annotations ? annotations.departures : undefined);
   const preserved = normalizePreserved(annotations ? annotations.preserved_qualities : undefined);
 
+  for (const id of INDICATOR_IDS) {
+    const indicator = indicators[id];
+    assertRefsInScope(indicator.evidence, collector, evidenceScope, `indicators.${id}`);
+    if (indicator.status === 'judged' && contextOnlyRefs(indicator.evidence, collector, evidenceScope)) {
+      indicator.status = 'not_assessable';
+      indicator.category = null;
+      indicator.missing_reason = CONTEXT_ONLY_REASON;
+    }
+  }
+  for (const passage of preserved.passages) {
+    assertRefsInScope(passage.evidence, collector, evidenceScope, `preserved.${passage.id}`);
+    if (contextOnlyRefs(passage.evidence, collector, evidenceScope)) passage.context_only = true;
+  }
+
   // Judged metrics with discriminated outputs.
+  const sceneSegments = segments.filter((segment) => segment.kind === 'scene');
+  const selectedSegmentIds =
+    selection.segmentIds.length > 0
+      ? sceneSegments.filter((segment) => selection.segmentIds.includes(segment.id)).map((segment) => segment.id)
+      : sceneSegments.filter((segment) => segment.chapter !== null && selection.chapters.includes(segment.chapter)).map((segment) => segment.id);
   const assessed = buildJudgedMetrics({
     annMetrics,
     annotations,
     profile,
     metricScope,
     segmentIds: segments.map((segment) => segment.id),
+    selectedSegmentIds,
     annotationsDir,
   });
+  for (const id of ['CS', 'OI', 'NCS', 'EAP']) {
+    const metric = assessed[id];
+    const refs = Array.isArray(metric.evidence) ? metric.evidence : [];
+    assertRefsInScope(refs, collector, evidenceScope, `metrics.${id}`);
+    if (metric.status === 'judged' && contextOnlyRefs(refs, collector, evidenceScope)) {
+      metric.status = 'not_assessable';
+      metric.value = null;
+      metric.missing_reason = CONTEXT_ONLY_REASON;
+      metric.detail = { ...(metric.detail ?? {}), context_only: true };
+    }
+  }
 
   // NQS from its saved components under the declared aggregation profile.
+  const fit = getEmotionalFit(annMetrics);
+  if (fit.value !== null) {
+    assertRefsInScope(fit.evidence, collector, evidenceScope, 'metrics.EAP.emotional_fit');
+    if (contextOnlyRefs(fit.evidence, collector, evidenceScope)) {
+      fit.value = null;
+      fit.reason = CONTEXT_ONLY_REASON;
+    }
+  }
   const nqsValues = {
     CS: typeof assessed.CS.value === 'number' ? assessed.CS.value : null,
     OI: typeof assessed.OI.value === 'number' ? assessed.OI.value : null,
-    EMOTIONAL_FIT: getEmotionalFit(annMetrics),
+    EMOTIONAL_FIT: fit.value,
   };
   const graphCheck = validateDependencyGraph({ NQS: NQS_REQUIRES });
   if (!graphCheck.ok) fail(graphCheck.errors.join('; '), 'INVALID_GRAPH');
@@ -277,7 +505,10 @@ export function assess({
     language,
     studyRoot,
     allowTestOnlyStudies,
+    emotionalFitReason: fit.reason,
   });
+  // The fit's quotations are part of the report's evidence: they must resolve like every other reference.
+  nqs.evidence = [...(nqs.evidence ?? []), ...fit.evidence];
 
   const car = computeCar(ruleSet, selection.outputIds);
   const metrics = buildMetrics({
@@ -303,9 +534,103 @@ export function assess({
   for (const departure of departures) assertEvidenceIds(departure.evidence, collector, `departures.${departure.id}`);
   for (const passage of preserved.passages) assertEvidenceIds(passage.evidence, collector, `preserved.${passage.id}`);
 
+  // Textual coverage for a judged component metric is the fraction of selected chapters its own
+  // evidence actually touches, not the fraction of dimensions supplied: one quote in chapter 1 does
+  // not establish that a whole book was assessed. EAP keeps its own coverage, which is measured over
+  // the segment population it declares, and records the chapter ratio beside it.
+  const textCoverage = (evidenceIds) => {
+    if (selection.chapters.length === 0) return null;
+    const touched = new Set();
+    for (const id of evidenceIds) {
+      const item = collector.byId.get(id);
+      if (!item) continue;
+      const chapter = chapterByPath.get(item.file);
+      if (chapter !== undefined && selection.chapters.includes(chapter)) touched.add(chapter);
+    }
+    return touched.size / selection.chapters.length;
+  };
+  for (const id of ['CS', 'OI', 'NCS', 'EAP']) {
+    if (metrics[id].status !== 'judged') continue;
+    if (id === 'EAP') {
+      metrics.EAP.detail = { ...(metrics.EAP.detail ?? {}), evidence_coverage: textCoverage(metrics.EAP.evidence) };
+      continue;
+    }
+    metrics[id].coverage = textCoverage(metrics[id].evidence);
+  }
+
   const evidenceList = [...collector.byId.values()].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const selectedWithEvidence = chaptersWithEvidence(evidenceList, chapterByPath, selection.chapters);
   const assessmentId = computeAssessmentId({ manifest, packet, profileRaw, annotationsRaw, corpusRaw });
+
+  // The published coverage record: built once, because the review summary leads with the same numbers
+  // the bundle publishes instead of restating them.
+  const coverageRecord = {
+    packet_scope: packet.scope.kind,
+    packet_chapters: packet.inventory,
+    omitted_chapters: selection.omitted,
+    context_chapters: selection.contextChapters,
+    note: selection.note,
+    selection: { kind: selection.kind, chapters: selection.chapters, segments: selection.segmentIds },
+    evidence: {
+      selected_chapters: selection.chapters.length,
+      chapters_with_evidence: selectedWithEvidence,
+      ratio: selection.chapters.length === 0 ? null : selectedWithEvidence / selection.chapters.length,
+    },
+    continuity: {
+      applicable: coverage.applicable,
+      covered_chapters: coverage.covered_chapters,
+      population: coverage.population,
+      reason: coverage.reason,
+    },
+    tokenizer: {
+      version: TOKENIZER_VERSION,
+      method: TOKENIZER_METHOD,
+      language,
+      supported: candidate.supported,
+      reason: candidate.reason,
+      eligible_tokens: candidate.eligible_tokens,
+    },
+  };
+
+  // What the judgements were bound to, as the record declared it, so every observation can be read
+  // against the book's stated intention rather than against an implicit standard.
+  const declaredIntentions = [];
+  const emotionalFit = annMetrics.EAP && isPlainObject(annMetrics.EAP.emotional_fit) ? annMetrics.EAP.emotional_fit : null;
+  if (emotionalFit && typeof emotionalFit.intention_binding === 'string' && emotionalFit.intention_binding.length > 0) {
+    declaredIntentions.push({ source: 'annotations.metrics.EAP.emotional_fit.intention_binding', statement: emotionalFit.intention_binding });
+  }
+  if (profile.aggregation && profile.aggregation.emotional_fit && typeof profile.aggregation.emotional_fit.intent === 'string') {
+    declaredIntentions.push({ source: 'profile.aggregation.emotional_fit.intent', statement: profile.aggregation.emotional_fit.intent });
+  }
+  for (const indicator of Object.values(indicators)) {
+    if (typeof indicator.intended_effect_fit === 'string' && indicator.intended_effect_fit.length > 0) {
+      declaredIntentions.push({ source: `indicators.${indicator.id}.intended_effect_fit`, statement: indicator.intended_effect_fit });
+    }
+  }
+
+  const review = buildReview({
+    metrics,
+    indicators,
+    findings,
+    origins,
+    preserved,
+    departures,
+    specification: {
+      request: annotations && typeof annotations.request === 'string' ? annotations.request : null,
+      brief: annotations && typeof annotations.brief === 'string' ? annotations.brief : null,
+    },
+    declaredIntentions,
+    selection,
+    coverage: coverageRecord,
+    collector,
+    chapterByPath,
+    cadDetail: cad ? cad.detail : null,
+    continuityPartition: continuity ? continuity.partition : null,
+  });
+
+  // Who authored the judgements this bundle publishes, and what the evaluator declared about its own run.
+  const evaluatorProvenance = readEvaluatorProvenance(annotations, fail);
+  const evaluators = evaluatorLabels(metrics, indicators);
 
   return {
     schema_version: ASSESSMENT_SCHEMA_VERSION,
@@ -328,32 +653,7 @@ export function assess({
       context_chapters: selection.contextChapters,
       ranges: selection.ranges,
     },
-    coverage: {
-      packet_scope: packet.scope.kind,
-      packet_chapters: packet.inventory,
-      omitted_chapters: selection.omitted,
-      context_chapters: selection.contextChapters,
-      note: selection.note,
-      selection: { kind: selection.kind, chapters: selection.chapters, segments: selection.segmentIds },
-      evidence: {
-        selected_chapters: selection.chapters.length,
-        chapters_with_evidence: selectedWithEvidence,
-        ratio: selection.chapters.length === 0 ? null : selectedWithEvidence / selection.chapters.length,
-      },
-      continuity: {
-        applicable: coverage.applicable,
-        covered_chapters: coverage.covered_chapters,
-        reason: coverage.reason,
-      },
-      tokenizer: {
-        version: TOKENIZER_VERSION,
-        method: TOKENIZER_METHOD,
-        language,
-        supported: candidate.supported,
-        reason: candidate.reason,
-        eligible_tokens: candidate.eligible_tokens,
-      },
-    },
+    coverage: coverageRecord,
     profile: {
       profile_id: profile.profile_id,
       schema_version: profile.schema_version,
@@ -365,57 +665,35 @@ export function assess({
       request: annotations && typeof annotations.request === 'string' ? annotations.request : null,
       brief: annotations && typeof annotations.brief === 'string' ? annotations.brief : null,
     },
-    provenance: {
-      code_version: CODE_VERSION,
-      registry_version: REGISTRY_VERSION,
-      tokenizer_version: TOKENIZER_VERSION,
-      tokenizer_method: TOKENIZER_METHOD,
+    provenance: buildProvenance({
+      codeVersion: CODE_VERSION,
+      registryVersion: REGISTRY_VERSION,
+      tokenizerVersion: TOKENIZER_VERSION,
+      tokenizerMethod: TOKENIZER_METHOD,
+      manifest,
+      packet,
+      selection,
+      coverage,
+      continuity,
+      corpus,
+      comparisonScope: COMPARISON_SCOPE,
+      corpusReferences: lexical.references,
+      corpusExclusions: lexical.exclusions,
+      candidateIdentity,
+      files,
+      annotations,
+      annotationsRaw,
+      annMetrics,
+      resources,
+      evaluation,
+      evaluatorProvenance,
+      evaluators,
+      profile,
+      profileRaw,
       runtime: process.version,
-      profile_sha256: sha256Hex(profileRaw),
-      packet: {
-        schema_version: manifest.schema_version,
-        universe_id: manifest.universe_id,
-        version: packet.version,
-        captured_at: manifest.captured_at,
-        scope: packet.scope,
-        inventory: packet.inventory,
-      },
-      selection: {
-        kind: selection.kind,
-        source: 'profile.scope',
-        chapters: selection.chapters,
-        segments: selection.segmentIds,
-        context_chapters: selection.contextChapters,
-        output_ids: selection.outputIds,
-      },
-      continuity: continuity
-        ? {
-            version: continuity.version,
-            source_version: continuity.source_version,
-            chapters: coverage.covered_chapters,
-            omitted: continuity.omitted,
-            coverage_note: continuity.coverage_note,
-          }
-        : null,
-      corpus: corpus
-        ? {
-            schema_version: corpus.schema_version,
-            comparison_scope: COMPARISON_SCOPE,
-            references: lexical.references,
-            exclusions: lexical.exclusions,
-          }
-        : null,
-      files: files.map((f) => ({ path: f.path, role: f.role, sha256: f.sha256, bytes: f.bytes })),
-      annotations: annotations
-        ? {
-            source_version: annotations.source_version ?? null,
-            continuity_source_version: continuity ? continuity.source_version : null,
-            declared_metrics: Object.keys(annMetrics),
-            timing_declared: Boolean(annotations.timing),
-          }
-        : null,
-    },
+    }),
     evidence: evidenceList,
+    review,
     segments,
     segment_order: segmentOrder(segments),
     departures,

@@ -67,32 +67,110 @@ function resolveFindingEvidence(raw, label, collector) {
   return ids;
 }
 
+const CONTINUITY_COUNT_KEYS = ['eligible_comparisons', 'consistent', 'contradicted', 'unresolved'];
+
+/**
+ * The comparison outcomes a `continuity-result.v1` ledger may record, mapped to
+ * the count they contribute. Anything else is refused: an unrecognised outcome
+ * is not a comparison result and never becomes a consistent one.
+ */
+const CONTINUITY_OUTCOMES = new Map([
+  ['contradicted', 'contradicted'],
+  ['unresolved', 'unresolved'],
+  ['supported', 'consistent'],
+  ['consistent', 'consistent'],
+]);
+
+function readVersionField(value, label) {
+  if (value === undefined || value === null) return null;
+  if (typeof value !== 'string' || value.length === 0) fail(`${label} must be a non-empty string when present`, 'INVALID_ANNOTATIONS');
+  return value;
+}
+
+/** Counts derived from the ledger of comparison records, not from a declared total. */
+function deriveCountsFromLedger(comparisons) {
+  const counts = { eligible_comparisons: comparisons.length, consistent: 0, contradicted: 0, unresolved: 0 };
+  comparisons.forEach((comparison, index) => {
+    if (!isPlainObject(comparison)) fail(`continuity comparisons[${index}] must be an object`, 'INVALID_ANNOTATIONS');
+    const key = CONTINUITY_OUTCOMES.get(comparison.outcome);
+    if (key === undefined) {
+      fail(
+        `continuity comparisons[${index}].outcome ${JSON.stringify(comparison.outcome)} is not one of ` +
+          `${[...CONTINUITY_OUTCOMES.keys()].join('|')}`,
+        'INVALID_ANNOTATIONS',
+      );
+    }
+    counts[key] += 1;
+  });
+  return counts;
+}
+
 /**
  * A supplied `continuity-result.v1`. `counts` and `findings` are the inputs this
- * skill consumes; the declared coverage (`scope.chapters`, or a top-level
- * `chapters`) says which chapters the counts describe, so a result that covers
- * chapters outside the selection is reported as inapplicable rather than
- * mis-attributed.
+ * skill consumes; `comparisons`, when the result carries the ledger they were
+ * derived from, are recomputed here and a declared total the ledger does not
+ * support is refused rather than published.
+ *
+ * The result is bound to the packet twice over. Its authoritative version is the
+ * packet's accepted version: a document that declares two different versions is
+ * refused, a stale single one is refused, and only the accepted version is
+ * carried forward as `source_version`. Its scope is the reviewed population the
+ * counts describe — `scope.chapters_reviewed` when the producer declares it,
+ * otherwise the declared chapters — so a result that reached a different
+ * population is reported inapplicable instead of being mis-attributed.
+ *
+ * `counts` must partition `eligible_comparisons`. When a result declares no
+ * ledger and does not attribute every eligible comparison, the unattributed
+ * remainder is carried as `unresolved` (with `partition.unexamined` naming it),
+ * so one observed success can never imply complete consistency across a
+ * population that was never examined.
  */
-export function normalizeContinuity(cont) {
+export function normalizeContinuity(cont, options = {}) {
   if (!isPlainObject(cont)) fail('annotations.continuity must be an object', 'INVALID_ANNOTATIONS');
   if (cont.schema_version !== CONTINUITY_SCHEMA_VERSION) {
     fail(`annotations.continuity.schema_version must be "${CONTINUITY_SCHEMA_VERSION}"`, 'SCHEMA_VERSION');
   }
   const counts = cont.counts;
   if (!isPlainObject(counts)) fail('continuity counts must be an object', 'INVALID_ANNOTATIONS');
-  for (const key of ['eligible_comparisons', 'consistent', 'contradicted', 'unresolved']) {
+  for (const key of CONTINUITY_COUNT_KEYS) {
     if (!isNonNegativeInteger(counts[key])) {
       fail(`continuity counts.${key} must be a non-negative integer`, 'INVALID_ANNOTATIONS');
     }
   }
   if (!Array.isArray(cont.findings)) fail('continuity findings must be an array', 'INVALID_ANNOTATIONS');
-  const resolvedAndPending = counts.consistent + counts.contradicted + counts.unresolved;
-  if (resolvedAndPending > counts.eligible_comparisons) {
+
+  const declared = {
+    eligible_comparisons: counts.eligible_comparisons,
+    consistent: counts.consistent,
+    contradicted: counts.contradicted,
+    unresolved: counts.unresolved,
+  };
+  const attributed = declared.consistent + declared.contradicted + declared.unresolved;
+  if (attributed > declared.eligible_comparisons) {
     fail(
-      `continuity counts are inconsistent: consistent + contradicted + unresolved = ${resolvedAndPending} exceeds ` +
-        `eligible_comparisons = ${counts.eligible_comparisons}; the totals cannot be attributed to this ledger`,
+      `continuity counts are inconsistent: consistent + contradicted + unresolved = ${attributed} exceeds ` +
+        `eligible_comparisons = ${declared.eligible_comparisons}; the totals cannot be attributed to this ledger`,
       'INVALID_ANNOTATIONS',
+    );
+  }
+
+  const declaredSource = readVersionField(cont.source_version, 'continuity source_version');
+  const legacyVersion = readVersionField(cont.version, 'continuity version');
+  if (declaredSource !== null && legacyVersion !== null && declaredSource !== legacyVersion) {
+    fail(
+      `continuity source_version ${JSON.stringify(declaredSource)} and version ${JSON.stringify(legacyVersion)} ` +
+        'name two different books; a continuity result declares one authoritative version',
+      'INVALID_ANNOTATIONS',
+    );
+  }
+  const declaredVersion = declaredSource ?? legacyVersion;
+  const packetVersion =
+    typeof options.packetVersion === 'string' && options.packetVersion.length > 0 ? options.packetVersion : null;
+  if (packetVersion !== null && declaredVersion !== null && declaredVersion !== packetVersion) {
+    fail(
+      `continuity source_version ${declaredVersion} is stale: the packet version is ${packetVersion}; re-run the ` +
+        'continuity review against this version instead of attributing its counts to this book',
+      'STALE_ANNOTATION',
     );
   }
 
@@ -100,14 +178,70 @@ export function normalizeContinuity(cont) {
   const chapters =
     readChapterList(scope ? scope.chapters : undefined, 'continuity scope.chapters') ??
     readChapterList(cont.chapters, 'continuity chapters');
+  const chaptersReviewed = readChapterList(scope ? scope.chapters_reviewed : undefined, 'continuity scope.chapters_reviewed');
+  const population = chaptersReviewed !== null && chaptersReviewed.length > 0 ? chaptersReviewed : chapters;
+  const omitted =
+    (scope ? readChapterList(scope.omitted, 'continuity scope.omitted') : null) ??
+    readChapterList(cont.omitted, 'continuity omitted') ??
+    [];
+
+  // The declared coverage, when the producer states one, has to agree with the counts it describes.
+  const declaredCoverage = scope && typeof scope.coverage === 'number' ? scope.coverage : null;
+  const resolved = declared.consistent + declared.contradicted;
+  if (declaredCoverage !== null && declared.eligible_comparisons > 0) {
+    const derived = resolved / declared.eligible_comparisons;
+    if (Math.abs(declaredCoverage - derived) > 1e-9) {
+      fail(
+        `continuity scope.coverage ${declaredCoverage} does not match the counts it describes ` +
+          `(${resolved}/${declared.eligible_comparisons} = ${derived}); coverage is derived from the ledger`,
+        'INVALID_ANNOTATIONS',
+      );
+    }
+  }
+
+  let effective = { ...declared };
+  let countsSource = 'declared';
+  let partition = { complete: true, unexamined: 0, note: null };
+  if (Array.isArray(cont.comparisons)) {
+    const derived = deriveCountsFromLedger(cont.comparisons);
+    for (const key of CONTINUITY_COUNT_KEYS) {
+      if (derived[key] !== declared[key]) {
+        fail(
+          `continuity counts.${key} declares ${declared[key]} but its ${cont.comparisons.length} comparison ` +
+            `records derive ${derived[key]}; the totals cannot be attributed to this ledger`,
+          'INVALID_ANNOTATIONS',
+        );
+      }
+    }
+    effective = derived;
+    countsSource = 'ledger';
+  } else if (attributed < declared.eligible_comparisons) {
+    const unexamined = declared.eligible_comparisons - attributed;
+    effective = { ...declared, unresolved: declared.unresolved + unexamined };
+    countsSource = 'declared_with_unexamined';
+    partition = {
+      complete: false,
+      unexamined,
+      note:
+        `${unexamined} of ${declared.eligible_comparisons} eligible comparisons carry no outcome of their own; they ` +
+        'are counted as unresolved, so the index is bounded instead of published as complete consistency',
+    };
+  }
+
   return {
-    counts,
+    counts: effective,
+    declared_counts: declared,
+    counts_source: countsSource,
+    partition,
     findings: cont.findings,
-    version: typeof cont.version === 'string' ? cont.version : null,
-    source_version: typeof cont.source_version === 'string' ? cont.source_version : null,
+    source_version: packetVersion ?? declaredVersion,
+    declared_version: declaredVersion,
     chapters,
+    population,
+    chapters_reviewed: chaptersReviewed,
+    omitted,
     coverage_note: scope && typeof scope.coverage_note === 'string' ? scope.coverage_note : null,
-    omitted: scope ? readChapterList(scope.omitted, 'continuity scope.omitted') ?? [] : [],
+    declared_coverage: declaredCoverage,
   };
 }
 

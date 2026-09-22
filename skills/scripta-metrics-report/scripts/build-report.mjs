@@ -19,9 +19,9 @@
  *             2 invalid input/arguments/schema, 1 execution failure.
  */
 
-import { existsSync, realpathSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, realpathSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   CliError,
@@ -30,6 +30,7 @@ import {
   isNonNegativeInteger,
   isPlainObject,
   readBytesChecked,
+  sha256Hex,
 } from './lib/errors.mjs';
 import { loadPacket } from './lib/input.mjs';
 import { loadCorpusManifest } from './lib/corpus.mjs';
@@ -57,6 +58,37 @@ const USAGE =
 
 /** The events that may cause a run. The host maps its own `requested` to `request`. */
 const TRIGGERS = ['request', 'arc'];
+
+/**
+ * The evaluation configuration this run read, hashed from the skill's own files
+ * so a later session can check that the bundle was produced under the versioned
+ * vocabulary, rubric anchors and case index it holds. Every path resolves from
+ * this module, never from the working directory.
+ */
+function evaluationResources() {
+  const digest = (relative, role) => {
+    const url = new URL(relative, import.meta.url);
+    const path = fileURLToPath(url);
+    try {
+      const bytes = readFileSync(url);
+      return { role, path, sha256: sha256Hex(bytes), bytes: bytes.length };
+    } catch {
+      // A missing bundled file is stated as unavailable rather than hashed as empty.
+      return { role, path, sha256: null, bytes: null, unavailable: 'the bundled file could not be read' };
+    }
+  };
+  return {
+    rubric: digest('../schema/rubric-anchors.v1.json', 'rubric-anchors'),
+    vocabulary: digest('../schema/annotations.v1.json', 'annotation-vocabulary'),
+    study_schema: digest('../schema/study.v1.json', 'calibration-study-schema'),
+    case_library: digest('../fixtures/literary-cases/index.json', 'literary-case-index'),
+  };
+}
+
+/** One input the run read, with the hash of the exact bytes it consumed. */
+function resourceRecord(role, path, bytes) {
+  return { role, path, sha256: sha256Hex(bytes), bytes: bytes.length };
+}
 
 function emit(payload) {
   process.stdout.write(`${JSON.stringify(payload)}\n`);
@@ -194,6 +226,7 @@ function main(argv) {
 
   const profileRaw = readBytesChecked(profilePath, 'profile');
   const profile = parseProfile(profileRaw);
+  const resources = [resourceRecord('profile', profilePath, profileRaw)];
 
   let annotations = null;
   let annotationsRaw = null;
@@ -203,6 +236,7 @@ function main(argv) {
     annotationsDir = dirname(annotationsPath);
     annotationsRaw = readBytesChecked(annotationsPath, 'annotations');
     annotations = parseAnnotations(annotationsRaw);
+    resources.push(resourceRecord('annotations', annotationsPath, annotationsRaw));
   }
 
   let corpus = null;
@@ -211,6 +245,7 @@ function main(argv) {
     const corpusPath = resolve(options.corpus);
     corpusRaw = readBytesChecked(corpusPath, 'corpus manifest');
     corpus = loadCorpusManifest(corpusPath);
+    resources.push(resourceRecord('corpus', corpusPath, corpusRaw));
   }
 
   const bundle = assess({
@@ -226,6 +261,8 @@ function main(argv) {
     arcId: options.arcId,
     studyRoot,
     allowTestOnlyStudies: options.allowTestOnlyStudies,
+    resources,
+    evaluation: evaluationResources(),
   });
   const views = renderViews(bundle);
 

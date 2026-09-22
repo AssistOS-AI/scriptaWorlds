@@ -94,9 +94,21 @@ export function metricFromSummary(id, summary, scope) {
   return m;
 }
 
-function computeCci(counts) {
+/**
+ * The continuity index. `meta` carries what the consumer must be able to read
+ * next to the number: the population partition of the result (`partition`), how
+ * its counts were obtained (`countsSource`) and the totals it declared when they
+ * differ from the ones used (`declaredCounts`). A population that was not
+ * attributable in full never publishes a single index: the unattributed
+ * comparisons are unresolved, so the bounds carry them and coverage says how
+ * much of the population reached an outcome.
+ */
+function computeCci(counts, meta = {}) {
   const { eligible_comparisons, consistent, contradicted, unresolved } = counts;
   const detail = { eligible_comparisons, consistent, contradicted, unresolved, resolved: consistent + contradicted };
+  if (meta.partition) detail.partition = meta.partition;
+  if (meta.countsSource) detail.counts_source = meta.countsSource;
+  if (meta.declaredCounts) detail.declared_counts = meta.declaredCounts;
   if (eligible_comparisons === 0) {
     return { status: 'not_applicable', value: null, coverage: null, missing_reason: 'no eligible continuity comparisons', detail };
   }
@@ -117,20 +129,40 @@ function computeCci(counts) {
   return { status: 'computed', value: (100 * consistent) / resolved, coverage: 1, missing_reason: null, detail };
 }
 
-function computeCad(findings) {
+/**
+ * The unsupported-character-change rate over the counted population. Repeated
+ * symptoms of one underlying defect are one candidate, and a defect whose
+ * symptoms disagree about their status is contested: it is counted as
+ * unresolved with the conflicting statuses named, never resolved by whichever
+ * symptom happened to be read first.
+ *
+ * `meta` records the population the candidates were drawn from
+ * (`populationChapters`) and the findings that were left out of it
+ * (`excludedFindings`), so the rate can be read against the population it
+ * describes.
+ */
+function computeCad(findings, meta = {}) {
   const changes = findings.filter((f) => f.kind === 'unsupported_change');
-  // Repeated symptoms of one underlying defect are one candidate, not several.
   const byDefect = new Map();
-  const linkedSymptoms = [];
   for (const change of changes) {
     const key = change.defect_id ?? change.id;
-    if (byDefect.has(key)) {
-      linkedSymptoms.push(change.id);
+    if (!byDefect.has(key)) byDefect.set(key, []);
+    byDefect.get(key).push(change);
+  }
+  const linkedSymptoms = [];
+  const conflictingDefects = [];
+  const candidates = [];
+  for (const [defect, members] of byDefect) {
+    const statuses = [...new Set(members.map((member) => member.status))];
+    const ids = members.map((member) => member.id);
+    if (members.length > 1) linkedSymptoms.push(...ids.slice(1));
+    if (statuses.length > 1) {
+      conflictingDefects.push({ defect, findings: ids, statuses });
+      candidates.push({ ...members[0], defect_id: defect, status: 'unresolved' });
       continue;
     }
-    byDefect.set(key, change);
+    candidates.push(members[0]);
   }
-  const candidates = [...byDefect.values()];
   const unsupported = candidates.filter((f) => f.status === 'confirmed').length;
   const supported = candidates.filter((f) => f.status === 'dismissed').length;
   const unresolvedChanges = candidates.filter((f) => f.status === 'unresolved').length;
@@ -142,6 +174,9 @@ function computeCad(findings) {
     unresolved_changes: unresolvedChanges,
     resolved_changes: resolvedChanges,
     linked_symptoms: linkedSymptoms,
+    conflicting_defects: conflictingDefects,
+    population_chapters: meta.populationChapters ?? null,
+    excluded_findings: meta.excludedFindings ?? [],
   };
   if (candidates.length === 0) {
     return { status: 'not_applicable', value: null, coverage: null, missing_reason: 'no character change candidates', detail };

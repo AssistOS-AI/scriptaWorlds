@@ -138,5 +138,48 @@
       "rationale",
       "evidence"
     ]
-  }
+  },
+  "eap_trajectory_fields": [
+    "segment_id",
+    "story_order",
+    "focalization",
+    "valence",
+    "tension",
+    "evidence",
+    "uncertainty"
+  ],
+  "eap_scales": {
+    "valence": {
+      "min": -2,
+      "max": 2
+    },
+    "tension": {
+      "min": 0,
+      "max": 4
+    },
+    "emotional_fit": {
+      "min": 0,
+      "max": 100,
+      "assessed": "separately from the trajectory",
+      "fields": [
+        "status",
+        "fit",
+        "evaluator",
+        "rationale",
+        "evidence",
+        "intention_binding"
+      ],
+      "statuses": [
+        "judged",
+        "not_assessable",
+        "not_applicable",
+        "error"
+      ],
+      "bare_number": "unsupported legacy data"
+    }
+  },
+  "ncs_components": [
+    "novelty",
+    "cliche_reliance"
+  ]
 }

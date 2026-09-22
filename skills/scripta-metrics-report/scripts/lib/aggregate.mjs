@@ -201,6 +201,7 @@ export function buildNqs({
   language = null,
   studyRoot = null,
   allowTestOnlyStudies = false,
+  emotionalFitReason = null,
 }) {
   const m = baseMetricFor('NQS', scope);
   m.value_kind = 'scalar';
@@ -221,7 +222,9 @@ export function buildNqs({
     m.detail.note = 'a free-standing annotated NQS never overrides the saved components';
   }
   if (check.status === 'not_assessable') {
-    m.missing_reason = check.reason;
+    // The aggregate states precisely which prerequisites are missing rather than a bare list of names.
+    m.missing_reason = check.reason
+      + (emotionalFitReason && check.missing.includes('EMOTIONAL_FIT') ? ` (emotional fit: ${emotionalFitReason})` : '');
     if (check.missing.length > 0) m.detail.missing = check.missing;
     return m;
   }

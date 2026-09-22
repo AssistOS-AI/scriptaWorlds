@@ -1,0 +1,11 @@
+{
+  "number": 2,
+  "createdAt": "2026-09-22T18:58:47.134Z",
+  "kind": "chapter",
+  "status": "interrupted",
+  "request": "interrupted request",
+  "chapterNumber": 2,
+  "startedAt": "2026-09-22T18:58:47.134Z",
+  "finishedAt": "2026-09-22T18:58:47.142Z",
+  "error": "interrupted by a server restart"
+}

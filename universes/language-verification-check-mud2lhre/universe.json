@@ -1,0 +1,16 @@
+{
+  "id": "language-verification-check-mud2lhre",
+  "title": "Language verification check-mud2lhre",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Every act of attention dims a star somewhere; the sky remembers who looked.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "fr",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T19:31:42.516Z",
+  "updatedAt": "2026-09-22T19:31:42.519Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

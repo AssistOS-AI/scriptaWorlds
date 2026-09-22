@@ -11,6 +11,7 @@
  * refreshes itself never discards a half-written comment.
  */
 import {
+  ANSWER_COMMENT_CHARS,
   COMMENT_CHARS,
   COMMENT_LIMIT,
   QUOTE_CHARS,
@@ -18,6 +19,7 @@ import {
   addComment,
   bookSelection,
   chooseAnswer,
+  chooseReaction,
   feedbackTarget,
   freeze,
   quoteFromBook,
@@ -27,9 +29,12 @@ import {
   removeQuote,
   sendFeedback,
   setCommentText,
+  setExposure,
+  setReactionComment,
   setWhere,
   showFeedback,
-  skipAnswer
+  skipAnswer,
+  toggleComparison
 } from '../feedback.js';
 import { NAME_CHARS, changeName, chapterPath, copyText, selectCopyChapter, setName, useAnotherName } from '../responses.js';
 import { dom, el, elem, plural, short, state } from '../state.js';
@@ -103,13 +108,22 @@ function answerPane(model) {
     identitySet(model),
     questionnaireSet(model),
     commentsSet(model),
+    reactionsSet(model),
     conditionsSet(model),
     elem('p', { className: 'analysis__error', attrs: { id: 'feedback-error', role: 'alert' } }),
     elem('p', { className: 'feedback__notice', attrs: { id: 'feedback-notice', role: 'status' } }),
     elem('div', { className: 'popup__actions' },
       elem('button', { className: 'btn btn--accent', attrs: { type: 'submit', id: 'feedback-send' }, text: 'Send my answers' }),
+      elem('button', {
+        className: 'btn btn--quiet',
+        attrs: { type: 'button', id: 'feedback-comparison-open' },
+        text: model.comparisonOpen ? 'Close the comparison' : 'Compare two versions',
+        on: { click: () => toggleComparison() }
+      }),
       elem('button', { className: 'btn btn--quiet', attrs: { type: 'button' }, text: 'See what readers said', on: { click: () => showFeedback('team') } })
-    ))
+    ),
+    // The two-text reading session of §8.7 draws itself here; the form only offers the place.
+    ...(model.comparisonOpen ? [elem('div', { className: 'feedback__comparison', attrs: { id: 'feedback-comparison' } })] : []))
   ];
 }
 
@@ -132,14 +146,21 @@ function freezeActions(model) {
       elem('button', {
         className: 'btn btn--small',
         attrs: { type: 'button' },
-        text: 'Freeze the version on screen instead',
-        on: { click: () => freeze() }
+        text: 'Freeze the version on screen now',
+        on: { click: () => freeze({ current: true }) }
       }))];
   }
   if (model.freezeError) {
     return [elem('div', { className: 'feedback__freeze-actions' },
       elem('button', {
         className: 'btn btn--small',
+        attrs: { type: 'button' },
+        // The draft stays in the form: this reads the accepted text again and freezes that version.
+        text: 'Freeze the version on screen now',
+        on: { click: () => freeze({ current: true }) }
+      }),
+      elem('button', {
+        className: 'btn btn--small btn--quiet',
         attrs: { type: 'button' },
         text: 'Try freezing again',
         on: { click: () => freeze() }
@@ -365,7 +386,9 @@ function copyPicker(model, index) {
       text: `Chapter ${entry.number}${entry.title ? ` · ${entry.title}` : ''}`
     })))
   ));
-  details.append(elem('p', { className: 'analysis__hint', text: 'Select the passage here and quote it: the quotation then carries the characters of the frozen copy, exactly as this reader saw them.' }));
+  details.append(elem('p', { className: 'analysis__hint', text: model.copiedFromStore?.has(chapter)
+    ? 'This is the frozen text the target itself holds, read from the store because this browser no longer has the version you read; quote from it and the quotation is anchored to the words of that copy.'
+    : 'Select the passage here and quote it: the quotation then carries the characters of the frozen copy, exactly as this reader saw them.' }));
   details.append(elem('pre', {
     className: 'feedback__copy-text',
     attrs: { id: `feedback-copy-text-${index}`, 'data-feedback-copy': String(chapter), tabindex: '0' },
@@ -399,6 +422,102 @@ function conditionsSet(model) {
         on: { input: (event) => setWhere(event.currentTarget.value) }
       })
     ),
-    elem('p', { className: 'analysis__hint', text: 'Recorded when you give it, never required, and never invented for you.' })
+    elem('p', { className: 'analysis__hint', text: 'Recorded when you give it, never required, and never invented for you.' }),
+    exposureSet(model)
   );
+}
+
+/**
+ * What the reader had already seen before answering. It is a declaration, not an inference: an
+ * untouched box stays undeclared, and the store records exactly what was declared, so an unaided
+ * reading can never be confused with a report-assisted one later.
+ */
+function exposureSet(model) {
+  const box = elem('div', { className: 'feedback__exposure', attrs: { id: 'feedback-exposure' } },
+    elem('p', { className: 'field__label', text: 'Had you already seen, before you answered?' }));
+  const line = (name, label) => elem('label', { className: 'feedback__check', attrs: { for: `feedback-exposure-${name}` } },
+    elem('input', {
+      attrs: {
+        id: `feedback-exposure-${name}`,
+        type: 'checkbox',
+        ...(model.exposure?.[name] === true ? { checked: true } : {})
+      },
+      on: { change: (event) => setExposure(name, event.currentTarget.checked) }
+    }),
+    elem('span', { text: label }));
+  box.append(line('model_scores', 'The model\'s scores or findings for this text'));
+  box.append(line('other_comments', 'Other readers\' comments on this text'));
+  box.append(elem('p', { className: 'analysis__hint', id: 'feedback-exposure-state', text: exposureWords(model) }));
+  return box;
+}
+
+function exposureWords(model) {
+  const seen = [];
+  if (model.exposure?.model_scores === true) seen.push('the model\'s scores');
+  if (model.exposure?.other_comments === true) seen.push('other readers\' comments');
+  const declared = model.exposure?.model_scores != null || model.exposure?.other_comments != null;
+  if (!declared) return 'Nothing is declared yet, and nothing is assumed for you.';
+  return seen.length === 0
+    ? 'Recorded as read without having seen a report or other readers\' comments.'
+    : `Recorded as having already seen ${seen.join(' and ')} before answering.`;
+}
+
+/**
+ * The reactions of this response: how useful the report the reader was looking at was, and whether they
+ * found a defect in the text. Both are declared by the frozen questionnaire, both are optional, and the
+ * usefulness reaction is only offered when this session actually names a report.
+ */
+function reactionsSet(model) {
+  const declared = model.reactionsDeclared ?? [];
+  const box = elem('fieldset', { className: 'analysis__set', attrs: { id: 'feedback-reactions' } },
+    elem('legend', { text: 'What you made of it (optional)' }));
+  if (declared.length === 0) {
+    box.append(elem('p', { className: 'analysis__hint', text: 'The frozen copy of this book carries no reaction to give; answer the questions above instead.' }));
+    return box;
+  }
+  for (const reaction of declared) {
+    const aboutReport = reaction.about === 'report';
+    if (aboutReport && !model.reportRunId) {
+      box.append(elem('p', { className: 'analysis__hint', attrs: { id: `feedback-reaction-${reaction.id}-hint` }, text: `${reaction.label} is answered when you open this form from a report; no report is open for this reading, so this reaction is left undeclared.` }));
+      continue;
+    }
+    const chosen = model.reactions?.[reaction.id] ?? null;
+    box.append(elem('div', { className: 'feedback__question', attrs: { role: 'group', 'aria-labelledby': `feedback-reaction-${reaction.id}-label` } },
+      elem('span', { className: 'feedback__question-label', attrs: { id: `feedback-reaction-${reaction.id}-label` }, text: reaction.label }),
+      elem('div', { className: 'feedback__scale' },
+        elem('span', { className: 'feedback__anchor', text: reaction.low ?? '' }),
+        elem('span', { className: 'feedback__options' }, ...reaction.options.map((option) => elem('label', {
+          className: `feedback__option${chosen?.value === option ? ' feedback__option--on' : ''}`,
+          attrs: { id: `feedback-reaction-${reaction.id}-${option}`, for: `feedback-reaction-${reaction.id}-${option}-input` }
+        },
+        elem('input', {
+          attrs: {
+            type: 'radio',
+            id: `feedback-reaction-${reaction.id}-${option}-input`,
+            name: `feedback-reaction-${reaction.id}`,
+            value: String(option),
+            ...(chosen?.value === option ? { checked: true } : {})
+          },
+          on: { change: () => chooseReaction(reaction.id, option) }
+        }),
+        elem('span', { className: 'feedback__option-number', text: String(option) })))),
+        elem('span', { className: 'feedback__anchor', text: reaction.high ?? '' })
+      ),
+      chosen ? elem('label', { className: 'field', attrs: { for: `feedback-reaction-${reaction.id}-comment` } },
+        elem('span', { className: 'field__label', text: 'Why (optional)' }),
+        elem('input', {
+          className: 'analysis__input',
+          attrs: {
+            id: `feedback-reaction-${reaction.id}-comment`,
+            type: 'text',
+            maxlength: String(ANSWER_COMMENT_CHARS),
+            placeholder: 'A sentence, if you want one',
+            value: chosen.comment ?? ''
+          },
+          on: { input: (event) => setReactionComment(reaction.id, event.currentTarget.value) }
+        })) : elem('p', { className: 'analysis__hint', text: 'Leave it untouched to record no reaction at all.' })
+    ));
+  }
+  box.append(elem('p', { className: 'analysis__hint', text: 'A reaction is recorded only when you choose one; an untouched reaction stays undeclared and is never read as a low one.' }));
+  return box;
 }

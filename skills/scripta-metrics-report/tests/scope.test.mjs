@@ -31,7 +31,7 @@ function baseFixture(root, options = {}) {
 test('the selected chapter governs the denominator and the matched bytes', () => {
   const root = tempDir('metrics-scope-');
   try {
-    const chapter1 = baseFixture(join(root, 'chapter-1'), { scopeChapters: [1] });
+    const chapter1 = baseFixture(join(root, 'chapter-1'), { scopeChapters: [1], contextChapters: [2] });
     const first = run(chapter1, join(root, 'chapter-1', 'out'));
     assert.equal(first.status, 0, first.stdout);
     const firstBundle = readJson(join(root, 'chapter-1', 'out', 'assessment.json'));
@@ -48,7 +48,7 @@ test('the selected chapter governs the denominator and the matched bytes', () =>
     assert.equal(range.end, Buffer.byteLength(CHAPTER_1, 'utf8'), 'the measured bytes are chapter 1 alone');
     assert.equal(firstBundle.metrics.SI.value, 0);
 
-    const second = baseFixture(join(root, 'chapter-2'), { scopeChapters: [2], ruleOutputs: [2] });
+    const second = baseFixture(join(root, 'chapter-2'), { scopeChapters: [2], ruleOutputs: [2], contextChapters: [1] });
     const secondRun = run(second, join(root, 'chapter-2', 'out'));
     assert.equal(secondRun.status, 0, secondRun.stdout);
     const secondBundle = readJson(join(root, 'chapter-2', 'out', 'assessment.json'));
@@ -158,6 +158,8 @@ test('a scene scope measures only its byte ranges and an arc cannot double-count
         annotations.segments = segments;
         annotations.evidence = [annotations.evidence[0]];
         annotations.metrics = {};
+        annotations.indicators = [];
+        annotations.preserved_qualities = { passages: [] };
         delete annotations.continuity;
         annotations.requirements.outcomes = [{ rule: 'stg-structure-1', output: 'seg1', outcome: 'pass', evidence: ['ev1'] }];
       },
@@ -217,12 +219,15 @@ test('a scene scope measures only its byte ranges and an arc cannot double-count
 test('the selected scope governs self-exclusion and the provenance of every metric', () => {
   const root = tempDir('metrics-self-');
   try {
-    // The declared reference is byte-identical to the selected chapter: it is
-    // excluded as the candidate's own source version instead of being compared.
+    // The reference declares the candidate source and version, so it is the
+    // book's own copy and is excluded as a self-comparison instead of being
+    // measured against itself. Identical bytes with no declaration are the
+    // independent-copy case and are covered by tests/corpus-identity.test.mjs.
     const fx = buildReportFixture(join(root, 'self'), {
       chapters: { 1: CHAPTER_1, 2: CHAPTER_2 },
       referenceText: CHAPTER_1,
-      contextChapters: [],
+      reference: (packet) => ({ source: { id: 'test-universe', version: packet.version } }),
+      contextChapters: [2],
       scopeChapters: [1],
     });
     const out = join(root, 'self', 'out');

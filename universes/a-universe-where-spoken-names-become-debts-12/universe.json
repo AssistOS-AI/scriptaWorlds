@@ -1,0 +1,16 @@
+{
+  "id": "a-universe-where-spoken-names-become-debts-12",
+  "title": "The Debt of Names",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Every name spoken aloud becomes a small debt the speaker carries until the debt is paid in work.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T19:29:25.776Z",
+  "updatedAt": "2026-09-22T19:29:25.780Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

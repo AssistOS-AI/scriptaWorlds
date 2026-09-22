@@ -10,18 +10,22 @@
 //  - an approval is the decision of §8.4 on the proposal, recorded through the same route as every
 //    other proposal, and asking for a revision hands the request it produced to the existing rewrite
 //    path rather than writing a chapter here;
-//  - `targets`, `export`, `summary`, `comparison` and `revisions` are the reserved segments of the
-//    feedback route: a response whose identifier is one of those words is not readable as a response.
+//  - `targets`, `export`, `summary`, `dataset`, `comparison`, `sessions` and `revisions` are the
+//    reserved segments of the feedback route: a response whose identifier is one of those words is not
+//    readable as a response.
 import { config } from './config.mjs';
 import { UniverseError } from './errors.mjs';
+import { sha256 } from './assessment-packet.mjs';
 import { buildFeedbackComparison } from './feedback-comparison.mjs';
+import { handleComparisonSessionRoutes } from './feedback-comparison-sessions.mjs';
+import { feedbackDatasetDownload } from './feedback-dataset.mjs';
 import { listFeedback, readFeedback, recordReaderDeletion, submitFeedback, withdrawFeedback } from './feedback-entries.mjs';
 import { feedbackExportDownload } from './feedback-export.mjs';
 import { createFeedbackReader, listFeedbackReaders, readFeedbackReader, renameFeedbackReader } from './feedback-readers.mjs';
 import { selectFeedbackForRevision, startFeedbackRevision } from './feedback-revision.mjs';
 import { buildFeedbackSummary } from './feedback-summary.mjs';
-import { createFeedbackTarget, readFeedbackTarget } from './feedback-targets.mjs';
-import { readJsonBody, sendDownload, sendJson } from './http.mjs';
+import { createFeedbackTarget, displayedFile, readFeedbackTarget, readFrozenText } from './feedback-targets.mjs';
+import { contentTypeFor, readJsonBody, sendDownload, sendJson } from './http.mjs';
 
 /**
  * Answers `sub` of one universe's feedback surface: `feedback` and `readers`, the two segments this
@@ -41,6 +45,19 @@ export async function handleFeedbackRoutes({ req, res, segments, id, sub, extra,
       else sendJson(res, 200, { summary: await buildFeedbackSummary(id) });
       return true;
     }
+    if (extra === 'dataset') {
+      // The self-contained snapshot of §8.7 (C81): the frozen prose travels with the responses so another
+      // workspace can reproduce what was read. It never defaults to internal: only the query names names.
+      if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+      const identity = url.searchParams.get('identity') === 'internal' ? 'internal' : 'pseudonym';
+      const snapshot = await feedbackDatasetDownload(id, { identity });
+      sendDownload(res, snapshot.name, snapshot.body);
+      return true;
+    }
+    if (extra === 'sessions') {
+      // A two-text reading session (§8.7, C82): the storage and the answers live in their own module.
+      if (await handleComparisonSessionRoutes({ req, res, id, sessionId: Array.isArray(segments) ? segments[5] ?? null : null, url })) return true;
+    }
     if (extra === undefined) {
       if (req.method === 'GET') {
         sendJson(res, 200, await listFeedback(id));
@@ -58,7 +75,11 @@ export async function handleFeedbackRoutes({ req, res, segments, id, sub, extra,
           conditions: body.conditions ?? null,
           revisionOf: body.revision_of ?? null,
           readerKind: body.readerKind ?? null,
-          questionnaireVersion: body.questionnaireVersion ?? null
+          questionnaireVersion: body.questionnaireVersion ?? null,
+          runId: body.run_id ?? body.runId ?? null,
+          findingIds: body.finding_ids ?? body.findingIds ?? [],
+          note: body.note ?? null,
+          reactions: body.reactions ?? null
         });
         console.log(`[feedback] ${written.feedback.feedback_id} ${written.feedback.reader_kind} for ${id}${written.deduplicated ? ' (deduplicated)' : ''}`);
         sendJson(res, written.deduplicated ? 200 : 201, { feedback: written.feedback, deduplicated: written.deduplicated });
@@ -67,6 +88,27 @@ export async function handleFeedbackRoutes({ req, res, segments, id, sub, extra,
       throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
     }
     if (extra === 'targets') {
+      if (segments[6] === 'text') {
+        // The frozen bytes of one displayed file, so a reader who no longer has that version on screen —
+        // another machine, or a book rewritten since — can be shown and can quote exactly what was read.
+        if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+        const target = await readFeedbackTarget(id, segments[5]);
+        const file = displayedFile(target, segments[7] ?? '');
+        if (!file) throw new UniverseError('NOT_FOUND', `Target ${target.target_id} does not display ${JSON.stringify(segments[7] ?? '')}.`, 404);
+        const frozen = await readFrozenText(id, target, file.path);
+        if (!frozen) throw new UniverseError('STALE_TARGET', `The frozen text of ${target.target_id} cannot be read (${file.path}).`, 409);
+        const bytes = Buffer.from(frozen.text, 'utf8');
+        if (sha256(bytes) !== file.sha256 || bytes.length !== file.bytes) {
+          throw new UniverseError('STALE_TARGET', `The frozen text of ${target.target_id} no longer reproduces the hash it recorded (${file.path}); freeze the version you are reading instead.`, 409);
+        }
+        res.writeHead(200, {
+          'Content-Type': contentTypeFor(file.path),
+          'Content-Length': bytes.length,
+          'Cache-Control': 'no-store'
+        });
+        res.end(bytes);
+        return true;
+      }
       if (segments[5] !== undefined) {
         if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
         sendJson(res, 200, { target: await readFeedbackTarget(id, segments[5]) });
@@ -77,12 +119,11 @@ export async function handleFeedbackRoutes({ req, res, segments, id, sub, extra,
       const frozen = await createFeedbackTarget({
         universeId: id,
         scope: body.scope ?? null,
-        runId: body.runId ?? null,
-        note: body.note ?? null,
-        findingIds: body.findingIds ?? []
+        sourceVersion: body.sourceVersion ?? null,
+        displayed: body.displayed ?? null
       });
-      console.log(`[feedback] target ${frozen.target.target_id} ${frozen.target.scope.kind} of ${frozen.target.scope.chapters.length} chapter(s) for ${id}${frozen.deduplicated ? ' (already frozen)' : ''}`);
-      sendJson(res, frozen.deduplicated ? 200 : 201, { target: frozen.target, deduplicated: frozen.deduplicated });
+      console.log(`[feedback] target ${frozen.target.target_id} ${frozen.target.scope.kind} of ${frozen.target.scope.chapters.length} chapter(s) for ${id}${frozen.deduplicated ? ' (already frozen)' : ''}${frozen.reopened ? ' (reopened for the version the reader read)' : ''}`);
+      sendJson(res, frozen.deduplicated ? 200 : 201, { target: frozen.target, deduplicated: frozen.deduplicated, reopened: frozen.reopened === true });
       return true;
     }
     if (extra === 'comparison') {

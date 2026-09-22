@@ -1,0 +1,48 @@
+{
+  "$comment": "The versioned general rule set (`source: stg`) that CAR measures over the declared output population. It is published so that the review host, which builds the prompt an outside evaluator answers, never invents the authoritative rules and never asks a model to define them: the host copies these definitions into the registry it supplies and asks only for outcomes per (rule, output) pair. The validators under scripts/lib are the authority on what an `annotations.requirements` document may contain; this file publishes the definitions the host feeds them. A rule here is a claim a reader of the text can check, so its outcome is an observation, never a matter of taste.",
+  "schema_version": "stg-rules.v1",
+  "registry_version": "stg-rules.v1",
+  "aggregation_policy": "all_applicable_pass",
+  "rules": [
+    {
+      "id": "stg-title-line",
+      "description": "Every chapter file opens with a level-one heading that names the chapter.",
+      "source": "stg",
+      "classification": "hard",
+      "criterion": "every declared output",
+      "applies_to": "all"
+    },
+    {
+      "id": "stg-fiction-language",
+      "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+      "source": "stg",
+      "classification": "hard",
+      "criterion": "every declared output",
+      "applies_to": "all"
+    },
+    {
+      "id": "stg-no-meta-commentary",
+      "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+      "source": "stg",
+      "classification": "hard",
+      "criterion": "every declared output",
+      "applies_to": "all"
+    },
+    {
+      "id": "stg-told-as-prose",
+      "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+      "source": "stg",
+      "classification": "hard",
+      "criterion": "every declared output",
+      "applies_to": "all"
+    },
+    {
+      "id": "stg-scene-breaks",
+      "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+      "source": "stg",
+      "classification": "soft",
+      "criterion": "every declared output",
+      "applies_to": "all"
+    }
+  ]
+}

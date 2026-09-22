@@ -1,0 +1,16 @@
+{
+  "id": "inventory-check-mud2gos6",
+  "title": "inventory check-mud2gos6",
+  "summary": "",
+  "autoTitle": false,
+  "law": "Cities exist only as long as someone tells them; silence dissolves them into stone.",
+  "premise": "",
+  "elements": [],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-22T19:27:58.797Z",
+  "updatedAt": "2026-09-22T19:27:58.797Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

@@ -19,7 +19,7 @@ The design specifications under `docs/specs/` are the source of truth for docume
 
 ## Current Skill Catalog
 
-The repository implements six product skills. Two of them write a book and are read during a turn; four of them are chosen only in a separate design or validation phase and are never invoked while a chapter is being written. All six belong to the product documentation:
+The repository implements seven product skills. Two of them write a book and are read during a turn; `scripta-import` is read only by the bounded turns that turn an uploaded book into a universe of its own; and four of them are chosen only in a separate design or validation phase and are never invoked while a chapter is being written. All seven belong to the product documentation:
 
 | Skill | What it is |
 | --- | --- |

@@ -149,7 +149,14 @@ export function buildReportFixture(root, options = {}) {
       EAP: {
         status: 'judged',
         evaluator: 'human-1',
-        emotional_fit: 55,
+        emotional_fit: {
+          status: 'judged',
+          evaluator: 'human-1',
+          fit: 55,
+          rationale: 'The register answers the elegiac intention.',
+          evidence: ['ev1'],
+          intention_binding: 'a quiet elegiac aftermath',
+        },
         ordering: 'story',
         trajectory: [
           {
@@ -275,7 +282,9 @@ export function buildReportFixture(root, options = {}) {
   if (!options.noContinuity) {
     annotations.continuity = {
       schema_version: 'continuity-result.v1',
-      version: 'continuity-result.v1',
+      // The producer writes the accepted version it reviewed here; the metrics report binds it to the
+      // packet it read, so a fixture that named a schema string instead would be refused as stale.
+      version: packet.version,
       source_version: packet.version,
       counts: { eligible_comparisons: 2, consistent: 1, contradicted: 1, unresolved: 0 },
       scope: options.continuityScope ?? { chapters: [1], omitted: [] },
@@ -312,18 +321,24 @@ export function buildReportFixture(root, options = {}) {
   writeJson(root, 'annotations.json', annotations);
 
   const corpusDir = join(root, 'corpus');
-  writeFileSync(corpusDir, 'reference.txt', Buffer.from(options.referenceText ?? REFERENCE_TEXT, 'utf8'));
+  const referenceText = options.referenceText ?? REFERENCE_TEXT;
+  writeFileSync(corpusDir, 'reference.txt', Buffer.from(referenceText, 'utf8'));
   const corpusPath = join(corpusDir, 'manifest.json');
+  // A test may declare how the reference identities itself (`source`), block its use, or vary the
+  // extra records; the hash always describes the bytes this fixture actually wrote.
+  const declared =
+    typeof options.reference === 'function' ? options.reference({ version: packet.version }) ?? {} : options.reference ?? {};
   writeJson(corpusDir, 'manifest.json', {
     schema_version: 'corpus.v1',
     references: [
       {
         id: 'ref1',
         path: 'reference.txt',
-        sha256: sha256(Buffer.from(options.referenceText ?? REFERENCE_TEXT, 'utf8')),
-        language: 'en',
+        sha256: sha256(Buffer.from(referenceText, 'utf8')),
+        language: options.referenceLanguage ?? 'en',
         provenance: 'fixture reference',
         permitted_use: 'comparison',
+        ...declared,
       },
     ],
   });

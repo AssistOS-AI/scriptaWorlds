@@ -11,21 +11,30 @@
 //  - the summary reports how many readers answered, the distribution of every answer per accepted
 //    version and per provenance, the answers that were skipped and the ones left unmentioned, and it
 //    keeps a model's annotation and a synthetic fixture out of the readers' numbers;
+//  - a distribution states a defensible population: the answers of one reader are counted once, a
+//    chapter rating is never pooled with a book rating, and the version-level figure that does pool
+//    several targets says so instead of presenting the sum as one text's rating;
 //  - a summary that would have to compare two versions, or to state a trend from a handful of
 //    responses, refuses with its reason and the counts it would need, instead of producing a number;
 //  - an unknown book answers NOT_FOUND and a book with no response answers NO_FEEDBACK, and neither an
 //    export nor a summary writes anything: the feedback tree is byte-identical afterwards;
+//  - the self-contained snapshot carries the frozen prose itself, so a fresh directory that imports
+//    nothing of this store can reproduce both reading targets, resolve every quotation at the offset the
+//    store resolved, and still count the repeated readings of one reader as one reader — under a stable
+//    pseudonym, with the display names only in the internal snapshot that has to be asked for by name,
+//    and with the export refusing to carry prose whose bytes no longer match the hashes of its target;
 //  - while a turn of the book is queued the accepted version cannot be read, so both report
 //    `version_stable: false` with `historical: null` instead of guessing which text is current.
 import { spawn } from 'node:child_process';
 import { mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { assessmentsRoot, currentVersion } from '../src/assessment-packet.mjs';
 import { createFeedbackTarget, feedbackRoot, readFrozenText, targetTextDir } from '../src/feedback-targets.mjs';
 import { createFeedbackReader } from '../src/feedback-readers.mjs';
 import { recordReaderDeletion, submitFeedback, withdrawFeedback } from '../src/feedback-entries.mjs';
 import { buildFeedbackExport, feedbackExportDownload, serializeFeedbackExport } from '../src/feedback-export.mjs';
+import { buildFeedbackDataset, feedbackDatasetDownload, serializeFeedbackDataset } from '../src/feedback-dataset.mjs';
 import { MIN_ANSWERED_FOR_MEAN, MIN_ANSWERED_PER_VERSION, buildFeedbackSummary } from '../src/feedback-summary.mjs';
 import { rootDir, universeDir } from '../src/paths.mjs';
 import { bookWithTwoChapters, sha256Hex, turnRecord } from './check-fixtures.mjs';
@@ -46,8 +55,8 @@ async function treeDigest(dir) {
   return `${lines.length} file(s)\n${lines.join('\n')}`;
 }
 
-const runCommand = (args) => new Promise((resolve) => {
-  const child = spawn(process.execPath, args, { cwd: rootDir, stdio: ['ignore', 'pipe', 'pipe'] });
+const runCommand = (args, cwd = rootDir) => new Promise((resolve) => {
+  const child = spawn(process.execPath, args, { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
   let stdout = '';
   let stderr = '';
   child.stdout.setEncoding('utf8');
@@ -231,10 +240,17 @@ export async function runFeedbackExportChecks({ ok, fail, checkSeed = `check-${D
       && summary.counts.withdrawn.team_human === 1
       && summary.counts.superseded.team_human === 1 && summary.counts.identity_deletions === 1
       && summary.versions.length === 2 && summary.targets.length === 2 && summary.questions.length === 5
+      && summary.counts.populations === 2 && summary.populations.length === 2
+      && summary.populations.every((population) => population.unit === 'reader' && population.selection.length > 0
+        && population.target_ids.length === 1 && typeof population.label === 'string' && population.label.includes('questionnaire'))
+      && summary.versions.every((entry) => entry.unit === 'reader' && entry.pooled_across_targets === false && entry.populations.length === 1)
       && interestFirst.team_human.answered === MIN_ANSWERED_FOR_MEAN && interestFirst.team_human.mean === 3
       && interestFirst.team_human.mean_note === null
       && JSON.stringify(interestFirst.team_human.distribution) === JSON.stringify({ 1: 0, 2: 1, 3: 1, 4: 1, 5: 0 })
       && interestFirst.team_human.not_mentioned === 1
+      && interestFirst.team_human.responses === 4 && interestFirst.team_human.records === 4
+      && interestFirst.team_human.unit === 'reader'
+      && interestFirst.team_human.distribution['1'] === 0
       && interestFirst.model.answered === 1 && interestFirst.model.mean === null
       && interestFirst.model.mean_note.includes(String(MIN_ANSWERED_FOR_MEAN))
       && JSON.stringify(interestFirst.model.distribution) === JSON.stringify({ 1: 1, 2: 0, 3: 0, 4: 0, 5: 0 })
@@ -357,8 +373,262 @@ export async function runFeedbackExportChecks({ ok, fail, checkSeed = `check-${D
         fail(`feedback export/unstable: writing=${JSON.stringify(writing?.book)}, historical=${JSON.stringify(writing?.responses?.map((entry) => entry.historical))}, summary=${writingSummary?.book?.version_stable}/${JSON.stringify(writingSummary?.limitations)}, restored=${JSON.stringify(restored?.book)}`);
       }
     }
+
+    // 7. The population of a distribution: one reader answering the same question twice, two chapters
+    // and the whole book in one accepted version.
+    await checkDefensiblePopulations({ ok, fail, checkSeed });
+
+    // 8. The self-contained snapshot: the frozen prose travels, so a fresh directory can reproduce the
+    // reading targets without the store, and the store refuses to export prose whose bytes changed.
+    await checkPortableDataset({ ok, fail, checkSeed });
   } finally {
     await rm(join(assessmentsRoot(), universe.id), { recursive: true, force: true });
     await rm(join(assessmentsRoot(), empty.id), { recursive: true, force: true });
+  }
+}
+
+/**
+ * C78, the population half: whether a distribution states the population it was computed from. One
+ * reader answers the same question twice against the same chapter, once against the other chapter and
+ * once against the whole book. A chapter population must hold one answered reader with the earlier
+ * submission reported as history; the book population must hold three independent readers; no chapter
+ * rating may appear in the book's distribution; and the version-level figure that does pool the three
+ * targets must be marked as pooling and still count that reader once.
+ */
+async function checkDefensiblePopulations({ ok, fail, checkSeed }) {
+  const universe = await bookWithTwoChapters(checkSeed, 'feedback-populations');
+  try {
+    const version = await currentVersion(universe.id);
+    const ana = await createFeedbackReader({ universeId: universe.id, displayName: 'Ana' });
+    const bogdan = await createFeedbackReader({ universeId: universe.id, displayName: 'Bogdan' });
+    const corina = await createFeedbackReader({ universeId: universe.id, displayName: 'Corina' });
+    const chapterOne = (await createFeedbackTarget({ universeId: universe.id, scope: { kind: 'chapter', chapters: [1] } })).target;
+    const chapterTwo = (await createFeedbackTarget({ universeId: universe.id, scope: { kind: 'chapter', chapters: [2] } })).target;
+    const whole = (await createFeedbackTarget({ universeId: universe.id, scope: { kind: 'book' } })).target;
+    const answer = (targetId, feedbackId, readerId, value) => submitFeedback({
+      universeId: universe.id,
+      targetId,
+      feedbackId,
+      readerId,
+      answers: [{ question_id: 'interest', value }]
+    });
+    // Ana changes her mind about chapter 1 in a second session against the same frozen text, rates
+    // chapter 2 in another, and the whole book in a fourth.
+    await answer(chapterOne.target_id, 'fb-pop-ana-c1-first', ana.reader_id, 1);
+    await answer(chapterOne.target_id, 'fb-pop-ana-c1-again', ana.reader_id, 5);
+    await answer(chapterTwo.target_id, 'fb-pop-ana-c2', ana.reader_id, 3);
+    await answer(whole.target_id, 'fb-pop-ana-book', ana.reader_id, 4);
+    await answer(whole.target_id, 'fb-pop-bogdan-book', bogdan.reader_id, 2);
+    await answer(whole.target_id, 'fb-pop-corina-book', corina.reader_id, 5);
+
+    const summary = await buildFeedbackSummary(universe.id);
+    const question = summary.questions.find((entry) => entry.question_id === 'interest');
+    const populationOf = (targetId) => question.populations.find((population) => population.target_ids.join(',') === targetId);
+    const one = populationOf(chapterOne.target_id);
+    const two = populationOf(chapterTwo.target_id);
+    const book = populationOf(whole.target_id);
+    const oneNumbers = one?.provenance.team_human;
+    const twoNumbers = two?.provenance.team_human;
+    const bookNumbers = book?.provenance.team_human;
+    const pooled = question.versions[0]?.provenance.team_human;
+    const oneVersionOnly = question.versions.length === 1 && question.versions[0].accepted_version === version;
+    if (question.populations.length === 3 && oneVersionOnly
+      && one.scope.kind === 'chapter' && one.scope.chapters.join(',') === '1' && two.scope.chapters.join(',') === '2'
+      && book.scope.kind === 'book'
+      && oneNumbers.answered === 1 && oneNumbers.mean === null && oneNumbers.mean_note.includes(String(MIN_ANSWERED_FOR_MEAN))
+      && JSON.stringify(oneNumbers.distribution) === JSON.stringify({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 1 })
+      && oneNumbers.records === 2 && oneNumbers.earlier_answers === 1 && oneNumbers.repeated_readers === 1 && oneNumbers.readers === 1
+      && twoNumbers.answered === 1 && JSON.stringify(twoNumbers.distribution) === JSON.stringify({ 1: 0, 2: 0, 3: 1, 4: 0, 5: 0 })
+      && bookNumbers.answered === 3 && bookNumbers.readers === 3 && bookNumbers.mean === 3.67
+      && JSON.stringify(bookNumbers.distribution) === JSON.stringify({ 1: 0, 2: 1, 3: 0, 4: 1, 5: 1 })
+      // The ratings of one text are nowhere inside another text's distribution.
+      && bookNumbers.distribution['3'] === 0 && oneNumbers.distribution['4'] === 0 && twoNumbers.distribution['4'] === 0
+      && question.versions[0].pooled_across_targets === true && question.versions[0].populations.length === 3
+      && pooled.readers === 3 && pooled.records === 6 && pooled.earlier_answers === 3 && pooled.repeated_readers === 1
+      && JSON.stringify(pooled.distribution) === JSON.stringify({ 1: 0, 2: 1, 3: 0, 4: 1, 5: 1 })
+      && summary.counts.populations === 3 && summary.counts.targets === 3
+      && summary.limitations.some((entry) => entry.includes('pooled_across_targets'))
+      && summary.limitations.some((entry) => entry.includes('repeated submission'))) {
+      ok(`feedback summary: the three populations of one accepted version are reported apart (chapter 1: one reader, whose latest answer is 5 and whose earlier 1 is history; chapter 2: one reader, 3; the whole book: three independent readers, mean ${bookNumbers.mean}), the version-level figure is marked as pooling three targets and still counts the reader who answered four times once (${pooled.readers} readers from ${pooled.records} records), and no chapter's rating appears in the book's distribution`);
+    } else {
+      fail(`feedback summary/populations: populations=${JSON.stringify(question.populations.map((population) => [population.scope.kind, population.scope.chapters, population.provenance.team_human.answered, population.provenance.team_human.records, population.provenance.team_human.mean, population.provenance.team_human.distribution]))}, one=${JSON.stringify(oneNumbers)}, two=${JSON.stringify(twoNumbers)}, book=${JSON.stringify(bookNumbers)}, pooled=${JSON.stringify(pooled)}, versions=${JSON.stringify(question.versions.map((entry) => [entry.accepted_version?.slice(0, 12), entry.pooled_across_targets]))}, limitations=${JSON.stringify(summary.limitations)}`);
+    }
+  } finally {
+    await rm(join(assessmentsRoot(), universe.id), { recursive: true, force: true });
+  }
+}
+
+/**
+ * The inspector of `--dataset`. It runs as its own process in a fresh directory, imports nothing of this
+ * repository, and reads nothing but the snapshot it is handed: what it can answer is what the snapshot
+ * contains, which is the only way to prove that a dataset is portable.
+ */
+const DATASET_INSPECTOR = `import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+const document = JSON.parse(await readFile(process.argv[2], 'utf8'));
+const sha = (value) => createHash('sha256').update(value).digest('hex');
+const texts = document.texts.flatMap((entry) => entry.files.map((file) => ({ targetId: entry.target_id, historical: entry.historical, file })));
+const team = document.responses.filter((entry) => entry.reader_kind === 'team_human');
+const carried = (targetId) => document.texts.find((entry) => entry.target_id === targetId) ?? null;
+const older = document.texts.find((entry) => entry.historical === true) ?? null;
+console.log(JSON.stringify({
+  schema: document.schema_version,
+  identity: document.identity.mode,
+  counts: document.manifest.counts,
+  texts: texts.length,
+  pseudonyms: document.readers.map((reader) => reader.reader),
+  names: document.readers.map((reader) => reader.display_name),
+  hashesMatch: texts.every((entry) => sha(entry.file.text) === entry.file.sha256 && document.manifest.hashes.texts[entry.targetId + '/' + entry.file.name] === entry.file.sha256),
+  everyQuoteResolves: document.responses.every((response) => {
+    const text = carried(response.target_id);
+    return (response.comments ?? []).every((comment) => comment.evidence.every((range) => text !== null && text.files.some((file) => file.path === range.file && file.text.slice(range.start, range.end) === range.quote)));
+  }),
+  everyCountedExists: document.selection.counted.every((id) => document.responses.some((entry) => entry.feedback_id === id)),
+  supersededNotCounted: document.selection.superseded.every((id) => !document.selection.counted.includes(id) && document.responses.some((entry) => entry.feedback_id === id)),
+  withdrawnNotCounted: document.selection.withdrawn.every((id) => !document.selection.counted.includes(id) && document.responses.some((entry) => entry.feedback_id === id)),
+  historicalTexts: document.texts.filter((entry) => entry.historical === true).length,
+  historicalTextHasOlderProse: older !== null && older.files.some((file) => file.text.includes('Orașul citea registrul')),
+  currentTextHasNewerProse: document.texts.filter((entry) => entry.historical !== true).every((entry) => entry.files.some((file) => file.path.endsWith('0002-two.md') || file.text.includes('Orașul reciti registrul'))),
+  romania: texts.some((entry) => entry.file.text.includes('Orașul citea registrul')),
+  quotesRomania: document.responses.some((response) => (response.comments ?? []).some((comment) => comment.evidence.some((range) => /[ăâîșț]/u.test(range.quote)))),
+  unit: document.selection.unit,
+  teamReaders: new Set(team.map((entry) => entry.reader)).size,
+  teamCountedResponses: document.selection.counted.filter((id) => team.some((entry) => entry.feedback_id === id)).length
+}));
+`;
+
+/**
+ * C81: the self-contained snapshot. One chapter of the book is Romanian and the older version stays a
+ * target of its own, so the check proves that a fresh directory — a separate process, importing nothing
+ * of this repository — can reproduce every reading target, resolve the passage each reader quoted at the
+ * offset the store recorded, and still count the repeated readings of one person as one person, while the
+ * display names never leave the store. The internal dataset exists only when it is asked for by name, and
+ * the snapshot refuses to carry prose whose bytes no longer match the hashes its target recorded.
+ */
+async function checkPortableDataset({ ok, fail, checkSeed }) {
+  const universe = await bookWithTwoChapters(checkSeed, 'feedback-dataset');
+  const directory = await mkdtemp(join(tmpdir(), 'scripta-feedback-dataset-'));
+  const attempt = async (work) => {
+    try {
+      await work();
+      return 'accepted';
+    } catch (error) {
+      return error?.code ?? String(error?.message ?? error);
+    }
+  };
+  try {
+    const romaniaOne = '# Unu\n\nOrașul citea registrul cu voce tare, și districtul răspunse în șoaptă.\n\nFiecare piatră își amintea numele celui care o rostise.\n';
+    const romaniaTwo = '# Unu\n\nOrașul reciti registrul, iar districtul își schimbă glasul.\n\nFiecare piatră aștepta o altă poveste.\n';
+    await writeFile(join(universeDir(universe.id), CHAPTERS[0]), romaniaOne, 'utf8');
+    const ana = await createFeedbackReader({ universeId: universe.id, displayName: 'Ana Popescu' });
+    const bogdan = await createFeedbackReader({ universeId: universe.id, displayName: 'Bogdan Ionescu' });
+    const first = (await createFeedbackTarget({ universeId: universe.id, scope: { kind: 'book' } })).target;
+    await submitFeedback({
+      universeId: universe.id,
+      targetId: first.target_id,
+      feedbackId: 'fb-ds-ana-first',
+      readerId: ana.reader_id,
+      answers: [{ question_id: 'interest', value: 5 }],
+      comments: [{ text: 'Registrul se aude.', evidence: [{ file: CHAPTERS[0], quote: 'districtul răspunse în șoaptă' }] }]
+    });
+    await submitFeedback({ universeId: universe.id, targetId: first.target_id, feedbackId: 'fb-ds-bogdan', readerId: bogdan.reader_id, answers: [{ question_id: 'interest', value: 3 }] });
+    // Ana reads the same text twice and Bogdan corrects himself: the snapshot must keep both, and count
+    // neither of them twice.
+    await submitFeedback({ universeId: universe.id, targetId: first.target_id, feedbackId: 'fb-ds-ana-again', readerId: ana.reader_id, answers: [{ question_id: 'interest', value: 4 }] });
+    await submitFeedback({ universeId: universe.id, targetId: first.target_id, feedbackId: 'fb-ds-bogdan-again', readerId: bogdan.reader_id, revisionOf: 'fb-ds-bogdan', answers: [{ question_id: 'interest', value: 4 }] });
+    await writeFile(join(universeDir(universe.id), CHAPTERS[0]), romaniaTwo, 'utf8');
+    const second = (await createFeedbackTarget({ universeId: universe.id, scope: { kind: 'book' } })).target;
+    await submitFeedback({
+      universeId: universe.id,
+      targetId: second.target_id,
+      feedbackId: 'fb-ds-ana-second',
+      readerId: ana.reader_id,
+      answers: [{ question_id: 'interest', value: 4 }],
+      comments: [{ text: 'Un alt glas.', evidence: [{ file: CHAPTERS[0], quote: 'districtul își schimbă glasul' }] }]
+    });
+    await submitFeedback({ universeId: universe.id, targetId: second.target_id, feedbackId: 'fb-ds-ana-taken-back', readerId: ana.reader_id, answers: [{ question_id: 'clarity', value: 2 }] });
+    await withdrawFeedback({ universeId: universe.id, feedbackId: 'fb-ds-ana-taken-back' });
+    const before = await treeDigest(feedbackRoot(universe.id));
+
+    const path = join(directory, 'dataset.json');
+    const internalPath = join(directory, 'internal.json');
+    const inspectorPath = join(directory, 'inspect.mjs');
+    await writeFile(inspectorPath, DATASET_INSPECTOR, 'utf8');
+    const document = await buildFeedbackDataset(universe.id);
+    const text = serializeFeedbackDataset(document);
+    const download = await feedbackDatasetDownload(universe.id);
+    const written = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--dataset', '--out', path]);
+    const printed = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--dataset']);
+    const internal = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--dataset', '--internal', '--out', internalPath]);
+    const misuse = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--internal']);
+    const both = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--dataset', '--summary']);
+    const inspected = await runCommand([inspectorPath, path], directory);
+    const missingIdentity = await attempt(() => buildFeedbackDataset(universe.id, { identity: 'everyone' }));
+    const report = (() => {
+      try {
+        return JSON.parse(written.stdout.trim().split('\n').pop());
+      } catch {
+        return null;
+      }
+    })();
+    const inspection = (() => {
+      try {
+        return JSON.parse(inspected.stdout.trim().split('\n').pop());
+      } catch {
+        return null;
+      }
+    })();
+    const bytes = await readFile(path, 'utf8').catch(() => null);
+    const internalBytes = await readFile(internalPath, 'utf8').catch(() => null);
+
+    // The store's own copy of the frozen prose is changed behind the snapshot's back: the export has to
+    // refuse to carry words nobody was shown, and it has to write nothing when it refuses.
+    const frozenFile = join(targetTextDir(universe.id, second.target_id), basename(CHAPTERS[0]));
+    const pristine = await readFile(frozenFile, 'utf8');
+    await writeFile(frozenFile, `${pristine}Un rând adăugat.\n`, 'utf8');
+    const tampered = await attempt(() => buildFeedbackDataset(universe.id));
+    const tamperedPath = join(directory, 'tampered.json');
+    const tamperedRun = await runCommand(['scripts/export-feedback.mjs', '--universe', universe.id, '--dataset', '--out', tamperedPath]);
+    const tamperedLeft = await stat(tamperedPath).then(() => true, () => false);
+    const tamperedReport = (() => {
+      try {
+        return JSON.parse(tamperedRun.stdout.trim().split('\n').pop());
+      } catch {
+        return null;
+      }
+    })();
+    await writeFile(frozenFile, pristine, 'utf8');
+    const restored = await attempt(() => buildFeedbackDataset(universe.id));
+
+    const counts = inspection?.counts ?? {};
+    const anonymous = bytes !== null && !bytes.includes('Popescu') && !bytes.includes('Ionescu') && !bytes.includes(ana.reader_id);
+    const untouched = (await treeDigest(feedbackRoot(universe.id))) === before;
+    if (document.schema_version === 'reader-feedback-dataset.v1' && inspection?.schema === 'reader-feedback-dataset.v1'
+      && written.code === 0 && report?.ok === true && report.document === 'reader-feedback-dataset.v1' && report.identity === 'pseudonym'
+      && report.bytes === Buffer.byteLength(text, 'utf8') && report.sha256 === sha256Hex(text) && report.counted === 4 && report.responses === 6
+      && report.suggested_name === `${universe.id}-feedback-dataset.json` && report.files === 4
+      && printed.code === 0 && printed.stdout === text && bytes === text
+      && download.name === `${universe.id}-feedback-dataset.json` && download.body.equals(Buffer.from(text, 'utf8'))
+      && document.identity.mode === 'pseudonym' && document.manifest.identity === 'pseudonym'
+      && anonymous && inspection.identity === 'pseudonym' && inspection.names.every((name) => name === null)
+      && inspection.pseudonyms.length === 2 && inspection.pseudonyms.every((reader) => /^reader-p[0-9a-f]{12}$/.test(reader))
+      && counts.targets === 2 && counts.readers === 2 && counts.responses === 6 && counts.counted === 4
+      && counts.superseded === 1 && counts.withdrawn === 1 && counts.files === 4 && counts.bytes > 0
+      && inspection.texts === 4 && inspection.hashesMatch === true && inspection.romania === true && inspection.quotesRomania === true
+      && inspection.everyQuoteResolves === true && inspection.everyCountedExists === true
+      && inspection.supersededNotCounted === true && inspection.withdrawnNotCounted === true
+      && inspection.historicalTexts === 1 && inspection.historicalTextHasOlderProse === true && inspection.currentTextHasNewerProse === true
+      && inspection.unit === 'reader' && inspection.teamReaders === 2 && inspection.teamCountedResponses === 4
+      && internal.code === 0 && internalBytes !== null && internalBytes.includes('Popescu') && internalBytes.includes(ana.reader_id)
+      && missingIdentity === 'BAD_DATASET' && misuse.code === 2 && both.code === 2
+      && tampered === 'STALE_TARGET' && tamperedRun.code === 1 && tamperedReport?.code === 'STALE_TARGET' && !tamperedLeft
+      && restored === 'accepted' && untouched) {
+      ok(`feedback dataset: the snapshot carries the frozen prose of both targets (${counts.files} files, ${counts.bytes} bytes, the older version marked historical) and a fresh directory importing nothing of this store reproduces it — every carried text hashes to the value its target recorded, both Romanian quotations resolve at the offset the store resolved (${inspection.quotesRomania}), the withdrawal and the correction are named as not counted (${counts.counted} of ${counts.responses} responses count) and the reader who read twice is one pseudonym among ${inspection.teamReaders} readers; the display names never travel unless --internal is asked for, the command refuses --internal alone and --dataset with --summary (exit 2), and a frozen file whose bytes changed answers STALE_TARGET without writing a snapshot`);
+    } else {
+      fail(`feedback dataset: report=${JSON.stringify(report)}, printed=${printed.code}/${printed.stdout === text}, download=${download.name}/${download.body.equals(Buffer.from(text, 'utf8'))}, bytesMatch=${bytes === text}, anonymous=${anonymous}, inspection=${JSON.stringify(inspection)}, internal=${internal.code}/${internalBytes?.includes('Popescu')}, misuse=${misuse.code}, both=${both.code}, missingIdentity=${missingIdentity}, tampered=${tampered}/${tamperedRun.code}/${tamperedReport?.code}/left=${tamperedLeft}, restored=${restored}, untouched=${untouched}`);
+    }
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+    await rm(join(assessmentsRoot(), universe.id), { recursive: true, force: true });
   }
 }

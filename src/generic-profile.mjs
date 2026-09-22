@@ -7,7 +7,6 @@
 // number hides the components. When it is asked for it runs under the `research` policy with declared
 // weights and an advisory label: `research` names the formula, not a study, and an aggregate that claims
 // calibration must show verifiable study artifacts (see `references/calibration.md` in the skill).
-import { nowIso } from './io.mjs';
 import { UniverseError } from './errors.mjs';
 
 export const GENERIC_PROFILE_SCHEMA = 'evaluation-profile.v1';
@@ -73,7 +72,8 @@ export function genericProfile({ scope = null, chapters = null, packetScope = nu
       intent: intention ? String(intention).slice(0, 400) : null
     },
     scope: resolvedScope.kind === 'chapter' ? `chapters ${resolvedScope.chapters.join(', ')}` : resolvedScope.kind,
-    created_at: nowIso(),
+    // No wall-clock field: two requests that ask for the same review must produce the same profile,
+    // so its identity never depends on when it was built.
     advisory_note: 'research aggregation: the formula is declared here and is not calibrated against readers'
   };
   return profile;

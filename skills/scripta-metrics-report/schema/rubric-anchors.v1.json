@@ -1,0 +1,234 @@
+{
+  "$comment": "The anchored 0..4 rubric the metrics-report skill publishes for the host's annotation prompt (rubric-anchors.v1). scripts/lib/rubric.mjs enforces the scale and the dimension names; scripts/lib/registry.mjs holds the indicator categories. tests/rubric-anchors.test.mjs fails whenever this file and the code disagree. A quiet scene, a static character, a closed ending or a local cultural setting is never a defect by default: every rating is a claim about a passage in the selected text, not about the subject matter.",
+  "schema_version": "rubric-anchors.v1",
+  "scale": 4,
+  "ratings": [
+    {
+      "level": 0,
+      "label": "absent or broken",
+      "description": "The requirement is not met: the reader cannot recover the relation or the feature at all, or the text works against it."
+    },
+    {
+      "level": 1,
+      "label": "mostly failed",
+      "description": "The requirement is met only intermittently; recovery is usually blocked, so the reader must supply what the text does not give."
+    },
+    {
+      "level": 2,
+      "label": "partial",
+      "description": "The requirement is met in places; recovery is possible but effortful, uneven or dependent on one fortunate cue."
+    },
+    {
+      "level": 3,
+      "label": "reliable",
+      "description": "The requirement is reliably met across the selection; the reader recovers the relation or the feature without strain, with at most minor gaps."
+    },
+    {
+      "level": 4,
+      "label": "exact and economical",
+      "description": "The requirement is met exactly and without waste; every needed relation or feature is recoverable and deliberate choices serve it rather than merely avoiding failure."
+    }
+  ],
+  "defaults": {
+    "no_defect_by_default": [
+      "quiet_scene",
+      "static_character",
+      "closed_ending",
+      "local_cultural_setting"
+    ],
+    "statement": "A quiet scene, a static character, a closed ending or a local cultural setting is not a defect by default. Low tension is not low quality; a character who does not change can be the point of a scene; a deliberately closed ending can satisfy its promise; a local setting is a setting, not a demerit. Rate what the text does with its chosen material, and cite the passage that shows it.",
+    "justified_exception": "A low rating on any dimension requires cited evidence that the chosen device fails its own purpose in the selected text, never the bare fact that the device was chosen."
+  },
+  "metrics": {
+    "CS": {
+      "name": "Coherence Score",
+      "dimensions": {
+        "referential_clarity": {
+          "name": "Referential clarity",
+          "definition": "Whether the reader can tell who and what each pronoun, name and definite description points at.",
+          "evidence_question": "Which referent or reference either resolves cleanly or stays ambiguous, and why? Cite the passage.",
+          "ratings": {
+            "0": "Referents are unrecoverable or shift without signal; the reader cannot tell who did what.",
+            "1": "Most referents need guesswork; one or two pronouns never resolve.",
+            "2": "Referents resolve unevenly; the reader must re-read to fix an antecedent.",
+            "3": "Referents resolve reliably; at most a minor ambiguity remains deliberate.",
+            "4": "Every referent resolves on first reading, and any ambiguity is visibly intended."
+          },
+          "exceptions": ["A deliberately ambiguous referent is not a defect when the text signals the ambiguity and the ambiguity serves the scene."]
+        },
+        "discourse_connection": {
+          "name": "Discourse connection",
+          "definition": "Whether consecutive utterances and sentences are linked by recoverable relations rather than juxtaposed.",
+          "evidence_question": "Which connective relation (contrast, consequence, elaboration) links two adjacent passages, and where does a link break? Cite both.",
+          "ratings": {
+            "0": "Sentences follow one another with no recoverable relation; the paragraph reads as a list.",
+            "1": "Links are mostly implicit and frequently unrecoverable.",
+            "2": "Some links recover, others are jumps the reader must bridge alone.",
+            "3": "Links recover reliably across the selection, with at most one abrupt join.",
+            "4": "Every transition is motivated; juxtapositions that remain are intentional effects."
+          },
+          "exceptions": ["Parataxis and montage can be deliberate; a rating of 4 does not require explicit connectives, only recoverable relations."]
+        },
+        "causal_support": {
+          "name": "Causal support",
+          "definition": "Whether events and choices are connected by recoverable causes and consequences.",
+          "evidence_question": "Which cause or consequence is visible in the text, and which asserted change lacks one? Cite the passage.",
+          "ratings": {
+            "0": "Events are asserted without causes; a change happens because the plot needs it.",
+            "1": "Causes are named but not shown; motivation is a label.",
+            "2": "Some events are motivated; one key change still rests on assertion.",
+            "3": "Causes and consequences are recoverable; the text supplies what each turn needs.",
+            "4": "Every consequential turn has a visible cause and cost, and nothing is over-explained."
+          },
+          "exceptions": ["An unexplained event is not a defect when the narrator's or character's ignorance is the point and the text signals that the cause is withheld."]
+        },
+        "temporal_intelligibility": {
+          "name": "Temporal intelligibility",
+          "definition": "Whether the reader can reconstruct the order and duration of events.",
+          "evidence_question": "Which cue anchors the reader in time, and where does the order become unrecoverable? Cite the passage.",
+          "ratings": {
+            "0": "Order and duration are unrecoverable; events could have happened in any sequence.",
+            "1": "Time is mostly unclear; the reader cannot place more than one event.",
+            "2": "The order recovers with effort; one jump lacks an anchor.",
+            "3": "The reader re-anchors reliably; a non-linear move is signalled and recoverable.",
+            "4": "Order and duration are always recoverable, and non-linearity is a controlled effect."
+          },
+          "exceptions": ["A deliberate time jump that keeps a recoverable anchor is high coherence, not a defect; a jump with no anchor is the failure."]
+        }
+      }
+    },
+    "OI": {
+      "name": "Originality Index",
+      "dimensions": {
+        "perspective": {
+          "name": "Perspective",
+          "definition": "Distinctiveness of the viewpoint or voice relative to the declared comparison scope.",
+          "evidence_question": "What is distinctive about who is seeing or speaking, compared with the declared references? Cite the passage and name the comparison.",
+          "ratings": {
+            "0": "The viewpoint is interchangeable with any default narrator in the comparison scope.",
+            "1": "The viewpoint is a familiar type with at most one distinguishing tic.",
+            "2": "The viewpoint has a recognizable stance but leans on convention for most of its effect.",
+            "3": "The viewpoint is distinctly held; its choices are its own and visible in the prose.",
+            "4": "The viewpoint could not be swapped with a reference narrator without losing the scene."
+          },
+          "exceptions": ["A familiar outsider viewpoint is not automatically low; distinctiveness is measured against the declared comparison scope, which must be named."]
+        },
+        "dramatic_development": {
+          "name": "Dramatic development",
+          "definition": "Distinctiveness of how the scene or turn unfolds, relative to the declared comparison scope.",
+          "evidence_question": "What is fresh about how the scene develops its pressure or turns, and what is borrowed? Cite the passage.",
+          "ratings": {
+            "0": "The development is the standard beat-for-beat shape of the genre, with nothing of its own.",
+            "1": "One beat is rearranged; the rest follows the template.",
+            "2": "The development has a recognizable twist but rests on familiar scaffolding.",
+            "3": "The development is its own; the turn is earned by this scene's particulars.",
+            "4": "The development could not be retold as a genre template without losing its point."
+          },
+          "exceptions": ["A quiet scene whose pressure lives in small acts is a development, not a lack of development; do not reward added conflict by default."]
+        },
+        "expression": {
+          "name": "Expression",
+          "definition": "Distinctiveness of diction, syntax and imagery relative to the declared comparison scope.",
+          "evidence_question": "Which word, rhythm or image is this text's own, and which is borrowed? Cite the passage.",
+          "ratings": {
+            "0": "The expression is generic filler that could appear in any text of the comparison scope.",
+            "1": "One image stands out; the rest is stock phrasing.",
+            "2": "The expression is competent but familiar; freshness is occasional.",
+            "3": "The expression is distinctly chosen; diction and rhythm serve this scene.",
+            "4": "The expression is unmistakable; removing any image would change the text's effect."
+          },
+          "exceptions": ["Plainness is not the same as cliché; precise plain prose and effective formal prose both rate on fit to the text, not on ornament."]
+        }
+      }
+    },
+    "NCS": {
+      "name": "Novelty & Cliché Score",
+      "dimensions": {
+        "novelty": {
+          "name": "Novelty of execution",
+          "definition": "Freshness of execution relative to recent scene patterns and the declared comparison scope.",
+          "evidence_question": "Which choice stages the material freshly, and where does it default to the expected? Cite the passage.",
+          "ratings": {
+            "0": "Every choice is the default for this kind of scene; nothing is freshly executed.",
+            "1": "Freshness is isolated to a single detail; the rest is routine.",
+            "2": "The scene has fresh staging in places but falls back on expectation elsewhere.",
+            "3": "The execution is mostly fresh; familiar material is re-staged on purpose.",
+            "4": "The execution is freshly staged throughout; the familiar is made to work, not to fill."
+          },
+          "exceptions": ["A genre convention that works is useful, not a defect; novelty concerns execution, not whether the plot element is new."]
+        },
+        "cliche_reliance": {
+          "name": "Cliché reliance",
+          "definition": "How much the effect depends on overused expression or machinery instead of earned, situated choices.",
+          "evidence_question": "Which phrase or beat carries the effect by habit rather than by what the scene earns? Cite the passage.",
+          "ratings": {
+            "0": "Every effect rests on unearned reuse; the scene is made of ready-made parts.",
+            "1": "The load-bearing beats are clichés; only the periphery is situated.",
+            "2": "Cliché appears in places but is partly offset by situated choices.",
+            "3": "Reuse is occasional and mostly earned by context; no load-bearing beat is a bare cliché.",
+            "4": "No effect rests on unearned reuse; any recurring device gains meaning from context."
+          },
+          "exceptions": ["A fixed phrase alone is a candidate for inspection, not proof of cliché; ritual repetition can gain meaning through context."]
+        }
+      }
+    }
+  },
+  "indicators": {
+    "narrative_coherence": {
+      "name": "Narrative coherence",
+      "definition": "Whether the reader can recover the causal, temporal and referential relations that make the account intelligible.",
+      "evidence_questions": ["Which relation works or fails, and how does the reader recover it? Cite the passage."],
+      "intended_effect_qualifications": ["Deliberate non-linearity is compatible with high coherence; an unreliable narrator is coherent when the contradiction is recoverable."],
+      "categories": ["Low", "Medium", "High"]
+    },
+    "thematic_depth": {
+      "name": "Thematic depth",
+      "definition": "Whether choices and consequences support more than a repeated assertion about the theme.",
+      "evidence_questions": ["Which competing values or costs make a choice defensible in more than one way? Cite the choice and its cost."],
+      "intended_effect_qualifications": ["Abstract vocabulary and speeches about the theme do not establish depth; depth lives in the cost of a concrete choice."],
+      "categories": ["Superficial", "Moderate", "Profound"]
+    },
+    "character_complexity": {
+      "name": "Character complexity",
+      "definition": "Whether wants, contradictions, defences and relationships are expressed through credible conduct.",
+      "evidence_questions": ["Which action reveals a want, a contradiction or a defence the surface would not predict? Cite the passage."],
+      "intended_effect_qualifications": ["A secondary character can be simple by design, and a static character can still reveal complexity as its scenes accumulate."],
+      "categories": ["Simple", "Moderate", "Complex"]
+    },
+    "originality": {
+      "name": "Originality",
+      "definition": "What is distinctive about perspective, dramatic development or expression relative to the declared references.",
+      "evidence_questions": ["Which choice is this text's own, and against what declared reference? State the comparison limit."],
+      "intended_effect_qualifications": ["A familiar plot can be used freshly; distinctiveness is measured against the declared scope, not against all literature."],
+      "categories": ["Low", "Partial", "High"]
+    },
+    "stylistic_quality": {
+      "name": "Stylistic quality",
+      "definition": "Whether syntax, voice, attention and rhythm serve this particular text.",
+      "evidence_questions": ["Which exact passage shows the style working for the text, and where does it work against it? Cite it."],
+      "intended_effect_qualifications": ["Minimalism, formality and repetition need different contextual readings; a simpler register is not automatically weaker."],
+      "categories": ["Poor", "Acceptable", "Excellent"]
+    },
+    "emotional_impact": {
+      "name": "Emotional impact",
+      "definition": "What specific action or detail supports investment or distance in the reader.",
+      "evidence_questions": ["Which situated action or detail invites the reader's investment or distance? Cite the passage."],
+      "intended_effect_qualifications": ["Constant distress is not strong impact; a predicted effect is not measured reader response, so keep the two apart."],
+      "categories": ["Weak", "Moderate", "Strong"]
+    },
+    "interpretive_openness": {
+      "name": "Interpretive openness",
+      "definition": "Which readings the text can support, and with what evidence.",
+      "evidence_questions": ["Which two or more readings does the text support, and on what evidence? Or which question does it deliberately close?"],
+      "intended_effect_qualifications": ["Greater openness is not always better for the chosen book; a deliberately closed mystery that satisfies its promise is a success."],
+      "categories": ["Closed", "Partially open", "Open"]
+    },
+    "cultural_value": {
+      "name": "Cultural value",
+      "definition": "Historical relevance and lasting influence, which a newly generated unpublished book cannot yet show.",
+      "evidence_questions": ["What reception or influence evidence exists? For a new book, state that it does not yet exist rather than predicting it."],
+      "intended_effect_qualifications": ["Return not_assessable for a new unpublished book; a local cultural setting is not inferior to a universal one."],
+      "categories": ["Local", "Regional", "Universal"]
+    }
+  }
+}

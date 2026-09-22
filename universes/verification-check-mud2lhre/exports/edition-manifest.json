@@ -1,0 +1,17 @@
+{
+  "schema_version": "edition-manifest.v1",
+  "universe_id": "verification-check-mud2lhre",
+  "generated_at": "2026-09-22T19:31:42.629Z",
+  "format": "pdf",
+  "language": "ro",
+  "source_version": "sha256:254efd3c48760b1b6b2efc5de8213ba8c0980ebf1359f36d4fb80b2ce2c97b06",
+  "documents": [
+    {
+      "format": "pdf",
+      "path": "verification-check-mud2lhre-20260922.pdf",
+      "bytes": 18288,
+      "sha256": "f05edc61d2d8049a4a458387db9de2400231fc521f4b970c19fe811d561f1b66",
+      "pages": 6
+    }
+  ]
+}

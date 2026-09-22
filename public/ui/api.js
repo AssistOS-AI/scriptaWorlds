@@ -28,6 +28,9 @@ export async function api(path, { method = 'GET', body, text = false } = {}) {
     const error = new Error(payload?.error?.message ?? `Request failed (${response.status}).`);
     error.code = payload?.error?.code ?? null;
     error.status = response.status;
+    // The machine-readable half of a refusal travels too (for example `details.accepted_version` on
+    // STALE_TARGET), so the interface can act on it instead of parsing the message.
+    error.details = payload?.error?.details ?? null;
     throw error;
   }
   return text ? raw : payload;
@@ -197,32 +200,47 @@ export function reportFileUrl(runId, name) {
 // team reads. `force` re-reads them; the list is cached because both surfaces of the feedback dialog
 // show it.
 export async function loadFeedback(force = false) {
-  const empty = { feedback: [], targets: [], counts: null };
+  const empty = { feedback: [], targets: [], counts: null, acceptedVersion: null };
   const id = state.universeId;
   if (!id) return empty;
   if (!force && state.feedbackLoaded) {
-    return { feedback: state.responses, targets: state.feedbackTargets, counts: state.feedbackCounts };
+    return { feedback: state.responses, targets: state.feedbackTargets, counts: state.feedbackCounts, acceptedVersion: state.feedbackVersion };
   }
   const payload = await api(`/api/universes/${encodeURIComponent(id)}/feedback`);
   if (state.universeId !== id) return empty;
   state.responses = Array.isArray(payload?.feedback) ? payload.feedback : [];
   state.feedbackTargets = Array.isArray(payload?.targets) ? payload.targets : [];
   state.feedbackCounts = payload?.counts ?? null;
+  // The version the store holds right now: the reader sends it back with the text they displayed, so a
+  // rewrite between reading and answering is refused instead of silently attached to the new prose.
+  state.feedbackVersion = typeof payload?.accepted_version === 'string' ? payload.accepted_version : null;
   state.feedbackLoaded = true;
-  return { feedback: state.responses, targets: state.feedbackTargets, counts: state.feedbackCounts };
+  return { feedback: state.responses, targets: state.feedbackTargets, counts: state.feedbackCounts, acceptedVersion: state.feedbackVersion };
 }
 
 // Freeze the accepted version of the displayed book (or of an arc, or of one chapter) as a reading
 // target, or open the target that already exists for that version and scope: the identifier is derived
-// from both, so two readers of the same text answer the same frozen copy.
+// from both, so two readers of the same text answer the same frozen copy. `sourceVersion` and
+// `displayed` say which version and which chapter bytes this reader actually saw; the host answers
+// `reopened: true` when it reopened the frozen copy of that earlier version instead.
 export async function freezeFeedbackTarget(body) {
   const payload = await api(`/api/universes/${encodeURIComponent(state.universeId)}/feedback/targets`, { method: 'POST', body });
-  return { target: payload?.target ?? null, deduplicated: payload?.deduplicated === true };
+  return { target: payload?.target ?? null, deduplicated: payload?.deduplicated === true, reopened: payload?.reopened === true };
 }
 
 export async function readFeedbackTarget(targetId) {
   const payload = await api(`/api/universes/${encodeURIComponent(state.universeId)}/feedback/targets/${encodeURIComponent(targetId)}`);
   return payload?.target ?? null;
+}
+
+// The frozen bytes of one file of a target: the text a reader was shown, straight from the frozen copy,
+// so a reader on another machine — or one whose book has been rewritten since — sees and quotes exactly
+// what that target holds instead of whatever the current chapter says.
+export async function readFrozenChapter(targetId, name) {
+  return api(
+    `/api/universes/${encodeURIComponent(state.universeId)}/feedback/targets/${encodeURIComponent(targetId)}/text/${encodeURIComponent(name)}`,
+    { text: true }
+  );
 }
 
 // One reader's response. `feedbackId` is optional: when the caller names one, a retried submission is

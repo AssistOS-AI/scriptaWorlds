@@ -1,0 +1,10 @@
+{
+  "number": 1,
+  "createdAt": "2026-09-22T18:58:47.156Z",
+  "kind": "chapter",
+  "status": "recovery_required",
+  "request": "interrupted request",
+  "startedAt": "2026-09-22T18:58:47.156Z",
+  "finishedAt": "2026-09-22T18:58:47.157Z",
+  "error": "the snapshot taken before this turn is unusable (corrupt); the accepted state of this book must be established by hand before it is written again"
+}

@@ -182,22 +182,27 @@ test('EAP is an ordered trajectory with evidence, uncertainty and a declared ord
       ordering: 'story',
       trajectory: [
         eapPoint({ segment_id: 'seg1', story_order: 1, valence: 1, tension: 2 }),
-        eapPoint({ segment_id: 'seg1', story_order: 0, valence: -1, tension: 0 }),
+        eapPoint({ segment_id: 'seg2', story_order: 0, valence: -1, tension: 0 }),
       ],
     },
-    { scope, segmentIds: ['seg1'], fallbackReason: 'no EAP annotation supplied' },
+    { scope, segmentIds: ['seg1', 'seg2'], selectedSegmentIds: ['seg1', 'seg2'], fallbackReason: 'no EAP annotation supplied' },
   );
   assert.equal(metric.status, 'judged');
   assert.equal(metric.value_kind, 'trajectory');
   assert.equal(metric.value, null, 'no scalar is derived from a trajectory');
   assert.equal(metric.ordering, 'story');
-  assert.deepEqual(metric.trajectory.map((point) => point.disclosure_index), [0, 1]);
-  assert.deepEqual(metric.trajectory.map((point) => point.story_order), [1, 0]);
-  assert.equal(metric.trajectory[1].tension, 0);
+  // The series is published in the declared chronology with the reading order retained.
+  assert.deepEqual(metric.trajectory.map((point) => point.segment_id), ['seg2', 'seg1']);
+  assert.deepEqual(metric.trajectory.map((point) => point.disclosure_index), [1, 0]);
+  assert.deepEqual(metric.trajectory.map((point) => point.story_order), [0, 1]);
+  assert.equal(metric.trajectory[0].tension, 0);
   assert.ok(metric.trajectory[0].uncertainty.length > 0);
   assert.deepEqual(metric.evidence, ['ev1']);
+  assert.equal(metric.coverage, 1, 'both selected segments were assessed');
   assert.equal(metric.detail.min_tension, 0, 'a quiet aftermath keeps its low intensity');
+  assert.deepEqual(metric.detail.low_tension_segments, ['seg2']);
   assert.ok(metric.detail.note.includes('high tension is not automatically good'));
+  assert.ok(metric.detail.note.includes('not a defect'));
 });
 
 test('a mixed story-time series must declare its ordering', () => {

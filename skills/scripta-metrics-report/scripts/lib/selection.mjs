@@ -183,3 +183,35 @@ export function resolveSelection({ packet, profile, segments }) {
     note: buildNote({ packetScope: packet.scope, selectionChapters: chapters, packetInventory: inventory }),
   };
 }
+
+/**
+ * Classify one evidence item against the resolved selection. Returns
+ *
+ *   `selected` — the quote lies inside a selected byte range;
+ *   `context`  — the quote lies in a declared context chapter (explain only);
+ *   `out`      — the quote is outside both, so it cannot support a judgement.
+ *
+ * A scene or arc selection covers only the declared scene byte ranges, so a
+ * quote inside a selected chapter but outside those ranges is `out` as well.
+ * `chapterByPath` maps a chapter file path to its chapter number.
+ */
+export function buildEvidenceScope({ selection, chapterByPath }) {
+  const selectedRanges = new Map();
+  for (const range of selection.ranges) {
+    if (!selectedRanges.has(range.file)) selectedRanges.set(range.file, []);
+    selectedRanges.get(range.file).push(range);
+  }
+  const contextChapters = new Set(selection.contextChapters);
+  return (item) => {
+    if (!item || typeof item.file !== 'string') return 'out';
+    const chapter = chapterByPath.get(item.file);
+    if (chapter === undefined) return 'out';
+    if (contextChapters.has(chapter)) return 'context';
+    const ranges = selectedRanges.get(item.file);
+    if (!ranges) return 'out';
+    for (const range of ranges) {
+      if (item.start >= range.start && item.end <= range.end) return 'selected';
+    }
+    return 'out';
+  };
+}

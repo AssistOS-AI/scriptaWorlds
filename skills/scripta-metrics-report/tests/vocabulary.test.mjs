@@ -16,7 +16,8 @@ import {
   normalizePreserved,
 } from '../scripts/lib/annotations.mjs';
 import { INDICATORS } from '../scripts/lib/registry.mjs';
-import { EAP_ORDERINGS } from '../scripts/lib/rubric.mjs';
+import { EAP_ORDERINGS, buildComponentMetric, buildEap } from '../scripts/lib/rubric.mjs';
+import { getEmotionalFit } from '../scripts/lib/assemble.mjs';
 import { SEGMENT_KINDS, SEGMENT_PROVENANCE } from '../scripts/lib/segments.mjs';
 import {
   STUDY_BINDING_FIELDS,
@@ -179,6 +180,89 @@ test('the published calibration-study format is exactly what the verifier accept
   } finally {
     cleanup([root]);
   }
+});
+
+test('the published EAP trajectory contract is exactly what the consumer accepts', () => {
+  const document = {
+    status: 'judged',
+    evaluator: 'model:fixture',
+    ordering: 'disclosure',
+    trajectory: [{
+      segment_id: 'seg1',
+      focalization: 'internal',
+      valence: vocabulary.eap_scales.valence.max,
+      tension: vocabulary.eap_scales.tension.min,
+      evidence: ['e1'],
+      uncertainty: 'one scene only',
+    }],
+    emotional_fit: {
+      status: 'judged',
+      evaluator: 'model:fixture',
+      fit: vocabulary.eap_scales.emotional_fit.min,
+      rationale: 'the register answers the intention',
+      evidence: ['e1'],
+      intention_binding: 'the stated intention',
+    },
+  };
+  const built = buildEap(document, { scope: { kind: 'chapter' }, segmentIds: ['seg1'], fallbackReason: 'none' });
+  assert.equal(built.status, 'judged');
+  assert.equal(built.value_kind, 'trajectory');
+  assert.equal(built.trajectory[0].segment_id, 'seg1');
+  assert.equal(built.trajectory[0].valence, vocabulary.eap_scales.valence.max);
+  for (const field of vocabulary.eap_trajectory_fields) {
+    assert.ok(field in built.trajectory[0] || field === 'focalization' || field === 'story_order',
+      `the published trajectory field ${field} must be representable in the built trajectory`);
+  }
+  // The published scales are the enforced scales: one step outside each is refused, not clamped.
+  assert.throws(
+    () => buildEap({ ...document, trajectory: [{ ...document.trajectory[0], valence: vocabulary.eap_scales.valence.max + 0.1 }] }, { scope: { kind: 'chapter' }, segmentIds: ['seg1'] }),
+    (error) => error.code === 'OUT_OF_RANGE',
+    'a valence outside the published scale must be refused with OUT_OF_RANGE',
+  );
+  assert.throws(
+    () => buildEap({ ...document, trajectory: [{ ...document.trajectory[0], tension: vocabulary.eap_scales.tension.max + 0.1 }] }, { scope: { kind: 'chapter' }, segmentIds: ['seg1'] }),
+    (error) => error.code === 'OUT_OF_RANGE',
+    'a tension outside the published scale must be refused with OUT_OF_RANGE',
+  );
+  // The emotional fit is its own judgement: a bare number is refused, and an incomplete record demotes
+  // with the reason rather than becoming a number.
+  const fitDocument = {
+    status: 'judged',
+    evaluator: 'model:fixture',
+    fit: vocabulary.eap_scales.emotional_fit.max,
+    rationale: 'the register answers the intention',
+    evidence: ['e1'],
+    intention_binding: 'the stated intention',
+  };
+  assert.equal(getEmotionalFit({ EAP: { emotional_fit: fitDocument } }).value, vocabulary.eap_scales.emotional_fit.max);
+  const incomplete = getEmotionalFit({ EAP: { emotional_fit: { ...fitDocument, evidence: [] } } });
+  assert.equal(incomplete.value, null);
+  assert.match(incomplete.reason, /cited passage/u);
+  const absent = getEmotionalFit({ EAP: {} });
+  assert.equal(absent.value, null);
+  assert.throws(
+    () => getEmotionalFit({ EAP: { emotional_fit: 55 } }),
+    (error) => error.code === 'INVALID_ANNOTATIONS',
+    'a bare emotional-fit number must be refused',
+  );
+  // The old producer shape is what the prompt must never request again: the consumer has no field for it.
+  const legacyShape = { status: 'judged', evaluator: 'model:fixture', points: [{ segment: 'seg1', valence: 0 }], emotional_fit: 60 };
+  const legacy = buildEap(legacyShape, { scope: { kind: 'chapter' }, segmentIds: ['seg1'], fallbackReason: 'none' });
+  assert.equal(legacy.status, 'not_assessable');
+  assert.match(legacy.missing_reason ?? '', /trajectory/u);
+});
+
+test('the published NCS components are the two dimensions the consumer builds', () => {
+  assert.deepEqual(vocabulary.ncs_components, ['novelty', 'cliche_reliance']);
+  const built = buildComponentMetric('NCS', {
+    status: 'judged',
+    evaluator: 'model:fixture',
+    dimensions: {
+      novelty: { rating: 3, rationale: 'the ledger scene is fresh', evidence: ['e1'] },
+      cliche_reliance: { rating: 1, rationale: 'one recurring phrase', evidence: ['e1'] },
+    },
+  }, { scope: { kind: 'chapter' }, rubric: { version: 'rubric-anchors.v1', scale: 4 }, fallbackReason: 'none' });
+  assert.equal(built.value_kind, 'components');
 });
 
 test('the published indicator table and status vocabulary match what the report accepts', () => {

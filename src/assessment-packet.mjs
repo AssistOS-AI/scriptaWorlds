@@ -57,13 +57,31 @@ export function inputFingerprint({
   continuitySha256 = null,
   evaluator = null,
   prompt = null,
-  mode = null
+  mode = null,
+  request = null,
+  brief = null,
+  intention = null,
+  rules = null
 } = {}) {
+  // Every input that changes what a review can conclude participates in its identity: the normalized
+  // scope (chapters, segments, arcs and context), who produces the observations, the prompt and teaching
+  // material the evaluator sees, and the words the review was asked about. The version prefix changes when
+  // the field set changes, so a record written under an older identity never claims to be this review.
+  const serializedScope = scope
+    ? [
+        scope.kind ?? 'none',
+        (scope.chapters ?? []).join(','),
+        (scope.segments ?? []).join(','),
+        (scope.arcs ?? []).join(','),
+        (scope.context_chapters ?? []).join(','),
+        (scope.omitted ?? []).join(',')
+      ].join(':')
+    : 'none';
   const payload = [
-    'assessment-input.v1',
+    'assessment-input.v2',
     `phase:${phase ?? 'none'}`,
     `version:${version ?? 'none'}`,
-    `scope:${scope ? `${scope.kind}:${(scope.chapters ?? []).join(',')}:${(scope.omitted ?? []).join(',')}` : 'none'}`,
+    `scope:${serializedScope}`,
     `trigger:${trigger}${arcId ? `:${arcId}` : ''}`,
     `profile:${profileSha256 ?? 'none'}`,
     `annotations:${annotationsSha256 ?? 'none'}`,
@@ -72,7 +90,11 @@ export function inputFingerprint({
     `continuity:${continuitySha256 ?? 'none'}`,
     `evaluator:${evaluator ?? 'none'}`,
     `prompt:${prompt ?? 'none'}`,
-    `mode:${mode ?? 'deterministic'}`
+    `mode:${mode ?? 'deterministic'}`,
+    `request:${request ?? 'none'}`,
+    `brief:${brief ?? 'none'}`,
+    `intention:${intention ?? 'none'}`,
+    `rules:${rules ?? 'none'}`
   ].join('\n');
   return `sha256:${sha256(payload)}`;
 }

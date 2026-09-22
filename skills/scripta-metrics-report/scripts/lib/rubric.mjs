@@ -199,18 +199,34 @@ export function buildComponentMetric(id, annotation, { scope, rubric, fallbackRe
       'no combined NCS is enabled: the two dimensions stay separate until their trade-offs are calibrated';
     return m;
   }
-  m.value = scalarFromDimensions(dimensions, rubric.scale);
-  m.detail.arithmetic =
-    `100 * (${dimensions.map((dimension) => dimension.rating).join(' + ')}) / ` +
-    `(${rubric.scale} * ${dimensions.length}) = ${m.value}`;
+  // A value exists only for a judged metric. Unavailable, inapplicable and failed results keep their
+  // components as diagnostic detail but never produce a number an aggregate could consume.
+  if (m.status === 'judged') {
+    m.value = scalarFromDimensions(dimensions, rubric.scale);
+    m.detail.arithmetic =
+      `100 * (${dimensions.map((dimension) => dimension.rating).join(' + ')}) / ` +
+      `(${rubric.scale} * ${dimensions.length}) = ${m.value}`;
+  }
   return m;
 }
 
 /**
- * Build EAP as an ordered trajectory. `segmentIds` are the segment ids the
- * annotations declared, so a trajectory point can be tied to a real boundary.
+ * Build EAP as an ordered trajectory over a declared population.
+ *
+ * `segmentIds` are every segment the annotations declared, so a trajectory point
+ * can be tied to a real boundary; `selectedSegmentIds` are the scenes the
+ * resolved selection covers, which is the population the trajectory is measured
+ * against. The received array order is the disclosure order and is kept on every
+ * point as `disclosure_index`; the published series is ordered by the declared
+ * chronology, which has to name `story_order` for every point, without a tie,
+ * before it can be claimed. Coverage is the fraction of the selected scenes the
+ * trajectory actually assessed, the omissions and any point outside the selection
+ * are reported, and one segment is one reading per focalization — a second
+ * reading of the same scene by the same voice is a duplicate, while a different
+ * focalization keeps its own trajectory. A quiet point is a description of the
+ * arc: no defect and no scalar follow from its low tension.
  */
-export function buildEap(annotation, { scope, segmentIds, fallbackReason }) {
+export function buildEap(annotation, { scope, segmentIds, selectedSegmentIds = null, fallbackReason }) {
   const m = baseMetric('EAP', scope);
   m.value_kind = 'trajectory';
   if (annotation === undefined || annotation === null) {
@@ -242,15 +258,14 @@ export function buildEap(annotation, { scope, segmentIds, fallbackReason }) {
     fail('annotations.metrics.EAP.trajectory must be a non-empty array of segment records', 'INVALID_ANNOTATIONS');
   }
   const known = new Set(segmentIds);
+  const declaredOrdering = annotation.ordering === undefined || annotation.ordering === null ? null : annotation.ordering;
   const usesStoryOrder = raw.some((point) => isPlainObject(point) && point.story_order !== undefined && point.story_order !== null);
-  if (usesStoryOrder) {
-    if (!EAP_ORDERINGS.includes(annotation.ordering)) {
-      fail(
-        'annotations.metrics.EAP.ordering must be "disclosure" or "story" when a trajectory declares story_order: ' +
-          'a mixed story-time/disclosure-time series has to state which order it uses',
-        'INVALID_ANNOTATIONS',
-      );
-    }
+  if (usesStoryOrder && !EAP_ORDERINGS.includes(declaredOrdering)) {
+    fail(
+      'annotations.metrics.EAP.ordering must be "disclosure" or "story" when a trajectory declares story_order: ' +
+        'a mixed story-time/disclosure-time series has to state which order it uses',
+      'INVALID_ANNOTATIONS',
+    );
   }
   const trajectory = raw.map((point, index) => {
     const label = `annotations.metrics.EAP.trajectory[${index}]`;
@@ -292,19 +307,108 @@ export function buildEap(annotation, { scope, segmentIds, fallbackReason }) {
       uncertainty: point.uncertainty,
     };
   });
+
+  // A declared chronology has to be complete and unambiguous before the series may claim it.
+  if (declaredOrdering === 'story') {
+    const missing = trajectory.filter((point) => point.story_order === null).map((point) => point.segment_id);
+    if (missing.length > 0) {
+      fail(
+        `annotations.metrics.EAP.ordering is "story" but ${missing.join(', ')} declare no story_order; the series ` +
+          'cannot claim a chronology it does not state for every point',
+        'INVALID_ANNOTATIONS',
+      );
+    }
+  }
+  const declaredOrders = trajectory.filter((point) => point.story_order !== null).map((point) => point.story_order);
+  if (new Set(declaredOrders).size !== declaredOrders.length) {
+    fail(
+      'annotations.metrics.EAP.trajectory declares the same story_order twice; a chronology with a tie cannot be ' +
+        'published as an order',
+      'INVALID_ANNOTATIONS',
+    );
+  }
+
+  // One segment is one reading per focalization: a second reading by the same voice is a duplicate.
+  const readings = new Set();
+  for (const point of trajectory) {
+    const key = `${point.segment_id}\u0000${point.focalization ?? ''}`;
+    if (readings.has(key)) {
+      fail(
+        `annotations.metrics.EAP.trajectory assesses segment ${JSON.stringify(point.segment_id)} twice for the same ` +
+          `focalization${point.focalization ? ` (${JSON.stringify(point.focalization)})` : ''}; one reading per ` +
+          'segment and voice is a trajectory point, a second one is a duplicate',
+        'INVALID_ANNOTATIONS',
+      );
+    }
+    readings.add(key);
+  }
+
+  const receivedOrder = trajectory.map((point) => point.disclosure_index);
+  const published = declaredOrdering === 'story' ? [...trajectory].sort((a, b) => a.story_order - b.story_order) : [...trajectory];
+  m.ordering = declaredOrdering === 'story' ? 'story' : 'disclosure';
   m.status = status === 'judged' ? 'judged' : status;
-  m.trajectory = trajectory;
-  m.ordering = usesStoryOrder ? annotation.ordering : 'disclosure';
+  m.trajectory = published;
   m.evidence = [...new Set(trajectory.flatMap((point) => point.evidence))];
-  m.coverage = trajectory.length === 0 ? null : 1;
+
+  const selected = selectedSegmentIds === null ? [...segmentIds] : [...selectedSegmentIds];
+  const selectedSet = new Set(selected);
+  const assessedIds = [];
+  for (const point of published) if (!assessedIds.includes(point.segment_id)) assessedIds.push(point.segment_id);
+  const assessedSelected = assessedIds.filter((id) => selectedSet.has(id));
+  const omitted = selected.filter((id) => !assessedIds.includes(id));
+  const outside = assessedIds.filter((id) => !selectedSet.has(id));
+
+  const byFocalization = new Map();
+  for (const point of published) {
+    const key = point.focalization ?? null;
+    if (!byFocalization.has(key)) byFocalization.set(key, []);
+    if (!byFocalization.get(key).includes(point.segment_id)) byFocalization.get(key).push(point.segment_id);
+  }
+  const tensions = published.map((point) => point.tension);
+  const lowTension = published.filter((point) => point.tension <= 1).map((point) => point.segment_id);
+  const notes = [
+    'a quiet aftermath keeps its low intensity; high tension is not automatically good and no scalar is ' +
+      'derived from this series',
+  ];
+  if (lowTension.length > 0) {
+    notes.push(`low tension at ${lowTension.join(', ')} describes the arc as it was read; it is not a defect`);
+  }
+  if (byFocalization.size > 1) {
+    notes.push(
+      `${byFocalization.size} focalizations appear in this series; each keeps its own trajectory instead of being ` +
+        'read as one continuous arc',
+    );
+  }
+  if (omitted.length > 0) {
+    notes.push(
+      `${omitted.length} of ${selected.length} selected segments were not assessed (${omitted.join(', ')}); this ` +
+        'trajectory describes the assessed series only',
+    );
+  }
+  if (outside.length > 0) {
+    notes.push(`${outside.join(', ')} lie outside the selection and are reported without being counted as assessed`);
+  }
+
   m.detail = {
     ordered_by: m.ordering,
-    segments: trajectory.length,
-    min_tension: Math.min(...trajectory.map((point) => point.tension)),
-    max_tension: Math.max(...trajectory.map((point) => point.tension)),
-    note:
-      'a quiet aftermath keeps its low intensity; high tension is not automatically good and no scalar is ' +
-      'derived from this series',
+    ordering_declared: declaredOrdering,
+    ordering_normalized: declaredOrdering === 'story' && published.some((point, index) => point.disclosure_index !== receivedOrder[index]),
+    segments: published.length,
+    assessed_segments: assessedSelected,
+    selected_segments: selected,
+    omitted_segments: omitted,
+    outside_selection: outside,
+    focalization_series: [...byFocalization.entries()].map(([focalization, segments]) => ({ focalization, segments })),
+    min_tension: Math.min(...tensions),
+    max_tension: Math.max(...tensions),
+    low_tension_segments: lowTension,
+    note: notes.join(' '),
   };
+  m.coverage = selected.length === 0 ? null : assessedSelected.length / selected.length;
+  if (selected.length > 0 && assessedSelected.length === 0) {
+    m.status = 'not_assessable';
+    m.missing_reason =
+      'no segment of the selection was assessed; the trajectory describes material outside the selected text';
+  }
   return m;
 }

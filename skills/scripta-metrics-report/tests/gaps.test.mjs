@@ -189,9 +189,10 @@ test('a missing aggregate component leaves NQS unavailable without redistributin
 test('a declared corpus whose every reference is ineligible leaves SI and TOP unavailable, never zero', () => {
   const root = tempDir('metrics-gaps-');
   try {
-    // The only declared reference carries the candidate's own bytes, so it is
-    // excluded as the same source version and nothing is left to compare.
-    const fx = buildReportFixture(root, { referenceText: CHAPTER_1 });
+    // The only declared reference forbids comparison, so nothing is left to
+    // compare. (A reference that merely repeats the candidate's bytes is a
+    // different case: it stays eligible and is measured.)
+    const fx = buildReportFixture(root, { reference: { permitted_use: 'none' } });
     const out = join(root, 'out');
     const env = runReport(fx, out);
     assert.equal(env.status, 0, env.stdout);
@@ -206,9 +207,10 @@ test('a declared corpus whose every reference is ineligible leaves SI and TOP un
     }
     assert.deepEqual(
       bundle.provenance.corpus.exclusions.map((exclusion) => `${exclusion.id}:${exclusion.reason}`),
-      ['ref1:same_source_version'],
+      ['ref1:permitted_use:none'],
       'the exclusion is named, not silently dropped',
     );
+    assert.equal(bundle.provenance.corpus.references[0].excluded_reason, 'permitted_use:none');
     assert.equal(bundle.metrics.CS.status, 'judged', 'the gap does not block the rest of the report');
   } finally {
     cleanup([root]);

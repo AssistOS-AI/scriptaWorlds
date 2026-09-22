@@ -101,6 +101,21 @@ npm run server     # start the API and the reader interface</code></pre>
               <td>Who produces the semantic observations of a review, and the default for the <code>mode</code> field of an assessment request. <code>generic</code> makes the server run the <a href="wiki.html#definition-annotation-stage">annotation stage</a>: one <code>OMP_BIN</code> call in the run workspace with the model from <code>SCRIPTAS_MODEL</code> per metrics review, plus a single repair call when the answer is rejected. <code>deterministic</code> asks nobody, leaves those results unavailable with their reason and keeps a deployment free of model calls. Any other value falls back to <code>generic</code>.</td>
             </tr>
             <tr>
+              <td><code>ASSESSMENT_UNIT_BYTES</code></td>
+              <td><code>48000</code></td>
+              <td>The largest amount of prose one unit of a <a href="wiki.html#definition-bounded-reading">bounded reading</a> may hold, in bytes. A chapter that is larger than it is split at paragraph boundaries into several units, so the break never falls in the middle of a sentence, and each unit is evaluated on its own against the frozen packet.</td>
+            </tr>
+            <tr>
+              <td><code>ASSESSMENT_MAX_UNITS</code></td>
+              <td><code>12</code></td>
+              <td>The largest number of units one planned reading may declare. A selection whose remaining units do not fit is planned partially: the units that do not fit are recorded as omitted with the reason and the reading states that it is partial instead of summarising what it did not read.</td>
+            </tr>
+            <tr>
+              <td><code>ASSESSMENT_TOTAL_BYTES</code></td>
+              <td><code>400000</code></td>
+              <td>The largest amount of selected prose one planned reading may carry, in bytes. The three limits are the reading budget a <a href="wiki.html#definition-generic-review">generic review</a> is planned under, and the plan that names them is written beside the run at <code>generated/units/plan.json</code> before the first evaluator call, so the bound on a reading is a file a reader can open rather than a claim in a prompt.</td>
+            </tr>
+            <tr>
               <td><code>IMPORT_MAX_BYTES</code></td>
               <td><code>67108864</code></td>
               <td>The largest book the server accepts as an upload, in bytes, enforced while the file is still arriving: a body over it is refused during the transfer with <code>413 IMPORT_TOO_LARGE</code> instead of after it has been stored. How much of a book one import turn carries is not configured here: the import skill publishes its turn limits in <code>skills/scripta-import/schema/import.v1.json</code>.</td>
@@ -151,7 +166,7 @@ npm run table -- --check     # compare the table with the book; write nothing</c
         <p>Start the server against a copy of the tree and a book with one chapter, then ask for a measurements review whose observations come from the evaluator, and watch the run rather than the request:</p>
         <pre><code>POST /api/universes/&lt;id&gt;/assessments  {"phase":"metrics","mode":"generic","force":true}
 GET  /api/universes/&lt;id&gt;/assessments/&lt;runId&gt;</code></pre>
-        <p>The request answers at once with the run queued or already running, because the evaluator is called inside the run. What the record then shows is the evidence: <code>annotation_attempts</code> with one entry per call, each with its exit code, its answer length, how long it took and the validation errors it produced, then the published files and <code>packet_intact</code>. A first attempt that a repair call corrects is a normal outcome, not a failure — the repair prompt names the fields that failed. A run that ends with <code>annotation stage:</code> in its error published nothing and can be retried; a retry reuses the document it already accepted.</p>
+        <p>The request answers at once with the run queued or already running, because the evaluator is called inside the run. What the record then shows is the evidence: <code>annotation_attempts</code> with one entry per call, each with its exit code, its answer length, how long it took and the validation errors it produced, then the published files and <code>packet_intact</code>. A first attempt that a repair call corrects is a normal outcome, not a failure — the repair prompt names the fields that failed. A run that ends with <code>annotation stage:</code> in its error published nothing and can be retried with the same run id; a retry reuses the document it already accepted, after checking it against the hash and the source it was accepted with. What the record also gives you is the provenance: <code>annotation_prompt_sha256</code> with the exact prompt beside the run, the hashes of the rubric and case material the prompt was built from, the model and settings it was launched with, the identity of every attempt and the hash of the artifact it published. A run that published a report is not retried: <code>reassess</code> re-evaluates it as a new run, and the published report keeps the bytes and the revision it was read at.</p>
         <p>Two calls at most belong to one review, so a smoke like this costs a bounded amount of model time. Give it a book of one chapter in a throwaway copy of the tree, never the books the team reads.</p>
 
         <h2>Restarts, interruptions and recovery</h2>
@@ -234,6 +249,10 @@ GET  /api/universes/&lt;id&gt;/assessments/&lt;runId&gt;</code></pre>
             <tr>
               <td><code>ANNOTATION_FAILED</code></td>
               <td>The annotation stage of a review asked the configured evaluator for observations and received no document it could accept, so the run was recorded as an error with the reason the evaluator gave, instead of reporting an invented judgement. The run record names the attempts, their exit codes and the validation errors; check that the agent binary and the model work, retry the run, bring an <code>annotations</code> document yourself, or set <code>ASSESSMENT_MODE=deterministic</code> to run the review without a model.</td>
+            </tr>
+            <tr>
+              <td><code>RULE_SET_MISSING</code></td>
+              <td>A review could not read the general rule set the report skill publishes at <code>skills/scripta-metrics-report/schema/rules.v1.json</code>, or the file declares an unknown aggregation policy, so the run failed by name instead of measuring the book against rules the host invented. Check that the skill folder is present and intact, and retry the run.</td>
             </tr>
             <tr>
               <td><code>NOT_CANCELLABLE</code></td>

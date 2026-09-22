@@ -23,7 +23,7 @@
 
       <section>
         <h2>Components</h2>
-        <p>The runtime is the modules under <code>src/</code>, and each one owns a single responsibility. Nothing in the runtime holds persistent state of its own: it reads and writes the universe folders and the data files of the repository, and those files are the state. The table below names the modules the store, the data sources and the turn pipeline are built from; the separate design and review phases, described in the contract reference, and the import pipeline, described below, add modules of their own that follow the same rule.</p>
+        <p>The runtime is the modules under <code>src/</code>, and each one owns a single responsibility. Nothing in the runtime holds persistent state of its own: it reads and writes the universe folders and the data files of the repository, and those files are the state. The table below names the modules the store, the data sources, the turn pipeline, the reviews and the reader feedback are built from; the separate design phases, described in the contract reference, and the import pipeline, described below, add modules of their own that follow the same rule.</p>
         <table>
           <thead>
             <tr>
@@ -104,9 +104,97 @@
               <td><code>src/omp.mjs</code></td>
               <td>The agent process of one turn: spawning it, parsing the JSON event stream it writes, enforcing the deadline, and composing the log that goes into the turn record. It knows nothing about the queue or the store.</td>
             </tr>
+            <tr>
+              <td><code>src/<wbr>version.mjs</code></td>
+              <td>The identity of an <a href="wiki.html#definition-accepted-version">accepted version</a>: the hash of the narrative content of a book at one moment, defined once so that the store, a review that names the version it judged and a rewrite that marks an older report historical all mean the same exact text by it.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>request-fields.mjs</code></td>
+              <td>The fields a reader or an author may attach to a request: the approved <a href="wiki.html#definition-approved-direction">directions</a> of a separate design phase and the findings of a review with the qualities to preserve, validated once at the boundary so the route, the queue and the later rewrite agree on what is acceptable.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>assessment-packet.mjs</code></td>
+              <td>The <a href="wiki.html#definition-assessment-packet">assessment packet</a>: the accepted version copied out of <code>universes/</code> into a directory of its own under the <a href="wiki.html#definition-assessment-workspace">assessment workspace</a>, with a manifest that names the universe, the version, the scope and the path, role, hash and byte count of every file, so a review reads one exact text instead of the live book.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>assessment-inputs.mjs</code></td>
+              <td>The inputs a caller may declare for one review phase, and how they are frozen into the packet: a profile, an annotations document or a corpus reference is captured with its hash like every other packet file, and an input the phase does not consume is refused instead of being dropped as if it had been honoured.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>review-context.mjs</code></td>
+              <td>The authoring context of one review and the <a href="wiki.html#definition-applicable-rules">applicable rules</a> that follow from it: the <a href="wiki.html#definition-charter">charter</a>, the request the selected chapters were written from, an approved <code>design.v1</code> brief and the directions a human accepted are found, hashed and frozen into the packet as the registry a report measures the book against, and a document the book never recorded is listed as absent with its reason rather than derived from the prose.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>generic-profile.mjs</code></td>
+              <td>The <a href="wiki.html#definition-generic-review">generic review</a> profile: the advisory evaluation profile a requested or arc-end review runs on when nobody handed the host a profile of their own, with aggregation off unless the caller asks for it and the emotional component reported with the reason it cannot be judged when no intention was stated.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>assessments.mjs</code></td>
+              <td>The assessment workflow: it captures the packet, invokes the phase skill of the run as a child process bounded by its own timeout, keeps the <a href="wiki.html#definition-assessment-run">run</a> as a durable record outside the universe, publishes only plain files the child wrote inside its own directory, decides on a proposal and records arc completions. A published run is immutable — a retry of it answers <code>ALREADY_PUBLISHED</code>, and re-evaluating it is a new run over the same frozen packet that names the run it replaces.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>annotation-prompt.mjs</code></td>
+              <td>The prompt of one annotation call and the material it is built from: the anchored rubric, the indicator definitions, the teaching cases and the reading plan are read from what <a href="wiki.html#definition-scripta-metrics-report">scripta-metrics-report</a> publishes, and a missing file fails the stage naming the path instead of sending the evaluator a thinner prompt.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>annotation-stage.mjs</code></td>
+              <td>The <a href="wiki.html#definition-annotation-stage">annotation stage</a>, the only place in the product where a review asks a model to read a book: it runs the evaluator over the frozen packet with the read-only tool list, validates the document it answers with, and keeps the exact prompt, the resource hashes and the evaluator's own provenance beside the run.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>annotation-units.mjs</code></td>
+              <td>The <a href="wiki.html#definition-bounded-reading">bounded reading</a>: the plan of the units a selection is read in — one unit per chapter, or one per byte range of a chapter larger than the per-unit budget — one artifact per unit, and the reading record that states whether every declared unit was read or names the units the budget left out or that failed.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>continuity-substage.mjs</code></td>
+              <td>The <a href="wiki.html#definition-continuity-substage">continuity substage</a>: <a href="wiki.html#definition-scripta-continuity-review">scripta-continuity-review</a> run by the host itself as a separate deterministic child over the same frozen packet, with the result it published narrowed to the chapters the run was asked about; a substage that fails is recorded with its reason and never gates the literary report.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-targets.mjs</code></td>
+              <td>The frozen reading targets of the team's readers: the accepted version of a book, an arc or one chapter copied out of <code>universes/</code> together with the questionnaire the reader was shown, written once per version and scope so two readers of the same text answer the same copy, and refused with <code>STALE_TARGET</code> when the version a reader names is not the accepted text they displayed.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-entries.mjs</code></td>
+              <td>The stored <a href="wiki.html#definition-reader-feedback">responses</a>: one durable entry per submission, holding the answers, the comments, the quotations resolved against the target's own frozen text, the conditions the reader recorded — the report and the findings they were looking at, their note, what they had already seen — and the reactions they gave, where a correction is a new entry naming the one it replaces and a withdrawal marks its entry instead of erasing it.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-readers.mjs</code></td>
+              <td>The reader identities one book issues: one record per person, with an identifier the server issues once and never changes, so renaming a reader or reading from another machine keeps every response attributed to the same person and a deleted identity stays readable as the record of who was deleted.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-export.mjs</code></td>
+              <td>The portable export of one book's feedback: one document carrying paths, hashes and the readers' own words that a consumer can read without knowing the workspace layout, byte-identical every time it is exported from the same store, with the three provenances counted apart and a corrected response visible as superseded rather than counted twice.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-dataset.mjs</code></td>
+              <td>The self-contained dataset: the portable export plus the frozen text itself, verified against the hashes the targets recorded, so a fresh workspace can reproduce every reading target and every passage a reader quoted; readers travel under stable pseudonyms and their identifiers only in the internal dataset a caller asks for by name.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-summary.mjs</code></td>
+              <td>The summary of one book's feedback: every figure counted inside one <a href="wiki.html#definition-population">population</a> — an accepted version together with the scope, language and questionnaire the readers were shown — and in independent identities, so a reader who answered three times counts once, a mean appears only from three independent readers on, and the counts a withheld claim would need are stated instead of the claim.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-comparison.mjs</code></td>
+              <td>The comparison of one question between two accepted versions: the two distributions reported side by side, each with its version and the population it belongs to, and a refusal naming what each side holds when the comparable populations carry fewer than three independent team readers on one of them.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-comparison-sessions.mjs</code></td>
+              <td>The <a href="wiki.html#definition-comparison-session">comparison session</a>: one reader's pairwise reading of two frozen copies of the same book, with the display order drawn once from the session identifier and stored so a refresh shows the texts where the reader saw them, and with no effect and no reliability claimed from the tally.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-revision.mjs</code></td>
+              <td>Carrying selected feedback into an approved revision of one chapter: a selection of stored responses, or of single comments of them, becomes a proposal that quotes the readers' own words, names the version they answered and the chapter to rewrite, and is refused as stale rather than applied when the book has moved on. It writes nothing itself.</td>
+            </tr>
+            <tr>
+              <td><code>src/<wbr>feedback-routes.mjs</code></td>
+              <td>The feedback and reader routes the router delegates to: the frozen targets, the responses, the identities, the export, the summary, the comparison of two versions and the revision a selection becomes, each validated here and answered by the module that owns it.</td>
+            </tr>
+            <tr>
+              <td><code>public/<wbr>ui/<wbr>review.js</code>, <code>public/<wbr>ui/<wbr>report.js</code>, <code>public/<wbr>ui/<wbr>feedback.js</code>, <code>public/<wbr>ui/<wbr>responses.js</code>, <code>public/<wbr>ui/<wbr>comparison.js</code> and their renderers under <code>public/<wbr>ui/<wbr>render/</code></td>
+              <td>The reader-facing surfaces of a review and of the team's feedback: the <code>Review</code> dialog that asks for a run and follows it until it settles, the <code>Reports</code> dialog that reads one run and every file it published, the questionnaire over the frozen copy it asks about with the passages a reader quoted, what the team said as one card per response, and the two-text reading session. Every fact they show is read from the store's routes, and the working choices live in the single state object of <code>public/<wbr>ui/<wbr>state.js</code>.</td>
+            </tr>
           </tbody>
         </table>
-        <p>The modules are grouped by what they may touch: <code>server.mjs</code> and <code>http.mjs</code> are the only ones that speak HTTP, <code>jobs.mjs</code>, <code>turn.mjs</code>, <code>prompts.mjs</code> and <code>omp.mjs</code> form the turn pipeline and never read the disk layout directly, and the three <code>universe*.mjs</code> modules own the folder of a universe, its snapshots and the text written inside it. <code>periodic.mjs</code> and <code>library.mjs</code> read the two data sources of the product — the table of ideas and the library of start templates — and nothing else. The browser interface is a separate module tree with no build step, described below, and both <a href="wiki.html#definition-project-skill">product skills</a> are self-contained command-line programs.</p>
+        <p>The modules are grouped by what they may touch: <code>server.mjs</code> and <code>http.mjs</code> are the only ones that speak HTTP, <code>jobs.mjs</code>, <code>turn.mjs</code>, <code>prompts.mjs</code> and <code>omp.mjs</code> form the turn pipeline and never read the disk layout directly, and the three <code>universe*.mjs</code> modules own the folder of a universe, its snapshots and the text written inside it. <code>periodic.mjs</code> and <code>library.mjs</code> read the two data sources of the product — the table of ideas and the library of start templates — and nothing else. The browser interface is a separate module tree with no build step, described below, and both <a href="wiki.html#definition-project-skill">product skills</a> are self-contained command-line programs. The review host and the feedback modules are the group that reads a book without ever writing it: they copy the accepted version out of <code>universes/</code>, keep every file they produce in the assessment workspace outside it, and reach the book again only through a turn the queue runs, which is why a failed review or a stored response can never change a chapter.</p>
       </section>
 
       <section>
@@ -155,9 +243,9 @@
         Boot["app.js — bootstrap and event wiring"]
         Shell["index.html — shell, one markup block per dialog"]
         Markdown["markdown.js — Markdown to DOM nodes"]
-        Core["ui/ — state, api, errors, universe, slides, overlays, actions, sse"]
-        Surfaces["ui/render/ — header, composer, menu, reader, explore, library, ingredients, tableinfo"]
-        Styles["styles/ — base, reader, live, explore, composer, overlays"]
+        Core["ui/ — state, api, errors, universe, slides, overlays, actions, sse, review, report, feedback, responses, comparison"]
+        Surfaces["ui/render/ — header, composer, menu, reader, explore, library, ingredients, tableinfo, review, runs, report, bundle, feedback, responses"]
+        Styles["styles/ — base, reader, live, explore, composer, overlays, report, feedback, analysis"]
     end
     subgraph Print["Print skill (skills/scripta-book-export)"]
         Entry["scripts/build-book.mjs — CLI, JSON line, exit codes"]

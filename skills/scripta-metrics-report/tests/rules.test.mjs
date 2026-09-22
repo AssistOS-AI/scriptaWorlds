@@ -321,7 +321,7 @@ test('metric annotation containers, ids and reserved names are validated before 
 test('a continuity result with inconsistent totals or malformed containers is refused', () => {
   const base = {
     schema_version: 'continuity-result.v1',
-    version: 'continuity-result.v1',
+    version: 'sha256:' + 'a'.repeat(64),
     counts: { eligible_comparisons: 1, consistent: 8, contradicted: 0, unresolved: 0 },
     findings: [],
   };
@@ -330,17 +330,30 @@ test('a continuity result with inconsistent totals or malformed containers is re
   assertCode(() => normalizeContinuity({ ...base, schema_version: 'continuity-result.v2' }), 'SCHEMA_VERSION');
   assertCode(() => normalizeContinuity({ ...base, counts: { eligible_comparisons: 1, consistent: 1, contradicted: 0, unresolved: 0 }, findings: {} }), 'INVALID_ANNOTATIONS');
   assertCode(() => normalizeContinuity('nope'), 'INVALID_ANNOTATIONS');
+  // A document naming two different versions has no single authority and is refused.
+  assertCode(
+    () =>
+      normalizeContinuity({
+        ...base,
+        counts: { eligible_comparisons: 2, consistent: 1, contradicted: 1, unresolved: 0 },
+        source_version: 'sha256:' + 'b'.repeat(64),
+      }),
+    'INVALID_ANNOTATIONS',
+  );
   const ok = normalizeContinuity({
     schema_version: 'continuity-result.v1',
-    version: 'continuity-result.v1',
-    source_version: 'sha256:' + 'a'.repeat(64),
+    version: 'sha256:' + 'a'.repeat(64),
     counts: { eligible_comparisons: 2, consistent: 1, contradicted: 1, unresolved: 0 },
     scope: { chapters: [1], omitted: [], coverage_note: 'chapter 1 only' },
     findings: [],
   });
   assert.deepEqual(ok.chapters, [1]);
+  assert.deepEqual(ok.population, [1]);
   assert.equal(ok.coverage_note, 'chapter 1 only');
   assert.equal(ok.source_version, 'sha256:' + 'a'.repeat(64));
+  assert.equal(ok.declared_version, 'sha256:' + 'a'.repeat(64));
+  assert.equal(ok.counts_source, 'declared');
+  assert.equal(ok.partition.complete, true);
 });
 
 test('preserved qualities require an id, a rationale and evidence ids', () => {

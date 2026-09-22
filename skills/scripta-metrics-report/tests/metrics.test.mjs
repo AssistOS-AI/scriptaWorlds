@@ -104,15 +104,26 @@ test('a reference too short for the shingle size leaves SI unavailable, never ze
   assert.ok(result.missing_reason.includes('long enough'), result.missing_reason);
 });
 
-test('excluding the same source version is recorded as such and not as duplicate text', () => {
+test('excluding the same source version needs a declared identity, and duplicate bytes stay eligible', () => {
+  const identity = { id: 'book-1', version: 'sha256:' + 'd'.repeat(64), hashes: new Set(['a'.repeat(64)]) };
   const references = [
+    { id: 'declared-copy', sha256: 'a'.repeat(64), permitted_use: 'comparison', source: { id: 'book-1', version: 'sha256:' + 'd'.repeat(64) } },
     { id: 'book', sha256: 'a'.repeat(64), permitted_use: 'comparison' },
     { id: 'other', sha256: 'b'.repeat(64), permitted_use: 'comparison' },
     { id: 'blocked', sha256: 'c'.repeat(64), permitted_use: 'none' },
   ];
-  const { eligible, exclusions } = classifyReferences(references, new Set(['a'.repeat(64)]));
-  assert.deepEqual(eligible.map((r) => r.id), ['other']);
-  assert.deepEqual(exclusions.map((e) => `${e.id}:${e.reason}`), ['book:same_source_version', 'blocked:permitted_use:none']);
+  const { eligible, exclusions, classified } = classifyReferences(references, identity);
+  assert.deepEqual(eligible.map((r) => r.id), ['book', 'other']);
+  assert.deepEqual(
+    exclusions.map((e) => `${e.id}:${e.reason}`),
+    ['declared-copy:same_source_version', 'blocked:permitted_use:none'],
+  );
+  assert.equal(eligible[0].identity.status, 'unknown', 'a hash is not a declaration');
+  assert.equal(eligible[0].identity.bytes_match_candidate, true);
+  assert.deepEqual(
+    classified.map((entry) => `${entry.id}:${entry.eligible}`),
+    ['declared-copy:false', 'book:true', 'other:true', 'blocked:false'],
+  );
 });
 
 test('duplicate text in another reference stays eligible and is named separately from self-exclusion', () => {
@@ -139,18 +150,26 @@ test('duplicate text in another reference stays eligible and is named separately
     references: [
       { id: 'r1', path: 'r1.txt', sha256: 'b'.repeat(64), language: 'en', provenance: 'survey', permitted_use: 'comparison', declared_exclusions: [], bytes: text },
       { id: 'r2', path: 'r2.txt', sha256: 'c'.repeat(64), language: 'en', provenance: 'survey', permitted_use: 'comparison', declared_exclusions: [], bytes: Buffer.from(text) },
-      { id: 'same-version', path: 'book.txt', sha256: 'a'.repeat(64), language: 'en', provenance: 'the packet itself', permitted_use: 'comparison', declared_exclusions: [], bytes: text },
+      { id: 'same-version', path: 'book.txt', sha256: 'a'.repeat(64), language: 'en', provenance: 'the packet itself', permitted_use: 'comparison', declared_exclusions: [], source: { id: 'book-1', version: 'sha256:' + 'd'.repeat(64) }, bytes: text },
+      { id: 'copy', path: 'copy.txt', sha256: 'a'.repeat(64), language: 'en', provenance: 'an independent mirror', permitted_use: 'comparison', declared_exclusions: [], bytes: text },
     ],
   };
-  const result = computeLexical({ candidate, corpus, candidateHashSet: new Set(['a'.repeat(64)]) });
+  const result = computeLexical({
+    candidate,
+    corpus,
+    candidateIdentity: { id: 'book-1', version: 'sha256:' + 'd'.repeat(64), hashes: new Set(['a'.repeat(64)]) },
+  });
   assert.equal(result.si.comparison_scope, 'external_corpus');
   const byId = new Map(result.si.pairs.map((pair) => [pair.reference, pair]));
   assert.equal(byId.get('r1').duplicate_text, true, 'two references carrying the same text are duplicates');
   assert.equal(byId.get('r1').duplicate_of, 'r2');
   assert.equal(byId.get('r2').duplicate_text, true);
-  assert.equal(byId.has('same-version'), false, 'the candidate source version is excluded, not compared');
+  assert.equal(byId.has('same-version'), false, 'the declared candidate source version is excluded, not compared');
+  assert.equal(byId.get('copy').identity.status, 'unknown', 'identical bytes without a declaration are not self-comparison');
+  assert.equal(byId.get('copy').duplicate_text, true, 'a reference repeating the candidate text is named as such');
   assert.deepEqual(result.exclusions.map((e) => `${e.id}:${e.reason}`), ['same-version:same_source_version']);
   assert.ok(result.references.some((reference) => reference.id === 'r1' && reference.provenance === 'survey'));
+  assert.equal(result.references.find((reference) => reference.id === 'copy').excluded_reason, null);
 });
 
 test('TOP counts a known exact run of 8 tokens', () => {
