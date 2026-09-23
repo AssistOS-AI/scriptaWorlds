@@ -1,0 +1,111 @@
+{
+  "schema_version": "annotations.v1",
+  "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "continuity": {
+    "schema_version": "continuity-result.v1",
+    "ok": true,
+    "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+    "scope": {
+      "universe_id": "five-opaque-windows",
+      "kind": "complete",
+      "chapters": [
+        1
+      ],
+      "omitted": [],
+      "chapters_reviewed": [
+        1
+      ],
+      "coverage_note": "Deterministic integrity review over 1 chapter file(s) and the packet state of a complete book (chapters 1..1). No annotations supplied, so no semantic continuity comparisons were performed. Scoped to the selection (1): 0 of 0 reviewed comparison(s) lie in the selected chapters and only those are counted here.",
+      "coverage": null,
+      "coverage_bounds": null
+    },
+    "reviewed_claims": [],
+    "comparisons": [],
+    "counts": {
+      "eligible_comparisons": 0,
+      "consistent": 0,
+      "contradicted": 0,
+      "unresolved": 0
+    },
+    "derived": {
+      "cci": null,
+      "cad": {
+        "status": "not_applicable",
+        "value": null,
+        "coverage": null,
+        "lower_bound": null,
+        "upper_bound": null,
+        "eligible": 0,
+        "reason": "no eligible character change comparisons were reviewed"
+      }
+    },
+    "findings": [],
+    "errors": [],
+    "warnings": [],
+    "outputs": [
+      "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/continuity/continuity-result.json"
+    ],
+    "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+    "partition": {
+      "examined": 0,
+      "unattributable": 0,
+      "declared_eligible": 0
+    },
+    "evaluated_from": "the whole result",
+    "scoped_from": {
+      "path": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/continuity/continuity-result.json",
+      "sha256": "2c6bac79165b0105426ff8bc817ae441c02d0d1b344f81449e0820ff6252304e",
+      "selection": [
+        1
+      ],
+      "unattributable_comparisons": 0
+    }
+  },
+  "requirements": {
+    "registry_version": "stg-rules.v1",
+    "aggregation_policy": "all_applicable_pass",
+    "rules": [
+      {
+        "id": "stg-title-line",
+        "description": "Every chapter file opens with a level-one heading that names the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all"
+      },
+      {
+        "id": "stg-fiction-language",
+        "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all"
+      },
+      {
+        "id": "stg-no-meta-commentary",
+        "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all"
+      },
+      {
+        "id": "stg-told-as-prose",
+        "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all"
+      },
+      {
+        "id": "stg-scene-breaks",
+        "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+        "source": "stg",
+        "classification": "soft",
+        "criterion": "every declared output",
+        "applies_to": "all"
+      }
+    ],
+    "outcomes": []
+  }
+}

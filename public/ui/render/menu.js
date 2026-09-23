@@ -4,6 +4,7 @@
 import { openExploration, submitRequest } from '../actions.js';
 import { api } from '../api.js';
 import { closePopup } from '../overlays.js';
+import { openSessions } from '../sessions.js';
 import { EXPORT_REQUEST, LIVE_STATUSES, dom, elem, state } from '../state.js';
 
 export function exportsOf(format) {
@@ -58,6 +59,25 @@ export function renderMenuItems() {
         }
       }));
     }
+    // The one global entry into the sessions dialog: every run of this book — a chapter, a rewrite,
+    // an edition, an import — is reachable from here even when it has no slice of its own, and the
+    // note says how many exist right now.
+    const liveRuns = [...state.live.values()].filter((job) => LIVE_STATUSES.has(job.status)).length;
+    items.push(elem('button', {
+      className: 'menuitem',
+      attrs: { type: 'button' },
+      on: {
+        click: () => {
+          closePopup();
+          openSessions();
+        }
+      }
+    },
+    elem('span', { text: 'ALA sessions' }),
+    liveRuns > 0
+      ? elem('span', { className: 'menuitem__note', text: `${liveRuns} running` })
+      : null
+    ));
     items.push(elem('hr', { className: 'menu__sep' }));
   }
   items.push(elem('button', {

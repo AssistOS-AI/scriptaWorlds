@@ -93,7 +93,7 @@
             </tr>
             <tr>
               <td><code>GET /api/universes/:id</code></td>
-              <td>The reading view: <code>universe</code>, <code>chapters</code>, <code>turns</code>, <code>threads</code>, a bounded <code>canon</code> summary, <code>exports</code>, <code>activeJob</code> and <code>queuedJobs</code>. A chapter entry carries its number, slug, title, word count, byte size, its producing <code>turnNumber</code> and its <a href="wiki.html#definition-offer">offer</a>. The <code>rewritten</code> flag and the archived version count are added only by the single-chapter route, so a client that needs them reads that chapter.</td>
+              <td>The reading view: <code>universe</code>, <code>chapters</code>, <code>turns</code>, <code>threads</code>, a bounded <code>canon</code> summary, <code>exports</code>, <code>activeJob</code> and <code>queuedJobs</code>. A chapter entry carries its number, slug, title, word count, byte size, its producing <code>turnNumber</code> and its <a href="wiki.html#definition-offer">offer</a>. A turn entry is the <a href="wiki.html#definition-turn-record">turn record</a> without the answer and the console: its number, kind, rewrite flag, status, timestamps and duration, request, chapter number and title, error and exports — the list the <code>ALA sessions</code> dialog renders. The <code>rewritten</code> flag and the archived version count are added only by the single-chapter route, so a client that needs them reads that chapter.</td>
             </tr>
             <tr>
               <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>settings</code></td>
@@ -132,6 +132,10 @@
               <td>The full <a href="wiki.html#definition-turn-record">turn record</a>, including the agent's answer and the composed log of what it did. The number is a turn number, not a chapter number; the mapping is the <code>turnNumber</code> field of a chapter.</td>
             </tr>
             <tr>
+              <td><code>GET /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>turns/<wbr>:<wbr>number/<wbr>console</code></td>
+              <td>The durable <a href="wiki.html#definition-console">console</a> of one run, rendered from its <a href="wiki.html#definition-turn-journal">turn journal</a>: <code>{"turn":TurnSummary,"console":{"text":…,"live":…,"updatedAt":…,"source":…}}</code>. <code>live</code> is true while the turn is queued or running, so the same route serves a run being watched and a run read back later; <code>source</code> is <code>journal</code>, <code>agentLog</code> for a turn that ran before journals existed, or <code>none</code>; an unknown turn answers <code>404 NOT_FOUND</code>.</td>
+            </tr>
+            <tr>
               <td><code>POST /<wbr>api/<wbr>universes/<wbr>:<wbr>id/<wbr>turns</code></td>
               <td>Queues a chapter or export turn from <code>message</code>, <code>kind</code> and, for an edition, <code>format</code> of <code>docx</code>, <code>pdf</code> or <code>both</code>. Always answers <code>202</code> with a job, including when the universe is already busy, because requests wait in that universe's queue instead of being refused.</td>
             </tr>
@@ -145,7 +149,7 @@
             </tr>
           </tbody>
         </table>
-        <p>A writing request may also carry <code>sourceChapter</code>, the accepted chapter the reader was looking at, which is recorded on the turn and refused with <code>400</code> <code>BAD_NUMBER</code> when it does not name an accepted chapter. It may also carry <code>directions</code> — the short instructions a separate design or craft phase produced and the author accepted — with the <code>approval</code> record they came from; they are stated in the prompt under the law, recorded with the turn, and a malformed list answers <code>400</code> <code>BAD_DIRECTIONS</code>. Instructions shorter than one sentence are rejected with <code>BAD_INSTRUCTIONS</code>, an unknown chapter with <code>NOT_FOUND</code>, and a closed universe with <code>CLOSED</code>. Once confirmed, <code>dropLater</code> removes and archives the later chapters, and the rewrite runs as a new turn so the discussion log of the book stays complete.</p>
+        <p>A writing request may also carry <code>sourceChapter</code>, the accepted chapter the reader was looking at, which is recorded on the turn and refused with <code>400</code> <code>BAD_NUMBER</code> when it does not name an accepted chapter. It may also carry <code>directions</code> — the short instructions a separate design or craft phase produced and the author accepted — with the <code>approval</code> record they came from; they are stated in the prompt under the law, recorded with the turn, and a malformed list answers <code>400</code> <code>BAD_DIRECTIONS</code>. Instructions shorter than one sentence are rejected with <code>BAD_INSTRUCTIONS</code>, an unknown chapter with <code>NOT_FOUND</code>, and a closed universe with <code>CLOSED</code>. Once confirmed, <code>dropLater</code> removes and archives the later chapters, and the rewrite runs as a new turn so the <a href="wiki.html#definition-console">console</a> of every run of the book stays complete.</p>
       </section>
 
       <section>
@@ -177,8 +181,12 @@
               <td>One run: phase, trigger, version, scope, profile hash, status, outputs and the envelope the phase printed. When the run asked a model for its observations, the record also carries <code>annotation_mode</code>, <code>annotation_model</code>, <code>annotation_prompt_version</code>, <code>annotation_prompt_sha256</code>, <code>annotation_resources</code>, the <code>annotation_provenance</code> manifest of the invocation with the evaluator identity it derived, <code>annotation_attempts</code>, <code>annotation_errors</code>, <code>generated_annotations</code>, <code>annotations_sha256</code> (the hash of the bytes on disk) and <code>packet_intact</code>. A run that planned its reading also carries <code>annotation_plan</code>, <code>annotation_units</code> and <code>annotation_reading</code> — the units the plan declared, one state per unit and whether the reading covered the whole selection — and a metrics run carries <code>continuity_substage</code>, what the substage did or the reason it could not run, with <code>continuity_annotations</code> naming the document a deterministic review measures against. A published run also carries <a href="wiki.html#definition-report-revision"><code>result_revision</code></a> and <code>result_files</code>, the revision a reader's reaction binds to, and <code>output_boundary</code> and <code>write_boundary</code>, what the review was allowed to write.</td>
             </tr>
             <tr>
+              <td><code>GET /api/universes/:id/assessments/:runId/console</code></td>
+              <td>The <a href="wiki.html#definition-console">console</a> of one review, live or read back later: <code>{"console":{"text":…,"live":…,"updatedAt":…,"source":"journal|record"}}</code>. It merges the facts the record kept — when the run was created, the evaluator call in flight with the model, the unit and the child's pid, every finished call with its outcome, the continuity substage and the line that says how it ended — with <code>generated/evaluator.events.jsonl</code>, the stream the evaluator child wrote while it worked, so a review that takes minutes shows what the agent is reading while it reads it instead of a bare <code>running</code>.</td>
+            </tr>
+            <tr>
               <td><code>POST /api/universes/:id/assessments/:runId</code></td>
-              <td><code>{"action":"cancel"}</code> stops a queued or running review (<code>NOT_CANCELLABLE</code> when it settled); <code>{"action":"retry"}</code> runs the same frozen packet again under the same run id, which is how an interrupted or failed review continues, and answers <code>409 ALREADY_PUBLISHED</code> when the review published a result, because a published report is never replaced under the reader who read it.</td>
+              <td><code>{"action":"cancel"}</code> stops a queued or running review (<code>NOT_CANCELLABLE</code> when it settled); <code>{"action":"retry"}</code> runs the same frozen packet again under the same run id, which is how an interrupted or failed review continues, and answers <code>409 ALREADY_PUBLISHED</code> when the review published a result, because a published report is never replaced under the reader who read it. <code>{"action":"delete"}</code> removes the stored review and everything it published, for a report a reader no longer wants: <code>409 STILL_LIVE</code> while the run is queued or running, and <code>409 REFERENCED</code> while another record names it — a newer run that re-evaluates it, or a stored reader response written against it.</td>
             </tr>
             <tr>
               <td><code>POST /api/universes/:id/assessments/:runId/reassess</code></td>
@@ -361,7 +369,7 @@
             </tr>
             <tr>
               <td><code>delta</code></td>
-              <td>A fragment of the agent's live text, which a reader sees as the chapter being written.</td>
+              <td>A fragment of the agent's live text, appended to the <a href="wiki.html#definition-turn-journal">turn journal</a> of that run and read in its <a href="wiki.html#definition-console">console</a>.</td>
             </tr>
             <tr>
               <td><code>tool</code></td>
@@ -381,7 +389,7 @@
             </tr>
           </tbody>
         </table>
-        <p>At most 800 events are buffered per job, so a client that connects in the middle of a run receives a recent history rather than the whole run. The stream is the live path and never the only path: the universe detail carries <code>activeJob</code> and <code>queuedJobs</code> precisely so that a reloaded page can reconstruct work in progress, and a client behind a buffering proxy can poll the job route instead. The route table and the exact payload fields are specified in <a href="specsLoader.html?spec=DS005-http-api.md">DS005-http-api</a>.</p>
+        <p>At most 800 events are buffered per job, so a client that connects in the middle of a run receives a recent history rather than the whole run; the buffer is a convenience of the live stream, not the record of the run — that is the turn journal, which the console route reads back for as long as the book exists. The stream is the live path and never the only path: the universe detail carries <code>activeJob</code> and <code>queuedJobs</code> precisely so that a reloaded page can reconstruct work in progress, a client behind a buffering proxy can poll the job route instead, and the console of a live run is read from its own route whether or not any stream was open while it worked. The route table and the exact payload fields are specified in <a href="specsLoader.html?spec=DS005-http-api.md">DS005-http-api</a>.</p>
       </section>
     </div>
   </main>

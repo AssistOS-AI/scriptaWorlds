@@ -1,0 +1,130 @@
+{
+  "schema_version": "reader-feedback-target.v1",
+  "target_id": "target-0047a7f93eb82eab",
+  "universe_id": "five-opaque-windows",
+  "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "kind": "book",
+    "chapters": [
+      1
+    ]
+  },
+  "language": "en",
+  "created_at": "2026-09-23T13:44:09.817Z",
+  "displayed": {
+    "hash": "sha256:b4bc0912c827b38cb8bd6c0c4e79580fd710df94ee714dab8a4fa8936b6847a4",
+    "files": [
+      {
+        "path": "chapters/0001-who-pays-for-the-quiet.md",
+        "sha256": "edf7956f346a7cc91e66404b2a1b3086b664bd917d9457230ea82a8b8ae8561e",
+        "bytes": 8053
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Who Pays for the Quiet",
+      "path": "chapters/0001-who-pays-for-the-quiet.md",
+      "sha256": "edf7956f346a7cc91e66404b2a1b3086b664bd917d9457230ea82a8b8ae8561e"
+    }
+  ],
+  "questionnaire": {
+    "version": "reader-questionnaire.v1",
+    "questions": [
+      {
+        "id": "interest",
+        "label": "How interesting was this text?",
+        "low": "flat",
+        "high": "gripping",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "clarity",
+        "label": "How clearly was this told?",
+        "low": "confusing",
+        "high": "crystal clear",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "voice",
+        "label": "How distinct are the voices?",
+        "low": "interchangeable",
+        "high": "each their own",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "emotion",
+        "label": "How strongly did this text move you?",
+        "low": "untouched",
+        "high": "moved",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "continue",
+        "label": "How much do you want to read what comes next?",
+        "low": "not at all",
+        "high": "at once",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "usefulness",
+        "about": "report",
+        "label": "How useful was the report you were looking at?",
+        "low": "no use",
+        "high": "it changed what I did",
+        "options": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "defect_present",
+        "about": "text",
+        "label": "Did you find a defect in this text?",
+        "low": null,
+        "high": null,
+        "options": [
+          "no",
+          "unsure",
+          "yes"
+        ]
+      }
+    ]
+  }
+}

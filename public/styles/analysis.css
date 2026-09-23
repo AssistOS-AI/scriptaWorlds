@@ -4,9 +4,10 @@
  */
 
 /* ---------------- the chapter action toolbar ---------------- */
-/* Six controls share the head of a chapter — what it was asked for, rewriting it, its scene log, what a
- * reader says about the book, a review of it and the reports of the book — so the strip is wide: it keeps
- * a readable gap on a wide screen and tightens it rather than squeezing the chapter title away. */
+/* Six controls share the head of a chapter — what it was asked for, rewriting it, the run that wrote
+ * it, what a reader says about the book, a review of it and the reports of the book — so the strip is
+ * wide: it keeps a readable gap on a wide screen and tightens it rather than squeezing the chapter
+ * title away. */
 .toolbar {
   gap: 6px;
 }
@@ -49,9 +50,8 @@
 }
 
 /* ---------------- the panels ---------------- */
+/* Only the padding differs: the size and the scrolling of a panel are the shared dialog rules. */
 .popup__panel--analysis {
-  width: min(96vw, 1000px);
-  max-height: 92vh;
   padding: 18px 20px 22px;
 }
 
@@ -124,13 +124,6 @@
   color: var(--muted);
 }
 
-.analysis__arc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 0 2px 4px 26px;
-}
-
 .analysis__inline {
   display: inline-flex;
   align-items: center;
@@ -201,6 +194,46 @@
   margin-top: 4px;
   padding-top: 12px;
   border-top: 1px solid var(--line);
+}
+
+/* ---------------- the review panel's latest report and history ---------------- */
+.analysis__line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.analysis__line strong {
+  color: var(--ink);
+}
+
+.analysis__runline {
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.analysis__runline:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* One earlier report: a link that opens it, naming the date it ran, its phase and its scope. */
+.analysis__report-link {
+  display: inline-block;
+  min-height: 24px;
+  color: var(--accent-strong);
+  font-size: 14px;
+  line-height: 1.35;
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
+.analysis__report-link:hover {
+  text-decoration: underline solid;
 }
 
 /* ---------------- the run list ---------------- */

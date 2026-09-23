@@ -24,6 +24,9 @@ import {
   registryRequirements
 } from './review-context.mjs';
 import { runContinuitySubstage, scopeContinuityToSelection } from './continuity-substage.mjs';
+import { evaluatorJournalPath, readJournal } from './turn-console.mjs';
+import { listFeedback } from './feedback-entries.mjs';
+import { truncate } from './io.mjs';
 import {
   PHASES,
   inputFingerprint,
@@ -286,7 +289,15 @@ function launch(universeId, record) {
       await writeJson(runFile(universeId, record.version, record.run_id), record).catch(() => {});
       return record;
     })
-    .finally(() => pending.delete(record.run_id));
+    .finally(async () => {
+      pending.delete(record.run_id);
+      // A settled run keeps no live call: the field describes what is executing, and once the runner has
+      // returned nothing is — whatever the outcome was.
+      if (record.in_flight) {
+        record.in_flight = null;
+        await writeJson(runFile(universeId, record.version, record.run_id), record).catch(() => {});
+      }
+    });
   pending.set(record.run_id, task);
   return task;
 }
@@ -661,6 +672,14 @@ async function generateAnnotationsForRun(universeId, record, controller = null, 
   // The registry of applicable rules travels with the packet, because it is part of what the review is:
   // a run whose charter, brief or accepted directions differ is a different review.
   const registry = await readFile(join(inputDir, RULES_FILE), 'utf8').then((raw) => JSON.parse(raw), () => null);
+  // What the evaluator is doing right now, written beside the run while it happens. A real call needs
+  // minutes, and a record that only named the attempts after they ended left the console of a running
+  // review with nothing to show — indistinguishable, to a reader, from a run that had stopped.
+  let inflight = null;
+  const persistInflight = () => {
+    record.in_flight = inflight ? { ...inflight } : null;
+    return writeJson(runFile(universeId, record.version, record.run_id), record).catch(() => {});
+  };
   const generated = await generateAnnotations({
     skillsDir,
     runDir: dir,
@@ -680,7 +699,18 @@ async function generateAnnotationsForRun(universeId, record, controller = null, 
     packetResources: record.resources ?? [],
     timeoutMs: config.assessmentTimeoutMs,
     model: record.annotation_model ?? config.model,
-    onChild: controller ? (child) => { controller.child = child; } : null
+    onChild: controller
+      ? (child) => {
+        controller.child = child;
+        // The process that answers is named while it answers, so a reader of the console sees the call and
+        // the child that carries it, not only the fact that something was asked.
+        if (inflight && child?.pid) {
+          inflight.pid = child.pid;
+          persistInflight();
+        }
+      }
+      : null,
+    onAttemptStart: controller ? (entry) => { inflight = entry; persistInflight(); } : null
   });
   // The attempt records accumulate across evaluations: a retry or a re-evaluation appends its own calls
   // instead of erasing the history of the ones before it.
@@ -1062,10 +1092,138 @@ export async function readAssessment(universeId, runId) {
   return { ...found.record, historical: current !== null && found.record.version !== current };
 }
 
+/** The two states in which a run owns a child and keeps writing under its directory. */
+const LIVE_STATUSES = ['queued', 'running'];
+// The ceiling the turn console keeps, for the same reason: a console longer than this is not read faster by
+// being unreadable, and the journal itself is bounded as it is written.
+const MAX_CONSOLE_CHARS = 400_000;
+
+function consoleClock(value) {
+  const time = new Date(value ?? Date.now()).getTime();
+  return Number.isNaN(time) ? '--:--:--' : new Date(time).toISOString().slice(11, 19);
+}
+
+/** The scope of one run as the console names it: a chapter, chapters, or the whole book. */
+function consoleScope(scope) {
+  if (!scope) return '—';
+  if (scope.kind === 'book') return 'the whole book';
+  const chapters = Array.isArray(scope.chapters) ? scope.chapters : [];
+  if (chapters.length === 0) return String(scope.kind);
+  return `${chapters.length === 1 ? 'chapter' : 'chapters'} ${chapters.join(', ')}`;
+}
+
+/** How one run ended, as the console states it. A live run has no such line: nothing is claimed about it. */
+function consoleSettleLine(record) {
+  const outputs = Array.isArray(record.outputs) ? record.outputs : [];
+  if (record.status === 'done') {
+    return `✓ done — published ${outputs.length} file(s)${record.result_revision ? ` · revision ${record.result_revision}` : ''}`;
+  }
+  if (record.status === 'cancelled') return '✗ cancelled — the run stopped before it published anything';
+  const reason = record.error ?? (Array.isArray(record.annotation_errors) ? record.annotation_errors[0] : null);
+  return `✗ ${String(record.status ?? 'unknown').replace(/_/g, ' ')}${reason ? ` — ${reason}` : ''}`;
+}
+
+/**
+ * The facts of one run as console lines, each carrying the time it happened: when it was created, the call
+ * the evaluator is answering right now, every call that finished, the continuity substage, and the line that
+ * says how it ended. The attempt records are the durable half; the line for a call in flight is what makes a
+ * review that needs minutes readable while it needs them.
+ */
+function recordConsoleLines(record) {
+  const lines = [];
+  const line = (at, text) => lines.push({ at: at ?? record.created_at ?? null, text: `[${consoleClock(at)}] ${text}` });
+  const arc = record.trigger === 'arc' && record.arc_id ? ` · arc ${record.arc_id}` : '';
+  const phase = record.phase === 'continuity' ? 'continuity' : 'metrics';
+  line(record.created_at, `created — ${phase} review · ${consoleScope(record.requested_scope ?? record.scope)}${arc}`);
+  if (record.started_at) line(record.started_at, 'running');
+  const reading = record.annotation_reading;
+  if (reading && Number.isFinite(reading.units_planned)) {
+    line(record.started_at ?? record.created_at, `reading — ${reading.units_planned} unit(s) planned, ${reading.units_completed ?? 0} read, ${reading.units_failed ?? 0} failed, ${reading.units_reused ?? 0} reused`);
+  }
+  for (const attempt of Array.isArray(record.annotation_attempts) ? record.annotation_attempts : []) {
+    const what = `${attempt.call ?? 'call'}${attempt.unit ? ` ${attempt.unit}` : ''} · attempt ${attempt.attempt ?? 1} · ${attempt.model ?? 'unknown model'}`;
+    line(attempt.started_at, `→ ${what}`);
+    const seconds = Number.isFinite(attempt.duration_ms) ? ` — ${Math.round(attempt.duration_ms / 1000)} s` : '';
+    const why = attempt.ok === true
+      ? ''
+      : ` — ${(Array.isArray(attempt.errors) ? attempt.errors[0] : null)
+        ?? (attempt.exit_code != null ? `the evaluator exited with code ${attempt.exit_code}` : 'the call did not succeed')}`;
+    line(attempt.finished_at, `${attempt.ok === true ? '✓' : '✗'} ${what}${seconds}${why}`);
+  }
+  const inflight = record.in_flight;
+  if (inflight && LIVE_STATUSES.includes(record.status)) {
+    const what = `${inflight.call ?? 'call'}${inflight.unit ? ` ${inflight.unit}` : ''} · attempt ${inflight.attempt ?? 1} · ${inflight.model ?? 'the model'}`;
+    const budget = Number.isFinite(inflight.timeout_ms) ? ` of a ${Math.round(inflight.timeout_ms / 1000)} s budget` : '';
+    line(inflight.started_at, `… ${what} — in flight since ${consoleClock(inflight.started_at)}${budget}${inflight.pid ? ` · pid ${inflight.pid}` : ''}`);
+  }
+  const substage = record.continuity_substage;
+  if (substage) {
+    const reason = substage.reason ? ` — ${substage.reason}` : (substage.document ? ` — ${substage.document}` : '');
+    line(record.finished_at ?? record.started_at ?? record.created_at, `${substage.ok ? '✓' : '✗'} continuity substage${substage.reused ? ' (reused)' : ''}${reason}`);
+  }
+  if (!LIVE_STATUSES.includes(record.status)) line(record.finished_at ?? record.created_at, consoleSettleLine(record));
+  return lines;
+}
+
+/**
+ * The console of one review run as a client reads it: the facts the record kept, merged in time order with the
+ * journal the evaluator child wrote while it worked. `source` is `journal` once the evaluator has streamed
+ * anything and `record` for a run whose child produced no stream at all. It is the same shape a turn's console
+ * answers, so a reader watches a review the way they watch a chapter being written.
+ */
+export async function readAssessmentConsole(universeId, runId) {
+  const found = await readRun(universeId, runId);
+  if (!found) throw new UniverseError('NOT_FOUND', `Assessment ${runId} does not exist.`, 404);
+  const record = found.record;
+  const journal = await readJournal(evaluatorJournalPath(runDir(universeId, record.version, record.run_id)));
+  const lines = [
+    ...recordConsoleLines(record).map((entry, index) => ({ ...entry, rank: 0, index })),
+    ...journal.lines.map((entry, index) => ({ ...entry, rank: 1, index }))
+  ]
+    // Equal timestamps keep the record's own lines first: what the host knows about the run frames what the
+    // evaluator was doing inside it.
+    .sort((a, b) => String(a.at ?? '').localeCompare(String(b.at ?? '')) || a.rank - b.rank || a.index - b.index)
+    .map((entry) => entry.text);
+  return {
+    console: {
+      text: lines.length > 0 ? truncate(lines.join('\n'), MAX_CONSOLE_CHARS) : 'Nothing was recorded for this run.',
+      live: LIVE_STATUSES.includes(record.status),
+      updatedAt: journal.updatedAt ?? record.finished_at ?? record.started_at ?? record.created_at ?? null,
+      source: journal.lines.length > 0 ? 'journal' : 'record'
+    }
+  };
+}
+
+/**
+ * Delete one stored review: its frozen packet, its attempts, its console and whatever it published. A run that
+ * is still queued or running is refused — a live child reads that directory — so a caller cancels first and
+ * deletes what stopped. Evidence that names the run is a second refusal: a newer run that re-evaluates it and
+ * a reader's stored response both point at this report, and deleting it would leave them pointing at nothing.
+ * The book is never touched: a phase writes outside `universes/`.
+ */
+export async function deleteAssessment(universeId, runId) {
+  const found = await readRun(universeId, runId);
+  if (!found) throw new UniverseError('NOT_FOUND', `Assessment ${runId} does not exist.`, 404);
+  if (LIVE_STATUSES.includes(found.record.status) || controllers.has(runId)) {
+    throw new UniverseError('STILL_LIVE', `Assessment ${runId} is ${found.record.status}; cancel it before deleting it.`, 409);
+  }
+  const successor = (await listAssessments(universeId)).find((run) => run.reassesses_run_id === runId);
+  if (successor) {
+    throw new UniverseError('REFERENCED', `Assessment ${successor.run_id} re-evaluates this run; delete that one first.`, 409);
+  }
+  const { feedback } = await listFeedback(universeId).catch(() => ({ feedback: [] }));
+  const answers = (Array.isArray(feedback) ? feedback : []).filter((entry) => entry.run_id === runId);
+  if (answers.length > 0) {
+    throw new UniverseError('REFERENCED', `${answers.length} reader response(s) refer to this report; withdraw or delete them before deleting it.`, 409);
+  }
+  await rm(runDir(universeId, found.record.version, runId), { recursive: true, force: true });
+  return { run_id: runId, version: found.record.version, phase: found.record.phase };
+}
+
 export async function cancelAssessment(universeId, runId) {
   const found = await readRun(universeId, runId);
   if (!found) throw new UniverseError('NOT_FOUND', `Assessment ${runId} does not exist.`, 404);
-  if (!['queued', 'running'].includes(found.record.status)) {
+  if (!LIVE_STATUSES.includes(found.record.status)) {
     throw new UniverseError('NOT_CANCELLABLE', `Assessment ${runId} is ${found.record.status}.`, 409);
   }
   const controller = controllers.get(runId);
@@ -1099,7 +1257,7 @@ export async function cancelAssessment(universeId, runId) {
 export async function retryAssessment(universeId, runId) {
   const found = await readRun(universeId, runId);
   if (!found) throw new UniverseError('NOT_FOUND', `Assessment ${runId} does not exist.`, 404);
-  if (['queued', 'running'].includes(found.record.status)) {
+  if (LIVE_STATUSES.includes(found.record.status)) {
     throw new UniverseError('NOT_RETRYABLE', `Assessment ${runId} is still ${found.record.status}.`, 409);
   }
   if (found.record.status === 'done') {
@@ -1280,6 +1438,7 @@ export async function recoverAssessments() {
     for (const record of runs) {
       if (record.status === 'running') {
         record.status = 'interrupted';
+        record.in_flight = null;
         record.finished_at = nowIso();
         record.error = 'interrupted by a server restart; retry reuses the same frozen packet';
         await writeJson(runFile(universe, record.version, record.run_id), record);

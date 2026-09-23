@@ -376,11 +376,11 @@ export async function runFeedbackExportChecks({ ok, fail, checkSeed = `check-${D
 
     // 7. The population of a distribution: one reader answering the same question twice, two chapters
     // and the whole book in one accepted version.
-    await checkDefensiblePopulations({ ok, fail, checkSeed });
+    await checkDefensiblePopulations({ ok, fail, checkSeed, tempDirs });
 
     // 8. The self-contained snapshot: the frozen prose travels, so a fresh directory can reproduce the
     // reading targets without the store, and the store refuses to export prose whose bytes changed.
-    await checkPortableDataset({ ok, fail, checkSeed });
+    await checkPortableDataset({ ok, fail, checkSeed, tempDirs });
   } finally {
     await rm(join(assessmentsRoot(), universe.id), { recursive: true, force: true });
     await rm(join(assessmentsRoot(), empty.id), { recursive: true, force: true });
@@ -395,8 +395,9 @@ export async function runFeedbackExportChecks({ ok, fail, checkSeed = `check-${D
  * rating may appear in the book's distribution; and the version-level figure that does pool the three
  * targets must be marked as pooling and still count that reader once.
  */
-async function checkDefensiblePopulations({ ok, fail, checkSeed }) {
+async function checkDefensiblePopulations({ ok, fail, checkSeed, tempDirs = [] }) {
   const universe = await bookWithTwoChapters(checkSeed, 'feedback-populations');
+  tempDirs.push(universe.id);
   try {
     const version = await currentVersion(universe.id);
     const ana = await createFeedbackReader({ universeId: universe.id, displayName: 'Ana' });
@@ -505,8 +506,9 @@ console.log(JSON.stringify({
  * display names never leave the store. The internal dataset exists only when it is asked for by name, and
  * the snapshot refuses to carry prose whose bytes no longer match the hashes its target recorded.
  */
-async function checkPortableDataset({ ok, fail, checkSeed }) {
+async function checkPortableDataset({ ok, fail, checkSeed, tempDirs = [] }) {
   const universe = await bookWithTwoChapters(checkSeed, 'feedback-dataset');
+  tempDirs.push(universe.id);
   const directory = await mkdtemp(join(tmpdir(), 'scripta-feedback-dataset-'));
   const attempt = async (work) => {
     try {

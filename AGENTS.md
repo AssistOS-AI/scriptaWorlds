@@ -57,7 +57,7 @@ The model comes from `SCRIPTAS_MODEL` and defaults to `deepseek/deepseek-v4-flas
 
 The repository has no npm dependencies. `dependencies.md` at the root records the two runtime requirements and the optional system font, and each skill folder keeps its own record. Behavior is verified with `npm run check`, which runs `scripts/check.mjs` against temporary universes without spending model budget, and a change is not complete until that check passes together with a scoped reproduction of the changed path.
 
-Inside a universe folder the rules are narrower. Work only in that folder. Do not run `git` and do not touch another universe. Narrative content is written only through the workflow of `scripta-ala`, and printed editions only through `scripta-book-export`. Write only `canon.md`, `threads.json`, `atlas.json`, `chapters/*`, `drafts/*` and `exports/edition.json`; `universe.json`, `turns/*` and `.agents/` belong to the server, and `charter.md` is edited only by a human or a client that intends to change the permanent rules of the universe. A design or validation pass is a separate phase: it selects `scripta-story-design`, `scripta-prose-craft`, `scripta-continuity-review` or `scripta-metrics-report`, it reads a frozen copy of the accepted version, and it writes nothing into the universe.
+Inside a universe folder the rules are narrower. Work only in that folder. Do not run `git` and do not touch another universe. Narrative content is written only through the workflow of `scripta-ala`, and printed editions only through `scripta-book-export`. Write only `canon.md`, `threads.json`, `atlas.json`, `chapters/*`, `drafts/*` and `exports/edition.json`; `universe.json`, `turns/*` — the turn records and the console journal `turns/NNNN.events.jsonl` of every run — and `.agents/` belong to the server, and `charter.md` is edited only by a human or a client that intends to change the permanent rules of the universe. A design or validation pass is a separate phase: it selects `scripta-story-design`, `scripta-prose-craft`, `scripta-continuity-review` or `scripta-metrics-report`, it reads a frozen copy of the accepted version, and it writes nothing into the universe.
 
 ## Key Paths
 
@@ -65,7 +65,7 @@ Inside a universe folder the rules are narrower. Work only in that folder. Do no
 - `docs/architecture.html`: components, the lifecycle of a turn, and which component writes which file.
 - `docs/operations.html`: requirements, configuration, the environment check and the failure reference.
 - `docs/api.html`: every route, the error envelope and the live event stream.
-- `docs/reader-interface.html`: the browser reader and its in-flow surfaces.
+- `docs/reader-interface.html`: the browser reader and its surfaces, the dialogs and the run console among them.
 - `docs/scripta-ala-skill.html`, `docs/scripta-book-export-skill.html`: the two product skills that write a book.
 - `docs/scripta-story-design-skill.html`, `docs/scripta-prose-craft-skill.html`, `docs/scripta-continuity-review-skill.html`, `docs/scripta-metrics-report-skill.html`: the four separate-phase design and review skills.
 - `docs/wiki.html`: the canonical terminology page for every project-specific term.

@@ -12,14 +12,14 @@ import { openPanel, renderPanels } from './overlays.js';
 import { dom, state } from './state.js';
 
 const VIEW_LABELS = {
-  'assessment.json': 'Bundle',
-  'index.md': 'Index',
-  '01-stg-compliance.md': '1 · STG compliance',
-  '02-specification-adherence.md': '2 · Specification adherence',
-  '03-metrics-and-indicators.md': '3 · Metrics and indicators',
-  '04-score-justification.md': '4 · Score justification',
-  '05-detected-issues.md': '5 · Detected issues',
-  'continuity-result.json': 'Continuity result'
+  'index.md': 'Report',
+  '01-stg-compliance.md': 'Rules',
+  '02-specification-adherence.md': 'The request',
+  '03-metrics-and-indicators.md': 'Measurements',
+  '04-score-justification.md': 'Scores',
+  '05-detected-issues.md': 'Findings',
+  'assessment.json': 'Bundle (JSON)',
+  'continuity-result.json': 'Continuity result (JSON)'
 };
 
 export function reportTarget() {
@@ -36,16 +36,16 @@ export function viewLabel(name) {
  */
 export function reportViews(run) {
   const outputs = Array.isArray(run?.outputs) ? run.outputs : [];
-  const bundles = outputs.filter((name) => name.endsWith('.json'));
   const index = outputs.filter((name) => name === 'index.md');
   const rest = outputs.filter((name) => name.endsWith('.md') && name !== 'index.md').sort();
+  // The raw bundle stays reachable, at the end: a report is read in its own words first.
+  const bundles = outputs.filter((name) => name.endsWith('.json'));
   const other = outputs.filter((name) => !name.endsWith('.json') && !name.endsWith('.md'));
-  return [...bundles, ...index, ...rest, ...other];
+  return [...index, ...rest, ...other, ...bundles];
 }
 
 export function defaultView(run) {
   const views = reportViews(run);
-  if (views.includes('assessment.json')) return 'assessment.json';
   if (views.includes('index.md')) return 'index.md';
   return views[0] ?? null;
 }

@@ -14,6 +14,8 @@ import { config } from './config.mjs';
 import { UniverseError } from './errors.mjs';
 import { nowIso, readJson } from './io.mjs';
 import { acceptedVersion } from './assessment-packet.mjs';
+import { handleOmpEvent } from './omp.mjs';
+import { journalEvaluatorEvent } from './turn-console.mjs';
 
 import {
   ANNOTATION_PROMPT_VERSION,
@@ -106,7 +108,6 @@ export async function runAnnotationStage({ runDir, prompt, timeoutMs = config.as
     });
     let stdout = '';
     let stderr = '';
-    let text = '';
     let buffer = '';
     let pid = null;
     let overflowed = false;
@@ -115,6 +116,11 @@ export async function runAnnotationStage({ runDir, prompt, timeoutMs = config.as
     // Provider usage is recorded only when the provider reported it: an unobserved number is absent from the
     // provenance, never zero.
     let usage = null;
+    // The stream of the evaluator is read with the same reader a turn uses, and journaled beside the run as it
+    // arrives: a review that needs minutes then shows what the agent is reading while it reads it, instead of
+    // a silence a reader cannot tell from a hang.
+    const stream = { assistantTexts: [], tools: [], finalAnswer: '', rawLines: [], buffer: '', timedOut: false, spawnError: null };
+    const answerText = () => stream.assistantTexts.join('');
     const stopReading = () => {
       if (!overflowed) {
         overflowed = true;
@@ -122,6 +128,13 @@ export async function runAnnotationStage({ runDir, prompt, timeoutMs = config.as
         child.kill('SIGTERM');
         setTimeout(() => child.kill('SIGKILL'), 2_000).unref();
       }
+    };
+    const readEvent = (event) => {
+      usage = usageFromEvent(event) ?? usage;
+      handleOmpEvent(event, stream, (consoleEvent) => {
+        journalEvaluatorEvent(runDir, consoleEvent);
+        if (consoleEvent.type === 'delta' && answerText().length > MAX_OUTPUT_BYTES) stopReading();
+      });
     };
     child.stdout.setEncoding('utf8');
     child.stderr.setEncoding('utf8');
@@ -135,13 +148,7 @@ export async function runAnnotationStage({ runDir, prompt, timeoutMs = config.as
         const trimmed = line.trim();
         if (!trimmed) continue;
         try {
-          const event = JSON.parse(trimmed);
-          usage = usageFromEvent(event) ?? usage;
-          const delta = event?.assistantMessageEvent?.delta;
-          if (event?.type === 'message_update' && typeof delta === 'string') {
-            text += delta;
-            if (text.length > MAX_OUTPUT_BYTES) stopReading();
-          }
+          readEvent(JSON.parse(trimmed));
         } catch {
           // A line that is not an event is kept in the raw log only.
         }
@@ -158,24 +165,30 @@ export async function runAnnotationStage({ runDir, prompt, timeoutMs = config.as
       pid = child.pid;
       onChild?.({ kill: (signal = 'SIGTERM') => child.kill(signal), pid });
     });
-    child.on('error', (error) => { clearTimeout(timer); onChild?.(null); resolve({ ok: false, text, stdout, stderr: String(error.message), code: null, pid, overflowed, timedOut, signal: null, usage: null }); });
+    child.on('error', (error) => {
+      clearTimeout(timer);
+      onChild?.(null);
+      journalEvaluatorEvent(runDir, { type: 'error', message: String(error.message) });
+      resolve({ ok: false, text: answerText(), stdout, stderr: String(error.message), code: null, pid, overflowed, timedOut, signal: null, usage: null });
+    });
     child.on('close', (code, signal) => {
       clearTimeout(timer);
       if (buffer.trim() && !overflowed) {
         try {
-          const event = JSON.parse(buffer.trim());
-          const delta = event?.assistantMessageEvent?.delta;
-          if (event?.type === 'message_update' && typeof delta === 'string') {
-            text += delta;
-            if (text.length > MAX_OUTPUT_BYTES) overflowed = true;
-          }
+          readEvent(JSON.parse(buffer.trim()));
         } catch {
           // ignore a trailing partial line
         }
       }
       onChild?.(null);
+      journalEvaluatorEvent(runDir, {
+        type: 'phase',
+        text: timedOut
+          ? `the evaluator was stopped at its ${Math.round(timeoutMs / 1000)} s deadline`
+          : `the evaluator exited with code ${code ?? 'none'}${signal === null ? '' : ` (signal ${signal})`}`
+      });
       const processFailed = code !== 0 || signal !== null || timedOut || overflowed;
-      resolve({ ok: !processFailed, text: text.slice(0, MAX_OUTPUT_BYTES), stdout, stderr, code, pid, overflowed, timedOut, signal, usage });
+      resolve({ ok: !processFailed, text: answerText().slice(0, MAX_OUTPUT_BYTES), stdout, stderr, code, pid, overflowed, timedOut, signal, usage });
     });
     // A child that exits without reading its prompt is a failed call, not a host crash: a closed pipe is
     // reported like any other process failure.
@@ -289,6 +302,47 @@ function matchingBrace(text, start) {
 }
 
 /**
+ * Where a line-anchored quotation points, resolved by the host.
+ *
+ * A model cannot count bytes in a file it reads through a paged view, and the reader truncates long lines, so
+ * an evidence item may name the line the passage is on and quote it; the host resolves that to the byte range
+ * the report needs. The search is confined to the lines the item names, so a quotation that occurs elsewhere
+ * in the file never silently moves, and a quotation that occurs more than once inside them is an ambiguity the
+ * answer has to settle by quoting more, never a guess the host makes.
+ */
+function resolveQuotedRange({ buffer, line, quote }) {
+  const lines = [];
+  let offset = 0;
+  for (const text of buffer.toString('utf8').split('\n')) {
+    const length = Buffer.byteLength(text, 'utf8');
+    lines.push({ start: offset, end: offset + length });
+    offset += length + 1;
+  }
+  if (!Number.isInteger(line) || line < 1 || line > lines.length) {
+    return { error: `line ${JSON.stringify(line)} is not a line of this file (it has ${lines.length})` };
+  }
+  const span = 1 + (quote.match(/\n/g)?.length ?? 0);
+  const last = Math.min(lines.length - 1, line - 1 + span - 1);
+  const from = lines[line - 1].start;
+  const to = lines[last].end;
+  const needle = Buffer.from(quote, 'utf8');
+  if (needle.length === 0) return { error: 'the quote is empty' };
+  const found = [];
+  let at = buffer.indexOf(needle, from);
+  while (at >= 0 && at + needle.length <= to) {
+    found.push(at);
+    at = buffer.indexOf(needle, at + 1);
+  }
+  if (found.length === 0) {
+    return { error: `the quote does not occur on line ${line}${span > 1 ? `–${last}` : ''} of this file` };
+  }
+  if (found.length > 1) {
+    return { error: `the quote occurs ${found.length} times between lines ${line} and ${last}; quote a longer passage or name the lines it covers` };
+  }
+  return { start: found[0], end: found[0] + needle.length, span: { line, to: last } };
+}
+
+/**
  * Validate a generated annotation document against the packet it claims to describe. The consumer
  * validates it again when it renders; this pass exists so that fabricated evidence, a stale version, a
  * scope outside the packet, or a document that measures itself against rules of its own making never
@@ -317,6 +371,9 @@ export function validateGeneratedAnnotations({ annotations, manifest, files, sco
   );
   const evidenceIds = new Set();
   const evidence = Array.isArray(annotations.evidence) ? annotations.evidence : [];
+  // How many items the host anchored itself: the provenance records it, because an offset the host resolved
+  // is a different fact from an offset the answer declared.
+  let resolvedOffsets = 0;
   if (evidence.length > MAX_EVIDENCE) errors.push(`at most ${MAX_EVIDENCE} evidence items are accepted, got ${evidence.length}`);
   for (const item of evidence) {
     if (!item || typeof item !== 'object') {
@@ -335,13 +392,30 @@ export function validateGeneratedAnnotations({ annotations, manifest, files, sco
     if (item.sha256 !== file.sha256) {
       errors.push(`evidence ${JSON.stringify(id)} declares sha256 ${String(item.sha256).slice(0, 12)}… but ${item.file} hashes to ${file.sha256.slice(0, 12)}…`);
     }
-    const start = item.start;
-    const end = item.end;
+    const buffer = bytes.get(item.file);
+    let start = item.start;
+    let end = item.end;
+    // A model reads the packet through a paged view and cannot count bytes, so an item may name the line the
+    // passage is on and quote it instead of declaring offsets: the host resolves that here and writes the
+    // offsets into the item, which is what the report consumes. A declared range is still checked against the
+    // bytes exactly as it always was, so a machine that can count keeps the strict form.
+    if ((!Number.isInteger(start) || !Number.isInteger(end) || end <= start) && Number.isInteger(item.line) && typeof item.quote === 'string') {
+      const resolved = resolveQuotedRange({ buffer, line: item.line, quote: item.quote });
+      if (resolved.error) {
+        errors.push(`evidence ${JSON.stringify(id)}: ${resolved.error}`);
+        continue;
+      }
+      start = resolved.start;
+      end = resolved.end;
+      item.start = start;
+      item.end = end;
+      item.offsets_resolved_by = 'host';
+      resolvedOffsets += 1;
+    }
     if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 || end <= start) {
-      errors.push(`evidence ${JSON.stringify(id)} needs integer offsets with start < end`);
+      errors.push(`evidence ${JSON.stringify(id)} needs integer offsets with start < end, or a line and the exact quote of a passage on it`);
       continue;
     }
-    const buffer = bytes.get(item.file);
     if (end > buffer.length) {
       errors.push(`evidence ${JSON.stringify(id)} ends at ${end}, beyond ${item.file} (${buffer.length} bytes)`);
       continue;
@@ -523,7 +597,7 @@ export function validateGeneratedAnnotations({ annotations, manifest, files, sco
       }
     }
   }
-  return { ok: errors.length === 0, errors, version };
+  return { ok: errors.length === 0, errors, version, evidence_resolved: resolvedOffsets };
 }
 
 /**
@@ -598,7 +672,8 @@ export async function generateAnnotations({
   model = config.model,
   attempts = 2,
   unitBudget = null,
-  onChild = null
+  onChild = null,
+  onAttemptStart = null
 }) {
   const coverage = {
     version: acceptedVersion(files.map((file) => ({ path: file.path, role: file.role, sha256: file.sha256, bytes: file.bytes }))),
@@ -685,7 +760,22 @@ export async function generateAnnotations({
     await writeFile(join(runDir, promptFile), prompt, 'utf8');
     const transcript = { sha256: promptSha, bytes: promptBytes.length, file: promptFile, text: prompt };
     lastPrompt = transcript;
+    // A call in flight is reported before it answers, so the console of a running review shows what the
+    // evaluator is doing while it does it: a silence a reader cannot tell from a hang is the one thing a
+    // review that needs minutes must never present.
+    onAttemptStart?.({
+      attempt: callIndex,
+      call,
+      unit,
+      model,
+      prompt_file: promptFile,
+      prompt_bytes: promptBytes.length,
+      prompt_sha256: promptSha,
+      timeout_ms: timeoutMs,
+      started_at: new Date().toISOString()
+    });
     const outcome = await runAnnotationStage({ runDir, prompt, timeoutMs, model, onChild });
+    onAttemptStart?.(null);
     const identity = {
       attempt_id: sha256(`${EVALUATOR_PROVENANCE_SCHEMA}\n${model}\n${promptSha}\n${callIndex}`),
       attempt: callIndex,
@@ -741,6 +831,9 @@ export async function generateAnnotations({
       timed_out: false,
       ok: verdict.ok,
       errors: verdict.errors.slice(0, 12),
+      // How many quotations of this answer the host anchored itself from the line and the quote it was
+      // given, so the record says which offsets were declared and which were resolved.
+      evidence_resolved: verdict.evidence_resolved ?? 0,
       // A broken evaluator and a wrong answer look alike in the text: the child's own diagnostics and its
       // exit code are what tell them apart in the record.
       stderr: (outcome.stderr ?? '').trim().slice(0, 400) || null,

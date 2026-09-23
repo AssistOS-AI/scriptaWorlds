@@ -384,22 +384,29 @@ Generated deterministically from one validated `assessment.json` bundle:
 | --- | --- |
 | `01-stg-compliance.md` | the general rule set (`stg`), its outcomes, unresolved and failed checks, the CAR context and the counts of request/editorial rules kept out of it |
 | `02-specification-adherence.md` | this request and brief mapped to the observed fulfilment, the request's own requirements, editorial preferences and declared departures |
-| `03-metrics-and-indicators.md` | all twelve metrics and eight indicators with status, scope, unit and missing reason, plus segments, boundaries, chronology and coverage |
-| `04-score-justification.md` | per-result method, components, trajectory, arithmetic, bounds, coverage, qualification and limits, plus the profile and provenance |
+| `03-metrics-and-indicators.md` | the measurements that carry a value in one table (metric, value, unit, coverage), one short line per measurement that carries none naming the input it needs, the judged literary indicators in those same two shapes, plus segments, boundaries, chronology and coverage |
+| `04-score-justification.md` | the method, components, trajectory, arithmetic, bounds, coverage, qualification and limits of every measurement that carries a value, one short line per measurement that carries none, plus the profile and provenance |
 | `05-detected-issues.md` | the review in brief (strengths, supported problems, passages, revision options), then prioritized findings with affected passages, alternatives and repairs, and the passages worth retaining |
 
-`index.md` and `05-detected-issues.md` lead with the same review summary, and the reader
-interface renders it first too: what was assessed, the intention the selection was read
-against, the strengths the record observed, the most consequential supported problems with
-the exact passages they rest on, the alternative reading that was preserved and the bounded
-revision options the record itself proposed. `bundle.review.reading_status` distinguishes
+`index.md` leads with the facts of the run — its scope, how many of the twelve metrics carry
+a value and how many need an input this review did not receive, the number of findings, the
+trigger, the profile, the frozen time and `**completed**` — and then carries the same review
+summary `05-detected-issues.md` opens with, and the reader interface renders that summary
+first too: what was assessed, the intention the selection was read against, the strengths the
+record observed, the most consequential supported problems with the exact passages they rest
+on, the alternative reading that was preserved and the bounded revision options the record
+itself proposed. The summary names the measurements it could not produce in one line — how
+many there are and their identifiers, with a pointer to the metrics view for the input each
+one needs — instead of quoting the status and the reason of every one of them.
+`bundle.review.reading_status` distinguishes
 four results — `not_evaluated` (no judgement was produced), `insufficient_evidence` (part of
 the selection was not read), `no_supported_issue_found` (all of it was read without a
 supported problem) and `problems_recorded` — so an empty findings list is never rendered as a
-clean bill of literary health. Every metric keeps its diagnostics in the default view: the
-status and the reason it is unavailable, coverage, bounds, the evaluator, and the whole
+clean bill of literary health. A measurement that carries a value keeps its diagnostics:
+coverage, bounds, the evaluator, and the whole
 `detail` record, including an aggregate's declared weights, its arithmetic and its
-calibration qualification.
+calibration qualification; a measurement that carries none is stated once, as the short line
+that names the input it needs.
 
 `index.md` is navigation only, not a sixth evaluation. A renderer reads the bundle and never
 changes a score or re-judges: re-rendering a stored bundle is byte-identical. Text supplied

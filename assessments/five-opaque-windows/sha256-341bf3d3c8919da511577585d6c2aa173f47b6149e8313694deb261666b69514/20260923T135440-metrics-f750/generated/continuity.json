@@ -1,0 +1,60 @@
+{
+  "schema_version": "continuity-result.v1",
+  "ok": true,
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "universe_id": "five-opaque-windows",
+    "kind": "complete",
+    "chapters": [
+      1
+    ],
+    "omitted": [],
+    "chapters_reviewed": [
+      1
+    ],
+    "coverage_note": "Deterministic integrity review over 1 chapter file(s) and the packet state of a complete book (chapters 1..1). No annotations supplied, so no semantic continuity comparisons were performed. Scoped to the selection (1): 0 of 0 reviewed comparison(s) lie in the selected chapters and only those are counted here.",
+    "coverage": null,
+    "coverage_bounds": null
+  },
+  "reviewed_claims": [],
+  "comparisons": [],
+  "counts": {
+    "eligible_comparisons": 0,
+    "consistent": 0,
+    "contradicted": 0,
+    "unresolved": 0
+  },
+  "derived": {
+    "cci": null,
+    "cad": {
+      "status": "not_applicable",
+      "value": null,
+      "coverage": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "eligible": 0,
+      "reason": "no eligible character change comparisons were reviewed"
+    }
+  },
+  "findings": [],
+  "errors": [],
+  "warnings": [],
+  "outputs": [
+    "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135440-metrics-f750/continuity/continuity-result.json"
+  ],
+  "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "partition": {
+    "examined": 0,
+    "unattributable": 0,
+    "declared_eligible": 0
+  },
+  "evaluated_from": "the whole result",
+  "scoped_from": {
+    "path": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135440-metrics-f750/continuity/continuity-result.json",
+    "sha256": "b8a3307cb3d03df08865f18787868a6e7846abbc223f6fca8799d263e81d44a8",
+    "selection": [
+      1
+    ],
+    "unattributable_comparisons": 0
+  }
+}

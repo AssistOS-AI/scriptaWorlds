@@ -1,0 +1,17 @@
+{
+  "teaser": "The children got their right: one hour of Vela's thinking is now unreadable to everyone under this roof, including Vela, and Odile signed away her own view of it on the licence. Aster wrote herself on the account as the third payer, and the Ledger answered in three days, because a price that cannot be described before it is paid cannot be consented to. Nothing was undone, and the sector now holds an entry it can measure but cannot read.",
+  "options": [
+    {
+      "label": "Sit in on the review",
+      "prompt": "Show the review three days later: what the Ledger asks Aster to prove before it will accept her consent as the third payer, and what she answers."
+    },
+    {
+      "label": "Ask Odile what she sees",
+      "prompt": "Have Odile describe, in her own words and with her own instruments, the shape she finds on her board where Vela's hidden hour should be."
+    },
+    {
+      "label": "Follow Vela up",
+      "prompt": "Let the season end and show Vela arriving at the upper workshop with an hour of herself she can never read again."
+    }
+  ]
+}

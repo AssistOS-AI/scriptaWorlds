@@ -1,0 +1,58 @@
+{
+  "open": [
+    {
+      "id": "thread-0001",
+      "kind": "question",
+      "question": "What will the Ledger require before it accepts Aster as a valid third payer for the quiet room?",
+      "created_chapter": 1,
+      "due_chapter": 2,
+      "status": "open"
+    },
+    {
+      "id": "thread-0002",
+      "kind": "decision",
+      "question": "Will Vela accept the place on the transfer list to the upper workshop at the end of the season?",
+      "created_chapter": 1,
+      "due_chapter": 4,
+      "status": "open"
+    },
+    {
+      "id": "thread-0003",
+      "kind": "question",
+      "question": "Who else in the workshop will live beside a hidden hour of their own now that the technique is licensed?",
+      "created_chapter": 1,
+      "due_chapter": 4,
+      "status": "open"
+    }
+  ],
+  "closed": [
+    {
+      "id": "thread-0004",
+      "kind": "question",
+      "question": "Do the children of the workshop have the technical right to hide a region of themselves from the maker?",
+      "created_chapter": 1,
+      "closed_chapter": 1,
+      "resolution": "Yes: the quiet room was licensed once the account named two payers who consented in their own voice, and the hour was hidden and left hidden."
+    }
+  ],
+  "promises": [
+    {
+      "id": "prom-0001",
+      "to": "Vela",
+      "promise": "Odile will not read, undo or reopen Vela's hidden hour without Vela's own consent.",
+      "created_chapter": 1,
+      "due_chapter": 6,
+      "status": "open"
+    }
+  ],
+  "deferred_answers": [
+    {
+      "id": "def-0001",
+      "question": "What does Odile see where the hidden hour should be — a blank, or a shape with edges?",
+      "reason": "Odile's own account of what she cannot read carries the reflexivity of this world, and it lands harder when the review arrives with instruments attached.",
+      "asked_chapter": 1,
+      "due_chapter": 3,
+      "status": "deferred"
+    }
+  ]
+}

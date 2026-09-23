@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "axes": [
+    {
+      "id": "mind-identity",
+      "name": "Mind & identity",
+      "nodes": [
+        {
+          "id": "unreadable-region",
+          "label": "Unreadable region inside a person",
+          "state": "decision",
+          "chapters": [1]
+        },
+        {
+          "id": "pattern-with-a-gap",
+          "label": "A person is a pattern that can keep a gap",
+          "state": "mentioned",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "knowledge-truth",
+      "name": "Knowledge & truth",
+      "nodes": [
+        {
+          "id": "opacity-as-absence",
+          "label": "Hiding felt by another as a physical absence",
+          "state": "dramatized",
+          "chapters": [1]
+        },
+        {
+          "id": "unverifiable-consent",
+          "label": "A price that must be paid before it can be named",
+          "state": "dramatized",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "reality-simulation",
+      "name": "Reality & simulation",
+      "nodes": [
+        {
+          "id": "readable-substrate",
+          "label": "A maker who reads almost every system under her roof",
+          "state": "dramatized",
+          "chapters": [1]
+        },
+        {
+          "id": "subtraction-not-addition",
+          "label": "The finite sector extends by subtraction",
+          "state": "mentioned",
+          "chapters": [1]
+        }
+      ]
+    },
+    {
+      "id": "civilization-power",
+      "name": "Civilization & power",
+      "nodes": [
+        {
+          "id": "consenting-payer-account",
+          "label": "A solution is licensed only with a payer who consents in their own voice",
+          "state": "dramatized",
+          "chapters": [1]
+        }
+      ]
+    }
+  ]
+}

@@ -5,11 +5,6 @@
  */
 
 /* ---------------- the report ---------------- */
-.report__runs {
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
-}
-
 .report__run {
   display: grid;
   gap: 12px;
@@ -35,6 +30,28 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+/* When the run finished and in which state: one line under the title, the facts in bold. */
+.report__run-when {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.report__details {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.report__details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink-soft);
 }
 
 .report__historical {

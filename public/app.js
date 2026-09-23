@@ -13,8 +13,9 @@ import { bindTableInfo } from './ui/render/tableinfo.js';
 import { renderMenuItems } from './ui/render/menu.js';
 import { render } from './ui/render/reader.js';
 import { applyTransform, navigate } from './ui/slides.js';
-import { UNIVERSE_KEY, bindDom, dom, state } from './ui/state.js';
 import { selectUniverse } from './ui/universe.js';
+import { closeSessions } from './ui/sessions.js';
+import { UNIVERSE_KEY, bindDom, dom, state } from './ui/state.js';
 
 export function bindEvents() {
   bindLanguage();
@@ -46,6 +47,7 @@ export function bindEvents() {
     });
   }
   dom['requests-hide'].addEventListener('click', closePanel);
+  dom['sessions-close'].addEventListener('click', closeSessions);
   dom['rewrite-hide'].addEventListener('click', closePanel);
   dom['review-close'].addEventListener('click', closePanel);
   dom['report-close'].addEventListener('click', closePanel);

@@ -6,6 +6,7 @@ import { renderUniverseList } from './render/explore.js';
 import { renderMenuItems } from './render/menu.js';
 import { renderRequests } from './render/reader.js';
 import { renderReport } from './render/report.js';
+import { renderSessions } from './render/sessions.js';
 import { renderFeedback } from './render/feedback.js';
 import { renderReview } from './render/review.js';
 import { dom, state } from './state.js';
@@ -82,13 +83,14 @@ export async function sendRewrite({ dropLater = false } = {}) {
   }
 }
 
-export const PANELS = ['requests', 'rewrite', 'review', 'report', 'feedback'];
+export const PANELS = ['requests', 'sessions', 'rewrite', 'review', 'report', 'feedback'];
 
 export const POPUPS = ['universes', 'more', 'tabledialog'];
 
 export function renderPanels() {
   for (const name of PANELS) dom[name].hidden = state.panel !== name;
   if (state.panel === 'requests') renderRequests();
+  if (state.panel === 'sessions') renderSessions();
   if (state.panel === 'rewrite') renderRewrite();
   if (state.panel === 'review') renderReview();
   if (state.panel === 'report') renderReport();

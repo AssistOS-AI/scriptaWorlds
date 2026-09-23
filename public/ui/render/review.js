@@ -1,15 +1,16 @@
 /**
- * scriptaWorlds — The review panel: what to run, what to cover, and the runs of this book as they move.
+ * scriptaWorlds — The review panel: what to review, one button, the last report, and the history.
  *
- * The form is built once per opening and its controls write straight into `state.review`, so a refresh
- * of the run list never discards a half-made choice. The run list below it follows the run this client
- * started, and every run of the book the host still lists.
+ * The panel asks the two things a reader can decide — this chapter or the whole book — and keeps
+ * everything else out of the way: the phase, the profile and who produces the observations are the
+ * host's own settings. Below the button it answers the only other question a reader has: what came out
+ * of the last review, and which reports exist. A run that is still going is read in the sessions
+ * dialog, which the start opens on its own.
  */
-import { acceptedChapterNumbers, cancelRun, chapterTitle, refreshRuns, retryRun, reviewScopeLabel, reviewTarget, startReview } from '../review.js';
-import { iconButton } from '../icons.js';
+import { cancelRun, chapterTitle, deleteRun, refreshRuns, retryRun, reviewScopeLabel, reviewTarget, startReview } from '../review.js';
 import { openReport } from '../report.js';
-import { runRow } from './runs.js';
-import { REVIEW_MODES, REVIEW_PHASES, RUN_FAILED_STATUSES, RUN_LIVE_STATUSES, dom, el, elem, state } from '../state.js';
+import { openSessions } from '../sessions.js';
+import { RUN_FAILED_STATUSES, RUN_LIVE_STATUSES, dom, elem, el, plural, state } from '../state.js';
 
 export function renderReview() {
   const model = reviewTarget();
@@ -21,10 +22,10 @@ export function renderReview() {
     model.built = true;
   }
   syncReviewForm(model);
-  const list = el('review-runs');
-  if (list) list.replaceChildren(...runRows(model));
-  const count = el('review-count');
-  if (count) count.textContent = state.runs.length ? `${state.runs.length} in this book` : '';
+  const latest = el('review-latest');
+  if (latest) latest.replaceChildren(...latestNodes(model));
+  const history = el('review-history');
+  if (history) history.replaceChildren(...historyNodes());
 }
 
 function radioGroup({ name, legend, options, value, onChange }) {
@@ -45,119 +46,172 @@ function radioGroup({ name, legend, options, value, onChange }) {
   return fieldset;
 }
 
-function chapterSelect(id, numbers, value, onChange) {
-  return elem('select', {
-    className: 'analysis__select',
-    attrs: { id },
-    on: { change: (event) => onChange(Number(event.currentTarget.value)) }
-  }, ...numbers.map((number) => elem('option', {
-    attrs: { value: String(number), ...(number === value ? { selected: true } : {}) },
-    text: chapterTitle(number) ? `${number} · ${chapterTitle(number)}` : String(number)
-  })));
-}
-
 function reviewForm(model) {
-  const numbers = acceptedChapterNumbers();
-  const phases = REVIEW_PHASES.map((phase) => ({ ...phase }));
+  const chapter = model.chapter;
   const scopes = [
     {
       value: 'chapter',
-      label: model.chapter != null ? `This chapter — ${model.chapter}${chapterTitle(model.chapter) ? ` · ${chapterTitle(model.chapter)}` : ''}` : 'This chapter',
-      hint: 'The chapter whose toolbar opened this panel.'
+      label: chapter != null
+        ? `This chapter — ${chapter}${chapterTitle(chapter) ? ` · ${chapterTitle(chapter)}` : ''}`
+        : 'This chapter',
+      hint: 'The chapter this dialog was opened from.'
     },
-    { value: 'arc', label: 'An arc — a run of chapters', hint: 'A contiguous stretch of the accepted chapters.' },
     { value: 'book', label: 'The whole book', hint: 'Every accepted chapter, reviewed as one version.' }
   ];
-  const form = elem('form', {
+  return elem('form', {
     className: 'analysis__form',
     attrs: { id: 'review-form' },
     on: { submit: (event) => { event.preventDefault(); startReview(); } }
   },
-  elem('p', { className: 'analysis__hint', text: 'A review freezes the accepted version into a packet outside the book and reads that copy. It never changes a chapter, and it spends the evaluator only when the observations below ask for it.' }),
-  radioGroup({
-    name: 'phase',
-    legend: 'What to run',
-    options: phases,
-    value: model.phase,
-    onChange: (option) => { model.phase = option.value; renderReview(); }
-  }),
+  elem('p', { className: 'analysis__hint', text: 'A review freezes the accepted text into a packet outside the book and reads that copy. It never changes a chapter; the report it publishes is written outside the book too.' }),
   radioGroup({
     name: 'scope',
-    legend: 'What to cover',
+    legend: 'What to review',
     options: scopes,
     value: model.scope,
     onChange: (option) => { model.scope = option.value; renderReview(); }
   }),
-  elem('div', { className: 'analysis__arc', attrs: { id: 'review-arc' } },
-    elem('label', { className: 'analysis__inline', attrs: { for: 'review-from' } },
-      elem('span', { text: 'from' }),
-      numbers.length ? chapterSelect('review-from', numbers, model.from, (value) => { model.from = value; renderReview(); }) : elem('span', { text: '—' })
-    ),
-    elem('label', { className: 'analysis__inline', attrs: { for: 'review-to' } },
-      elem('span', { text: 'to' }),
-      numbers.length ? chapterSelect('review-to', numbers, model.to, (value) => { model.to = value; renderReview(); }) : elem('span', { text: '—' })
-    )
-  ),
-  elem('fieldset', { className: 'analysis__set' },
-    elem('legend', { text: 'Who produces the observations' }),
-    elem('select', {
-      className: 'analysis__select',
-      attrs: { id: 'review-mode', 'aria-label': 'Who produces the observations' },
-      on: { change: (event) => { model.mode = event.currentTarget.value; renderReview(); } }
-    }, ...REVIEW_MODES.map((mode) => elem('option', {
-      attrs: { value: mode.value, ...(mode.value === model.mode ? { selected: true } : {}) },
-      text: mode.label
-    }))),
-    elem('p', { className: 'analysis__hint', attrs: { id: 'review-mode-hint' } })
-  ),
-  elem('fieldset', { className: 'analysis__set' },
-    elem('legend', { text: 'Aggregate (optional)' }),
-    elem('label', { className: 'analysis__choice', attrs: { for: 'review-aggregate' } },
-      elem('input', {
-        attrs: { type: 'checkbox', id: 'review-aggregate', ...(model.aggregate ? { checked: true } : {}) },
-        on: { change: (event) => { model.aggregate = event.currentTarget.checked; renderReview(); } }
-      }),
-      elem('span', { className: 'analysis__choice-body' },
-        elem('span', { className: 'analysis__choice-label', text: 'Combine the components into one score' }),
-        elem('span', { className: 'analysis__choice-hint', text: 'Off by default: a single number hides its components. When it is on it is published as an advisory research result, not as a calibrated one.' })
-      )
-    ),
-    elem('label', { className: 'field', attrs: { for: 'review-intention' } },
-      elem('span', { className: 'field__label', text: 'Intention the emotional component is compared against' }),
-      elem('input', {
-        className: 'analysis__input',
-        attrs: { id: 'review-intention', type: 'text', placeholder: 'What should this book make the reader feel?', ...(model.intention ? { value: model.intention } : {}) },
-        on: { input: (event) => { model.intention = event.currentTarget.value; } }
-      })
-    )
-  ),
   elem('p', { className: 'analysis__error', attrs: { id: 'review-error', role: 'alert' } }),
   elem('div', { className: 'popup__actions' },
-    elem('button', { className: 'btn btn--accent', text: 'Start the review', attrs: { type: 'submit', id: 'review-start' } }),
+    elem('button', { className: 'btn btn--accent', text: 'Start review', attrs: { type: 'submit', id: 'review-start' } }),
     elem('span', { className: 'analysis__hint', attrs: { id: 'review-scope-note' } })
   ),
   elem('section', { className: 'analysis__runs' },
+    elem('h3', { className: 'analysis__subtitle' }, elem('span', { text: 'Latest report' })),
+    elem('div', { attrs: { id: 'review-latest' } })
+  ),
+  elem('section', { className: 'analysis__runs' },
     elem('h3', { className: 'analysis__subtitle' },
-      elem('span', { text: 'Runs of this book' }),
+      elem('span', { text: 'Earlier reports' }),
       elem('span', { className: 'analysis__count', attrs: { id: 'review-count' } }),
-      iconButton({ name: 'report', label: 'Refresh the run list', className: 'iconbtn iconbtn--small', on: { click: () => reloadRuns() } })
+      elem('button', {
+        className: 'btn btn--quiet',
+        text: 'Refresh',
+        attrs: { type: 'button' },
+        on: { click: () => reloadRuns() }
+      })
     ),
-    elem('p', { className: 'analysis__hint', text: 'Queued and running reviews are read from the host while they work; the list also follows the turn stream, so a finished chapter shows up without asking again.' }),
-    elem('ul', { className: 'runlist', attrs: { id: 'review-runs' } })
+    elem('div', { attrs: { id: 'review-history' } })
   ));
-  return form;
+}
+
+function secondsText(ms) {
+  return Number.isFinite(ms) ? `${Math.round(ms / 1000)} s` : null;
+}
+
+function whenText(value) {
+  if (!value) return '—';
+  return new Date(value).toLocaleString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function isReadable(run) {
+  return run.status === 'done' && Array.isArray(run.outputs) && run.outputs.length > 0;
+}
+
+/** One line of the history: a bold label, the facts, then the state of the run. */
+function line(facts, { run = null } = {}) {
+  const [label, ...rest] = facts;
+  return elem('p', { className: 'analysis__line' },
+    elem('strong', { text: label }),
+    ...rest.filter(Boolean).map((fact) => elem('span', { text: fact })),
+    run ? elem('span', { className: `badge badge--${run.status}`, text: String(run.status).replace(/_/g, ' ') }) : null
+  );
+}
+
+/** What a reader can do with one run of the history, by the state it is in. */
+function actionsFor(run, { primary = false } = {}) {
+  const watch = { label: primary ? 'Watch the run' : 'Console', quiet: !primary, onClick: () => openSessions({ run: run.run_id }) };
+  if (RUN_LIVE_STATUSES.has(run.status)) {
+    return [watch, { label: 'Cancel', quiet: true, onClick: () => { cancelRun(run.run_id); } }];
+  }
+  if (isReadable(run)) {
+    return [{ label: primary ? 'Open the report' : 'Report', onClick: () => openReport({ runId: run.run_id }) }, watch];
+  }
+  if (RUN_FAILED_STATUSES.has(run.status) || run.status === 'interrupted') {
+    return [{ label: 'Retry', onClick: () => { retryRun(run.run_id); } }, watch];
+  }
+  return [watch];
+}
+
+/** What came out of the last review: the report it published, the run still going, or nothing yet. */
+function latestNodes(model) {
+  if (state.runs.length === 0) {
+    return [elem('p', { className: 'analysis__hint', text: 'No review of this book yet. Pick a scope and press Start review.' })];
+  }
+  const run = state.runs[0];
+  const nodes = [line([`${run.phase === 'continuity' ? 'Continuity' : 'Metrics'} review`, scopeOf(run), whenText(run.created_at)], { run })];
+  if (RUN_LIVE_STATUSES.has(run.status)) {
+    nodes.push(elem('p', { className: 'analysis__hint', text: `Running now${run.started_at ? ` since ${whenText(run.started_at)}` : ''}. The run is read in ALA sessions.` }));
+  } else if (isReadable(run)) {
+    nodes.push(elem('p', { className: 'analysis__hint', text: `Published ${plural(run.outputs.length, 'file', 'files')}${secondsText(run.duration_ms) ? ` in ${secondsText(run.duration_ms)}` : ''}.` }));
+  } else {
+    nodes.push(elem('p', { className: 'analysis__hint', text: `This run published nothing${run.error ? `: ${run.error}` : '.'}` }));
+  }
+  nodes.push(actionsRow(actionsFor(run, { primary: true })));
+  return nodes;
+}
+
+/**
+ * The reports this book has published before the newest one, newest first, each a link that opens it: the
+ * date it ran, its phase and the scope it covered, and one control that removes it for good. Runs that
+ * published nothing — cancelled, failed, interrupted — are not reports and are not listed here; the newest
+ * run of any state stays in the panel above, with the actions its state allows.
+ */
+function historyNodes() {
+  const latest = state.runs[0] ?? null;
+  const runs = state.runs.filter((run) => isReadable(run) && run.run_id !== latest?.run_id);
+  if (runs.length === 0) {
+    return [elem('p', { className: 'analysis__hint', text: 'No earlier report of this book.' })];
+  }
+  return runs.map((run) => {
+    const label = `${whenText(run.created_at)} · ${run.phase === 'continuity' ? 'continuity' : 'metrics'} review · ${scopeOf(run)}`;
+    const confirming = state.review?.confirms === run.run_id;
+    return elem('div', { className: 'analysis__runline' },
+      elem('a', {
+        className: 'analysis__report-link',
+        text: label,
+        attrs: { href: '#', title: 'Open this report', 'aria-label': `Open the report of ${label}` },
+        on: { click: (event) => { event.preventDefault(); openReport({ runId: run.run_id }); } }
+      }),
+      confirming
+        ? actionsRow([
+          {
+            label: 'Delete it',
+            onClick: () => { state.review.confirms = null; deleteRun(run.run_id); }
+          },
+          { label: 'Keep it', quiet: true, onClick: () => { state.review.confirms = null; renderReview(); } }
+        ])
+        : actionsRow([
+          {
+            label: 'Delete',
+            quiet: true,
+            onClick: () => { state.review.confirms = run.run_id; renderReview(); }
+          }
+        ])
+    );
+  });
+}
+
+function actionsRow(actions) {
+  return elem('div', { className: 'popup__actions' }, ...actions.map((action) => elem('button', {
+    className: action.quiet ? 'btn btn--quiet' : 'btn',
+    text: action.label,
+    attrs: { type: 'button' },
+    on: { click: action.onClick }
+  })));
+}
+
+function scopeOf(run) {
+  const scope = run.requested_scope ?? run.scope;
+  if (!scope) return '—';
+  if (scope.kind === 'book') return 'the whole book';
+  const chapters = Array.isArray(scope.chapters) ? scope.chapters : [];
+  if (chapters.length === 0) return String(scope.kind);
+  if (chapters.length > 3) return `chapters ${chapters[0]}–${chapters[chapters.length - 1]}`;
+  return `chapter ${chapters.join(', ')}`;
 }
 
 function syncReviewForm(model) {
-  const arc = el('review-arc');
-  if (arc) arc.hidden = model.scope !== 'arc';
-  const intention = el('review-intention');
-  if (intention) {
-    intention.disabled = !model.aggregate;
-    if (intention.value !== (model.intention ?? '')) intention.value = model.intention ?? '';
-  }
-  const hint = el('review-mode-hint');
-  if (hint) hint.textContent = REVIEW_MODES.find((mode) => mode.value === model.mode)?.hint ?? '';
   const error = el('review-error');
   if (error) {
     error.textContent = model.error ?? '';
@@ -166,26 +220,19 @@ function syncReviewForm(model) {
   const start = el('review-start');
   if (start) {
     start.disabled = model.busy || !state.universeId;
-    start.textContent = model.busy ? 'Starting…' : 'Start the review';
+    start.textContent = model.busy ? 'Starting…' : 'Start review';
   }
   const note = el('review-scope-note');
   if (note) note.textContent = model.busy ? 'the host is freezing the packet' : `covering ${reviewScopeLabel()}`;
-}
-
-function runRows(model) {
-  if (!state.runs.length) {
-    return [elem('li', { className: 'runlist__empty', text: 'No review of this book yet.' })];
+  const count = el('review-count');
+  if (count) {
+    const latest = state.runs[0] ?? null;
+    const reports = state.runs.filter((run) => isReadable(run) && run.run_id !== latest?.run_id).length;
+    count.textContent = reports > 0 ? plural(reports, 'earlier report', 'earlier reports') : '';
   }
-  return state.runs.map((run) => runRow(run, {
-    current: run.run_id === model.active,
-    onOpen: (entry) => openReport({ runId: entry.run_id }),
-    actions: RUN_LIVE_STATUSES.has(run.status)
-      ? [{ label: 'Cancel', onClick: () => { cancelRun(run.run_id); } }]
-      : (RUN_FAILED_STATUSES.has(run.status) ? [{ label: 'Retry', onClick: () => { retryRun(run.run_id); } }] : [])
-  }));
 }
 
-/** Re-read the list without touching the form: the "Runs" heading offers it for a manual refresh. */
+/** Re-read the list without touching the form. */
 export function reloadRuns() {
   refreshRuns({ force: true }).catch(() => {});
 }

@@ -1,0 +1,71 @@
+{
+  "schema_version": "assessment-input.v2",
+  "universe_id": "five-opaque-windows",
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "captured_at": "2026-09-23T13:54:40.248Z",
+  "book": {
+    "title": "The Five Opaque Windows",
+    "language": "en",
+    "last_accepted_chapter": 1
+  },
+  "scope": {
+    "kind": "complete",
+    "chapters": [
+      1
+    ],
+    "omitted": []
+  },
+  "files": [
+    {
+      "path": "canon.md",
+      "sha256": "9b32e55dc848ae51f0f256d61c6d9001b7f7fdc0aef8f028f48d4ae8273df8cd",
+      "bytes": 6957,
+      "role": "canon",
+      "artifact_id": "canon"
+    },
+    {
+      "path": "threads.json",
+      "sha256": "4fcf1c8d0c2587fa2e6c53cfd0b735ddc8b1bb356375a69e129485b47e9d9163",
+      "bytes": 1910,
+      "role": "threads",
+      "artifact_id": "threads"
+    },
+    {
+      "path": "atlas.json",
+      "sha256": "c53be17781c0259182cbe60b99168c7cc456b913d355f4218828cecde4f023a4",
+      "bytes": 1781,
+      "role": "atlas",
+      "artifact_id": "atlas"
+    },
+    {
+      "path": "chapters/0001-who-pays-for-the-quiet.md",
+      "sha256": "edf7956f346a7cc91e66404b2a1b3086b664bd917d9457230ea82a8b8ae8561e",
+      "bytes": 8053,
+      "role": "chapter",
+      "chapter": 1,
+      "artifact_id": "chapter-0001"
+    },
+    {
+      "path": "chapters/0001-offer.json",
+      "sha256": "6213e06231ccdeeb85657b28385b03d6e78c12601faa92c235e9aec8e19331c4",
+      "bytes": 1082,
+      "role": "offer",
+      "chapter": 1,
+      "artifact_id": "offer-0001"
+    },
+    {
+      "path": "profile.json",
+      "sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+      "bytes": 264,
+      "role": "profile",
+      "artifact_id": "profile"
+    },
+    {
+      "path": "rules/applicable-rules.v1.json",
+      "sha256": "66c7db73177788c220843384a1f9bcf00951796fe6b3a118dc6362d964fcf4bf",
+      "bytes": 5459,
+      "role": "rules",
+      "artifact_id": "rules"
+    }
+  ]
+}

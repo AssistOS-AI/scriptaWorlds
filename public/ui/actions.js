@@ -10,6 +10,7 @@ import { ingredientPayload } from './render/ingredients.js';
 import { renderMenuItems } from './render/menu.js';
 import { render } from './render/reader.js';
 import { resetAssessmentState } from './review.js';
+import { openSessions, resetSessions } from './sessions.js';
 import { openJobStream, stopEvents } from './sse.js';
 import { dom, state } from './state.js';
 import { refreshDetail, selectUniverse, upsertLive } from './universe.js';
@@ -17,6 +18,7 @@ import { refreshDetail, selectUniverse, upsertLive } from './universe.js';
 export function openExploration() {
   stopEvents();
   resetAssessmentState();
+  resetSessions();
   state.universeId = null;
   state.universe = null;
   state.detail = null;
@@ -27,7 +29,6 @@ export function openExploration() {
   state.requestChapter = null;
   state.rewrite = null;
   state.chapters.clear();
-  state.expanded.clear();
   const url = new URL(window.location.href);
   url.searchParams.delete('universe');
   try {
@@ -69,6 +70,8 @@ export async function submitRequest(message, { kind = 'chapter', format = null, 
     }
     await refreshDetail({ targetIndex: 'end' });
     renderMenuItems();
+    // A request starts a run, and the run is read where it happens: the console of that turn.
+    if (job?.turnNumber != null) openSessions({ turn: job.turnNumber });
   } catch (error) {
     showError(error.message);
   }
@@ -148,6 +151,9 @@ async function createFromField(text, { onError = null } = {}) {
     }
     if (id) await selectUniverse(id, { targetIndex: 'end' });
     else await refreshDetail({ targetIndex: 'keep' });
+    // The first chapter was queued a moment ago: the reader lands on its console instead of on a
+    // book that looks empty, so the creation is watched where it happens.
+    if (job?.turnNumber != null) openSessions({ turn: job.turnNumber });
     return true;
   } catch (error) {
     // The field keeps the text; the line under it says what the server refused.
@@ -169,6 +175,7 @@ export async function retryTurn(number, button) {
       upsertLive({ ...job, tools: [], text: '' });
     }
     await refreshDetail({ targetIndex: 'keep' });
+    if (job?.turnNumber != null) openSessions({ turn: job.turnNumber });
   } catch (error) {
     showError(error.message);
   } finally {

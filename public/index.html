@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="styles/base.css">
 <link rel="stylesheet" href="styles/reader.css">
 <link rel="stylesheet" href="styles/live.css">
+<link rel="stylesheet" href="styles/sessions.css">
 <link rel="stylesheet" href="styles/explore.css">
 <link rel="stylesheet" href="styles/composer.css">
 <link rel="stylesheet" href="styles/overlays.css">
@@ -50,7 +51,9 @@
         <h2 class="popup__title">Universes</h2>
         <button type="button" class="popup__close" id="universes-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <ul class="unilist" id="universe-list"></ul>
+      </div>
     </div>
   </div>
 
@@ -60,7 +63,9 @@
         <h2 class="popup__title" id="request-title">What you asked for</h2>
         <button type="button" class="popup__close" id="requests-hide" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <ul class="reqlist" id="request-list"></ul>
+      </div>
     </div>
   </div>
 
@@ -70,7 +75,9 @@
         <h2 class="popup__title" id="tabledialog-title">Details</h2>
         <button type="button" class="popup__close" id="tabledialog-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <div class="td__body" id="tabledialog-body"></div>
+      </div>
       <div class="popup__actions">
         <button type="button" class="btn btn--accent" id="tabledialog-add">Add to my world</button>
       </div>
@@ -83,14 +90,32 @@
         <h2 class="popup__title" id="rewrite-title">Rewrite chapter</h2>
         <button type="button" class="popup__close" id="rewrite-hide" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <label class="field" for="rewrite-instructions">
         <span class="field__label">What is wrong and what should change?</span>
         <textarea id="rewrite-instructions" rows="3" placeholder="Be concrete: what to keep, what to change, how it should end."></textarea>
       </label>
       <p class="rewrite__error" id="rewrite-error" hidden></p>
+      </div>
       <div class="popup__actions">
         <button type="button" class="btn btn--accent" id="rewrite-submit">Rewrite chapter</button>
         <button type="button" class="btn btn--quiet" id="rewrite-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="sessions" role="dialog" aria-modal="true" aria-label="ALA sessions" hidden>
+    <div class="popup__panel">
+      <div class="popup__head">
+        <h2 class="popup__title">ALA sessions</h2>
+        <button type="button" class="popup__close" id="sessions-close" aria-label="Close">&#215;</button>
+      </div>
+      <div class="popup__body popup__body--fill">
+      <p class="sessions__count" id="sessions-count"></p>
+      <div class="sessions" id="sessions-body">
+        <ul class="sessions__list" id="sessions-list" aria-label="Runs of this book"></ul>
+        <div class="sessions__view" id="sessions-console"></div>
+      </div>
       </div>
     </div>
   </div>
@@ -101,7 +126,9 @@
         <h2 class="popup__title" id="review-title">Review</h2>
         <button type="button" class="popup__close" id="review-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <div class="analysis" id="review-body"></div>
+      </div>
     </div>
   </div>
 
@@ -111,7 +138,9 @@
         <h2 class="popup__title" id="report-title">Reports</h2>
         <button type="button" class="popup__close" id="report-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <div class="analysis" id="report-body"></div>
+      </div>
     </div>
   </div>
 
@@ -121,7 +150,9 @@
         <h2 class="popup__title" id="feedback-title">Reader feedback</h2>
         <button type="button" class="popup__close" id="feedback-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <div class="analysis" id="feedback-body"></div>
+      </div>
     </div>
   </div>
 
@@ -131,7 +162,9 @@
         <h2 class="popup__title">Edition</h2>
         <button type="button" class="popup__close" id="menu-close" aria-label="Close">&#215;</button>
       </div>
+      <div class="popup__body">
       <div class="menu__items" id="menu-items"></div>
+      </div>
     </div>
   </div>
 

@@ -19,20 +19,6 @@
   width: 9px; height: 9px; border-radius: 50%; background: var(--accent); animation: pulse 1.4s ease-in-out infinite;
 }
 
-.live__text {
-  margin: 0;
-  max-height: 40vh;
-  overflow-y: auto;
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--paper-soft);
-  font-family: var(--mono-font);
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
 
 .turnfail {
   display: grid; gap: 10px; justify-items: start;

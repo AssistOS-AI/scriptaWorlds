@@ -1,0 +1,1062 @@
+{"type":"job","job":{"id":"j_d01c3d4b","universeId":"sop-lang-circuits","kind":"import","format":"both","status":"queued","createdAt":"2026-09-23T12:17:41.217Z","startedAt":null,"finishedAt":null,"turnNumber":3,"chapterNumber":null,"request":"Import chapters 1-1 of an uploaded book","queuePosition":1,"result":null,"error":null},"at":"2026-09-23T12:17:41.218Z"}
+{"type":"job","job":{"id":"j_d01c3d4b","universeId":"sop-lang-circuits","kind":"import","format":"both","status":"running","createdAt":"2026-09-23T12:17:41.217Z","startedAt":"2026-09-23T12:17:41.218Z","finishedAt":null,"turnNumber":3,"chapterNumber":1,"request":"Import chapters 1-1 of an uploaded book","queuePosition":0,"result":null,"error":null},"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:41.221Z"}
+{"type":"phase","phase":"agent","text":"ALA is writing chapter 1","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:41.222Z"}
+{"type":"delta","text":"I","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.045Z"}
+{"type":"delta","text":"'ll","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.045Z"}
+{"type":"delta","text":" start","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.045Z"}
+{"type":"delta","text":" by","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.045Z"}
+{"type":"delta","text":" reading","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.045Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.046Z"}
+{"type":"delta","text":" skill","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.046Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.057Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.058Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.058Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.067Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.335Z"}
+{"type":"tool","state":"start","name":"read","detail":".","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.335Z"}
+{"type":"tool","state":"end","name":"read","detail":".","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.337Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:43.338Z"}
+{"type":"tool","state":"start","name":"read","detail":"universe.json","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"start","name":"read","detail":"charter.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"start","name":"read","detail":"canon.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"start","name":"read","detail":"threads.json","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"start","name":"read","detail":"atlas.json","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"start","name":"read","detail":".agents","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.344Z"}
+{"type":"tool","state":"end","name":"read","detail":".agents","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.346Z"}
+{"type":"tool","state":"end","name":"read","detail":"atlas.json","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.347Z"}
+{"type":"tool","state":"end","name":"read","detail":"threads.json","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.347Z"}
+{"type":"tool","state":"end","name":"read","detail":"canon.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.348Z"}
+{"type":"tool","state":"end","name":"read","detail":"charter.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.348Z"}
+{"type":"tool","state":"end","name":"read","detail":"universe.json","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:45.349Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/extraction-format.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/segmentation.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/prose-cleaning.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/state-files.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/turn-discipline.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"start","name":"read","detail":"skill://scripta-import/references/validator-contract.md","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/validator-contract.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.652Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/turn-discipline.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.653Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/state-files.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.654Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/prose-cleaning.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.654Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/segmentation.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.655Z"}
+{"type":"tool","state":"end","name":"read","detail":"skill://scripta-import/references/extraction-format.md","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:47.655Z"}
+{"type":"tool","state":"start","name":"bash","detail":"jq '{schema_version, import_id, source, detected, warnings, chapters: [.chapters[] | {number, title, words, text_len: (.\n… (trunchiat)","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:51.275Z"}
+{"type":"tool","state":"start","name":"read","detail":".agents/import/book.md:1-120","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:51.275Z"}
+{"type":"tool","state":"end","name":"read","detail":".agents/import/book.md:1-120","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:51.598Z"}
+{"type":"tool","state":"end","name":"bash","detail":"jq '{schema_version, import_id, source, detected, warnings, chapters: [.chapters[] | {number, title, words, text_len: (.\n… (trunchiat)","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:17:51.624Z"}
+{"type":"delta","text":"Ext","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":"raction","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" looks","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" suspicious","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" text","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.348Z"}
+{"type":"delta","text":" appears","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":" character","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":"-sh","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":"ifted","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":" Let","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.391Z"}
+{"type":"delta","text":" me","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.392Z"}
+{"type":"delta","text":" analyze","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.392Z"}
+{"type":"delta","text":" it","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.394Z"}
+{"type":"delta","text":" properly","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.394Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.394Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:16.928Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:17.136Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:18.826Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:19.483Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:19.527Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:23.369Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:23.379Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:27.868Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:28.355Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:28.358Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:42.889Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:42.922Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:18:52.357Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:53.087Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:18:53.090Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:01.172Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:02.206Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:02.321Z"}
+{"type":"delta","text":"Ext","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.058Z"}
+{"type":"delta","text":"raction","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.069Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.070Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.070Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.070Z"}
+{"type":"delta","text":"-sh","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.105Z"}
+{"type":"delta","text":"ifted","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.105Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.105Z"}
+{"type":"delta","text":" letters","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.110Z"}
+{"type":"delta","text":"p","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.110Z"}
+{"type":"delta","text":"aced","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.110Z"}
+{"type":"delta","text":" cipher","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.110Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.140Z"}
+{"type":"delta","text":" Let","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" me","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" read","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" validator","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" to","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" see","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" exactly","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" what","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.141Z"}
+{"type":"delta","text":" faithful","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.152Z"}
+{"type":"delta","text":" import","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.152Z"}
+{"type":"delta","text":" must","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.222Z"}
+{"type":"delta","text":" satisfy","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.222Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.222Z"}
+{"type":"tool","state":"start","name":"bash","detail":"ls -la .agents/skills/scripta-import/","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.913Z"}
+{"type":"tool","state":"start","name":"glob","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/**","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.913Z"}
+{"type":"tool","state":"end","name":"glob","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/**","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.915Z"}
+{"type":"tool","state":"end","name":"bash","detail":"ls -la .agents/skills/scripta-import/","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:17.942Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:19.196Z"}
+{"type":"tool","state":"start","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/lib/validate.mjs","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:19.550Z"}
+{"type":"tool","state":"start","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/lib/text.mjs","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:19.550Z"}
+{"type":"tool","state":"end","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/lib/text.mjs","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:19.551Z"}
+{"type":"tool","state":"end","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/lib/validate.mjs","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:19.553Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:32.420Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:32.520Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:19:35.430Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:35.821Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:35.825Z"}
+{"type":"tool","state":"start","name":"read","detail":"chapters","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.066Z"}
+{"type":"tool","state":"start","name":"read","detail":"drafts","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.067Z"}
+{"type":"tool","state":"end","name":"read","detail":"drafts","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.068Z"}
+{"type":"tool","state":"end","name":"read","detail":"chapters","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.070Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.071Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:49.184Z"}
+{"type":"tool","state":"start","name":"bash","detail":"node .agents/skills/scripta-import/scripts/validate-import.mjs --universe . --import .agents/import/extracted.json; echo\n… (trunchiat)","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:59.361Z"}
+{"type":"tool","state":"end","name":"bash","detail":"node .agents/skills/scripta-import/scripts/validate-import.mjs --universe . --import .agents/import/extracted.json; echo\n… (trunchiat)","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:59.479Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:59.481Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:19:59.573Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:09.551Z"}
+{"type":"tool","state":"start","name":"bash","detail":"node .agents/skills/scripta-import/scripts/validate-import.mjs --universe . --import .agents/import/extracted.json > /tm\n… (trunchiat)","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:10.330Z"}
+{"type":"tool","state":"start","name":"glob","detail":".","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:10.330Z"}
+{"type":"tool","state":"end","name":"glob","detail":".","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:10.332Z"}
+{"type":"tool","state":"end","name":"bash","detail":"node .agents/skills/scripta-import/scripts/validate-import.mjs --universe . --import .agents/import/extracted.json > /tm\n… (trunchiat)","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:10.431Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:13.259Z"}
+{"type":"tool","state":"start","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:13.479Z"}
+{"type":"tool","state":"end","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:13.482Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:14.993Z"}
+{"type":"tool","state":"start","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs:38-82","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:15.221Z"}
+{"type":"tool","state":"end","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs:38-82","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:15.224Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:16.344Z"}
+{"type":"tool","state":"start","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs:85-111","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:16.600Z"}
+{"type":"tool","state":"end","name":"read","detail":"/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-import.mjs:85-111","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:16.601Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:19.611Z"}
+{"type":"tool","state":"start","name":"bash","detail":"echo \"--- via real path:\"; node /home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-impor\n… (trunchiat)","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:20.231Z"}
+{"type":"tool","state":"end","name":"bash","detail":"echo \"--- via real path:\"; node /home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-import/scripts/validate-impor\n… (trunchiat)","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:20.539Z"}
+{"type":"tool","state":"start","name":"eval","detail":"","ok":null,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:33.200Z"}
+{"type":"tool","state":"end","name":"eval","detail":"","ok":true,"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:33.259Z"}
+{"type":"delta","text":"Ref","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.881Z"}
+{"type":"delta","text":"using","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.883Z"}
+{"type":"delta","text":" this","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.898Z"}
+{"type":"delta","text":" import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.914Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.914Z"}
+{"type":"delta","text":" writing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.914Z"}
+{"type":"delta","text":" nothing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.924Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.924Z"}
+{"type":"delta","text":" Evidence","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.925Z"}
+{"type":"delta","text":":\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.959Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.959Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.959Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.959Z"}
+{"type":"delta","text":" Nothing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.959Z"}
+{"type":"delta","text":" imported","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.967Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.979Z"}
+{"type":"delta","text":" nothing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.979Z"}
+{"type":"delta","text":" written","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.979Z"}
+{"type":"delta","text":".**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.979Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.995Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.995Z"}
+{"type":"delta","text":"ch","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.995Z"}
+{"type":"delta","text":"apters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.995Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:40.995Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":" stays","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":" empty","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":"d","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.030Z"}
+{"type":"delta","text":"rafts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.036Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.036Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.037Z"}
+{"type":"delta","text":" was","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.037Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.049Z"}
+{"type":"delta","text":" created","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.049Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.049Z"}
+{"type":"delta","text":"so","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.061Z"}
+{"type":"delta","text":" no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.061Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.061Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.077Z"}
+{"type":"delta","text":"d","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":"rafts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":"-pro","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":"gress","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.078Z"}
+{"type":"delta","text":".json","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"),","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"can","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"on","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":".md","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.109Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.128Z"}
+{"type":"delta","text":"thread","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.128Z"}
+{"type":"delta","text":"s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.129Z"}
+{"type":"delta","text":".json","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.129Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.129Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.129Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.130Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.130Z"}
+{"type":"delta","text":"at","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.130Z"}
+{"type":"delta","text":"las","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.135Z"}
+{"type":"delta","text":".json","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.135Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.135Z"}
+{"type":"delta","text":" are","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.136Z"}
+{"type":"delta","text":" untouched","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.136Z"}
+{"type":"delta","text":" host","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.143Z"}
+{"type":"delta","text":" templates","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":"validate","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.179Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.192Z"}
+{"type":"delta","text":".m","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.192Z"}
+{"type":"delta","text":"js","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.192Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.192Z"}
+{"type":"delta","text":" on","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.192Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.206Z"}
+{"type":"delta","text":" real","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.206Z"}
+{"type":"delta","text":" path","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.206Z"}
+{"type":"delta","text":" confirms","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.206Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":"{\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":"ok","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":"\":","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":"false","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.214Z"}
+{"type":"delta","text":",\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"code","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"\":\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"IN","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"VALID","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"_","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"IM","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"PORT","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"}","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.252Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.253Z"}
+{"type":"delta","text":" no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.254Z"}
+{"type":"delta","text":" record","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.254Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.254Z"}
+{"type":"delta","text":" pointer","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.270Z"}
+{"type":"delta","text":" still","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.281Z"}
+{"type":"delta","text":" at","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.298Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.299Z"}
+{"type":"delta","text":" chapter","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.299Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.299Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.299Z"}
+{"type":"delta","text":".\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.330Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.330Z"}
+{"type":"delta","text":"2","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.330Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" The","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":" book","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.331Z"}
+{"type":"delta","text":"'s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.337Z"}
+{"type":"delta","text":" prose","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.337Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.337Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.351Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.351Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.351Z"}
+{"type":"delta","text":"agents","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.351Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.365Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.365Z"}
+{"type":"delta","text":"/ext","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.365Z"}
+{"type":"delta","text":"racted","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.365Z"}
+{"type":"delta","text":".json","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.368Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.368Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.368Z"}
+{"type":"delta","text":" chapter","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.377Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.377Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.377Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":"632","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":"874","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":" chars","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":"):","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":" every","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.410Z"}
+{"type":"delta","text":" character","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.419Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.419Z"}
+{"type":"delta","text":" code","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.419Z"}
+{"type":"delta","text":"-sh","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.432Z"}
+{"type":"delta","text":"ifted","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.433Z"}
+{"type":"delta","text":" by","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.433Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.433Z"}
+{"type":"delta","text":"29","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.433Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.444Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.458Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.459Z"}
+{"type":"delta","text":"(","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.459Z"}
+{"type":"delta","text":" ;","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.459Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":" &","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":"8","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":"7","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":" $","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.493Z"}
+{"type":"delta","text":" %","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.503Z"}
+{"type":"delta","text":" /","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.503Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.503Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.513Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.513Z"}
+{"type":"delta","text":" &","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.513Z"}
+{"type":"delta","text":" ,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.527Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.527Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.540Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.540Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.540Z"}
+{"type":"delta","text":"7","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.540Z"}
+{"type":"delta","text":" ,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.540Z"}
+{"type":"delta","text":" )","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.574Z"}
+{"type":"delta","text":" ,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.574Z"}
+{"type":"delta","text":" &","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.574Z"}
+{"type":"delta","text":" ,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.580Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.596Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.596Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.596Z"}
+{"type":"delta","text":"7","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.596Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.596Z"}
+{"type":"delta","text":" /","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.609Z"}
+{"type":"delta","text":" /","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.609Z"}
+{"type":"delta","text":" ,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.609Z"}
+{"type":"delta","text":" *","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.623Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.623Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.643Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.643Z"}
+{"type":"delta","text":" &","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.643Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.652Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.663Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.663Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.663Z"}
+{"type":"delta","text":" dec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.663Z"}
+{"type":"delta","text":"odes","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.676Z"}
+{"type":"delta","text":" to","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.677Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.677Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.677Z"}
+{"type":"delta","text":"EX","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.677Z"}
+{"type":"delta","text":"EC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.677Z"}
+{"type":"delta","text":"UT","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":"ABLE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":" SCI","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":"ENT","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":"IFIC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":" IN","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.690Z"}
+{"type":"delta","text":"TE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.724Z"}
+{"type":"delta","text":"LL","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":"IG","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":"ENCE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":" The","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":" body","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":" letters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.725Z"}
+{"type":"delta","text":"p","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.731Z"}
+{"type":"delta","text":"aced","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.731Z"}
+{"type":"delta","text":" with","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.731Z"}
+{"type":"delta","text":" one","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.743Z"}
+{"type":"delta","text":" space","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.744Z"}
+{"type":"delta","text":" between","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.744Z"}
+{"type":"delta","text":" every","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.760Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.760Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.760Z"}
+{"type":"delta","text":"314","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.760Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.761Z"}
+{"type":"delta","text":"096","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.761Z"}
+{"type":"delta","text":" of","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.774Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.794Z"}
+{"type":"delta","text":"314","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":"686","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":" tokens","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":" are","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":" single","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":" characters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.795Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.800Z"}
+{"type":"delta","text":" zero","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.800Z"}
+{"type":"delta","text":" double","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":" spaces","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":" anywhere","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":"),","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":" so","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":" **","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.812Z"}
+{"type":"delta","text":"no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":" word","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":" boundary","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":" survives","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.826Z"}
+{"type":"delta","text":" no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.838Z"}
+{"type":"delta","text":" punctuation","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.839Z"}
+{"type":"delta","text":" dec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.839Z"}
+{"type":"delta","text":"odes","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.872Z"}
+{"type":"delta","text":" at","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":" all","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":"0","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":" punctuation","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":" characters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.873Z"}
+{"type":"delta","text":" in","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.883Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.899Z"}
+{"type":"delta","text":" whole","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.907Z"}
+{"type":"delta","text":" file","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.907Z"}
+{"type":"delta","text":");","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.920Z"}
+{"type":"delta","text":" headings","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.920Z"}
+{"type":"delta","text":"/c","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.920Z"}
+{"type":"delta","text":"apt","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.955Z"}
+{"type":"delta","text":"ions","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" come","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" from","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" second","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" font","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.956Z"}
+{"type":"delta","text":" with","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.966Z"}
+{"type":"delta","text":" no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.967Z"}
+{"type":"delta","text":" usable","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.976Z"}
+{"type":"delta","text":" mapping","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.976Z"}
+{"type":"delta","text":" (~","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.976Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.976Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.991Z"}
+{"type":"delta","text":"700","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.992Z"}
+{"type":"delta","text":" mo","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.992Z"}
+{"type":"delta","text":"j","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.992Z"}
+{"type":"delta","text":"ib","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.992Z"}
+{"type":"delta","text":"ake","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:41.992Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.003Z"}
+{"type":"delta","text":"s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":" such","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":" as","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":"Ù","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":" æ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.036Z"}
+{"type":"delta","text":" s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.044Z"}
+{"type":"delta","text":" é","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.062Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.062Z"}
+{"type":"delta","text":"½","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.063Z"}
+{"type":"delta","text":" ´","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.063Z"}
+{"type":"delta","text":" º","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.076Z"}
+{"type":"delta","text":" ó","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.076Z"}
+{"type":"delta","text":" Ñ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.084Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.084Z"}
+{"type":"delta","text":");","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.084Z"}
+{"type":"delta","text":" each","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" of","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":"121","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" extracted","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" pages","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.120Z"}
+{"type":"delta","text":" has","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.125Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":" running","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":" head","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":"EX","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.157Z"}
+{"type":"delta","text":"EC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":"UT","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":"ABLE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":" SCI","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":"ENT","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":"IFIC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.168Z"}
+{"type":"delta","text":" IN","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"TE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"LL","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"IG","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"ENCE","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":" SOP","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":" L","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"ANG","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":" DY","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"NAM","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"IC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":" CIRC","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.202Z"}
+{"type":"delta","text":"U","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":"ITS","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":" glued","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":" to","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":" its","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.210Z"}
+{"type":"delta","text":" text","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.221Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.221Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.221Z"}
+{"type":"delta","text":"121","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.234Z"}
+{"type":"delta","text":" of","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.234Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.234Z"}
+{"type":"delta","text":"122","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.234Z"}
+{"type":"delta","text":" pages","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.235Z"}
+{"type":"delta","text":" arrived","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.235Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.249Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.249Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":"Do","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":"operator","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" warning","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" means","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" some","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" content","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.282Z"}
+{"type":"delta","text":" was","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":" never","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":" expanded","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":".\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":"3","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.428Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.429Z"}
+{"type":"delta","text":" Why","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.429Z"}
+{"type":"delta","text":" copying","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.429Z"}
+{"type":"delta","text":" was","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.429Z"}
+{"type":"delta","text":" impossible","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.429Z"}
+{"type":"delta","text":" either","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.430Z"}
+{"type":"delta","text":" way","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.595Z"}
+{"type":"delta","text":".**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" Ver","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":"bat","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":"im","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" copy","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" stores","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" un","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":"read","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":"able","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" cipher","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" book","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" decoding","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" rec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":"overs","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" letters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" but","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" requires","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.596Z"}
+{"type":"delta","text":" invent","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"ing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" every","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" word","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" boundary","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" every","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" punctuation","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" mark","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" which","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" skill","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" forb","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"ids","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"script","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" →","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" \"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"un","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":"usable","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" for","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" language","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.748Z"}
+{"type":"delta","text":" …","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" report","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" it","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" stop","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" rather","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" than","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" guessing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"\").","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" Dec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"oded","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" prose","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" would","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" also","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" fail","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" validator","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":":","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" ≈","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"52","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"800","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" real","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" words","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" against","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"'s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"314","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"686","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" tokens","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"0","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"17","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":"×","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" band","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.749Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":"0","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":"8","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":"–","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.752Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.765Z"}
+{"type":"delta","text":"2","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.765Z"}
+{"type":"delta","text":"×","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.765Z"}
+{"type":"delta","text":")","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.766Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.766Z"}
+{"type":"delta","text":" near","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.766Z"}
+{"type":"delta","text":"-zero","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.790Z"}
+{"type":"delta","text":" eight","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.791Z"}
+{"type":"delta","text":"-word","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":"-run","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":" overlap","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":" since","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.818Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.821Z"}
+{"type":"delta","text":"'s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.834Z"}
+{"type":"delta","text":" tokens","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.834Z"}
+{"type":"delta","text":" are","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.850Z"}
+{"type":"delta","text":" single","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.850Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.850Z"}
+{"type":"delta","text":"s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":".\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":"4","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":" Metadata","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":" later","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":" reader","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":" needs","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.914Z"}
+{"type":"delta","text":".**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.939Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.939Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.940Z"}
+{"type":"delta","text":"det","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.940Z"}
+{"type":"delta","text":"ected","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.940Z"}
+{"type":"delta","text":".title","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.940Z"}
+{"type":"delta","text":" \"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.940Z"}
+{"type":"delta","text":"S","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.944Z"}
+{"type":"delta","text":"OP","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.944Z"}
+{"type":"delta","text":"_L","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.944Z"}
+{"type":"delta","text":"ang","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.944Z"}
+{"type":"delta","text":"_C","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":"irc","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":"uits","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":"\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.958Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.990Z"}
+{"type":"delta","text":" file","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.990Z"}
+{"type":"delta","text":" name","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":" document","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":"the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":" book","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.991Z"}
+{"type":"delta","text":"'s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.996Z"}
+{"type":"delta","text":" own","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.996Z"}
+{"type":"delta","text":" title","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.996Z"}
+{"type":"delta","text":" page","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:42.996Z"}
+{"type":"delta","text":" reads","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.010Z"}
+{"type":"delta","text":" *","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.010Z"}
+{"type":"delta","text":"Exec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.022Z"}
+{"type":"delta","text":"utable","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.022Z"}
+{"type":"delta","text":" Scientific","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.022Z"}
+{"type":"delta","text":" Intelligence","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.036Z"}
+{"type":"delta","text":" with","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.037Z"}
+{"type":"delta","text":" Dynamic","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.037Z"}
+{"type":"delta","text":" SOP","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.037Z"}
+{"type":"delta","text":" Lang","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.073Z"}
+{"type":"delta","text":" Circuits","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.073Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.073Z"}
+{"type":"delta","text":" A","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" Survey","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" Research","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" Vision","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" Programme","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" for","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.081Z"}
+{"type":"delta","text":" Trust","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.103Z"}
+{"type":"delta","text":"worthy","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.103Z"}
+{"type":"delta","text":" Symbol","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.103Z"}
+{"type":"delta","text":"ic","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":" Language","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":" Systems","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":" Exec","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":"utable","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.105Z"}
+{"type":"delta","text":" Science","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"*,","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" A","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"xi","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"ologic","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" Research","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" August","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"202","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":");","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"det","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"ected","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":".l","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"anguage","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"null","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" but","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" prose","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" English","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" while","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.190Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.191Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":"un","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":"iverse","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":".json","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":" declares","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.192Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":"ro","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":" source","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.201Z"}
+{"type":"delta","text":" text","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.213Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.228Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.228Z"}
+{"type":"delta","text":" technical","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.229Z"}
+{"type":"delta","text":" research","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":" survey","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":" fiction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.261Z"}
+{"type":"delta","text":" Source","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.268Z"}
+{"type":"delta","text":":","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.268Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.280Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.280Z"}
+{"type":"delta","text":"book","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.280Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.281Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.301Z"}
+{"type":"delta","text":").","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.301Z"}
+{"type":"delta","text":"pdf","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.302Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.302Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.302Z"}
+{"type":"delta","text":" sha","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.302Z"}
+{"type":"delta","text":"256","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.308Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.308Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.308Z"}
+{"type":"delta","text":"c","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.308Z"}
+{"type":"delta","text":"3","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.308Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"184","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"7","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"cc","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"540","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"e","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"aa","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"3","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"d","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.345Z"}
+{"type":"delta","text":"679","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.349Z"}
+{"type":"delta","text":"636","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.349Z"}
+{"type":"delta","text":"16","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.349Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.349Z"}
+{"type":"delta","text":"5","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.349Z"}
+{"type":"delta","text":"d","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.363Z"}
+{"type":"delta","text":"956","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.364Z"}
+{"type":"delta","text":"783","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.364Z"}
+{"type":"delta","text":"711","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.364Z"}
+{"type":"delta","text":"af","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"2","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"c","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"96","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.378Z"}
+{"type":"delta","text":"abd","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.390Z"}
+{"type":"delta","text":"574","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.390Z"}
+{"type":"delta","text":"55","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.391Z"}
+{"type":"delta","text":"f","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"90","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"07","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"c","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.425Z"}
+{"type":"delta","text":"5","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.426Z"}
+{"type":"delta","text":"f","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.426Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.426Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.426Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.426Z"}
+{"type":"delta","text":"122","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.432Z"}
+{"type":"delta","text":" pages","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.433Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.433Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.433Z"}
+{"type":"delta","text":"314","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.433Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.513Z"}
+{"type":"delta","text":"686","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.513Z"}
+{"type":"delta","text":" declared","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" \"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":"words","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":"\"","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" glyph","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" count","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" not","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":" words","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.514Z"}
+{"type":"delta","text":").\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.515Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.515Z"}
+{"type":"delta","text":"5","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.515Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.516Z"}
+{"type":"delta","text":" Operator","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.516Z"}
+{"type":"delta","text":" action","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.516Z"}
+{"type":"delta","text":".**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":" Re","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":"-ext","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":"ract","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":" uploaded","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.527Z"}
+{"type":"delta","text":" PDF","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.540Z"}
+{"type":"delta","text":" with","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.540Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.540Z"}
+{"type":"delta","text":" converter","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.540Z"}
+{"type":"delta","text":" that","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.541Z"}
+{"type":"delta","text":" honours","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.541Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.555Z"}
+{"type":"delta","text":" embedded","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.555Z"}
+{"type":"delta","text":" fonts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.586Z"}
+{"type":"delta","text":"'","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":" To","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"Un","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"icode","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"encoding","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"pd","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.587Z"}
+{"type":"delta","text":"ft","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.599Z"}
+{"type":"delta","text":"ote","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.599Z"}
+{"type":"delta","text":"xt","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.600Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.600Z"}
+{"type":"delta","text":" or","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.600Z"}
+{"type":"delta","text":" OCR","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.607Z"}
+{"type":"delta","text":" would","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.621Z"}
+{"type":"delta","text":" give","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.656Z"}
+{"type":"delta","text":" real","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.656Z"}
+{"type":"delta","text":" words","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.656Z"}
+{"type":"delta","text":");","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.663Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.663Z"}
+{"type":"delta","text":" content","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.677Z"}
+{"type":"delta","text":" itself","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.677Z"}
+{"type":"delta","text":" is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.693Z"}
+{"type":"delta","text":" recover","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.693Z"}
+{"type":"delta","text":"able","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.693Z"}
+{"type":"delta","text":" —","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.693Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.693Z"}
+{"type":"delta","text":" uniform","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.703Z"}
+{"type":"delta","text":" +","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.703Z"}
+{"type":"delta","text":"29","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.703Z"}
+{"type":"delta","text":" code","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" shift","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" already","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" yields","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" clean","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" English","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":" letters","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.739Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.744Z"}
+{"type":"delta","text":" Then","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.744Z"}
+{"type":"delta","text":" re","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.744Z"}
+{"type":"delta","text":"-run","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.744Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.758Z"}
+{"type":"delta","text":" import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.758Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.758Z"}
+{"type":"delta","text":" which","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.771Z"}
+{"type":"delta","text":" will","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.771Z"}
+{"type":"delta","text":" start","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.771Z"}
+{"type":"delta","text":" at","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.785Z"}
+{"type":"delta","text":" extraction","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.785Z"}
+{"type":"delta","text":" chapter","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":"1","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":".\n\n","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":"6","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":" Tool","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.821Z"}
+{"type":"delta","text":"ing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.825Z"}
+{"type":"delta","text":" defect","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.865Z"}
+{"type":"delta","text":" worth","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.865Z"}
+{"type":"delta","text":" fixing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.865Z"}
+{"type":"delta","text":".**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.869Z"}
+{"type":"delta","text":" The","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.869Z"}
+{"type":"delta","text":" invocation","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.901Z"}
+{"type":"delta","text":" documented","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.901Z"}
+{"type":"delta","text":" in","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.901Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.901Z"}
+{"type":"delta","text":" skill","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.901Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.910Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.911Z"}
+{"type":"delta","text":"node","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.911Z"}
+{"type":"delta","text":" .","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.911Z"}
+{"type":"delta","text":"agents","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.921Z"}
+{"type":"delta","text":"/s","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.922Z"}
+{"type":"delta","text":"k","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.922Z"}
+{"type":"delta","text":"ills","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.922Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.922Z"}
+{"type":"delta","text":"script","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.922Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"scripts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.934Z"}
+{"type":"delta","text":"validate","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":".m","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":"js","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":" …","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.948Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":")","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":" prints","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":" **","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":"nothing","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.982Z"}
+{"type":"delta","text":" exits","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.990Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.990Z"}
+{"type":"delta","text":"0","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.990Z"}
+{"type":"delta","text":"**","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.990Z"}
+{"type":"delta","text":" from","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:43.990Z"}
+{"type":"delta","text":" inside","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.002Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.002Z"}
+{"type":"delta","text":" universe","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":",","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":" because","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":"is","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":"Main","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.018Z"}
+{"type":"delta","text":"Module","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"()","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":" compares","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":".m","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"eta","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":".url","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":" against","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.051Z"}
+{"type":"delta","text":" unresolved","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.057Z"}
+{"type":"delta","text":" sym","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.072Z"}
+{"type":"delta","text":"link","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.072Z"}
+{"type":"delta","text":" path","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.072Z"}
+{"type":"delta","text":";","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.072Z"}
+{"type":"delta","text":" called","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.072Z"}
+{"type":"delta","text":" by","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.084Z"}
+{"type":"delta","text":" its","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.084Z"}
+{"type":"delta","text":" real","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.097Z"}
+{"type":"delta","text":" path","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.097Z"}
+{"type":"delta","text":" (","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.097Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.097Z"}
+{"type":"delta","text":"skills","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.097Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.132Z"}
+{"type":"delta","text":"script","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.132Z"}
+{"type":"delta","text":"a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.132Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"scripts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"/","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"validate","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"-","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"import","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":".m","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.133Z"}
+{"type":"delta","text":"js","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.138Z"}
+{"type":"delta","text":"`","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.138Z"}
+{"type":"delta","text":")","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.138Z"}
+{"type":"delta","text":" it","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.138Z"}
+{"type":"delta","text":" prints","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" the","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" correct","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" envelope","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" and","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" exits","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" ","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":"2","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.178Z"}
+{"type":"delta","text":" A","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.202Z"}
+{"type":"delta","text":" host","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.202Z"}
+{"type":"delta","text":" that","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.202Z"}
+{"type":"delta","text":" trusts","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.202Z"}
+{"type":"delta","text":" exit","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.202Z"}
+{"type":"delta","text":" status","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.235Z"}
+{"type":"delta","text":" would","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.235Z"}
+{"type":"delta","text":" read","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.235Z"}
+{"type":"delta","text":" a","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.235Z"}
+{"type":"delta","text":" silent","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"delta","text":" no","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"delta","text":"-op","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"delta","text":" as","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"delta","text":" success","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"delta","text":".","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.236Z"}
+{"type":"phase","phase":"verify","text":"verific rezultatul","jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.424Z"}
+{"type":"error","message":"The import turn was to carry extraction chapters 1-1, but the import record does not say that it did (0 turns recorded).","job":{"id":"j_d01c3d4b","universeId":"sop-lang-circuits","kind":"import","format":"both","status":"error","createdAt":"2026-09-23T12:17:41.217Z","startedAt":"2026-09-23T12:17:41.218Z","finishedAt":"2026-09-23T12:20:44.429Z","turnNumber":3,"chapterNumber":1,"request":"Import chapters 1-1 of an uploaded book","queuePosition":0,"result":null,"error":"The import turn was to carry extraction chapters 1-1, but the import record does not say that it did (0 turns recorded)."},"jobId":"j_d01c3d4b","at":"2026-09-23T12:20:44.429Z"}

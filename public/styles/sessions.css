@@ -1,0 +1,148 @@
+/*
+ * scriptaWorlds — the ALA sessions dialog: every run of the open book on the left, the durable
+ * console of the selected run on the right. The panel takes the shared dialog size; the two panes
+ * scroll inside it, so the dialog itself never scrolls.
+ */
+
+.sessions__count {
+  flex: 0 0 auto;
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.sessions {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: 14px;
+}
+
+.sessions__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sessions__item {
+  margin: 0;
+}
+
+.sessions__pick {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sessions__pick:hover {
+  background: var(--paper-soft);
+}
+
+.sessions__pick[aria-current="true"] {
+  border-color: var(--accent);
+  background: var(--paper-soft);
+}
+
+.sessions__pick-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sessions__pick-title {
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sessions__pick-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sessions__empty {
+  margin: 0;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* ---------------- the console of the selected run ---------------- */
+
+.sessions__view {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sessions__view-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.sessions__view-title {
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sessions__text {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  overflow-y: auto;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-soft);
+  font-family: var(--mono-font);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sessions__hint {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-soft);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 780px) {
+  .sessions {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .sessions__list {
+    max-height: 30vh;
+  }
+}

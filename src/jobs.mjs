@@ -17,6 +17,7 @@ import { currentVersion } from './assessment-packet.mjs';
 import { normaliseDirections, normaliseRevision } from './request-fields.mjs';
 import { sha256Hex } from './version.mjs';
 import { composeAgentLog, runOmpAgent } from './omp.mjs';
+import { journalEvent } from './turn-console.mjs';
 import { failTurn, prepareRewrite, turnPrompt, verifyChapterTurn, verifyExportTurn, verifyImportTurn } from './turn.mjs';
 
 const MAX_EVENTS = 800;
@@ -331,6 +332,9 @@ export class JobManager {
     this.#locks.set(job.universeId, next.catch(() => {}));
     await next;
     this.#queue.push(job);
+    // The console journal starts with the queued line, so a run read later names the request it came
+    // from even if the reader never saw it live.
+    journalEvent(job.universeId, job.turnNumber, { type: 'job', job: this.snapshot(job) });
     this.#emitUniverse(job.universeId, { type: 'job', job: this.snapshot(job), jobId: job.id });
     this.#pump();
   }
@@ -356,6 +360,9 @@ export class JobManager {
         job.authorizedLaterChapters = Array.isArray(turn.authorizedLaterChapters) ? turn.authorizedLaterChapters : null;
       }
       this.#queue.push(job);
+      // A resumed turn opens a new session in the same journal: the reader sees the restart as
+      // another queued line, not as a gap.
+      journalEvent(entry.universeId, entry.turnNumber, { type: 'job', job: this.snapshot(job) });
       this.#emitUniverse(entry.universeId, { type: 'job', job: this.snapshot(job), jobId: job.id });
     }
     if (ordered.length > 0) this.#pump();
@@ -432,6 +439,9 @@ export class JobManager {
 
   #emit(job, event) {
     const payload = event.jobId ? event : { ...event, jobId: job.id };
+    // The durable console: everything a live subscriber sees is also appended to the turn's journal,
+    // so the run stays readable after the in-memory buffer is gone.
+    journalEvent(job.universeId, job.turnNumber, payload);
     if (payload.type !== 'delta' && payload.type !== 'tool') {
       job.events.push(payload);
     } else if (job.events.length < MAX_EVENTS) {
@@ -534,7 +544,6 @@ export class JobManager {
     const { universeId } = job;
     job.status = 'running';
     job.startedAt = nowIso();
-    this.#emit(job, { type: 'job', job: this.snapshot(job) });
 
     const turnNumber = job.turnNumber;
     try {
@@ -574,6 +583,9 @@ export class JobManager {
       }
       const startedMs = Date.now();
       if (job.kind !== 'export') job.chapterNumber = chapterNumber;
+      // The running line is published once the chapter the turn writes is known, so the live console
+      // and the interface name it instead of a placeholder.
+      this.#emit(job, { type: 'job', job: this.snapshot(job) });
 
       // The narrative context of the turn is selected explicitly from the accepted view — the two most
       // recent accepted chapters, and nothing else by default — and the selection is recorded, so a

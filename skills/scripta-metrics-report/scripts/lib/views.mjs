@@ -4,8 +4,9 @@
  *   01 STG compliance reports the general rule set (`source: stg`).
  *   02 specification adherence maps this reader request and brief to observed
  *      fulfilment, the request's own requirements and the declared departures.
- *   03 the metrics and indicators view lists all twelve metrics and all eight
- *      indicators with status, scope, unit and missing reason.
+ *   03 the metrics and indicators view reports the measurements that carry a
+ *      value in one table and names the ones that do not, once, with the input
+ *      each of them needs.
  *   04 the justification view shows components, arithmetic, bounds, coverage
  *      and limits of every result.
  *   05 the issues view prioritizes findings, preserves alternatives and keeps
@@ -13,6 +14,9 @@
  */
 
 import { INDICATOR_IDS, METRIC_IDS } from './registry.mjs';
+
+/** The statuses under which a measurement carries a result. Everything else is an absence. */
+const HAS_VALUE = new Set(['computed', 'judged']);
 import {
   esc,
   evidenceMap,
@@ -51,11 +55,12 @@ export function reviewLines(bundle, { title = 'Review summary', problems = 5 } =
   }
   lines.push(`- Intention: ${esc(review.intention.statement)}`);
   if (review.assessment.unavailable.length > 0) {
+    const ids = review.assessment.unavailable.map((entry) => `\`${esc(entry.id)}\``).join(', ');
     lines.push(
-      `- Not available: ${review.assessment.unavailable.map((entry) => `\`${esc(entry.id)}\` (${esc(entry.status)}: ${esc(entry.reason ?? 'no reason recorded')})`).join('; ')}`,
+      `- **Not available (${review.assessment.unavailable.length}):** ${ids} — the metrics view names the input each one needs`,
     );
   } else {
-    lines.push('- Not available: nothing; every metric carries a result');
+    lines.push('- **Not available:** nothing; every metric carries a result');
   }
   lines.push('');
 
@@ -315,39 +320,46 @@ export function renderSpecification(bundle) {
 export function renderMetrics(bundle) {
   const lines = [];
   lines.push(heading(bundle), '# Metrics & Indicators Report', '');
-  lines.push('## Metrics', '');
-  lines.push('| id | status | value | scope | unit | coverage | missing reason |');
-  lines.push('| --- | --- | --- | --- | --- | --- | --- |');
-  for (const id of METRIC_IDS) {
-    const metric = bundle.metrics[id];
-    lines.push(
-      `| \`${id}\` | ${esc(metric.status)} | ${valueText(metric)} | ${esc(scopeText(metric.scope))} | ` +
-        `${esc(metric.unit)} | ${esc(metric.coverage ?? '—')} | ${esc(metric.missing_reason ?? '')} |`,
-    );
-  }
-  lines.push('');
-  lines.push('## Literary indicators', '');
-  lines.push('| id | status | category | scope | rationale | evaluator |');
-  lines.push('| --- | --- | --- | --- | --- | --- |');
-  for (const id of INDICATOR_IDS) {
-    const indicator = bundle.indicators[id];
-    lines.push(
-      `| ${esc(id)} | ${esc(indicator.status)} | ${esc(indicator.category ?? '—')} | ` +
-        `${esc(scopeText(bundle.scope))} | ${esc(indicator.rationale ?? '')} | ${esc(indicator.evaluator ?? '—')} |`,
-    );
-  }
-  lines.push('');
-  lines.push('## Unavailable reasons', '');
-  let unavailable = 0;
-  for (const id of METRIC_IDS) {
-    const metric = bundle.metrics[id];
-    if (metric.status === 'not_assessable' || metric.status === 'not_applicable' || metric.status === 'error') {
-      unavailable += 1;
-      lines.push(`- \`${id}\`: ${esc(metric.missing_reason || metric.status)}`);
+  const measured = METRIC_IDS.filter((id) => HAS_VALUE.has(bundle.metrics[id].status));
+  const missing = METRIC_IDS.filter((id) => !HAS_VALUE.has(bundle.metrics[id].status));
+  lines.push(`## Measurements`, '');
+  if (measured.length === 0) {
+    lines.push('**No measurement carries a value for this review.** Every measure needs an input that was not supplied; the list below says which one, per measure.', '');
+  } else {
+    lines.push('| metric | value | unit | coverage |', '| --- | --- | --- | --- |');
+    for (const id of measured) {
+      const metric = bundle.metrics[id];
+      lines.push(`| \`${id}\` | **${valueText(metric)}** | ${esc(metric.unit)} | ${esc(metric.coverage ?? '—')} |`);
     }
+    lines.push('');
   }
-  if (unavailable === 0) lines.push('- none: every metric carries a value');
-  lines.push('');
+  // Absences are stated once, in short lines: what was not measured and the input it needed. A review
+  // that measured everything says so in one line instead of listing nothing.
+  if (missing.length > 0) {
+    lines.push(`**Not reported — unavailable (${missing.length} of ${METRIC_IDS.length})** — each of these needs an input the review did not receive:`, '');
+    for (const id of missing) {
+      const metric = bundle.metrics[id];
+      lines.push(`- \`${id}\` — ${esc(metric.missing_reason || metric.status)}`);
+    }
+    lines.push('');
+  } else {
+    lines.push(`**Not reported:** none — all ${METRIC_IDS.length} metrics carry a value.`, '');
+  }
+  const judgedIndicators = INDICATOR_IDS.filter((id) => HAS_VALUE.has(bundle.indicators[id].status));
+  lines.push('## Literary indicators', '');
+  if (judgedIndicators.length === 0) {
+    lines.push('**No indicator was judged for this review.** The indicators rest on annotated observations, and none were supplied.', '');
+  } else {
+    lines.push('| indicator | category | rationale | evaluator |', '| --- | --- | --- | --- |');
+    for (const id of judgedIndicators) {
+      const indicator = bundle.indicators[id];
+      lines.push(
+        `| \`${id}\` **${esc(indicator.status)}** | ${esc(indicator.category ?? '—')} | ` +
+          `${esc(indicator.rationale ?? '')} | ${esc(indicator.evaluator ?? '—')} |`,
+      );
+    }
+    lines.push('');
+  }
   lines.push('## Segments and boundaries', '');
   if (bundle.segments.length === 0) {
     lines.push('No segment annotations supplied; boundaries are whole chapters.', '');
@@ -424,8 +436,15 @@ export function renderJustification(bundle) {
       `${esc(bundle.provenance.runtime)}.`,
     '',
   );
+  // Only a measurement with a value is justified in full: a measure that carries none has nothing to
+  // justify, and its reason belongs in the metrics view rather than repeated here.
+  const justified = METRIC_IDS.filter((id) => HAS_VALUE.has(bundle.metrics[id].status));
+  const unjustified = METRIC_IDS.filter((id) => !HAS_VALUE.has(bundle.metrics[id].status));
   lines.push('## Metric justifications', '');
-  for (const id of METRIC_IDS) {
+  if (justified.length === 0) {
+    lines.push('**No metric carries a value, so there is nothing to justify.** The measurements view names the input each one needs.', '');
+  }
+  for (const id of justified) {
     const metric = bundle.metrics[id];
     lines.push(`### ${id} — ${esc(metric.name)}`, '');
     lines.push(`- Status: \`${metric.status}\``);
@@ -457,8 +476,21 @@ export function renderJustification(bundle) {
     if (metric.missing_reason) lines.push(`- Missing: ${esc(metric.missing_reason)}`);
     lines.push('');
   }
+  if (unjustified.length > 0) {
+    lines.push(`**Not justified (${unjustified.length} of ${METRIC_IDS.length})** — each carries no value, for the input it names:`, '');
+    for (const id of unjustified) {
+      const metric = bundle.metrics[id];
+      lines.push(`- \`${id}\` — ${esc(metric.missing_reason || metric.status)}`);
+    }
+    lines.push('');
+  }
+  const judgedIndicators = INDICATOR_IDS.filter((id) => HAS_VALUE.has(bundle.indicators[id].status));
+  const unjudged = INDICATOR_IDS.filter((id) => !HAS_VALUE.has(bundle.indicators[id].status));
   lines.push('## Indicator justifications', '');
-  for (const id of INDICATOR_IDS) {
+  if (judgedIndicators.length === 0) {
+    lines.push('**No indicator was judged, so there is nothing to justify.** The indicators rest on annotated observations.', '');
+  }
+  for (const id of judgedIndicators) {
     const indicator = bundle.indicators[id];
     lines.push(`### ${id}`, '');
     lines.push(`- Status: \`${indicator.status}\``);
@@ -472,6 +504,13 @@ export function renderJustification(bundle) {
     if (indicator.intended_effect_fit) lines.push(`- Intended-effect fit: ${esc(indicator.intended_effect_fit)}`);
     if (indicator.evaluator) lines.push(`- Evaluator: ${esc(indicator.evaluator)}`);
     if (indicator.missing_reason) lines.push(`- Missing: ${esc(indicator.missing_reason)}`);
+    lines.push('');
+  }
+  if (unjudged.length > 0) {
+    lines.push(`**Not judged** — each names the observation it needed:`, '');
+    for (const id of unjudged) {
+      lines.push(`- \`${id}\` — ${esc(bundle.indicators[id].missing_reason || bundle.indicators[id].status)}`);
+    }
     lines.push('');
   }
   lines.push('## Profile and provenance', '');

@@ -6,9 +6,10 @@
  * `universes/` and runs one separate-phase skill over it (docs/contracts.md §8.5), so this module only
  * builds the request, keeps the run list, and watches the runs this client started.
  */
-import { loadAssessmentRun, loadAssessments, sendAssessmentAction, startAssessment } from './api.js';
+import { deleteAssessmentRun, loadAssessmentRun, loadAssessments, sendAssessmentAction, startAssessment } from './api.js';
 import { showError } from './errors.js';
-import { openPanel, renderPanels } from './overlays.js';
+import { closePanel, openPanel, renderPanels } from './overlays.js';
+import { openSessions } from './sessions.js';
 import { RUN_LIVE_STATUSES, RUN_POLL_MS, dom, state } from './state.js';
 
 export function reviewTarget() {
@@ -40,15 +41,11 @@ export function openReview({ chapter = null } = {}) {
   state.review = {
     chapter: current,
     scope: 'chapter',
-    from: current ?? numbers[0] ?? 1,
-    to: Math.min((current ?? numbers[0] ?? 1) + 2, last ?? current ?? 1),
-    phase: 'metrics',
-    mode: 'generic',
-    aggregate: false,
-    intention: '',
     busy: false,
     error: null,
     active: null,
+    // The report a second press would delete: the first press asks, the second one removes.
+    confirms: null,
     built: false
   };
   openPanel('review');
@@ -60,13 +57,9 @@ export function openReview({ chapter = null } = {}) {
 export function reviewScope() {
   const model = state.review;
   if (!model) return null;
-  if (model.scope === 'book') return { kind: 'book' };
-  if (model.scope === 'arc') {
+  if (model.scope === 'book') {
     const numbers = acceptedChapterNumbers();
-    const low = Math.min(Number(model.from) || 0, Number(model.to) || 0);
-    const high = Math.max(Number(model.from) || 0, Number(model.to) || 0);
-    const chapters = numbers.filter((number) => number >= low && number <= high);
-    return chapters.length ? { kind: 'chapter', chapters } : null;
+    return numbers.length ? { kind: 'book', chapters: numbers } : null;
   }
   return model.chapter != null ? { kind: 'chapter', chapters: [model.chapter] } : null;
 }
@@ -76,7 +69,6 @@ export function reviewScopeLabel() {
   const scope = reviewScope();
   if (!model || !scope) return 'no chapter to review';
   if (scope.kind === 'book') return `the whole book (${acceptedChapterNumbers().length} chapters)`;
-  if (model.scope === 'arc') return `chapters ${scope.chapters.join(', ')}`;
   return `chapter ${scope.chapters[0]}${chapterTitle(scope.chapters[0]) ? ` · ${chapterTitle(scope.chapters[0])}` : ''}`;
 }
 
@@ -91,14 +83,9 @@ export async function startReview() {
     renderPanels();
     return;
   }
-  const body = { phase: model.phase, scope, mode: model.mode };
-  if (model.aggregate) {
-    body.aggregate = true;
-    const intention = String(model.intention ?? '').trim();
-    // The intention is what the emotional component is compared against; without one the aggregate
-    // reports why it is unavailable rather than scoring an intention nobody stated.
-    if (intention) body.intention = intention;
-  }
+  // The ordinary review: the metrics phase, the whole selection, and whoever produces the
+  // observations is the operator's own configuration. Nothing else is asked of the reader.
+  const body = { phase: 'metrics', scope };
   model.busy = true;
   model.error = null;
   renderPanels();
@@ -109,6 +96,8 @@ export async function startReview() {
     model.active = run.run_id;
     if (RUN_LIVE_STATUSES.has(run.status)) watchRun(run.run_id);
     await refreshRuns({ force: true });
+    // The review was just started: the reader watches it in the sessions dialog, on that run.
+    openSessions({ run: run.run_id });
   } catch (error) {
     model.error = error.message;
     // A phase that fails before it publishes still leaves a run behind, with the reason it recorded: the
@@ -129,12 +118,42 @@ export async function retryRun(runId) {
   await runAction(runId, 'retry');
 }
 
+/**
+ * Delete one stored review and the report it published. The host refuses a run that is still live and a
+ * report that other evidence names — a reader's stored response, or a newer run that re-evaluates it — and
+ * answers with the reason, which is shown like any other refusal. A run that was deleted leaves the list and
+ * takes the report panel with it when that panel was the one showing it.
+ */
+export async function deleteRun(runId) {
+  try {
+    const deleted = await deleteAssessmentRun(runId);
+    if (!deleted) throw new Error('The host deleted nothing.');
+    state.runs = state.runs.filter((entry) => entry.run_id !== deleted.run_id);
+    if (state.report?.runId === deleted.run_id) {
+      state.report = null;
+      if (state.panel === 'report') closePanel();
+    }
+    await refreshRuns({ force: true });
+  } catch (error) {
+    if (state.review) {
+      state.review.error = error.message;
+      renderPanels();
+    } else {
+      showError(error.message);
+    }
+  }
+}
+
 async function runAction(runId, action) {
   try {
     const run = await sendAssessmentAction(runId, action);
     if (run) {
       upsertRun(run);
-      if (action === 'retry' && RUN_LIVE_STATUSES.has(run.status)) watchRun(run.run_id);
+      if (action === 'retry' && RUN_LIVE_STATUSES.has(run.status)) {
+        watchRun(run.run_id);
+        // A retry starts the run again, so the reader lands on its console like on a fresh start.
+        openSessions({ run: run.run_id });
+      }
     }
     await refreshRuns({ force: true });
   } catch (error) {

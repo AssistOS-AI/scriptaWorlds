@@ -20,6 +20,54 @@ function appendLast(list, text) {
   else list[list.length - 1] += text;
 }
 
+/**
+ * One event of an `omp` child as the host reads it: the text the agent narrates and the tool calls it
+ * makes, reported to `onEvent` in the console's own vocabulary. It is shared by the two places that
+ * consume that stream — the turn runner and the evaluator of a review — so a delta means the same thing
+ * and a tool call is named the same way wherever a reader watches an agent work.
+ */
+export function handleOmpEvent(event, state, onEvent) {
+  switch (event.type) {
+    case 'message_update': {
+      const update = event.assistantMessageEvent ?? {};
+      if (update.type === 'text_delta') {
+        const text = String(update.delta ?? '');
+        if (text) appendLast(state.assistantTexts, text);
+        onEvent({ type: 'delta', text });
+      }
+      break;
+    }
+    case 'tool_execution_start': {
+      const detail = { name: event.toolName ?? 'tool', detail: toolDetail(event.toolName, event.args), ok: null };
+      state.tools.push({ name: detail.name, detail: detail.detail, ok: null });
+      onEvent({ type: 'tool', state: 'start', ...detail });
+      break;
+    }
+    case 'tool_execution_end': {
+      const name = event.toolName ?? 'tool';
+      const entry = [...state.tools].reverse().find((tool) => tool.name === name && tool.ok === null);
+      const ok = !event.error;
+      if (entry) entry.ok = ok;
+      onEvent({ type: 'tool', state: 'end', name, detail: entry?.detail ?? toolDetail(name, event.args), ok });
+      break;
+    }
+    case 'agent_end': {
+      const messages = Array.isArray(event.messages) ? event.messages : [];
+      const lastAssistant = [...messages].reverse().find((message) => message.role === 'assistant');
+      if (lastAssistant) {
+        state.finalAnswer = (lastAssistant.content ?? [])
+          .filter((part) => part.type === 'text')
+          .map((part) => part.text)
+          .join('\n')
+          .trim();
+      }
+      break;
+    }
+    default:
+      break;
+  }
+}
+
 export function runOmpAgent({ cwd, prompt, timeoutMs, onEvent, onSpawn }) {
   return new Promise((resolve) => {
     const args = [
@@ -57,47 +105,7 @@ export function runOmpAgent({ cwd, prompt, timeoutMs, onEvent, onSpawn }) {
       setTimeout(() => child.kill('SIGKILL'), 5_000).unref();
     }, timeoutMs);
 
-    const handleEvent = (event) => {
-      switch (event.type) {
-        case 'message_update': {
-          const update = event.assistantMessageEvent ?? {};
-          if (update.type === 'text_delta') {
-            const text = String(update.delta ?? '');
-            if (text) appendLast(state.assistantTexts, text);
-            onEvent({ type: 'delta', text });
-          }
-          break;
-        }
-        case 'tool_execution_start': {
-          const detail = { name: event.toolName ?? 'tool', detail: toolDetail(event.toolName, event.args), ok: null };
-          state.tools.push({ name: detail.name, detail: detail.detail, ok: null });
-          onEvent({ type: 'tool', state: 'start', ...detail });
-          break;
-        }
-        case 'tool_execution_end': {
-          const name = event.toolName ?? 'tool';
-          const entry = [...state.tools].reverse().find((tool) => tool.name === name && tool.ok === null);
-          const ok = !event.error;
-          if (entry) entry.ok = ok;
-          onEvent({ type: 'tool', state: 'end', name, detail: entry?.detail ?? toolDetail(name, event.args), ok });
-          break;
-        }
-        case 'agent_end': {
-          const messages = Array.isArray(event.messages) ? event.messages : [];
-          const lastAssistant = [...messages].reverse().find((message) => message.role === 'assistant');
-          if (lastAssistant) {
-            state.finalAnswer = (lastAssistant.content ?? [])
-              .filter((part) => part.type === 'text')
-              .map((part) => part.text)
-              .join('\n')
-              .trim();
-          }
-          break;
-        }
-        default:
-          break;
-      }
-    };
+    const handleEvent = (event) => handleOmpEvent(event, state, onEvent);
 
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', (chunk) => {

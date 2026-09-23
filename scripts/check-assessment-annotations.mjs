@@ -8,16 +8,16 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { cancelAssessment, listAssessments, readAssessment, reassessAssessment, recordApproval, retryAssessment, runOutputPath, settleAssessments, startAssessment } from '../src/assessments.mjs';
+import { cancelAssessment, deleteAssessment, listAssessments, readAssessment, readAssessmentConsole, reassessAssessment, recordApproval, retryAssessment, runOutputPath, settleAssessments, startAssessment } from '../src/assessments.mjs';
 import { validateGeneratedAnnotations } from '../src/annotation-stage.mjs';
 import { runAnnotationStage } from '../src/annotation-stage.mjs';
 import { universeDir } from '../src/paths.mjs';
-import { assessmentsRoot, currentVersion, inputFingerprint } from '../src/assessment-packet.mjs';
+import { assessmentsRoot, currentVersion, inputFingerprint, runDir } from '../src/assessment-packet.mjs';
 import { config } from '../src/config.mjs';
 import { extractAnnotationJson } from '../src/annotation-stage.mjs';
 import { MAX_OUTPUT_BYTES, MAX_PROMPT_BYTES, readingListBlock } from '../src/annotation-prompt.mjs';
 import { planReviewUnits, unitReadingList } from '../src/annotation-units.mjs';
-import { CANON, CHAPTER, EMPTY_THREADS, LAW } from './check-fixtures.mjs';
+import { CANON, CHAPTER, EMPTY_THREADS, LAW, inventory } from './check-fixtures.mjs';
 import { createUniverse } from '../src/universe.mjs';
 
 const FAKE_EVALUATOR = `#!/usr/bin/env node
@@ -51,6 +51,16 @@ await appendFile(join(runDir, 'fake-evaluator.calls'), JSON.stringify({
   seen: synthesis ? [...prompt.matchAll(/^- (\\S+) — /gm)].map((match) => match[1]) : []
 }) + '\\n', 'utf8');
 if (process.env.FAKE_EVALUATOR_MODE === 'garbage') { await emit('I read the book and it is good.'); process.exit(0); }
+// An evaluator that is still working: it narrates, calls a tool, and then takes its time. The host journals
+// what it streams as it arrives, which is what lets a review be watched while it runs.
+if (process.env.FAKE_EVALUATOR_MODE === 'narrate-hang') {
+  await emit('reading the frozen packet');
+  await new Promise((resolve) => process.stdout.write(JSON.stringify({ type: 'tool_execution_start', toolName: 'read', args: { path: chapter.path } }) + String.fromCharCode(10), resolve));
+  await new Promise((resolve) => process.stdout.write(JSON.stringify({ type: 'tool_execution_end', toolName: 'read', error: null }) + String.fromCharCode(10), resolve));
+  process.on('SIGTERM', () => {});
+  await new Promise((resolve) => setTimeout(resolve, 60_000));
+  process.exit(0);
+}
 // A unit that was asked for and could not be answered: the reading is interrupted where the check wants it.
 if (process.env.FAKE_UNIT_FAIL && unitId && unitId.includes(process.env.FAKE_UNIT_FAIL)) process.exit(1);
 const text = await readFile(join(runDir, 'input', chapter.path), 'utf8');
@@ -67,7 +77,9 @@ const annotations = {
   source_version: manifest.version,
   request: null,
   brief: null,
-  evidence: synthesis ? [] : [{ id: 'm1', file: chapter.path, sha256: chapter.sha256, start: 0, end, quote }],
+  // The passage is anchored the way the host asks a model to anchor it: the line it is on and the exact text,
+  // with no byte offset counted by the child. The host resolves the pair to the bytes of the frozen file.
+  evidence: synthesis ? [] : [{ id: 'm1', file: chapter.path, sha256: chapter.sha256, line: 1, quote }],
   segments: [{ id: 'seg1', chapter: chapter.chapter, kind: vocabulary.segment_kinds[0], label: 'the opening', focal_character: null, start: 0, end, story_order: 1 }],
   metrics: {
     CS: { status: vocabulary.metric_statuses[0], evaluator: 'model:fake-evaluator', dimensions: {
@@ -974,6 +986,50 @@ await delay(60_000);
         } else {
           fail(`assessments/annotations/contract/offsets: late=${late.ok}, broken=${broken.ok}, errors=${JSON.stringify(broken.errors.slice(0, 4))}`);
         }
+        // A model cannot count bytes in a file it reads through a paged view, so an answer may name the line a
+        // passage is on and quote it: the host resolves the pair to the bytes of the frozen file, refuses a
+        // quotation that occurs more than once between the lines it names, and refuses one that is not there.
+        const anchoredFile = {
+          path: 'chapters/0001-x.md',
+          role: 'chapter',
+          chapter: 1,
+          sha256: createHash('sha256').update(Buffer.from('erste Zeile\nzweite Zeile mit Grüße und Grüße\n', 'utf8')).digest('hex'),
+          bytes: Buffer.byteLength('erste Zeile\nzweite Zeile mit Grüße und Grüße\n', 'utf8'),
+          text: 'erste Zeile\nzweite Zeile mit Grüße und Grüße\n'
+        };
+        const base = {
+          schema_version: 'annotations.v1',
+          source_version: validateGeneratedAnnotations({ annotations: empty, manifest: { files: [anchoredFile] }, files: [anchoredFile], scope, vocabulary: vocab }).version,
+          metrics: Object.fromEntries(['CS', 'OI', 'NCS', 'EAP'].map((id) => [id, { status: 'not_assessable', missing_reason: 'nothing in the selection supports an observation' }])),
+          indicators: Object.keys(vocab.indicators).map((id) => ({ id, status: 'not_assessable', missing_reason: 'nothing in the selection supports an observation' }))
+        };
+        const withAnchored = (item) => ({ ...base, evidence: [item] });
+        const item = { id: 'e1', file: anchoredFile.path, sha256: anchoredFile.sha256 };
+        const uniqueDocument = withAnchored({ ...item, line: 2, quote: 'zweite Zeile mit' });
+        const unique = validateGeneratedAnnotations({
+          annotations: uniqueDocument,
+          manifest: { files: [anchoredFile] }, files: [anchoredFile], scope, vocabulary: vocab
+        });
+        const resolvedItem = uniqueDocument.evidence[0];
+        const ambiguous = validateGeneratedAnnotations({
+          annotations: withAnchored({ ...item, line: 2, quote: 'Grüße' }),
+          manifest: { files: [anchoredFile] }, files: [anchoredFile], scope, vocabulary: vocab
+        });
+        const absent = validateGeneratedAnnotations({
+          annotations: withAnchored({ ...item, line: 1, quote: 'zweite Zeile' }),
+          manifest: { files: [anchoredFile] }, files: [anchoredFile], scope, vocabulary: vocab
+        });
+        const resolvedBytes = anchoredFile.text.slice(resolvedItem.start, resolvedItem.end);
+        const resolvedOk = unique.ok && unique.evidence_resolved === 1
+          && resolvedItem.offsets_resolved_by === 'host'
+          && resolvedBytes === 'zweite Zeile mit'
+          && ambiguous.ok === false && ambiguous.errors.some((error) => error.includes('occurs 2 times'))
+          && absent.ok === false && absent.errors.some((error) => error.includes('does not occur on line 1'));
+        if (resolvedOk) {
+          ok(`assessments/annotations/contract/anchored: a quotation named by line and text is resolved by the host to its exact bytes (${resolvedItem.start}..${resolvedItem.end}, recorded as resolved by the host), while one that occurs twice between the named lines and one that is not on them are both refused`);
+        } else {
+          fail(`assessments/annotations/contract/anchored: unique=${unique.ok}/${unique.evidence_resolved}/${resolvedItem.start}..${resolvedItem.end}/${JSON.stringify(resolvedItem.offsets_resolved_by)} bytes=${JSON.stringify(resolvedBytes)}, ambiguous=${ambiguous.ok}/${JSON.stringify(ambiguous.errors.slice(0, 2))}, absent=${absent.ok}/${JSON.stringify(absent.errors.slice(0, 2))}`);
+        }
       }
 
       // A document that disposes of nothing goes back to the evaluator once, is refused again, and the run
@@ -1271,6 +1327,112 @@ await delay(60_000);
           } else {
             fail(`assessments/annotations/boundary/packet: status=${settled.status}, intact=${settled.packet_intact}, error=${String(settled.error).slice(0, 240)}, errors=${JSON.stringify(settled.annotation_errors)}`);
           }
+        }
+      }
+
+      // A review is watchable while it runs and readable afterwards: the record names the call in flight, the
+      // evaluator's own stream is journaled beside the run as it arrives, the console merges both while the
+      // run is live, and it keeps the whole story once the run settles. This is what the sessions dialog reads.
+      {
+        process.env.FAKE_EVALUATOR_MODE = 'narrate-hang';
+        const watched = await startAssessment({ universeId: universe.id, phase: 'metrics', mode: 'generic', force: true });
+        const directory = runDir(universe.id, watched.version, watched.run_id);
+        const inFlightAt = async () => (await readAssessment(universe.id, watched.run_id)).in_flight ?? null;
+        const until = Date.now() + 15_000;
+        let inflight = await inFlightAt();
+        while (!inflight?.pid && Date.now() < until) {
+          await new Promise((resolve) => setTimeout(resolve, 50));
+          inflight = await inFlightAt();
+        }
+        const journalOnDisk = async () => stat(join(directory, 'generated', 'evaluator.events.jsonl')).then(() => true, () => false);
+        // The journal is appended as the events arrive, so the check waits for the console to show them rather
+        // than assuming that a spawned child has already said something.
+        let during = null;
+        let liveText = '';
+        const liveOk = async () => {
+          during = await readAssessmentConsole(universe.id, watched.run_id);
+          liveText = String(during?.console?.text ?? '');
+          return during?.console?.live === true
+            && (await journalOnDisk())
+            && liveText.includes('created — metrics review')
+            && liveText.includes('in flight since')
+            && liveText.includes('reading the frozen packet')
+            && liveText.includes('→ read')
+            && liveText.includes('✓ read');
+        };
+        let live = await liveOk();
+        while (!live && Date.now() < until) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          live = await liveOk();
+        }
+        const duringOk = live
+          && Number.isInteger(inflight?.pid)
+          && typeof inflight?.unit === 'string' && inflight.unit.length > 0
+          && typeof inflight?.model === 'string' && inflight.model.length > 0
+          && Number.isFinite(inflight?.timeout_ms);
+        // A live run is not deletable: its child is reading that directory, and the refusal says what to do.
+        let liveRefusal = null;
+        try {
+          await deleteAssessment(universe.id, watched.run_id);
+        } catch (error) {
+          liveRefusal = error.code;
+        }
+        await cancelAssessment(universe.id, watched.run_id);
+        await settleAssessments();
+        delete process.env.FAKE_EVALUATOR_MODE;
+        const settled = await readAssessment(universe.id, watched.run_id);
+        const after = await readAssessmentConsole(universe.id, watched.run_id);
+        const afterText = String(after?.console?.text ?? '');
+        const afterOk = settled.in_flight === null
+          && settled.status === 'cancelled'
+          && after?.console?.live === false
+          && after?.console?.source === 'journal'
+          && afterText.includes('✗ cancelled')
+          && afterText.includes('reading the frozen packet');
+        if (duringOk && afterOk && liveRefusal === 'STILL_LIVE') {
+          ok(`review console: the call in flight is in the record (${inflight.unit}, pid ${inflight.pid}), the evaluator's narration and tool calls are journaled while it works, the console answers them live and keeps them after the run settled, and deleting a live run is refused`);
+        } else {
+          fail(`review console: during=${duringOk} (inflight=${JSON.stringify(inflight)}, live=${during?.console?.live}, source=${during?.console?.source}, journal=${journalOnDisk}, text=${JSON.stringify(liveText.slice(0, 220))}), after=${afterOk} (status=${settled.status}, in_flight=${JSON.stringify(settled.in_flight)}, live=${after?.console?.live}, source=${after?.console?.source}, text=${JSON.stringify(afterText.slice(-220))}), liveRefusal=${liveRefusal}`);
+        }
+      }
+
+      // A stored review is a report a reader can remove: the refusal while another record names it, the
+      // deletion that takes the run directory with it, and the book that is not touched by either.
+      {
+        const published = await startAssessment({
+          universeId: universe.id,
+          phase: 'metrics',
+          mode: 'deterministic',
+          scope: { kind: 'chapter', chapters: [1] },
+          intention: 'deletion probe',
+          request: 'the deletion probe request'
+        });
+        await settleAssessments();
+        const stored = await readAssessment(universe.id, published.run_id);
+        const before = await inventory(universe.id);
+        const successor = await reassessAssessment(universe.id, published.run_id, { annotations: 'reuse' });
+        await settleAssessments();
+        // The newer run names the one it re-evaluates, so that one is evidence a record still refers to.
+        let referenced = null;
+        try {
+          await deleteAssessment(universe.id, published.run_id);
+        } catch (error) {
+          referenced = error.code;
+        }
+        const keptWhileNamed = await readAssessment(universe.id, published.run_id).then(() => true, () => false);
+        await deleteAssessment(universe.id, successor.run_id);
+        const removed = await deleteAssessment(universe.id, published.run_id).catch((error) => ({ error: error.code }));
+        const after = await inventory(universe.id);
+        const gone = await readAssessment(universe.id, published.run_id).then(() => null, (error) => error.code);
+        const goneFromDisk = await stat(runDir(universe.id, stored.version, published.run_id)).then(() => true, () => false);
+        // The book is what a review must never change: the deletion is compared against the inventory taken
+        // before it, rather than against a file name the fixture may not use.
+        const chapterKept = JSON.stringify([...after]) === JSON.stringify([...before]);
+        if (stored.status === 'done' && referenced === 'REFERENCED' && keptWhileNamed
+          && removed?.run_id === published.run_id && gone === 'NOT_FOUND' && !goneFromDisk && chapterKept) {
+          ok('assessments/delete: a report another run re-evaluates is refused while that run exists, the deletion then removes the record and its directory for good, and the book keeps its chapter');
+        } else {
+          fail(`assessments/delete: stored=${stored.status}, successor=${successor.run_id}, referenced=${referenced}, kept=${keptWhileNamed}, removed=${JSON.stringify(removed).slice(0, 120)}, gone=${gone}, onDisk=${goneFromDisk}, chapter=${chapterKept}`);
         }
       }
 

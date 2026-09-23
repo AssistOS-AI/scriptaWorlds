@@ -1,0 +1,52 @@
+{
+  "schema_version": "continuity-result.v1",
+  "ok": true,
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "universe_id": "five-opaque-windows",
+    "kind": "complete",
+    "chapters": [
+      1
+    ],
+    "omitted": [],
+    "chapters_reviewed": [
+      1
+    ],
+    "coverage_note": "Deterministic integrity review over 1 chapter file(s) and the packet state of a complete book (chapters 1..1). No annotations supplied, so no semantic continuity comparisons were performed.",
+    "coverage": null,
+    "coverage_bounds": null
+  },
+  "reviewed_claims": [],
+  "comparisons": [],
+  "counts": {
+    "eligible_comparisons": 0,
+    "consistent": 0,
+    "contradicted": 0,
+    "unresolved": 0
+  },
+  "derived": {
+    "cci": {
+      "status": "not_applicable",
+      "value": null,
+      "coverage": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "reason": "no eligible comparisons were reviewed"
+    },
+    "cad": {
+      "status": "not_applicable",
+      "value": null,
+      "coverage": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "eligible": 0,
+      "reason": "no eligible character change comparisons were reviewed"
+    }
+  },
+  "findings": [],
+  "errors": [],
+  "warnings": [],
+  "outputs": [
+    "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T134521-metrics-b69e/continuity/continuity-result.json"
+  ]
+}

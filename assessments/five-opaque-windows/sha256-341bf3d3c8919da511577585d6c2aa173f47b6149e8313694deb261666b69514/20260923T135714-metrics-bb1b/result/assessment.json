@@ -1,0 +1,1296 @@
+{
+  "schema_version": "assessment.v1",
+  "assessment_id": "b2d9c14a67ecc1dea353bea5e84e31d6",
+  "created_at": "2026-09-23T13:57:14.832Z",
+  "trigger": "request",
+  "trigger_ref": {
+    "kind": "request"
+  },
+  "book": {
+    "universe_id": "five-opaque-windows",
+    "title": "The Five Opaque Windows",
+    "language": "en",
+    "last_accepted_chapter": 1
+  },
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "kind": "chapter",
+    "chapters": [
+      1
+    ],
+    "population": [
+      "1"
+    ],
+    "segments": [],
+    "context_chapters": [],
+    "ranges": [
+      {
+        "chapter": 1,
+        "file": "chapters/0001-who-pays-for-the-quiet.md",
+        "start": 0,
+        "end": 8053
+      }
+    ]
+  },
+  "coverage": {
+    "packet_scope": "complete",
+    "packet_chapters": [
+      1
+    ],
+    "omitted_chapters": [],
+    "context_chapters": [],
+    "note": null,
+    "selection": {
+      "kind": "chapter",
+      "chapters": [
+        1
+      ],
+      "segments": []
+    },
+    "evidence": {
+      "selected_chapters": 1,
+      "chapters_with_evidence": 0,
+      "ratio": 0
+    },
+    "continuity": {
+      "applicable": true,
+      "covered_chapters": [
+        1
+      ],
+      "population": [
+        1
+      ],
+      "reason": null
+    },
+    "tokenizer": {
+      "version": 2,
+      "method": "unicode-letter-run-v2+byte-offsets",
+      "language": "en",
+      "supported": true,
+      "reason": null,
+      "eligible_tokens": 1572
+    }
+  },
+  "profile": {
+    "profile_id": "scripta-generic-review-chapter",
+    "schema_version": "evaluation-profile.v1",
+    "scope": {
+      "kind": "chapter",
+      "chapters": [
+        1
+      ],
+      "segments": [],
+      "arcs": [],
+      "context_chapters": []
+    },
+    "aggregation": {
+      "enabled": false,
+      "profile_version": "nqs-profile.v1",
+      "policy": "research",
+      "weights": null,
+      "emotional_fit": null,
+      "scope": null,
+      "corpus_version": null,
+      "rubric_version": null,
+      "calibration": null
+    },
+    "rubric": {
+      "version": "rubric-anchors.v1",
+      "scale": 4,
+      "declared": false
+    }
+  },
+  "specification": {
+    "request": null,
+    "brief": null
+  },
+  "provenance": {
+    "code_version": "scripta-metrics-report/1.3.0",
+    "registry_version": "metrics.v1",
+    "tokenizer_version": 2,
+    "tokenizer_method": "unicode-letter-run-v2+byte-offsets",
+    "runtime": "v24.9.0",
+    "profile_sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+    "packet": {
+      "schema_version": "assessment-input.v2",
+      "universe_id": "five-opaque-windows",
+      "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+      "captured_at": "2026-09-23T13:57:14.832Z",
+      "scope": {
+        "kind": "complete",
+        "chapters": [
+          1
+        ],
+        "omitted": [],
+        "missing": [],
+        "note": null
+      },
+      "inventory": [
+        1
+      ]
+    },
+    "selection": {
+      "kind": "chapter",
+      "source": "profile.scope",
+      "chapters": [
+        1
+      ],
+      "segments": [],
+      "context_chapters": [],
+      "output_ids": [
+        "1"
+      ]
+    },
+    "continuity": {
+      "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+      "declared_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+      "population": [
+        1
+      ],
+      "chapters": [
+        1
+      ],
+      "chapters_reviewed": [
+        1
+      ],
+      "declared_chapters": [
+        1
+      ],
+      "omitted": [],
+      "coverage_note": "Deterministic integrity review over 1 chapter file(s) and the packet state of a complete book (chapters 1..1). No annotations supplied, so no semantic continuity comparisons were performed. Scoped to the selection (1): 0 of 0 reviewed comparison(s) lie in the selected chapters and only those are counted here.",
+      "declared_coverage": null,
+      "counts": {
+        "eligible_comparisons": 0,
+        "consistent": 0,
+        "contradicted": 0,
+        "unresolved": 0
+      },
+      "declared_counts": {
+        "eligible_comparisons": 0,
+        "consistent": 0,
+        "contradicted": 0,
+        "unresolved": 0
+      },
+      "counts_source": "ledger",
+      "partition": {
+        "complete": true,
+        "unexamined": 0,
+        "note": null
+      }
+    },
+    "corpus": null,
+    "files": [
+      {
+        "path": "canon.md",
+        "role": "canon",
+        "sha256": "9b32e55dc848ae51f0f256d61c6d9001b7f7fdc0aef8f028f48d4ae8273df8cd",
+        "bytes": 6957
+      },
+      {
+        "path": "threads.json",
+        "role": "threads",
+        "sha256": "4fcf1c8d0c2587fa2e6c53cfd0b735ddc8b1bb356375a69e129485b47e9d9163",
+        "bytes": 1910
+      },
+      {
+        "path": "atlas.json",
+        "role": "atlas",
+        "sha256": "c53be17781c0259182cbe60b99168c7cc456b913d355f4218828cecde4f023a4",
+        "bytes": 1781
+      },
+      {
+        "path": "chapters/0001-who-pays-for-the-quiet.md",
+        "role": "chapter",
+        "sha256": "edf7956f346a7cc91e66404b2a1b3086b664bd917d9457230ea82a8b8ae8561e",
+        "bytes": 8053
+      },
+      {
+        "path": "chapters/0001-offer.json",
+        "role": "offer",
+        "sha256": "6213e06231ccdeeb85657b28385b03d6e78c12601faa92c235e9aec8e19331c4",
+        "bytes": 1082
+      },
+      {
+        "path": "profile.json",
+        "role": "profile",
+        "sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+        "bytes": 264
+      },
+      {
+        "path": "rules/applicable-rules.v1.json",
+        "role": "rules",
+        "sha256": "8d79d6169f02106bfaf369c22772ad3485b678a2cac44f36fb5fae84c8a0293a",
+        "bytes": 5459
+      }
+    ],
+    "annotations": {
+      "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+      "continuity_source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+      "declared_metrics": [],
+      "timing_declared": false,
+      "sha256": "9e9db2bc779b823286fe0a34405bfe01760fb45670e3d6c86f8c9290cdcd96c8",
+      "bytes": 4067
+    },
+    "resources": [
+      {
+        "role": "profile",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/input/profile.json",
+        "sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+        "bytes": 264
+      },
+      {
+        "role": "annotations",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/generated/continuity-annotations.json",
+        "sha256": "9e9db2bc779b823286fe0a34405bfe01760fb45670e3d6c86f8c9290cdcd96c8",
+        "bytes": 4067
+      }
+    ],
+    "evaluation": {
+      "rubric": {
+        "role": "rubric-anchors",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-metrics-report/schema/rubric-anchors.v1.json",
+        "sha256": "9e7f9eb57b999bf2bfe1a729e10faf80a73157586686b249cc392f7c874c0fc3",
+        "bytes": 16199
+      },
+      "vocabulary": {
+        "role": "annotation-vocabulary",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-metrics-report/schema/annotations.v1.json",
+        "sha256": "a88721451bd18631f0a381706d4c83137c46f70dc19c48d5b361f6441b5479ab",
+        "bytes": 3443
+      },
+      "study_schema": {
+        "role": "calibration-study-schema",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-metrics-report/schema/study.v1.json",
+        "sha256": "40603a75948f0694cf7dc6e809a95997034ea1020889e4dc79a9de7976c754c8",
+        "bytes": 2331
+      },
+      "case_library": {
+        "role": "literary-case-index",
+        "path": "/home/salboaie/work/axiologic/scriptaWorlds/skills/scripta-metrics-report/fixtures/literary-cases/index.json",
+        "sha256": "7b2eab3139db4ca4b0415a7f6f22ca25cb0c607f21fa4a9be666b3311eefbe2e",
+        "bytes": 8531
+      },
+      "rubric_version": "rubric-anchors.v1",
+      "anchor_scale": 4,
+      "registry_version": "metrics.v1",
+      "evaluators": [],
+      "model_variability": {
+        "assessed_by": [],
+        "declared_model": null,
+        "declared_settings": null,
+        "note": "every judgement in this bundle was authored outside this deterministic run by the evaluator named on its own result; re-running the same inputs against another model or settings may produce different judgements, while re-rendering this saved bundle is byte-identical and adds none"
+      }
+    },
+    "evaluator_provenance": null,
+    "evaluator_provenance_sha256": null
+  },
+  "evidence": [],
+  "review": {
+    "reading_status": "not_evaluated",
+    "statement": "nothing in this selection was judged: no metric or indicator produced a judgement, so an empty findings list here means the text was not read, not that it is sound",
+    "scope": {
+      "kind": "chapter",
+      "chapters": [
+        1
+      ],
+      "segments": [],
+      "context_chapters": [],
+      "omitted_chapters": []
+    },
+    "intention": {
+      "declared": [],
+      "statement": "no intention was declared with the judgements, so the observations stand alone"
+    },
+    "assessment": {
+      "evaluated": [
+        {
+          "id": "CAR",
+          "status": "computed",
+          "coverage": 0
+        }
+      ],
+      "judged": [],
+      "unavailable": [
+        {
+          "id": "CS",
+          "status": "not_assessable",
+          "reason": "no CS annotation supplied"
+        },
+        {
+          "id": "NQS",
+          "status": "not_assessable",
+          "reason": "NQS is optional and off by default; enable aggregation with a declared research profile to compute it, or supply verifiable study artifacts for a production claim"
+        },
+        {
+          "id": "CCI",
+          "status": "not_applicable",
+          "reason": "no eligible continuity comparisons"
+        },
+        {
+          "id": "CAD",
+          "status": "not_applicable",
+          "reason": "no character change candidates"
+        },
+        {
+          "id": "EAP",
+          "status": "not_assessable",
+          "reason": "no EAP annotation supplied"
+        },
+        {
+          "id": "OI",
+          "status": "not_assessable",
+          "reason": "no OI annotation supplied"
+        },
+        {
+          "id": "SI",
+          "status": "not_assessable",
+          "reason": "no --corpus manifest supplied"
+        },
+        {
+          "id": "NCS",
+          "status": "not_assessable",
+          "reason": "no NCS annotation supplied"
+        },
+        {
+          "id": "CR",
+          "status": "not_assessable",
+          "reason": "no relevant training dataset declared; CR is never reported as zero without one"
+        },
+        {
+          "id": "TOP",
+          "status": "not_assessable",
+          "reason": "no --corpus manifest supplied"
+        },
+        {
+          "id": "AEG",
+          "status": "not_assessable",
+          "reason": "no opt-in AEG timing annotation supplied"
+        }
+      ],
+      "judged_indicators": [],
+      "measures": {
+        "evidence_coverage": 0,
+        "segment_coverage": null,
+        "eligible_tokens": 1572,
+        "continuity_applicable": true,
+        "continuity_reason": null,
+        "continuity_partition": {
+          "complete": true,
+          "unexamined": 0,
+          "note": null
+        },
+        "cad_population_chapters": [
+          1
+        ]
+      }
+    },
+    "strengths": [],
+    "strengths_note": "nothing was recorded as worth preserving; that is a gap in the record, not a statement that the text has no merit",
+    "departures": [],
+    "problems": [],
+    "problems_note": "no finding was recorded; read this together with the reading status above before treating it as a clean report"
+  },
+  "segments": [],
+  "segment_order": {
+    "disclosure": [],
+    "story": [],
+    "differs": false
+  },
+  "departures": [],
+  "metrics": {
+    "CS": {
+      "id": "CS",
+      "name": "Coherence Score",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "components",
+      "status": "not_assessable",
+      "value": null,
+      "components": {},
+      "trajectory": null,
+      "unit": "0-100 derived from four anchored 0-4 dimensions",
+      "direction": "higher_better",
+      "purpose": "Assess whether discourse, referents, events and causal/temporal relations form an intelligible account.",
+      "method": "Anchored 0-4 ratings of referential clarity, discourse connection, causal support and temporal intelligibility; composite only when all four dimensions are assessable.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Semantic resemblance does not establish causality; deliberate non-linearity or unreliable narration can be coherent.",
+      "missing_reason": "no CS annotation supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "rubric": {
+          "version": "rubric-anchors.v1",
+          "scale": 4
+        },
+        "missing_dimensions": []
+      },
+      "rubric_version": "rubric-anchors.v1"
+    },
+    "NQS": {
+      "id": "NQS",
+      "name": "Narrative Quality Score",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "higher_better",
+      "purpose": "A composite comparison of narrative quality against an explicit profile.",
+      "method": "Weighted sum of compatible CS, OI and a separately judged emotional-fit component; disabled by default.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Weights are a research experiment, not an endorsed formula; the result fits a profile, not universal literary value.",
+      "missing_reason": "NQS is optional and off by default; enable aggregation with a declared research profile to compute it, or supply verifiable study artifacts for a production claim",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "aggregation_policy": "research",
+        "weights": null,
+        "emotional_fit_procedure": null,
+        "scope": null,
+        "corpus_version": null,
+        "rubric_version": null,
+        "calibration": null,
+        "inputs": {
+          "CS": null,
+          "OI": null,
+          "EMOTIONAL_FIT": null
+        }
+      }
+    },
+    "CCI": {
+      "id": "CCI",
+      "name": "Continuity Control Indicator",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_applicable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "higher_better",
+      "purpose": "Track consistency of entities, facts, chronology and events across the selected narrative units.",
+      "method": "Count consistent, contradicted and unresolved comparisons; index is 100 * consistent / resolved when fully resolved and positive.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Selection bias and omitted evidence can hide errors; a small clean sample is not global continuity.",
+      "missing_reason": "no eligible continuity comparisons",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "eligible_comparisons": 0,
+        "consistent": 0,
+        "contradicted": 0,
+        "unresolved": 0,
+        "resolved": 0,
+        "partition": {
+          "complete": true,
+          "unexamined": 0,
+          "note": null
+        },
+        "counts_source": "ledger",
+        "declared_counts": {
+          "eligible_comparisons": 0,
+          "consistent": 0,
+          "contradicted": 0,
+          "unresolved": 0
+        }
+      }
+    },
+    "CAD": {
+      "id": "CAD",
+      "name": "Character Attribute Drift",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_applicable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "higher_worse",
+      "purpose": "Detect unsupported changes in character properties or behaviour while allowing development.",
+      "method": "Classify eligible changes as supported, unsupported or unresolved; rate is 100 * unsupported / resolved_changes when non-empty and fully resolved.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Psychological plausibility is interpretive; identity can be intentionally unstable.",
+      "missing_reason": "no character change candidates",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "change_candidates": 0,
+        "unsupported": 0,
+        "supported": 0,
+        "unresolved_changes": 0,
+        "resolved_changes": 0,
+        "linked_symptoms": [],
+        "conflicting_defects": [],
+        "population_chapters": [
+          1
+        ],
+        "excluded_findings": []
+      }
+    },
+    "EAP": {
+      "id": "EAP",
+      "name": "Emotional Arc Profile",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "trajectory",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "valence -2..2 and tension 0..4 per ordered segment",
+      "direction": "non_ordinal",
+      "purpose": "Describe emotional progression across scenes, chapters and the work.",
+      "method": "Annotate valence -2..2 and tension/intensity 0..4 with rubric anchors, preserving scene order and transitions.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "High tension is not automatically good; a predicted effect is not measured reader response.",
+      "missing_reason": "no EAP annotation supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": null
+    },
+    "CAR": {
+      "id": "CAR",
+      "name": "Compliance Adherence Rate",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "computed",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "higher_better",
+      "purpose": "Measure adherence to an explicit specification across generated outputs.",
+      "method": "An output passes when all its applicable mandatory rules pass; 100 * passing_outputs / evaluated_outputs over the declared population.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": 0,
+      "bounds": {
+        "lower": 0,
+        "upper": 100
+      },
+      "limits": "Says nothing about whether the rules produce good fiction; it is not a legal certification.",
+      "missing_reason": "1 output(s) have an unresolved check; the value is held back and its bounds are reported under the \"all_applicable_pass\" aggregation policy",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "aggregation_policy": "all_applicable_pass",
+        "registry_version": "stg-rules.v1",
+        "evaluated_outputs": 1,
+        "passing_outputs": 0,
+        "failing_outputs": 0,
+        "unresolved_outputs": 1,
+        "not_applicable_outputs": 0,
+        "expected_outcomes": 5,
+        "recorded_outcomes": 0,
+        "outcome_coverage": 0,
+        "soft_rules": 1,
+        "pairs": [
+          {
+            "rule": "stg-title-line",
+            "output": "1",
+            "description": "Every chapter file opens with a level-one heading that names the chapter.",
+            "source": "stg",
+            "classification": "hard",
+            "criterion": "every declared output",
+            "outcome": "unresolved",
+            "recorded_outcome": null,
+            "recorded": false,
+            "evidence": [],
+            "reason": "no outcome recorded for this applicable rule"
+          },
+          {
+            "rule": "stg-fiction-language",
+            "output": "1",
+            "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+            "source": "stg",
+            "classification": "hard",
+            "criterion": "every declared output",
+            "outcome": "unresolved",
+            "recorded_outcome": null,
+            "recorded": false,
+            "evidence": [],
+            "reason": "no outcome recorded for this applicable rule"
+          },
+          {
+            "rule": "stg-no-meta-commentary",
+            "output": "1",
+            "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+            "source": "stg",
+            "classification": "hard",
+            "criterion": "every declared output",
+            "outcome": "unresolved",
+            "recorded_outcome": null,
+            "recorded": false,
+            "evidence": [],
+            "reason": "no outcome recorded for this applicable rule"
+          },
+          {
+            "rule": "stg-told-as-prose",
+            "output": "1",
+            "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+            "source": "stg",
+            "classification": "hard",
+            "criterion": "every declared output",
+            "outcome": "unresolved",
+            "recorded_outcome": null,
+            "recorded": false,
+            "evidence": [],
+            "reason": "no outcome recorded for this applicable rule"
+          },
+          {
+            "rule": "stg-scene-breaks",
+            "output": "1",
+            "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+            "source": "stg",
+            "classification": "soft",
+            "criterion": "every declared output",
+            "outcome": "unresolved",
+            "recorded_outcome": null,
+            "recorded": false,
+            "evidence": [],
+            "reason": "no outcome recorded for this applicable rule"
+          }
+        ],
+        "failures": [],
+        "unresolved": [
+          {
+            "rule": "stg-title-line",
+            "output": "1",
+            "description": "Every chapter file opens with a level-one heading that names the chapter.",
+            "source": "stg",
+            "criterion": "every declared output",
+            "recorded": false,
+            "reason": "no outcome recorded for this applicable rule",
+            "evidence": []
+          },
+          {
+            "rule": "stg-fiction-language",
+            "output": "1",
+            "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+            "source": "stg",
+            "criterion": "every declared output",
+            "recorded": false,
+            "reason": "no outcome recorded for this applicable rule",
+            "evidence": []
+          },
+          {
+            "rule": "stg-no-meta-commentary",
+            "output": "1",
+            "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+            "source": "stg",
+            "criterion": "every declared output",
+            "recorded": false,
+            "reason": "no outcome recorded for this applicable rule",
+            "evidence": []
+          },
+          {
+            "rule": "stg-told-as-prose",
+            "output": "1",
+            "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+            "source": "stg",
+            "criterion": "every declared output",
+            "recorded": false,
+            "reason": "no outcome recorded for this applicable rule",
+            "evidence": []
+          }
+        ]
+      }
+    },
+    "OI": {
+      "id": "OI",
+      "name": "Originality Index",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "components",
+      "status": "not_assessable",
+      "value": null,
+      "components": {},
+      "trajectory": null,
+      "unit": "0-100 derived from three anchored 0-4 dimensions",
+      "direction": "higher_better",
+      "purpose": "Assess fresh execution relative to previously observed material.",
+      "method": "Anchored 0-4 ratings of perspective, dramatic development and expression; index with complete ratings and an explicit comparison scope.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "OI is not 100 - SI; incoherent word salad can have low similarity.",
+      "missing_reason": "no OI annotation supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "rubric": {
+          "version": "rubric-anchors.v1",
+          "scale": 4
+        },
+        "missing_dimensions": []
+      },
+      "rubric_version": "rubric-anchors.v1"
+    },
+    "SI": {
+      "id": "SI",
+      "name": "Similarity Index",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-1",
+      "direction": "neutral",
+      "purpose": "Quantify resemblance between selected texts.",
+      "method": "Jaccard of distinct 5-token shingles per eligible pair; value is the maximum over the named corpus.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Reflects quotation, recurring names, genre language or duplication; not a moral or literary judgement.",
+      "missing_reason": "no --corpus manifest supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": null
+    },
+    "NCS": {
+      "id": "NCS",
+      "name": "Novelty & Cliché Score",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "components",
+      "status": "not_assessable",
+      "value": null,
+      "components": {},
+      "trajectory": null,
+      "unit": "two anchored 0-4 dimensions, no combined score",
+      "direction": "non_ordinal",
+      "purpose": "Distinguish fresh execution from overused expression or narrative machinery.",
+      "method": "Two dimensions: novelty of execution and cliché reliance, each anchored 0-4 with passages and scene-level evidence.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Corpus frequency, evaluator taste and cultural familiarity bias both dimensions.",
+      "missing_reason": "no NCS annotation supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": {
+        "rubric": {
+          "version": "rubric-anchors.v1",
+          "scale": 4
+        },
+        "missing_dimensions": []
+      },
+      "rubric_version": "rubric-anchors.v1"
+    },
+    "CR": {
+      "id": "CR",
+      "name": "Contamination Rate",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "higher_worse",
+      "purpose": "Assess overlap between evaluation data and a model's training data.",
+      "method": "Fraction of eligible evaluation items meeting the declared contamination criterion, with exact evidence and dataset coverage.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Normally unavailable for a hosted model's undisclosed training set; a reference library is not training data.",
+      "missing_reason": "no relevant training dataset declared; CR is never reported as zero without one",
+      "evaluator": null,
+      "rationale": null,
+      "detail": null
+    },
+    "TOP": {
+      "id": "TOP",
+      "name": "Textual Overlap Percentage",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "0-100",
+      "direction": "neutral",
+      "purpose": "Show how much candidate text overlaps declared references.",
+      "method": "Union of exact matching runs of at least 8 tokens across references; 100 * matched_positions / eligible_tokens.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Does not establish semantic borrowing, training memorization, plagiarism or copyright compliance.",
+      "missing_reason": "no --corpus manifest supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": null
+    },
+    "AEG": {
+      "id": "AEG",
+      "name": "Author Efficiency Gain",
+      "definition_version": "1.0",
+      "registry_version": "metrics.v1",
+      "value_kind": "scalar",
+      "status": "not_assessable",
+      "value": null,
+      "components": null,
+      "trajectory": null,
+      "unit": "%, negative when the assisted task took longer than its baseline",
+      "direction": "higher_better",
+      "purpose": "Measure reduction in human time required to produce comparable accepted work.",
+      "method": "100 * (baseline_active_minutes - assisted_active_minutes) / baseline_active_minutes over opt-in matched records; a positive baseline is required and a negative result is a real result.",
+      "scope": {
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "segments": []
+      },
+      "evidence": [],
+      "coverage": null,
+      "bounds": null,
+      "limits": "Server elapsed time is not human effort; a small uncontrolled sample is not causal evidence.",
+      "missing_reason": "no opt-in AEG timing annotation supplied",
+      "evaluator": null,
+      "rationale": null,
+      "detail": null
+    }
+  },
+  "indicators": {
+    "narrative_coherence": {
+      "id": "narrative_coherence",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "thematic_depth": {
+      "id": "thematic_depth",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "character_complexity": {
+      "id": "character_complexity",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "originality": {
+      "id": "originality",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "stylistic_quality": {
+      "id": "stylistic_quality",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "emotional_impact": {
+      "id": "emotional_impact",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "interpretive_openness": {
+      "id": "interpretive_openness",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "no indicator annotation supplied"
+    },
+    "cultural_value": {
+      "id": "cultural_value",
+      "status": "not_assessable",
+      "category": null,
+      "evidence": [],
+      "rationale": null,
+      "counterevidence": null,
+      "intended_effect_fit": null,
+      "evaluator": null,
+      "missing_reason": "a newly generated unpublished book lacks the reception evidence required for cultural_value"
+    }
+  },
+  "requirements": {
+    "registry_version": "stg-rules.v1",
+    "aggregation_policy": "all_applicable_pass",
+    "rules": [
+      {
+        "id": "stg-title-line",
+        "description": "Every chapter file opens with a level-one heading that names the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all",
+        "evidence_required": true
+      },
+      {
+        "id": "stg-fiction-language",
+        "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all",
+        "evidence_required": true
+      },
+      {
+        "id": "stg-no-meta-commentary",
+        "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all",
+        "evidence_required": true
+      },
+      {
+        "id": "stg-told-as-prose",
+        "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "applies_to": "all",
+        "evidence_required": true
+      },
+      {
+        "id": "stg-scene-breaks",
+        "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+        "source": "stg",
+        "classification": "soft",
+        "criterion": "every declared output",
+        "applies_to": "all",
+        "evidence_required": true
+      }
+    ],
+    "pairs": [
+      {
+        "rule": "stg-title-line",
+        "output": "1",
+        "description": "Every chapter file opens with a level-one heading that names the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "outcome": "unresolved",
+        "recorded_outcome": null,
+        "recorded": false,
+        "evidence": [],
+        "reason": "no outcome recorded for this applicable rule"
+      },
+      {
+        "rule": "stg-fiction-language",
+        "output": "1",
+        "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "outcome": "unresolved",
+        "recorded_outcome": null,
+        "recorded": false,
+        "evidence": [],
+        "reason": "no outcome recorded for this applicable rule"
+      },
+      {
+        "rule": "stg-no-meta-commentary",
+        "output": "1",
+        "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "outcome": "unresolved",
+        "recorded_outcome": null,
+        "recorded": false,
+        "evidence": [],
+        "reason": "no outcome recorded for this applicable rule"
+      },
+      {
+        "rule": "stg-told-as-prose",
+        "output": "1",
+        "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+        "source": "stg",
+        "classification": "hard",
+        "criterion": "every declared output",
+        "outcome": "unresolved",
+        "recorded_outcome": null,
+        "recorded": false,
+        "evidence": [],
+        "reason": "no outcome recorded for this applicable rule"
+      },
+      {
+        "rule": "stg-scene-breaks",
+        "output": "1",
+        "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+        "source": "stg",
+        "classification": "soft",
+        "criterion": "every declared output",
+        "outcome": "unresolved",
+        "recorded_outcome": null,
+        "recorded": false,
+        "evidence": [],
+        "reason": "no outcome recorded for this applicable rule"
+      }
+    ],
+    "car": {
+      "aggregation_policy": "all_applicable_pass",
+      "registry_version": "stg-rules.v1",
+      "evaluated_outputs": 1,
+      "passing_outputs": 0,
+      "failing_outputs": 0,
+      "unresolved_outputs": 1,
+      "not_applicable_outputs": 0,
+      "expected_outcomes": 5,
+      "recorded_outcomes": 0,
+      "outcome_coverage": 0,
+      "soft_rules": 1,
+      "pairs": [
+        {
+          "rule": "stg-title-line",
+          "output": "1",
+          "description": "Every chapter file opens with a level-one heading that names the chapter.",
+          "source": "stg",
+          "classification": "hard",
+          "criterion": "every declared output",
+          "outcome": "unresolved",
+          "recorded_outcome": null,
+          "recorded": false,
+          "evidence": [],
+          "reason": "no outcome recorded for this applicable rule"
+        },
+        {
+          "rule": "stg-fiction-language",
+          "output": "1",
+          "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+          "source": "stg",
+          "classification": "hard",
+          "criterion": "every declared output",
+          "outcome": "unresolved",
+          "recorded_outcome": null,
+          "recorded": false,
+          "evidence": [],
+          "reason": "no outcome recorded for this applicable rule"
+        },
+        {
+          "rule": "stg-no-meta-commentary",
+          "output": "1",
+          "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+          "source": "stg",
+          "classification": "hard",
+          "criterion": "every declared output",
+          "outcome": "unresolved",
+          "recorded_outcome": null,
+          "recorded": false,
+          "evidence": [],
+          "reason": "no outcome recorded for this applicable rule"
+        },
+        {
+          "rule": "stg-told-as-prose",
+          "output": "1",
+          "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+          "source": "stg",
+          "classification": "hard",
+          "criterion": "every declared output",
+          "outcome": "unresolved",
+          "recorded_outcome": null,
+          "recorded": false,
+          "evidence": [],
+          "reason": "no outcome recorded for this applicable rule"
+        },
+        {
+          "rule": "stg-scene-breaks",
+          "output": "1",
+          "description": "A change of scene or of time is marked consistently within a chapter, so a reader can tell where one scene ends.",
+          "source": "stg",
+          "classification": "soft",
+          "criterion": "every declared output",
+          "outcome": "unresolved",
+          "recorded_outcome": null,
+          "recorded": false,
+          "evidence": [],
+          "reason": "no outcome recorded for this applicable rule"
+        }
+      ],
+      "failures": [],
+      "unresolved": [
+        {
+          "rule": "stg-title-line",
+          "output": "1",
+          "description": "Every chapter file opens with a level-one heading that names the chapter.",
+          "source": "stg",
+          "criterion": "every declared output",
+          "recorded": false,
+          "reason": "no outcome recorded for this applicable rule",
+          "evidence": []
+        },
+        {
+          "rule": "stg-fiction-language",
+          "output": "1",
+          "description": "The narrative prose is written in the language the assessment packet declares for the book.",
+          "source": "stg",
+          "criterion": "every declared output",
+          "recorded": false,
+          "reason": "no outcome recorded for this applicable rule",
+          "evidence": []
+        },
+        {
+          "rule": "stg-no-meta-commentary",
+          "output": "1",
+          "description": "The narrative text carries no authorial notes, no commentary about the writing itself and no scaffolding addressed to a tool or to a reader of the process.",
+          "source": "stg",
+          "criterion": "every declared output",
+          "recorded": false,
+          "reason": "no outcome recorded for this applicable rule",
+          "evidence": []
+        },
+        {
+          "rule": "stg-told-as-prose",
+          "output": "1",
+          "description": "A chapter is told as narrative prose: a beat list, an outline or a synopsis of what the chapter would contain is not the chapter.",
+          "source": "stg",
+          "criterion": "every declared output",
+          "recorded": false,
+          "reason": "no outcome recorded for this applicable rule",
+          "evidence": []
+        }
+      ],
+      "status": "computed",
+      "value": null,
+      "coverage": 0,
+      "lower_bound": 0,
+      "upper_bound": 100,
+      "missing_reason": "1 output(s) have an unresolved check; the value is held back and its bounds are reported under the \"all_applicable_pass\" aggregation policy"
+    }
+  },
+  "findings": [],
+  "preserved_qualities": {
+    "passages": [],
+    "reason": "no preserved-qualities annotations supplied; nothing was judged worth protecting"
+  },
+  "execution": {
+    "errors": []
+  }
+}

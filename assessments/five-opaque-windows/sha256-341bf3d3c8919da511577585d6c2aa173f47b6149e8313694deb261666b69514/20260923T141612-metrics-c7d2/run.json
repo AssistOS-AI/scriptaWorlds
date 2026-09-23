@@ -1,0 +1,272 @@
+{
+  "schema_version": "assessment-run.v1",
+  "run_id": "20260923T141612-metrics-c7d2",
+  "universe_id": "five-opaque-windows",
+  "phase": "metrics",
+  "trigger": "requested",
+  "arc_id": null,
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "kind": "complete",
+    "chapters": [
+      1
+    ],
+    "omitted": []
+  },
+  "requested_scope": {
+    "kind": "chapter",
+    "chapters": [
+      1
+    ],
+    "segments": [],
+    "arcs": [],
+    "context_chapters": [],
+    "omitted": []
+  },
+  "profile_source": "generic",
+  "annotation_mode": "generic",
+  "annotation_prompt_version": "annotation-prompt.v2",
+  "annotation_model": "deepseek/deepseek-v4-flash",
+  "annotation_attempts": [
+    {
+      "attempt_id": "0a4d55e53d72979a4701ce359279845fe1b77d023c86657c56dcfadbfcd71263",
+      "attempt": 1,
+      "call": "unit",
+      "unit": "u0001-chapter-0001",
+      "model": "deepseek/deepseek-v4-flash",
+      "pid": 1698537,
+      "prompt_version": "annotation-prompt.v2",
+      "prompt_sha256": "176fe1c2e9a53158e608d44bc98f334cc66b8e9efc9eacb2a2a0298f28ed19a1",
+      "prompt_file": "generated/prompt-attempt-1.txt",
+      "prompt_bytes": 45933,
+      "started_at": "2026-09-23T14:16:12.503Z",
+      "finished_at": "2026-09-23T14:21:12.596Z",
+      "provider_usage": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 0,
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "total": 0
+        }
+      },
+      "duration_ms": 300093,
+      "exit_code": 143,
+      "signal": null,
+      "overflowed": false,
+      "timed_out": true,
+      "ok": false,
+      "errors": [
+        "the evaluator did not answer within 300s"
+      ],
+      "stderr": null,
+      "answer_chars": 221221,
+      "process_failure": true
+    }
+  ],
+  "annotation_errors": [
+    "the evaluator did not answer within 300s"
+  ],
+  "generated_annotations": null,
+  "annotation_prompt_sha256": null,
+  "annotation_resources": null,
+  "annotation_provenance": null,
+  "annotation_evaluator_id": null,
+  "packet_intact": true,
+  "result_revision": null,
+  "result_files": null,
+  "published_at": null,
+  "reassesses_run_id": null,
+  "evaluation_attempt": 1,
+  "reused_annotations": false,
+  "continuity_source": {
+    "declared_field": "source_version",
+    "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+    "population": [
+      1
+    ],
+    "omitted": [],
+    "scope_declared": true,
+    "source": "substage",
+    "sha256": "b352676b0e46bc330f6ddd3d6bee8445176202278dc594b7753248d90ce0d2ab"
+  },
+  "continuity_substage": {
+    "ok": true,
+    "reused": false,
+    "result": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T141612-metrics-c7d2/continuity/continuity-result.json",
+    "sha256": "7dc0306a32934dc39f2a8d045ff7b372b590020c37d49438844c805b0fafc7b9",
+    "document": "generated/continuity.json",
+    "document_sha256": "8163bdc8b1dec9f52193bf4f0c59c98685db2423148ac8d63f3310ce616baaaa",
+    "population": [
+      1
+    ],
+    "counts": {
+      "eligible_comparisons": 0,
+      "consistent": 0,
+      "contradicted": 0,
+      "unresolved": 0
+    },
+    "evaluated_from": "the whole result"
+  },
+  "continuity_annotations": null,
+  "annotation_plan": {
+    "path": "generated/units/plan.json",
+    "sha256": "364b8195714d380619f328c954a9c0e55366d8e96697606dc53047b29b0a4894",
+    "bytes": 840
+  },
+  "annotation_units": [
+    {
+      "id": "u0001-chapter-0001",
+      "kind": "chapter",
+      "chapters": [
+        1
+      ],
+      "ranges": [
+        {
+          "chapter": 1,
+          "start": 0,
+          "end": 8053
+        }
+      ],
+      "state": "failed",
+      "calls": 1,
+      "reused": false,
+      "artifact": null,
+      "errors": [
+        "the evaluator did not answer within 300s"
+      ]
+    }
+  ],
+  "annotation_reading": {
+    "schema_version": "bounded-reading.v1",
+    "complete": false,
+    "units_declared": 1,
+    "units_planned": 1,
+    "units_completed": 0,
+    "units_omitted": 0,
+    "units_failed": 1,
+    "units_reused": 0,
+    "unit_calls": 1,
+    "selection_bytes_read": 0,
+    "budget": {
+      "unit_bytes": 48000,
+      "max_units": 12,
+      "total_bytes": 400000
+    },
+    "plan": {
+      "path": "generated/units/plan.json",
+      "sha256": "364b8195714d380619f328c954a9c0e55366d8e96697606dc53047b29b0a4894",
+      "bytes": 840
+    },
+    "units": [
+      {
+        "id": "u0001-chapter-0001",
+        "kind": "chapter",
+        "chapters": [
+          1
+        ],
+        "state": "failed",
+        "calls": 1,
+        "reused": false,
+        "selection_bytes": 8053,
+        "artifact": null
+      }
+    ],
+    "omitted": [],
+    "failed": [
+      {
+        "id": "u0001-chapter-0001",
+        "reason": null
+      }
+    ],
+    "note": "this reading is partial: 0 of 1 declared unit(s) were read, 1 failed"
+  },
+  "corpus_references": null,
+  "corpus_candidate_identity": null,
+  "request_text": "A world in the CHILDREN-WORKSHOP sector, kept after Vinge; Egan; Banks.\n\nProhibition: no one was allowed to solve the problem before they could describe who would pay for the solution.\n\nThe operations this world is built from:\n- Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).\n- Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).\n\nWhen we arrive: The children test their technical right to hide memories and processes from the creator who can read almost every other system.\n\nThe central tension we want to continue: Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent\n\nWhat the course asks of this world: outfinite motif; Greg Egan — Permutation City. Make eveyrbody crazy",
+  "intention_text": null,
+  "brief_text": null,
+  "context_file": "rules/applicable-rules.v1.json",
+  "context_sha256": "64456eeba066a7f71f2048d2dba55f892f425e7b145a7d118245f2f1faf763d0",
+  "authoring_context": {
+    "charter": {
+      "present": true,
+      "path": "rules/charter.md"
+    },
+    "request": {
+      "present": true,
+      "source": "turn",
+      "turn": 1,
+      "path": "turns/0001.json",
+      "text": "A world in the CHILDREN-WORKSHOP sector, kept after Vinge; Egan; Banks.\n\nProhibition: no one was allowed to solve the problem before they could describe who would pay for the solution.\n\nThe operations this world is built from:\n- Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).\n- Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).\n\nWhen we arrive: The children test their technical right to hide memories and processes from the creator who can read almost every other system.\n\nThe central tension we want to continue: Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent\n\nWhat the course asks of this world: outfinite motif; Greg Egan — Permutation City. Make eveyrbody crazy"
+    },
+    "brief": {
+      "present": false,
+      "source": null,
+      "path": null,
+      "approval": null,
+      "text": null
+    },
+    "intention": {
+      "present": false,
+      "text": null
+    },
+    "directions": [],
+    "design": null,
+    "missing": [
+      "brief: no approved design brief was recorded for this version (an imported book has none), so absence is not a violation",
+      "intention: the review was asked for without a stated intention"
+    ]
+  },
+  "applied_rules": [
+    "stg-title-line",
+    "stg-fiction-language",
+    "stg-no-meta-commentary",
+    "stg-told-as-prose",
+    "stg-scene-breaks"
+  ],
+  "profile_sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+  "annotations": false,
+  "inputs": [
+    {
+      "path": "profile.json",
+      "role": "profile",
+      "artifact_id": "profile",
+      "sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+      "bytes": 264
+    },
+    {
+      "path": "rules/applicable-rules.v1.json",
+      "role": "rules",
+      "artifact_id": "rules",
+      "sha256": "03a5795db753ce6d605ac4cf4427a329005523608ea92f65a7303823f2d730fd",
+      "bytes": 5459
+    }
+  ],
+  "resources": [
+    {
+      "path": "rules/charter.md",
+      "role": "rules",
+      "sha256": "0550db3337a29d52b228122cf92caaee9d6742211b53f65b6d32a8b16862bfb2",
+      "bytes": 1974
+    }
+  ],
+  "annotations_sha256": null,
+  "corpus_manifest_sha256": null,
+  "input_dir": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T141612-metrics-c7d2/input",
+  "result_dir": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T141612-metrics-c7d2/result",
+  "status": "error",
+  "created_at": "2026-09-23T14:16:12.417Z",
+  "started_at": "2026-09-23T14:16:12.420Z",
+  "finished_at": "2026-09-23T14:21:12.597Z",
+  "exit_code": null,
+  "error": "annotation stage: the evaluator did not answer within 300s",
+  "outputs": [],
+  "historical": false,
+  "input_fingerprint": "sha256:20b61d27830d0d7bf94d1ea0fa6b1f92442e0e86db31e31ec4f7c65de9c1c92d"
+}

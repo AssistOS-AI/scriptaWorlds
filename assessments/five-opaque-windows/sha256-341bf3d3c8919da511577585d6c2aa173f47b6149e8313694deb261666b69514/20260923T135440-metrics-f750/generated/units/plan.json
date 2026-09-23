@@ -1,0 +1,39 @@
+{
+  "schema_version": "bounded-reading.v1",
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "selection": {
+    "kind": "chapter",
+    "chapters": [
+      1
+    ]
+  },
+  "planned_at": "2026-09-23T13:54:40.338Z",
+  "units": [
+    {
+      "id": "u0001-chapter-0001",
+      "index": 1,
+      "kind": "chapter",
+      "chapters": [
+        1
+      ],
+      "file": "chapters/0001-who-pays-for-the-quiet.md",
+      "ranges": [
+        {
+          "chapter": 1,
+          "start": 0,
+          "end": 8053
+        }
+      ],
+      "selection_bytes": 8053,
+      "context_chapters": []
+    }
+  ],
+  "omitted": [],
+  "budget": {
+    "unit_bytes": 48000,
+    "max_units": 12,
+    "total_bytes": 400000
+  },
+  "planned_bytes": 8053,
+  "note": "every declared unit of this selection fits the reading budget"
+}

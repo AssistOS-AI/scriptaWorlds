@@ -1,0 +1,33 @@
+{
+  "schema_version": "book-import.v1",
+  "import_id": "20260923T120709-21a3",
+  "filename": "book (1).pdf",
+  "format": "pdf",
+  "sha256": "c3a1847cc540eaa3d67963616a5d956783711af2c96a6abd57455f90a07a6c5f",
+  "bytes": 3151895,
+  "state": "ready",
+  "source": "source.pdf",
+  "created_at": "2026-09-23T12:07:09.893Z",
+  "extracted_at": "2026-09-23T12:07:10.384Z",
+  "universe_id": "sop-lang-circuits",
+  "detected": {
+    "title": "SOP_Lang_Circuits",
+    "author": null,
+    "language": null,
+    "title_source": "file"
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": "SOP_Lang_Circuits",
+      "words": 314686
+    }
+  ],
+  "warnings": [
+    "1 content stream(s) draw through a `Do` operator; text or images inside a form XObject are not expanded and are missing from this result.",
+    "No chapter heading was detected, so the whole document is returned as one chapter and the import step must segment it.",
+    "imported into sop-lang-circuits as 1 chapter"
+  ],
+  "error": null,
+  "words": 314686
+}

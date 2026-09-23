@@ -477,28 +477,26 @@ async function browserPass(url, seeded, executable) {
       `the reader renders the book in a real browser (${book.length} characters of rendered text)`);
 
     const opened = await click(cdp, `[aria-label="Review chapter 1"]`);
-    const review = opened === 'clicked' ? await waitForSurface(cdp, '#review-body', 'Start the review') : '';
+    const review = opened === 'clicked' ? await waitForSurface(cdp, '#review-body', 'Start review') : '';
     const reviewTitle = await surfaceText(cdp, '#review-title');
     checkText(opened === 'clicked' && reviewTitle.includes('Review — chapter 1')
-      && review.includes('WHAT TO RUN') && review.includes('WHAT TO COVER') && review.includes('This chapter — 1')
-      && review.includes('Start the review'),
-      'clicking "Review chapter 1" opens the selected-chapter review, offering the phase, the chapter it covers and the start control',
-      review, 'WHAT TO COVER');
+      && review.includes('WHAT TO REVIEW') && review.includes('This chapter — 1')
+      && review.includes('The whole book') && review.includes('Start review'),
+      'clicking "Review chapter 1" opens the review with its two scopes and one start control',
+      review, 'WHAT TO REVIEW');
 
-    // The run the smoke published is already there: opening it opens the report, and the bundle view is
-    // the reading a reader lands on.
-    const rowReady = await waitForSelector(cdp, '#review-runs .runrow button');
-    const openedRun = rowReady ? await click(cdp, '#review-runs .runrow button') : 'missing';
+    // The run the smoke published is already there: the latest report offers it, and the reading a
+    // reader lands on is the report itself rather than the bundle behind it.
+    const reportReady = await waitForSelector(cdp, '#review-latest button');
+    const openedReport = reportReady ? await click(cdp, '#review-latest button') : 'missing';
     await waitForSelector(cdp, '#report-viewstrip .viewbtn');
-    const bundleView = openedRun === 'clicked' ? await click(cdp, '#report-viewstrip .viewbtn[data-view="assessment.json"]') : 'missing';
-    // The reader's own CSS uppercases the section headings, and `innerText` reports what is rendered.
-    const report = bundleView === 'clicked' ? await waitForSurface(cdp, '#report-view', 'THE REVIEW IN BRIEF') : '';
+    const reportView = openedReport === 'clicked' ? await waitForSurface(cdp, '#report-view', 'THE REVIEW IN BRIEF') : '';
     const head = await surfaceText(cdp, '#report-head');
-    const bundleNeedles = ['THE REVIEW IN BRIEF', 'Strengths observed', 'Most consequential problems', 'The opening image is worth keeping.'];
-    const bundleMissing = bundleNeedles.filter((needle) => !report.includes(needle));
-    checkText(openedRun === 'clicked' && bundleView === 'clicked' && bundleMissing.length === 0,
-      'opening the run renders the review a reader reads: the review in brief, the strengths, the problems and the passages worth keeping',
-      `${report.slice(0, 400)} | missing: ${bundleMissing.join(', ')}`, 'THE REVIEW IN BRIEF');
+    const reportNeedles = ['THE REVIEW IN BRIEF', 'Strengths observed', 'Most consequential problems', 'The opening image is worth keeping.'];
+    const reportMissing = reportNeedles.filter((needle) => !reportView.includes(needle));
+    checkText(openedReport === 'clicked' && reportMissing.length === 0,
+      'opening the latest report renders the review a reader reads: the review in brief, the strengths, the problems and the passages worth keeping',
+      `${reportView.slice(0, 400)} | missing: ${reportMissing.join(', ')}`, 'THE REVIEW IN BRIEF');
     checkText(head.includes('historical') && head.includes('later accepted version'),
       'the report head tells the reader the review describes a version the book has moved past',
       head, 'historical');

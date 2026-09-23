@@ -120,7 +120,7 @@ export async function runReportViewChecks({ ok, fail, checkSeed, tempDirs }) {
     );
 
     // Every diagnostic of a result is visible by default, not hidden behind a collapsed control.
-    expect(view.includes('why unavailable'), 'a metric states why it is unavailable');
+    expect(view.includes('why unavailable'), 'the bundle view says why a measurement carries no value');
     expect(view.includes('coverage'), 'coverage is rendered next to the number');
     expect(view.includes('bounds'), 'bounds are rendered');
     expect(view.includes('partition'), 'the continuity partition is rendered');

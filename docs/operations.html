@@ -92,8 +92,8 @@ npm run server     # start the API and the reader interface</code></pre>
             </tr>
             <tr>
               <td><code>ASSESSMENT_TIMEOUT_MS</code></td>
-              <td><code>300000</code></td>
-              <td>The deadline of one review run, in milliseconds. A run that passes it is terminated and recorded as an error with the reason.</td>
+              <td><code>900000</code></td>
+              <td>The deadline of <em>one evaluator call</em> of a review, in milliseconds — not of the whole run: a review that reads a book in several bounded units pays it once per unit. A call that passes it is terminated, recorded as a failed attempt with the reason, and the run follows from there: one repair call for a rejected answer, and an error with nothing published when no call succeeds.</td>
             </tr>
             <tr>
               <td><code>ASSESSMENT_MODE</code></td>
@@ -176,7 +176,7 @@ GET  /api/universes/&lt;id&gt;/assessments/&lt;runId&gt;</code></pre>
 
       <section>
         <h2>Access and exposure</h2>
-        <p>The API has no accounts. Anyone who can reach the address can read every universe, create one, close it, rewrite a chapter and generate editions, and the server has no CORS configuration to relax. An operator who needs a private instance sets <code>HOST</code> to a loopback address or places a reverse proxy in front of the server. Two proxy behaviours matter: buffering delays or breaks the live text of the <a href="wiki.html#definition-event-stream">event stream</a>, and an idle connection timeout can close a stream during a long chapter. In both cases the reader interface degrades to slower progress instead of failing, because it falls back to polling the job route.</p>
+        <p>The API has no accounts. Anyone who can reach the address can read every universe, create one, close it, rewrite a chapter and generate editions, and the server has no CORS configuration to relax. An operator who needs a private instance sets <code>HOST</code> to a loopback address or places a reverse proxy in front of the server. Two proxy behaviours matter: buffering delays or breaks the <a href="wiki.html#definition-event-stream">event stream</a> that carries a run's live text to the <code>ALA sessions</code> dialog, and an idle connection timeout can close a stream during a long chapter. Neither loses text: the <a href="wiki.html#definition-console">console</a> of a run is journaled on disk, and while a run is live the dialog re-reads that console in full every five seconds, so buffering costs immediacy rather than the text; the reader interface degrades to slower progress instead of failing, because it falls back to polling the job route.</p>
       </section>
 
       <section>
@@ -257,6 +257,14 @@ GET  /api/universes/&lt;id&gt;/assessments/&lt;runId&gt;</code></pre>
             <tr>
               <td><code>NOT_CANCELLABLE</code></td>
               <td>A review that already settled was asked to cancel. Read its result, or start a new run over the same packet.</td>
+            </tr>
+            <tr>
+              <td><code>STILL_LIVE</code></td>
+              <td>A stored review was asked to be deleted while it is still <code>queued</code> or <code>running</code>. Its evaluator is reading that folder, so cancel it first and delete what stopped.</td>
+            </tr>
+            <tr>
+              <td><code>REFERENCED</code></td>
+              <td>A stored review was asked to be deleted while another record names its report: a newer run that re-evaluates it, or a reader's stored response written against it. An evaluation is evidence, so the host refuses to remove a report something still points at; delete or withdraw that record first.</td>
             </tr>
             <tr>
               <td><code>BAD_ARC</code></td>

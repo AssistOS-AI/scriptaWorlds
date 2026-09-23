@@ -61,7 +61,11 @@ export const config = Object.freeze({
   // Where the separate design and review phases keep their frozen packets and published results. It is
   // deliberately outside `universes/`: a phase never writes into a book.
   assessmentWorkspace: process.env.ASSESSMENT_WORKSPACE ?? join(rootDir, 'assessments'),
-  assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 5 * 60 * 1000),
+  // The deadline of one evaluator call, not of the whole run: a review that reads a book in several bounded
+  // units pays it once per unit. It is generous on purpose — a real model reading a bounded unit and
+  // answering the whole observation document needs minutes, and a deadline that cuts it short turns a
+  // review into a failed attempt that cost the same waiting as a successful one.
+  assessmentTimeoutMs: positiveInt(process.env.ASSESSMENT_TIMEOUT_MS, 15 * 60 * 1000),
   // How much of a book one review reads in a single evaluator call. A reading is planned in bounded units
   // and the plan, with these limits, is written beside the run before any evaluator exists; a selection
   // that does not fit is read partially and says so instead of being summarised into a whole-book claim.

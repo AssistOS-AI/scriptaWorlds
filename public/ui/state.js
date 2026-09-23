@@ -36,23 +36,12 @@ export const RUN_LIVE_STATUSES = new Set(['queued', 'running']);
 
 export const RUN_FAILED_STATUSES = new Set(['error', 'interrupted', 'cancelled']);
 
-// A review is a phase of the separate design and review pass, and its observations come from the
-// configured evaluator, from nobody at all, or from a document the caller brought.
-export const REVIEW_PHASES = [
-  { value: 'metrics', label: 'Metrics', hint: 'Twelve measures, eight indicators and the five reports.' },
-  { value: 'continuity', label: 'Continuity', hint: 'Integrity and contradiction checks over the frozen state.' }
-];
-
-export const REVIEW_MODES = [
-  { value: 'generic', label: 'Generic — the host asks the configured evaluator', hint: 'The ordinary review: no profile and no annotations to author.' },
-  { value: 'deterministic', label: 'Deterministic — no model call', hint: 'Only what can be measured without judgements; the rest reports why it is unavailable.' }
-];
-
 // How often a run this client started is checked while it is queued or running. The check stops as
 // soon as the run settles, so an open panel never polls once there is nothing to watch.
 export const RUN_POLL_MS = 2000;
-
-export const DISCUSSION_LIMIT = 60_000;
+// How often the console of a run this client is watching is re-read in full, so a live console keeps
+// its place even when the event stream is unavailable. The stream appends between the re-reads.
+export const SESSION_RECONCILE_MS = 5000;
 
 export const EXPORT_REQUEST = 'Produce the printed edition of the book so far, with preface and afterword.';
 
@@ -87,7 +76,9 @@ export const state = {
   slides: [],
   index: 0,
   errors: [],
-  expanded: new Set(),
+  // The ALA sessions dialog: `{ turn, text, live, updatedAt, source, error, pinned }` of the run the
+  // reader selected, or null while the dialog has never been opened for this book.
+  sessions: null,
   notice: null,
   band: null,
   requestChapter: null,
@@ -146,6 +137,7 @@ export const ROOT_IDS = [
   'universes', 'universes-close', 'universe-list',
   'more', 'menu-close', 'menu-items',
   'requests', 'requests-hide', 'request-title', 'request-list',
+  'sessions', 'sessions-close', 'sessions-count', 'sessions-list', 'sessions-console',
   'rewrite', 'rewrite-title', 'rewrite-hide', 'rewrite-instructions', 'rewrite-error', 'rewrite-submit', 'rewrite-cancel',
   'review', 'review-title', 'review-close', 'review-body',
   'report', 'report-title', 'report-close', 'report-body',

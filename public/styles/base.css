@@ -221,8 +221,11 @@ button, input, select, textarea {
 }
 
 /* ---------------- chapter nav (between the arrows) ---------------- */
+/* The numbers hug the two arrows instead of stretching across the row: `‹ 1 2 3 ›` is one compact
+ * group, and the label of the current slice takes the space that is left. With many chapters the
+ * group still shrinks and scrolls inside itself rather than pushing the right arrow away. */
 .chapnav {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
   gap: 4px;

@@ -1,0 +1,15 @@
+{
+  "schema_version": "evaluation-profile.v1",
+  "profile_id": "scripta-generic-review-chapter",
+  "advisory": true,
+  "scope": {
+    "kind": "chapter",
+    "chapters": [
+      1
+    ],
+    "context_chapters": []
+  },
+  "aggregation": {
+    "enabled": false
+  }
+}

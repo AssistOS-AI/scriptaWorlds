@@ -10,15 +10,21 @@
   z-index: 60;
   display: grid;
   place-items: center;
-  padding: 3vh 2vw;
   background: rgba(20, 18, 15, 0.28);
 }
 
+/* A dialog keeps 10% of the viewport on every side — a tenth left and right, a tenth above and
+ * below — and is a column: the head stays where it is and the body is the only thing that scrolls.
+ * Nothing here scrolls because a line wrapped: a panel that fits shows no scrollbar at all. */
 .popup__panel {
   position: relative;
-  width: min(96vw, 1200px);
-  max-height: 92vh;
-  overflow: auto;
+  width: 80vw;
+  height: 80vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 18px 20px;
   border: 1px solid #e7e3da;
   border-radius: 10px;
@@ -26,14 +32,37 @@
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
 }
 
+.popup__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* A body whose panes scroll inside themselves (the sessions console) fills the panel instead. */
+.popup__body--fill {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 /* The Edition menu stays a small card: it holds four short rows. */
 #more .popup__panel {
   width: min(92vw, 320px);
+  height: auto;
   max-height: 70vh;
   padding: 14px 16px;
 }
 
+@media (max-width: 780px) {
+  .popup__panel {
+    width: 94vw;
+    height: 92vh;
+  }
+}
+
 .popup__head {
+  flex: 0 0 auto;
   display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px;
 }
 
@@ -60,6 +89,7 @@
 }
 
 .popup__actions {
+  flex: 0 0 auto;
   display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
 }
 

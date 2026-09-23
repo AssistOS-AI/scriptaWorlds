@@ -1,0 +1,232 @@
+{
+  "schema_version": "assessment-run.v1",
+  "run_id": "20260923T135714-metrics-bb1b",
+  "universe_id": "five-opaque-windows",
+  "phase": "metrics",
+  "trigger": "requested",
+  "arc_id": null,
+  "version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+  "scope": {
+    "kind": "complete",
+    "chapters": [
+      1
+    ],
+    "omitted": []
+  },
+  "requested_scope": {
+    "kind": "chapter",
+    "chapters": [
+      1
+    ],
+    "segments": [],
+    "arcs": [],
+    "context_chapters": [],
+    "omitted": []
+  },
+  "profile_source": "generic",
+  "annotation_mode": "deterministic",
+  "annotation_prompt_version": null,
+  "annotation_model": null,
+  "annotation_attempts": null,
+  "annotation_errors": null,
+  "generated_annotations": null,
+  "annotation_prompt_sha256": null,
+  "annotation_resources": null,
+  "annotation_provenance": null,
+  "annotation_evaluator_id": null,
+  "packet_intact": true,
+  "result_revision": "sha256:2681c338f0ad8236fb4bd7476b41daa52780a3aad4443e9c5f0a7bdf5b5f9397",
+  "result_files": [
+    {
+      "name": "01-stg-compliance.md",
+      "sha256": "6105ddf4fdcb577da6aacf213e6f69119daa59a454bb69b16df0ae6de318b837",
+      "bytes": 2472
+    },
+    {
+      "name": "02-specification-adherence.md",
+      "sha256": "acaa5cbf07b11f594ac6ee2fdb4c39605a330204e29f35a765bb5de94fc0b444",
+      "bytes": 992
+    },
+    {
+      "name": "03-metrics-and-indicators.md",
+      "sha256": "86409617e46972e69e7d952749c7195432be8dbc42b4230ff35253917a917b8b",
+      "bytes": 4865
+    },
+    {
+      "name": "04-score-justification.md",
+      "sha256": "5c0bd15aa873f2295d6234f4aaf971237dfa64543427a8a1a6fa279f4ad4cfc7",
+      "bytes": 14209
+    },
+    {
+      "name": "05-detected-issues.md",
+      "sha256": "6dafab65c097aa0ce0c83f87820c27e95ae489cd843797c0db5a6ac47b6bec16",
+      "bytes": 2199
+    },
+    {
+      "name": "assessment.json",
+      "sha256": "b96848cd255ff19c558d5b788d703d844133db98fca968731d2228142062684b",
+      "bytes": 44137
+    },
+    {
+      "name": "index.md",
+      "sha256": "641f10e2d17ed31ef8783ac272fa1ce802e71f30bd7dd98615e88092f36b2867",
+      "bytes": 2263
+    }
+  ],
+  "published_at": "2026-09-23T13:57:14.958Z",
+  "reassesses_run_id": null,
+  "evaluation_attempt": 1,
+  "reused_annotations": false,
+  "continuity_source": {
+    "declared_field": "source_version",
+    "source_version": "sha256:341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514",
+    "population": [
+      1
+    ],
+    "omitted": [],
+    "scope_declared": true,
+    "source": "substage",
+    "sha256": "afd5a5e835d64519f8ef207bbb83022a63db46f697d540f17ca7083ac16b9f3a"
+  },
+  "continuity_substage": {
+    "ok": true,
+    "reused": false,
+    "result": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/continuity/continuity-result.json",
+    "sha256": "2c6bac79165b0105426ff8bc817ae441c02d0d1b344f81449e0820ff6252304e",
+    "document": "generated/continuity.json",
+    "document_sha256": "d77062d008973b01d0a5f5220377c1b6d8effac58fd8b31a5d18c8f82150c0ff",
+    "population": [
+      1
+    ],
+    "counts": {
+      "eligible_comparisons": 0,
+      "consistent": 0,
+      "contradicted": 0,
+      "unresolved": 0
+    },
+    "evaluated_from": "the whole result"
+  },
+  "continuity_annotations": "generated/continuity-annotations.json",
+  "annotation_plan": null,
+  "annotation_units": null,
+  "annotation_reading": null,
+  "corpus_references": null,
+  "corpus_candidate_identity": null,
+  "request_text": "A world in the CHILDREN-WORKSHOP sector, kept after Vinge; Egan; Banks.\n\nProhibition: no one was allowed to solve the problem before they could describe who would pay for the solution.\n\nThe operations this world is built from:\n- Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).\n- Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).\n\nWhen we arrive: The children test their technical right to hide memories and processes from the creator who can read almost every other system.\n\nThe central tension we want to continue: Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent\n\nWhat the course asks of this world: outfinite motif; Greg Egan — Permutation City. Make eveyrbody crazy",
+  "intention_text": null,
+  "brief_text": null,
+  "context_file": "rules/applicable-rules.v1.json",
+  "context_sha256": "64456eeba066a7f71f2048d2dba55f892f425e7b145a7d118245f2f1faf763d0",
+  "authoring_context": {
+    "charter": {
+      "present": true,
+      "path": "rules/charter.md"
+    },
+    "request": {
+      "present": true,
+      "source": "turn",
+      "turn": 1,
+      "path": "turns/0001.json",
+      "text": "A world in the CHILDREN-WORKSHOP sector, kept after Vinge; Egan; Banks.\n\nProhibition: no one was allowed to solve the problem before they could describe who would pay for the solution.\n\nThe operations this world is built from:\n- Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).\n- Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).\n\nWhen we arrive: The children test their technical right to hide memories and processes from the creator who can read almost every other system.\n\nThe central tension we want to continue: Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent\n\nWhat the course asks of this world: outfinite motif; Greg Egan — Permutation City. Make eveyrbody crazy"
+    },
+    "brief": {
+      "present": false,
+      "source": null,
+      "path": null,
+      "approval": null,
+      "text": null
+    },
+    "intention": {
+      "present": false,
+      "text": null
+    },
+    "directions": [],
+    "design": null,
+    "missing": [
+      "brief: no approved design brief was recorded for this version (an imported book has none), so absence is not a violation",
+      "intention: the review was asked for without a stated intention"
+    ]
+  },
+  "applied_rules": [
+    "stg-title-line",
+    "stg-fiction-language",
+    "stg-no-meta-commentary",
+    "stg-told-as-prose",
+    "stg-scene-breaks"
+  ],
+  "profile_sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+  "annotations": false,
+  "inputs": [
+    {
+      "path": "profile.json",
+      "role": "profile",
+      "artifact_id": "profile",
+      "sha256": "f6237a958d8ec562a2c6498e3859783559b80a7e205b0e9d8d67f91d9b10094d",
+      "bytes": 264
+    },
+    {
+      "path": "rules/applicable-rules.v1.json",
+      "role": "rules",
+      "artifact_id": "rules",
+      "sha256": "8d79d6169f02106bfaf369c22772ad3485b678a2cac44f36fb5fae84c8a0293a",
+      "bytes": 5459
+    }
+  ],
+  "resources": [
+    {
+      "path": "rules/charter.md",
+      "role": "rules",
+      "sha256": "0550db3337a29d52b228122cf92caaee9d6742211b53f65b6d32a8b16862bfb2",
+      "bytes": 1974
+    }
+  ],
+  "annotations_sha256": null,
+  "corpus_manifest_sha256": null,
+  "input_dir": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/input",
+  "result_dir": "five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/result",
+  "status": "done",
+  "created_at": "2026-09-23T13:57:14.833Z",
+  "started_at": "2026-09-23T13:57:14.835Z",
+  "finished_at": "2026-09-23T13:57:14.956Z",
+  "exit_code": 0,
+  "error": null,
+  "outputs": [
+    "01-stg-compliance.md",
+    "02-specification-adherence.md",
+    "03-metrics-and-indicators.md",
+    "04-score-justification.md",
+    "05-detected-issues.md",
+    "assessment.json",
+    "index.md"
+  ],
+  "historical": false,
+  "input_fingerprint": "sha256:db87322c2b27f0cce618a58395e03b5a882b00ac8bc52e01b1d4ef8f6870a95f",
+  "envelope": {
+    "schema_version": "assessment-result.v1",
+    "ok": true,
+    "assessment_id": "b2d9c14a67ecc1dea353bea5e84e31d6",
+    "output_dir": "/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/result",
+    "outputs": [
+      "assessment.json",
+      "index.md",
+      "01-stg-compliance.md",
+      "02-specification-adherence.md",
+      "03-metrics-and-indicators.md",
+      "04-score-justification.md",
+      "05-detected-issues.md"
+    ],
+    "errors": []
+  },
+  "output_boundary": {
+    "ok": true,
+    "refused": []
+  },
+  "write_boundary": {
+    "ok": true,
+    "escapes": []
+  },
+  "log": {
+    "stdout": "{\"schema_version\":\"assessment-result.v1\",\"ok\":true,\"assessment_id\":\"b2d9c14a67ecc1dea353bea5e84e31d6\",\"output_dir\":\"/home/salboaie/work/axiologic/scriptaWorlds/assessments/five-opaque-windows/sha256-341bf3d3c8919da511577585d6c2aa173f47b6149e8313694deb261666b69514/20260923T135714-metrics-bb1b/result\",\"outputs\":[\"assessment.json\",\"index.md\",\"01-stg-compliance.md\",\"02-specification-adherence.md\",\"03-metrics-and-indicators.md\",\"04-score-justification.md\",\"05-detected-issues.md\"],\"errors\":[]}\n",
+    "stderr": ""
+  }
+}

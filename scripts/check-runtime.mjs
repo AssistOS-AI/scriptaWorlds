@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import { config } from '../src/config.mjs';
 import { jobs } from '../src/jobs.mjs';
 import { verifyExportTurn } from '../src/turn.mjs';
+import { journalPath, readTurnConsole } from '../src/turn-console.mjs';
 import { prepareSnapshot, writeAncestry } from '../src/universe-state.mjs';
 import { listChapterHistory } from '../src/universe-chapters.mjs';
 import { skillsDir, universeDir } from '../src/paths.mjs';
@@ -305,6 +306,84 @@ export async function runRuntimeChecks({ ok, fail, checkSeed, tempDirs, run }) {
         await rm(join(dir, 'agent-release.marker'), { force: true });
         if (failure) fail(`queued rewrite: ${failure.message}`);
         await fake.restore();
+      }
+    }
+  }
+
+  // The console of a run is durable: every event is journaled while the turn runs, the console route
+  // answers it live, the settled run keeps it, and a turn that ran before journals existed still
+  // answers with its composed log. This is what the sessions dialog reads.
+  {
+    if (!fakeAgentUsable) {
+      ok(`run console: not exercised here (OMP_BIN pins the agent binary to ${config.ompBin})`);
+    } else {
+      const fake = await installFakeAgent();
+      const universe = await bookWithTwoChapters(checkSeed, 'console');
+      tempDirs.push(universe.id);
+      const dir = universeDir(universe.id);
+      let failure = null;
+      try {
+        // The fixture is in place before the turn starts: the stand-in reads its mode at startup, so a
+        // turn meant to succeed must find a complete candidate waiting at the gate.
+        await writeFixture(universe.id, '0003');
+        const job = await jobs.start({
+          universeId: universe.id,
+          message: 'Write the next chapter of this ledger, quietly.',
+          kind: 'chapter'
+        });
+        const started = join(dir, 'agent-started.marker');
+        const deadline = Date.now() + 10_000;
+        while (!(await stat(started).then(() => true, () => false)) && Date.now() < deadline) {
+          await new Promise((resolve) => setTimeout(resolve, 50));
+        }
+        // The fake agent announces itself and then waits at the gate, so the turn is running here.
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        const during = await readTurnConsole(universe.id, job.turnNumber);
+        const journalOnDisk = await stat(journalPath(universe.id, job.turnNumber)).then(() => true, () => false);
+        const liveText = String(during?.console?.text ?? '');
+        const duringOk = during?.console?.live === true
+          && journalOnDisk
+          && liveText.includes('queued — request: Write the next chapter')
+          && liveText.includes('running — chapter 3')
+          && liveText.includes('working');
+        // Released, the turn succeeds and the console keeps its story.
+        await writeFile(join(dir, 'agent-release.marker'), 'go', 'utf8');
+        const record = await waitForTurn(universe.id, job.turnNumber, (entry) => entry.status !== 'queued' && entry.status !== 'running');
+        const after = await readTurnConsole(universe.id, job.turnNumber);
+        const afterText = String(after?.console?.text ?? '');
+        const afterOk = record?.status === 'done'
+          && after?.console?.live === false
+          && after?.console?.source === 'journal'
+          && afterText.includes('✓ done')
+          && afterText.includes('working');
+        // A turn that ran before journals existed: its composed log is the only record, and it is
+        // served as the console instead of an empty string.
+        await mkdir(join(dir, 'turns'), { recursive: true });
+        await writeFile(join(dir, 'turns', '0009.json'), JSON.stringify({
+          number: 9,
+          kind: 'chapter',
+          status: 'error',
+          createdAt: '2026-01-01T00:00:00.000Z',
+          request: 'an older run',
+          agentLog: 'the composed log of an older run',
+          error: 'it failed'
+        }), 'utf8');
+        const fallback = await readTurnConsole(universe.id, 9);
+        const fallbackOk = fallback?.console?.source === 'agentLog'
+          && fallback.console.text === 'the composed log of an older run'
+          && fallback.console.live === false;
+        const missing = await readTurnConsole(universe.id, 42);
+        if (duringOk && afterOk && fallbackOk && missing === null) {
+          ok('run console: the journal is written while the turn runs, the console answers live and after the run, an older turn falls back to its composed log and an unknown turn is absent');
+        } else {
+          fail(`run console: during=${duringOk} (live=${during?.console?.live}, journal=${journalOnDisk}, queued=${liveText.includes('queued — request')}, running=${liveText.includes('running — chapter 3')}, delta=${liveText.includes('working')}), after=${afterOk} (status=${record?.status}, error=${String(record?.error ?? '').slice(0, 120)}, live=${after?.console?.live}, source=${after?.console?.source}, done=${afterText.includes('✓ done')}), fallback=${fallbackOk} (${fallback?.console?.source}, ${JSON.stringify(String(fallback?.console?.text ?? '').slice(0, 40))}), missing=${JSON.stringify(missing)}`);
+        }
+      } catch (error) {
+        failure = error;
+      } finally {
+        await rm(join(dir, 'agent-release.marker'), { force: true });
+        await fake.restore();
+        if (failure) fail(`run console: ${failure.message}`);
       }
     }
   }

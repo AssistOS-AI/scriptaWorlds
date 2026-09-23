@@ -128,9 +128,11 @@ export function turnSummary(turn) {
   return {
     number: turn.number,
     kind: turn.kind ?? 'chapter',
+    rewrite: turn.rewrite === true,
     status: turn.status ?? 'done',
     createdAt: turn.createdAt ?? null,
-    durationMs: turn.durationMs ?? null,
+    startedAt: turn.startedAt ?? null,
+    finishedAt: turn.finishedAt ?? null,
     request: turn.request ?? '',
     chapterNumber: turn.chapterNumber ?? null,
     chapterTitle: turn.chapterTitle ?? null,

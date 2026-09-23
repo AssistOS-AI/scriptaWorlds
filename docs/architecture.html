@@ -97,8 +97,12 @@
               <td>One turn apart from the queue: which prompt family it needs, what the agent must have produced before the turn counts as done, and the repair of the store when a turn fails.</td>
             </tr>
             <tr>
+              <td><code>src/<wbr>turn-console.mjs</code></td>
+              <td>The durable console of one turn: every event of a run appended to <code>turns/NNNN.events.jsonl</code> while it happens, and the rendering of that <a href="wiki.html#definition-turn-journal">journal</a> a client reads back through the console route.</td>
+            </tr>
+            <tr>
               <td><code>src/jobs.mjs</code></td>
-              <td>The <a href="wiki.html#definition-job">job</a> registry, the per-universe FIFO <a href="wiki.html#definition-queue">queue</a>, the concurrency rule, the durable turn records, the event stream and the HTTP snapshots of a job.</td>
+              <td>The <a href="wiki.html#definition-job">job</a> registry, the per-universe FIFO <a href="wiki.html#definition-queue">queue</a>, the concurrency rule, the durable turn records, the journal each event is appended to, the event stream and the HTTP snapshots of a job.</td>
             </tr>
             <tr>
               <td><code>src/omp.mjs</code></td>
@@ -189,8 +193,8 @@
               <td>The feedback and reader routes the router delegates to: the frozen targets, the responses, the identities, the export, the summary, the comparison of two versions and the revision a selection becomes, each validated here and answered by the module that owns it.</td>
             </tr>
             <tr>
-              <td><code>public/<wbr>ui/<wbr>review.js</code>, <code>public/<wbr>ui/<wbr>report.js</code>, <code>public/<wbr>ui/<wbr>feedback.js</code>, <code>public/<wbr>ui/<wbr>responses.js</code>, <code>public/<wbr>ui/<wbr>comparison.js</code> and their renderers under <code>public/<wbr>ui/<wbr>render/</code></td>
-              <td>The reader-facing surfaces of a review and of the team's feedback: the <code>Review</code> dialog that asks for a run and follows it until it settles, the <code>Reports</code> dialog that reads one run and every file it published, the questionnaire over the frozen copy it asks about with the passages a reader quoted, what the team said as one card per response, and the two-text reading session. Every fact they show is read from the store's routes, and the working choices live in the single state object of <code>public/<wbr>ui/<wbr>state.js</code>.</td>
+              <td><code>public/<wbr>ui/<wbr>sessions.js</code>, <code>public/<wbr>ui/<wbr>review.js</code>, <code>public/<wbr>ui/<wbr>report.js</code>, <code>public/<wbr>ui/<wbr>feedback.js</code>, <code>public/<wbr>ui/<wbr>responses.js</code>, <code>public/<wbr>ui/<wbr>comparison.js</code> and their renderers under <code>public/<wbr>ui/<wbr>render/</code></td>
+              <td>The reader-facing surfaces of a run and of the team's feedback: the <code>ALA sessions</code> dialog that lists every run of the book and reads the durable <a href="wiki.html#definition-console">console</a> of one, live while it works, the <code>Review</code> dialog that asks for a run and follows it until it settles, the <code>Reports</code> dialog that reads one run and every file it published, the questionnaire over the frozen copy it asks about with the passages a reader quoted, what the team said as one card per response, and the two-text reading session. Every fact they show is read from the store's routes, and the working choices live in the single state object of <code>public/<wbr>ui/<wbr>state.js</code>.</td>
             </tr>
           </tbody>
         </table>
@@ -243,9 +247,9 @@
         Boot["app.js — bootstrap and event wiring"]
         Shell["index.html — shell, one markup block per dialog"]
         Markdown["markdown.js — Markdown to DOM nodes"]
-        Core["ui/ — state, api, errors, universe, slides, overlays, actions, sse, review, report, feedback, responses, comparison"]
-        Surfaces["ui/render/ — header, composer, menu, reader, explore, library, ingredients, tableinfo, review, runs, report, bundle, feedback, responses"]
-        Styles["styles/ — base, reader, live, explore, composer, overlays, report, feedback, analysis"]
+        Core["ui/ — state, api, errors, universe, slides, overlays, actions, sse, sessions, review, report, feedback, responses, comparison"]
+        Surfaces["ui/render/ — header, composer, menu, reader, explore, library, ingredients, tableinfo, sessions, review, runs, report, bundle, feedback, responses"]
+        Styles["styles/ — base, reader, live, sessions, explore, composer, overlays, report, feedback, analysis"]
     end
     subgraph Print["Print skill (skills/scripta-book-export)"]
         Entry["scripts/build-book.mjs — CLI, JSON line, exit codes"]
@@ -279,7 +283,7 @@
         Verify["Result verification and state commit"]
     end
     subgraph Folder["Universe folder"]
-        Records["universe.json and turns/NNNN.json"]
+        Records["universe.json, turns/NNNN.json and turns/NNNN.events.jsonl"]
         Book["chapters/, canon.md, threads.json, atlas.json"]
     end
     subgraph Agent["Headless agent, one process per turn"]
@@ -293,7 +297,7 @@
     Writer --> Book
     Records --> Verify
     Book --> Verify
-    Verify -->|"done, error, live text"| API
+    Verify -->|"done, error, and the journal of the run"| API
     classDef client fill:#f3ece4,stroke:#8a5a2b,color:#3d2814
     classDef server fill:#dbe7f0,stroke:#245b78,color:#16283a
     classDef folder fill:#e4efe0,stroke:#3d6b3d,color:#1f3d1f
@@ -304,8 +308,8 @@
     class Writer agent</pre>
           <figcaption><em>Chapter turn lifecycle</em></figcaption>
         </figure>
-        <p>The server first writes the <a href="wiki.html#definition-turn-record">turn record</a> with the status <code>queued</code> and appends the job to the queue of that universe, so the request survives a restart before any work starts. A request is never refused because the universe is busy; a busy universe simply has a longer queue, and different universes run in parallel. Before a chapter or rewrite turn starts, the server copies the whole accepted book — <code>canon.md</code>, <code>threads.json</code>, <code>atlas.json</code> and every accepted chapter plus its offer — into a snapshot folder, which is what later allows a rewrite to rewind the book and what restores the last accepted book when a turn fails. A rewrite turn performs its preparation — archiving the old text and offer, dropping later chapters and restoring the pre-chapter state — under the same execution lock, not in the HTTP handler.</p>
-        <p>The agent runs in the universe folder with automatic approval, without a session and without a title, and receives its prompt on standard input. Its JSON event stream is parsed line by line: assistant text becomes live text for the reader, tool events become the activity list, and the final message becomes the answer stored in the turn record. The prompt requires the chapter file, the offer file and the updated state; it carries the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and the <a href="wiki.html#definition-book-language">language of the book</a>, and it is documented in full in <a href="specsLoader.html?spec=DS002-model-and-agent-execution.md">DS002-model-and-agent-execution</a>.</p>
+        <p>The server first writes the <a href="wiki.html#definition-turn-record">turn record</a> with the status <code>queued</code>, opens the <a href="wiki.html#definition-turn-journal">turn journal</a> with the queued line and appends the job to the queue of that universe, so the request survives a restart before any work starts. A request is never refused because the universe is busy; a busy universe simply has a longer queue, and different universes run in parallel. Before a chapter or rewrite turn starts, the server copies the whole accepted book — <code>canon.md</code>, <code>threads.json</code>, <code>atlas.json</code> and every accepted chapter plus its offer — into a snapshot folder, which is what later allows a rewrite to rewind the book and what restores the last accepted book when a turn fails. A rewrite turn performs its preparation — archiving the old text and offer, dropping later chapters and restoring the pre-chapter state — under the same execution lock, not in the HTTP handler.</p>
+        <p>The agent runs in the universe folder with automatic approval, without a session and without a title, and receives its prompt on standard input. Its JSON event stream is parsed line by line, and every event is appended to the <a href="wiki.html#definition-turn-journal">turn journal</a> of that run as it arrives: the queued line with the request, the phase lines, the tool calls with their outcome, the text the agent displays and the settle line. The stream is also forwarded to the interface, where the reader watches a run in the <code>ALA sessions</code> dialog — live while it works and read back from the journal afterwards — and the final message becomes the answer stored in the turn record. The prompt requires the chapter file, the offer file and the updated state; it carries the <a href="wiki.html#definition-fundamental-law">fundamental law</a> and the <a href="wiki.html#definition-book-language">language of the book</a>, and it is documented in full in <a href="specsLoader.html?spec=DS002-model-and-agent-execution.md">DS002-model-and-agent-execution</a>.</p>
         <p>The server then verifies the result instead of trusting the agent's report. A chapter turn must have produced exactly one <code>chapters/NNNN-&lt;slug&gt;.md</code> and must pass the skill's own validator, an export turn must have produced a newer <code>.pdf</code> or <code>.docx</code> file, and a chapter outside the configured word band is recorded as a warning rather than accepted silently. On success the turn record is completed, the universe timestamp is touched and a <code>done</code> event closes the stream for that job. On failure the last accepted book is restored from the snapshot, the partial chapter files are removed, the turn is stored with status <code>error</code>, and the reader is offered a <a href="wiki.html#definition-retry">retry</a>.</p>
       </section>
 
@@ -333,9 +337,9 @@
               <td>The law, the premise, the <a href="wiki.html#definition-ingredient">ingredients</a>, the summary, the status, the language, the model and the timestamps; the chapter count and the last chapter title are derived on every read.</td>
             </tr>
             <tr>
-              <td><code>turns/NNNN.json</code>, <code>turns/NNNN.prev/</code></td>
+              <td><code>turns/NNNN.json</code>, <code>turns/NNNN.events.jsonl</code>, <code>turns/NNNN.prev/</code></td>
               <td>Server</td>
-              <td>The durable record of every turn and the full accepted-book snapshot taken before it.</td>
+              <td>The durable record of every turn, the journal of everything the agent displayed in it, and the full accepted-book snapshot taken before it.</td>
             </tr>
             <tr>
               <td><code>.agents/<wbr>skills/<wbr>&lt;name&gt;</code></td>
@@ -434,7 +438,7 @@
 
       <section>
         <h2>The interface in the system</h2>
-        <p>The reader is a static client of the same process. It reads the universe detail for the structure of a book, reads the <a href="wiki.html#definition-periodic-table">table of ideas</a> and the <a href="wiki.html#definition-library">library</a> when it has to offer a starting point, fetches chapter prose lazily, and subscribes to the universe <a href="wiki.html#definition-event-stream">event stream</a> while any turn of that universe is unfinished. When the stream cannot be kept open, the client falls back to one stream per job plus polling of the job route, so a buffering proxy costs live text but not correctness. The reading position lives in the URL and in <code>localStorage</code>, and a reload during a turn reconstructs the in-flight work from the job fields of the universe detail. The tree of modules behind it and the surfaces it draws are documented in <a href="reader-interface.html">Reader interface</a>.</p>
+        <p>The reader is a static client of the same process. It reads the universe detail for the structure of a book, reads the <a href="wiki.html#definition-periodic-table">table of ideas</a> and the <a href="wiki.html#definition-library">library</a> when it has to offer a starting point, fetches chapter prose lazily, and subscribes to the universe <a href="wiki.html#definition-event-stream">event stream</a> while any turn of that universe is unfinished. The console of a run is not read from the stream: it is read from <code>GET /api/universes/:id/turns/:number/console</code>, which renders that run's journal, so the text of a run survives a client that was never connected while it worked — the stream only makes it appear sooner. When the stream cannot be kept open, the client falls back to one stream per job plus polling of the job route, and re-reads the console of a live run in full every five seconds, so a buffering proxy costs immediacy rather than the text. The reading position lives in the URL and in <code>localStorage</code>, and a reload during a turn reconstructs the in-flight work from the job fields of the universe detail. The tree of modules behind it and the surfaces it draws are documented in <a href="reader-interface.html">Reader interface</a>.</p>
       </section>
     </div>
   </main>

@@ -7,12 +7,10 @@
  * disturbs what someone is reading.
  */
 import { renderMarkdown } from '../../markdown.js';
-import { iconButton } from '../icons.js';
-import { refreshRuns } from '../review.js';
-import { reportFileHref, reportTarget, reportViews, selectRun, selectView, viewLabel } from '../report.js';
+import { reportFileHref, reportTarget, reportViews, selectView, viewLabel } from '../report.js';
 import { bundleReport, jsonView, statusWords } from './bundle.js';
-import { historicalBadge, runRow, scopeText, stamp, statusBadge, triggerLabel, versionText } from './runs.js';
-import { dom, elem, state } from '../state.js';
+import { historicalBadge, scopeText, stamp, statusBadge, triggerLabel } from './runs.js';
+import { dom, elem } from '../state.js';
 
 export function renderReport() {
   const model = reportTarget();
@@ -24,13 +22,6 @@ export function renderReport() {
   }
   if (!model.built) {
     body.replaceChildren(
-      elem('section', { className: 'report__runs' },
-        elem('h3', { className: 'analysis__subtitle' },
-          elem('span', { text: 'Runs of this book' }),
-          iconButton({ name: 'report', label: 'Refresh the run list', className: 'iconbtn iconbtn--small', on: { click: () => refreshRuns({ force: true }).catch(() => {}) } })
-        ),
-        elem('ul', { className: 'runlist', attrs: { id: 'report-runs' } })
-      ),
       elem('section', { className: 'report__run', attrs: { id: 'report-run' } },
         elem('div', { attrs: { id: 'report-head' } }),
         elem('div', { attrs: { id: 'report-views' } }),
@@ -38,15 +29,6 @@ export function renderReport() {
       )
     );
     model.built = true;
-  }
-  const list = document.getElementById('report-runs');
-  if (list) {
-    list.replaceChildren(...(state.runs.length
-      ? state.runs.map((run) => runRow(run, {
-        current: run.run_id === model.runId,
-        onOpen: (entry) => { selectRun(entry.run_id); }
-      }))
-      : [elem('li', { className: 'runlist__empty', text: 'No review of this book yet.' })]));
   }
   const head = document.getElementById('report-head');
   const views = document.getElementById('report-views');
@@ -78,12 +60,14 @@ function runHead(model) {
   const nodes = [
     elem('h3', { className: 'report__run-title' },
       elem('span', { text: `${statusWords(run.phase)} review` }),
-      elem('span', { className: 'report__run-book', text: state.universe?.title ?? run.universe_id })
+      elem('span', { className: 'report__run-book', text: scopeText(run.requested_scope ?? run.scope) })
     ),
-    elem('div', { className: 'report__badges' },
+    elem('p', { className: 'report__run-when' },
+      elem('strong', { text: 'Finished ' }),
+      document.createTextNode(stamp(run.finished_at ?? run.created_at) || '—'),
+      document.createTextNode(' · '),
       statusBadge(run.status),
-      run.historical ? historicalBadge() : null,
-      elem('span', { className: `badge badge--${run.trigger === 'arc' ? 'historical' : 'requested'}`, text: triggerLabel(run) })
+      run.historical ? historicalBadge() : null
     )
   ];
   if (run.historical) {
@@ -107,7 +91,11 @@ function runHead(model) {
   ];
   const list = elem('dl', { className: 'meta__list meta__list--run' });
   for (const [label, value] of rows) list.append(elem('dt', { text: label }), elem('dd', { text: String(value) }));
-  nodes.push(list);
+  // Everything a reader does not need to read the report stays one click away.
+  nodes.push(elem('details', { className: 'report__details' },
+    elem('summary', { text: 'Technical details of this run' }),
+    list
+  ));
   if (run.status !== 'done') {
     nodes.push(elem('p', { className: 'analysis__error', attrs: { role: 'status' }, text: run.error ?? `This run is ${statusWords(run.status)}.` }));
   }

@@ -1,0 +1,35 @@
+{
+  "id": "five-opaque-windows",
+  "title": "The Five Opaque Windows",
+  "summary": "Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent",
+  "autoTitle": false,
+  "law": "Prohibition that holds in this world: no one was allowed to solve the problem before they could describe who would pay for the solution\n\nThe world is built from the following speculative operations of the Periodic Table of Ideas:\n- Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).\n- Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).",
+  "premise": "The children test their technical right to hide memories and processes from the creator who can read almost every other system. Aster experiences every private region as a physical absence, while Vela insists that opacity must be irreversible without their consent",
+  "elements": [
+    {
+      "symbol": "RF",
+      "name": "Finitely Extensible",
+      "family": "META-REALITY",
+      "operator": "REFLEXIVITY",
+      "gist": "the system remains finite yet extensible",
+      "ingredient": "Finitely Extensible: a universe where the system remains finite yet extensible (science fantasy and meta-reality, reflexivity).",
+      "custom": false
+    },
+    {
+      "symbol": "MO",
+      "name": "Substrate-Independent Person",
+      "family": "MIND",
+      "operator": "OUTFINITE",
+      "gist": "identity is a pattern rather than privileged material",
+      "ingredient": "Substrate-Independent Person: a universe where identity is a pattern rather than privileged material (mind and identity, outfinite).",
+      "custom": false
+    }
+  ],
+  "status": "open",
+  "language": "en",
+  "model": "deepseek/deepseek-v4-flash",
+  "createdAt": "2026-09-23T13:41:40.152Z",
+  "updatedAt": "2026-09-23T13:43:44.303Z",
+  "chapterCount": 0,
+  "lastChapter": null
+}

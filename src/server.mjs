@@ -12,7 +12,7 @@ import { cellDetail, tableForClient } from './periodic.mjs';
 import { acquireStoreLock } from './lock.mjs';
 import { creationFromTemplate, readLibraryIndex, readTemplate } from './library.mjs';
 import { firstChapterRequest } from './universe-prompts.mjs';
-import { recoverAllUniverses } from './universe-state.mjs';
+import { readTurnConsole } from './turn-console.mjs';
 import {
   createUniverseFromImport,
   extractImport,
@@ -25,12 +25,14 @@ import {
 import { stopAssessmentChildren } from './assessments.mjs';
 import {
   cancelAssessment,
+  deleteAssessment,
   listApprovals,
   recordApproval,
   declareArcCompletion,
   listArcEvents,
   listAssessments,
   readAssessment,
+  readAssessmentConsole,
   reassessAssessment,
   runOutputPath,
   recoverAssessments,
@@ -49,6 +51,7 @@ import {
   setUniverseStatus,
 } from './universe.mjs';
 import { UniverseError } from './errors.mjs';
+import { recoverAllUniverses } from './universe-state.mjs';
 import { handleFeedbackRoutes } from './feedback-routes.mjs';
 
 const startedAt = Date.now();
@@ -288,6 +291,14 @@ async function handleUniverses(req, res, segments, url) {
       await serveFile(res, await runOutputPath(id, extra, segments[6]), { download: false });
       return true;
     }
+    if (segments[5] === 'console') {
+      // The console of one run: the facts the record kept, merged in time order with the journal the evaluator
+      // child wrote while it worked. It answers the same shape a turn's console does, so a review can be
+      // watched while it runs and read back after it settled.
+      if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+      sendJson(res, 200, await readAssessmentConsole(id, extra));
+      return true;
+    }
     if (segments[5] === 'reassess') {
       // A published result is kept as it was: re-evaluating it is a new run over the same frozen packet,
       // linked to the one it replaces, so reactions and findings that named the old report keep meaning.
@@ -317,7 +328,15 @@ async function handleUniverses(req, res, segments, url) {
         sendJson(res, 202, { run: await retryAssessment(id, extra) });
         return true;
       }
-      throw new UniverseError('BAD_ACTION', 'Unknown assessment action (cancel|retry).', 400);
+      if (body.action === 'delete') {
+        // A stored review and whatever it published, removed for good. The host refuses a run that is still
+        // live and a report that other evidence names; what it deletes, it deletes outside the book.
+        const deleted = await deleteAssessment(id, extra);
+        console.log(`[assess] ${deleted.run_id} deleted from ${id} (${deleted.phase}, ${String(deleted.version).slice(0, 12)}…)`);
+        sendJson(res, 200, { deleted });
+        return true;
+      }
+      throw new UniverseError('BAD_ACTION', 'Unknown assessment action (cancel|retry|delete).', 400);
     }
     throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
   }
@@ -399,6 +418,16 @@ async function handleUniverses(req, res, segments, url) {
       const job = await jobs.retry(id, number);
       console.log(`[job] ${job.id} retried for ${id}`);
       sendJson(res, 202, { job });
+      return true;
+    }
+    // The durable console of one run: the journal of everything the agent displayed while it worked,
+    // readable while the turn runs and after it settled. This is what the sessions dialog reads.
+    if (segments[5] === 'console') {
+      if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);
+      const number = parseInteger(extra, 'turn number');
+      const answer = await readTurnConsole(id, number);
+      if (!answer) throw new UniverseError('NOT_FOUND', `Turn ${number} does not exist.`, 404);
+      sendJson(res, 200, answer);
       return true;
     }
     if (req.method !== 'GET') throw new UniverseError('METHOD_NOT_ALLOWED', 'Method not allowed.', 405);

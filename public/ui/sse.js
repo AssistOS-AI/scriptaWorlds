@@ -7,6 +7,7 @@ import { feedbackChanged } from './responses.js';
 import { renderMenuItems } from './render/menu.js';
 import { patchActivity } from './render/reader.js';
 import { runsChanged } from './review.js';
+import { feedSessions } from './sessions.js';
 import { LIVE_STATUSES, state } from './state.js';
 import { refreshDetail, upsertLive } from './universe.js';
 
@@ -188,6 +189,9 @@ export async function pollStatuses() {
 export function handleEvent(payload, streamJobId = null) {
   if (!payload || typeof payload !== 'object') return;
   const id = payload.job?.id ?? payload.jobId ?? streamJobId;
+  // The sessions dialog reads the same stream: whatever the running agent displays reaches the
+  // console it belongs to the moment the server sends it.
+  feedSessions(payload);
   if (payload.type === 'refresh') {
     // The aggregate stream announces that a turn settled and the universe should be read again; the job
     // event itself has already been delivered with its final state.
@@ -213,9 +217,8 @@ export function handleEvent(payload, streamJobId = null) {
     case 'phase':
       live.phase = payload.text ?? live.phase;
       break;
-    case 'delta':
-      live.text = `${live.text ?? ''}${payload.text ?? ''}`.slice(-20_000);
-      break;
+    // A delta is not kept here: the text of a running agent lives in the sessions console, which
+    // the server holds durably, not in a second copy on the thread.
     case 'done':
       live.status = 'done';
       finishJob(id);

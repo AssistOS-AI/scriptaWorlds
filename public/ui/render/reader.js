@@ -9,12 +9,13 @@ import { iconButton } from '../icons.js';
 import { openPanel, openRewrite, renderPanels, renderPopups } from '../overlays.js';
 import { openReport } from '../report.js';
 import { openReview } from '../review.js';
-import { renderFooter } from './composer.js';
+import { openSessions } from '../sessions.js';
 import { renderNewScreen, renderUniverseList, welcomePanel } from './explore.js';
+import { renderFooter } from './composer.js';
 import { renderHeader } from './header.js';
 import { renderMenuItems } from './menu.js';
 import { applyTransform, navTitle, renderChapNav, updateNav } from '../slides.js';
-import { DISCUSSION_LIMIT, FAILED_STATUSES, dom, elem, state } from '../state.js';
+import { FAILED_STATUSES, dom, elem, state } from '../state.js';
 import { saveIndex } from '../universe.js';
 import { renderMarkdown } from '../../markdown.js';
 
@@ -81,15 +82,16 @@ export function chapterBubble(model) {
   } else {
     bubble.append(elem('p', { className: 'hint', text: 'Loading chapter…' }));
   }
-  if (model.turnNumber != null) bubble.append(discussionPanel(model.turnNumber));
+  // The console of the run that wrote this chapter is not inline: it is one dialog away, the same
+  // one every other run of the book is read in.
   return bubble;
 }
 
 /**
- * The actions of one chapter, as a toolbar of icon buttons: what the chapter was asked for, rewriting it,
- * its scene log, what a reader says about the book, a review of it and the reports of the book. Every
- * control is a real button with an accessible name, so the strip is reachable by Tab and activatable
- * with Enter or Space, and the icon only carries the picture.
+ * The actions of one chapter, as a toolbar of icon buttons: what the chapter was asked for, rewriting
+ * it, the run that wrote it, what a reader says about the book, a review of it and the reports of the
+ * book. Every control is a real button with an accessible name, so the strip is reachable by Tab and
+ * activatable with Enter or Space, and the icon only carries the picture.
  */
 export function chapterToolbar(model) {
   return elem('div', {
@@ -104,7 +106,13 @@ export function chapterToolbar(model) {
     label: `Rewrite chapter ${model.number}`,
     on: { click: () => openRewrite(model.number) }
   }),
-  model.turnNumber != null ? chapterConsoleToggle(model.turnNumber) : null,
+  model.turnNumber != null
+    ? iconButton({
+      name: 'console',
+      label: `Show the run that wrote chapter ${model.number}`,
+      on: { click: () => openSessions({ turn: model.turnNumber }) }
+    })
+    : null,
   iconButton({
     name: 'feedback',
     label: `Say what you think of this book, from chapter ${model.number}`,
@@ -117,24 +125,6 @@ export function chapterToolbar(model) {
   }),
   iconButton({ name: 'report', label: 'Reports and reviews', on: { click: () => openReport() } })
   );
-}
-
-export function chapterConsoleToggle(turnNumber) {
-  const open = state.expanded.has(turnNumber);
-  return iconButton({
-    name: 'console',
-    label: open ? 'Hide the scene log' : 'Show the scene log',
-    attrs: { 'aria-expanded': open ? 'true' : 'false' },
-    on: {
-      click: () => {
-        if (state.expanded.has(turnNumber)) state.expanded.delete(turnNumber);
-        else state.expanded.add(turnNumber);
-        renderTrack();
-        applyTransform();
-        updateNav();
-      }
-    }
-  });
 }
 
 // What produced the chapter on screen: the request of that chapter's own turn, plus its title.
@@ -173,31 +163,6 @@ export function renderRequests() {
   ));
 }
 
-export function discussionPanel(turnNumber) {
-  const open = state.expanded.has(turnNumber);
-  const panel = elem('div', { className: 'discussion', attrs: { hidden: !open } });
-  if (!open) return panel;
-  const cached = state.turns.get(turnNumber);
-  if (cached) {
-    panel.textContent = logText(cached.agentLog);
-    return panel;
-  }
-  panel.textContent = 'Loading what ALA did…';
-  loadTurn(turnNumber)
-    .then((turn) => {
-      panel.textContent = logText(turn?.agentLog);
-    })
-    .catch((error) => {
-      panel.textContent = `The scene log could not be loaded: ${error.message}`;
-    });
-  return panel;
-}
-
-export function logText(log) {
-  const text = String(log ?? '').trim();
-  if (!text) return 'Nothing was recorded for this chapter.';
-  return text.length > DISCUSSION_LIMIT ? `${text.slice(-DISCUSSION_LIMIT)}\n… (start truncated)` : text;
-}
 
 export function activityBubble(model) {
   const statusLabel = FAILED_STATUSES.has(model.status)
@@ -245,9 +210,8 @@ export function renderActivityBody(body, model) {
     elem('span', { className: 'live__dot', attrs: { 'aria-hidden': 'true' } }),
     elem('span', { text: live.phase ?? 'ALA is working on the chapter' })
   ));
-  const text = String(live.text ?? '').trim();
-  if (text) body.append(elem('pre', { className: 'live__text', text: text.slice(-6000) }));
-  // What ALA actually did lives in the console (collapsed by default), not in the thread.
+  // The text the agent displays is not rendered here and no control is offered either: the run is
+  // watched in the sessions dialog, which the Edition menu and the console control of a chapter open.
 }
 
 export function patchActivity() {

@@ -9,6 +9,10 @@
  */
 
 import { esc } from './markdown.mjs';
+import { METRIC_IDS } from './registry.mjs';
+
+/** The statuses under which a measurement carries a result. Everything else is an absence. */
+const HAS_VALUE = new Set(['computed', 'judged']);
 import {
   renderIssues,
   renderJustification,
@@ -28,6 +32,8 @@ export const VIEW_FILES = [
 
 function renderIndex(bundle) {
   const errors = bundle.execution.errors.length;
+  const measuredCount = METRIC_IDS.filter((id) => HAS_VALUE.has(bundle.metrics[id].status)).length;
+  const absenceCount = METRIC_IDS.length - measuredCount;
   const chapters = bundle.scope.chapters.length ? bundle.scope.chapters.join(', ') : 'none';
   const reference = bundle.trigger_ref;
   const trigger =
@@ -40,11 +46,13 @@ function renderIndex(bundle) {
     `Universe \`${esc(bundle.book.universe_id)}\` · version \`${bundle.version}\` · language ${esc(bundle.book.language)} · ` +
       `assessment \`${bundle.assessment_id}\``,
     '',
+    `- **Scope:** ${esc(bundle.scope.kind)} (chapters ${chapters})`,
+    `- **Measured:** ${measuredCount} of ${METRIC_IDS.length} metrics carry a value; ${absenceCount} need an input this review did not receive`,
+    `- **Findings:** ${bundle.findings.length}`,
     `- Trigger: ${trigger}`,
-    `- Scope: ${esc(bundle.scope.kind)} (chapters ${chapters})`,
     `- Profile: \`${esc(bundle.profile.profile_id)}\``,
     `- Frozen at: ${esc(bundle.created_at)}`,
-    `- Status: completed${errors ? ` (${errors} execution error${errors === 1 ? '' : 's'})` : ''}`,
+    `- Status: **completed**${errors ? ` (${errors} execution error${errors === 1 ? '' : 's'})` : ''}`,
     '',
   ];
   if (bundle.coverage.note) {

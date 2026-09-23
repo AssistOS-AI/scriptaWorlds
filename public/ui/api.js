@@ -116,6 +116,18 @@ export async function loadTurn(number) {
   return payload?.turn ?? null;
 }
 
+// The durable console of one run: the journal of everything the agent displayed, live or settled.
+// Never cached — a running turn's console grows, so every read goes to the server.
+export function loadTurnConsole(number) {
+  return api(`/api/universes/${encodeURIComponent(state.universeId)}/turns/${encodeURIComponent(number)}/console`);
+}
+
+// The console of one review run: the facts its record kept, merged with the journal of its evaluator. Like a
+// turn's console it is never cached, because a running review keeps appending to it.
+export function loadRunConsole(runId) {
+  return api(`/api/universes/${encodeURIComponent(state.universeId)}/assessments/${encodeURIComponent(runId)}/console`);
+}
+
 // The table of ideas (12 families × 15 operators = 180 cells), loaded once.
 export async function loadTable() {
   if (state.table) return state.table;
@@ -181,6 +193,15 @@ export async function sendAssessmentAction(runId, action) {
     { method: 'POST', body: { action } }
   );
   return payload?.run ?? null;
+}
+
+// The one action whose answer is not a run: deleting a stored review answers with what was removed.
+export async function deleteAssessmentRun(runId) {
+  const payload = await api(
+    `/api/universes/${encodeURIComponent(state.universeId)}/assessments/${encodeURIComponent(runId)}`,
+    { method: 'POST', body: { action: 'delete' } }
+  );
+  return payload?.deleted ?? null;
 }
 
 // One published file of a run. `text` is on, because the views are Markdown and the bundle is the only
